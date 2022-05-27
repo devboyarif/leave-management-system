@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdminSeeder;
+use Database\Seeders\CountrySeeder;
+use Database\Seeders\DesignationSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +19,12 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call([
-            AdminSeeder::class
+            AdminSeeder::class,
+            CountrySeeder::class,
+            TeamSeeder::class,
+            DesignationSeeder::class,
+            CompanySeeder::class,
+            EmployeeSeeder::class,
         ]);
     }
 }
