@@ -51,4 +51,24 @@ class User extends Authenticatable
 
         return asset($avatar);
     }
+
+    public function scopeCompany()
+    {
+        return $this->where('role', 'company');
+    }
+
+    public function scopeEmployee()
+    {
+        return $this->where('role', 'employee');
+    }
+
+    public function companies()
+    {
+        return $this->hasMany(Company::class, 'user_id');
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'user_id');
+    }
 }

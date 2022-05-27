@@ -6,7 +6,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3>User Create</h3>
-                        <Link :href="route('users.index')" class="btn btn-primary">
+                        <Link :href="route('admins.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         Back
                         </Link>
@@ -64,7 +64,7 @@ export default {
     },
     methods: {
         createData() {
-            this.form.post(route("users.store"));
+            this.form.post(route("admins.store"));
         },
     },
 };

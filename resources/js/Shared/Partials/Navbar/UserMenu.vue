@@ -19,7 +19,9 @@
             </li>
             <!-- Menu Footer-->
             <li class="user-footer border-bottom d-flex">
-                <a :href="route('user.profile')" class="btn btn-default">Profile</a>
+                <Link :href="route('user.profile')" class="btn btn-default">
+                    Profile
+                </Link>
                 <Link class="btn btn-default ml-auto" href="/logout" method="post" as="button">Logout</Link>
             </li>
         </ul>

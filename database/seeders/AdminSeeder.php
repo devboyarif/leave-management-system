@@ -18,14 +18,16 @@ class AdminSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'password' => bcrypt('password'),
-            'avatar' => asset('admin/img/default-user.png')
+            'avatar' => asset('admin/img/default-user.png'),
+            'role' => 'admin',
         ]);
 
         User::create([
             'name' => 'Developer',
             'email' => 'developer@mail.com',
             'password' => bcrypt('password'),
-            'avatar' => asset('admin/img/default-user.png')
+            'avatar' => asset('admin/img/default-user.png'),
+            'role' => 'admin',
         ]);
     }
 }

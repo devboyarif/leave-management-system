@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="About" />
+    <Head title="Profile" />
 
     <div class="container">
         <div class="main-body">
@@ -59,24 +59,11 @@
                                     Bay Area, San Francisco, CA
                                 </div>
                             </div> -->
-                            <hr>
-                            <div class="row justify-content-center text-center">
-                                <div class="col-sm-12">
-                                    <button v-if="!edit_profile" @click="edit_profile = true" class="btn btn-primary "
-                                        >
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                        Edit
-                                        Profile</button>
-                                    <button v-else @click="edit_profile = false" class="btn btn-danger "
-                                        ><i class="fa-solid fa-xmark"></i> Cancel
-                                        Edit</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row gutters-sm" v-if="edit_profile">
+            <div class="row gutters-sm">
                 <div class="col-sm-6 mb-3">
                     <div class="card h-100">
                         <div class="card-header">
@@ -190,7 +177,6 @@ export default {
     },
     data() {
         return {
-            edit_profile: false,
             preview_image: this.user.avatar,
 
             form: this.$inertia.form({

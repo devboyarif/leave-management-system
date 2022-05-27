@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::query()
+        $admins = User::query()
             ->when(request('search'), function ($query, $search) {
                 $query->where('name', 'Like', "%{$search}%");
             })
@@ -33,7 +33,7 @@ class UserController extends Controller
             ]);
 
         return inertia('user/index', [
-            'users' => $users,
+            'admins' => $admins,
             'filters' => request()->only('search'),
         ]);
     }
@@ -122,7 +122,7 @@ class UserController extends Controller
         $user->update($data);
 
         session()->flash('success', 'User updated successfully!');
-        return redirect()->route('users.index');
+        return redirect()->route('admins.index');
     }
 
     /**

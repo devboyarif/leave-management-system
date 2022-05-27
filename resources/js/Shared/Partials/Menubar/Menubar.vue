@@ -57,11 +57,26 @@
                             </template>
                         </NavLink>
                     </Dropdown>
-                    <NavLink title="User" :href="route('users.index')" :active="$page.component == 'user/index' || $page.component == 'user/create' || $page.component == 'user/edit'">
+                    <Dropdown title="Users" :active="$page.component == 'about' || $page.component == 'contact'">
                         <template v-slot:icon>
-                           <i class="fa-regular fa-user nav-icon"></i>
+                            <i class="fa-solid fa-user-group nav-icon"></i>
                         </template>
-                    </NavLink>
+                        <NavLink title="Admin" :href="route('admins.index')" :active="$page.component == 'user/index' || $page.component == 'user/create' || $page.component == 'user/edit'">
+                            <template v-slot:icon>
+                                <i class="far fa-circle nav-icon"></i>
+                            </template>
+                        </NavLink>
+                        <NavLink title="Company" :href="route('companies.index')" :active="$page.component == 'company/index'">
+                            <template v-slot:icon>
+                                <i class="far fa-circle nav-icon"></i>
+                            </template>
+                        </NavLink>
+                        <NavLink title="Employee" :href="route('employees.index')" :active="$page.component == 'employee/index'">
+                            <template v-slot:icon>
+                                <i class="far fa-circle nav-icon"></i>
+                            </template>
+                        </NavLink>
+                    </Dropdown>
                 </ul>
             </nav>
         </div>

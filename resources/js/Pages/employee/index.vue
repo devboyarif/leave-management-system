@@ -1,5 +1,5 @@
 <template>
-    <Head title="Admin List"/>
+    <Head title="Company List"/>
 
     <div class="row justify-content-center">
             <div class="col-12">
@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <input v-model="search" type="text" placeholder="Search.." class="form-control w-50">
-                            <Link :href="route('admins.create')" class="btn btn-primary">
+                            <Link :href="route('employees.create')" class="btn btn-primary">
                                 <i class="fa-solid fa-plus"></i>
                                 Create
                             </Link>
@@ -25,8 +25,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <template v-if="admins && admins.data.length">
-                                    <tr v-for="(user,index) in admins.data" :key="index">
+                                <template v-if="employees && employees.data.length">
+                                    <tr v-for="(user,index) in employees.data" :key="index">
                                         <td>{{ index+1 }}</td>
                                         <td>
                                             <img class="rounded img-fluid avatar-img" :src="user.avatar" alt="" >
@@ -34,7 +34,7 @@
                                         <td>{{ user.name }}</td>
                                         <td>{{ user.email }}</td>
                                         <td>
-                                            <Link :href="route('admins.edit',user.id)" class="btn btn-primary mx-1">
+                                            <Link :href="route('employees.edit',user.id)" class="btn btn-primary mx-1">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                             Edit
                                             </Link>
@@ -54,7 +54,7 @@
                         </table>
 
                         <!-- Pagination  -->
-                        <Pagination :links="admins.links" />
+                        <Pagination :links="employees.links" />
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@ import { Inertia } from "@inertiajs/inertia";
 
 export default {
     props: {
-        admins: Object,
+        employees: Object,
         filters: Object || Array,
     },
     components: {
@@ -84,7 +84,7 @@ export default {
     methods: {
         deleteStudent(id) {
             if (confirm("Are you sure to delete this user?")) {
-                Inertia.delete(route("admins.destroy", id));
+                Inertia.delete(route("employees.destroy", id));
             }
         },
     },
