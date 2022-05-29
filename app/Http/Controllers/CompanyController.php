@@ -19,7 +19,7 @@ class CompanyController extends Controller
                 $query->where('name', 'Like', "%{$search}%");
             })
             ->company()
-            ->with('companies')
+            ->with('company')
             ->latest()
             ->paginate(10)
             ->withQueryString()

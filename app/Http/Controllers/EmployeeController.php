@@ -19,7 +19,7 @@ class EmployeeController extends Controller
                 $query->where('name', 'Like', "%{$search}%");
             })
             ->employee()
-            ->with('employees')
+            ->with('employee')
             ->latest()
             ->paginate(10)
             ->withQueryString()

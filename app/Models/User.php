@@ -62,13 +62,13 @@ class User extends Authenticatable
         return $this->where('role', 'employee');
     }
 
-    public function companies()
+    public function company()
     {
-        return $this->hasMany(Company::class, 'user_id');
+        return $this->hasOne(Company::class, 'user_id');
     }
 
-    public function employees()
+    public function employee()
     {
-        return $this->hasMany(Employee::class, 'user_id');
+        return $this->hasOne(Employee::class, 'user_id');
     }
 }

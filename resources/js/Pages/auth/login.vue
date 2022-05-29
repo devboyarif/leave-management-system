@@ -1,4 +1,6 @@
 <template>
+    <Head title="Sign in"/>
+
     <div class="card-body">
         <p class="login-box-msg">Sign in to start your session</p>
         <form @submit.prevent="createData">
@@ -24,7 +26,7 @@
                 <div class="col-8">
                     <div class="icheck-primary">
                         <input type="checkbox" id="remember">
-                        <label for="remember">
+                        <label for="remember" class="ml-2">
                             Remember Me
                         </label>
                     </div>
@@ -39,6 +41,11 @@
 
         <p class="mb-1">
             <a href="#">I forgot my password</a>
+        </p>
+        <p class="mb-0">
+            <Link :href="route('register.form')" class="text-center">
+                Create company account
+            </Link>
         </p>
     </div>
 </template>
