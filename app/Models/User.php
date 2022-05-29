@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Team;
+use App\Models\Company;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -70,5 +72,11 @@ class User extends Authenticatable
     public function employee()
     {
         return $this->hasOne(Employee::class, 'user_id');
+    }
+
+
+    public function teams()
+    {
+        return $this->hasManyThrough(Team::class, Company::class);
     }
 }

@@ -6,22 +6,29 @@
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            Team List
+                            <span>Team List</span>
+                            <select @change="companyWiseTeam" v-model="filterForm.user_id" class="form-control w-25">
+                                <option value="all">All</option>
+                                <option v-for="user in users" :key="user.id" :value="user.id">
+                                    {{ user.name }}
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table ">
+                        <table class="table mb-4">
                             <thead class="thead-light">
                                 <tr>
+                                    <th>Company</th>
                                     <th>Name</th>
-                                    <th>Employees</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <template v-if="teams && teams.data.length">
                                     <tr v-for="(team,index) in teams.data" :key="index">
-                                        <td>{{ team.name }} ({{ team.company.user_id }})</td>
+                                        <td>{{ team.company.user.name }}</td>
+                                        <td>{{ team.name }}</td>
                                         <td>
                                             <a @click="editTeam(team)" href="#"
                                                 class="btn btn-primary mx-1">
@@ -69,6 +76,7 @@
                                 <Label name="Company"/>
                                 <select v-model="form.user_id" id="company" class="form-control"
                                     :class="{'is-invalid':form.errors.user_id}">
+                                    <option value="" class="d-none">Select Company</option>
                                     <option :value="user.id" v-for="user in users" :key="user.id">
                                         {{ user.name }}
                                     </option>
@@ -101,6 +109,7 @@ export default {
     props: {
         teams: Object,
         users: Array,
+        filterUserId: Number,
         // filters: Object || Array,
     },
     components: {
@@ -113,7 +122,11 @@ export default {
             // search: this.filters.search,
             form: this.$inertia.form({
                 name: null,
-                user_id: null,
+                user_id: "",
+            }),
+
+            filterForm: this.$inertia.form({
+                user_id: this.filterUserId || "all",
             }),
         };
     },
@@ -137,9 +150,11 @@ export default {
             this.form.reset();
         },
         updateData() {
-            console.log(this.form);
             this.form.put(route("teams.update", this.selectedId), {
-                onSuccess: () => this.form.reset(),
+                onSuccess: () => {
+                    this.isEditMode = false;
+                    this.form.reset();
+                },
             });
         },
         deleteData(id) {
@@ -147,6 +162,15 @@ export default {
                 Inertia.delete(route("teams.destroy", id));
             }
         },
+        companyWiseTeam() {
+            this.filterForm.get(route("teams.index"));
+        },
+    },
+    mounted() {
+        // if (this.users.length) {
+        //     this.filterForm.user_id = this.users[0].id;
+        //     this.companyWiseTeam();
+        // }
     },
     // watch: {
     //     search: debounce((value) => {

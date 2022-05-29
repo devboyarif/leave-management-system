@@ -26,7 +26,7 @@
             </div>
             <div class="input-group mb-3">
                 <select v-model="form.country" id="" class="form-control" :class="{'is-invalid':form.errors.country}">
-                    <option value="">Select Country</option>
+                    <option value="" class="d-none">Select Country</option>
                     <option :value="country.id" v-for="country in countries" :key="country.id">
                         {{ country.name }}
                     </option>
@@ -100,7 +100,7 @@ export default {
             form: this.$inertia.form({
                 name: null,
                 email: null,
-                country: null,
+                country: "",
                 password: null,
                 password_confirmation: null,
                 terms_confirmed: null,

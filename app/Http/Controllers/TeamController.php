@@ -8,18 +8,26 @@ use App\Models\Company;
 use App\Http\Requests\TeamCreateRequest;
 use App\Http\Requests\TeamSaveRequest;
 use App\Http\Requests\TeamUpdateRequest;
+use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
     public function index()
     {
-        $teams = Team::with('company')->latest()
-            ->paginate(10);
+        $team_query = Team::query();
+
+        if (request('user_id') && request('user_id') != 'all') {
+            $team_query->where('company_id', getCompany(request('user_id'))->id);
+        }
+
+        $teams = $team_query->with('company.user')->latest()->paginate(10);
+
         $users = User::where('role', 'company')->get();
 
         return inertia('team/index', [
             'teams' => $teams,
             'users' => $users,
+            'filterUserId' => request('user_id'),
         ]);
     }
 

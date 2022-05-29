@@ -51,5 +51,7 @@ class CompanySeeder extends Seeder
             'user_id' => $user3->id,
             'country_id' => Country::inRandomOrder()->value('id'),
         ]);
+
+        // Company::factory(12)->create();
     }
 }

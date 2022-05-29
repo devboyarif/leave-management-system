@@ -30,5 +30,7 @@ class EmployeeSeeder extends Seeder
             'company_id' => Company::inRandomOrder()->value('id'),
             'team_id' => Team::inRandomOrder()->value('id'),
         ]);
+
+        Employee::factory(14)->create();
     }
 }
