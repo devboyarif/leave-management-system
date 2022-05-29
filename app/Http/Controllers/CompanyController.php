@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Country;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\CompanyCreateRequest;
+use App\Http\Requests\CompanyUpdateRequest;
 
 class CompanyController extends Controller
 {
@@ -43,7 +47,11 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return inertia('user/create');
+        $countries = Country::all(['id', 'name']);
+
+        return inertia('company/create', [
+            'countries' => $countries,
+        ]);
     }
 
     /**
@@ -52,7 +60,7 @@ class CompanyController extends Controller
      * @param  UserCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserCreateRequest $request)
+    public function store(CompanyCreateRequest $request)
     {
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
@@ -65,10 +73,14 @@ class CompanyController extends Controller
             $data['avatar'] = $url;
         }
 
-        User::create($data);
+        $user = User::create($data);
 
-        session()->flash('success', 'User created successfully!');
-        return back();
+        $user->company()->create([
+            'country_id' => $request->country,
+        ]);
+
+        session()->flash('success', 'Company created successfully!');
+        return redirect()->route('companies.index');
     }
 
     /**
@@ -88,10 +100,15 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $company)
     {
-        return inertia('user/edit', [
+        $user = $company;
+        $countries = Country::all(['id', 'name']);
+
+        return inertia('company/edit', [
             'user' => $user,
+            'country_id' => $user->company->country_id,
+            'countries' => $countries,
         ]);
     }
 
@@ -102,8 +119,10 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(CompanyUpdateRequest $request, User $company)
     {
+        $user = $company;
+
         $data = $request->all();
         if ($request->password) {
             $data['password'] = bcrypt($data['password']);
@@ -119,8 +138,12 @@ class CompanyController extends Controller
 
         $user->update($data);
 
-        session()->flash('success', 'User updated successfully!');
-        return redirect()->route('admins.index');
+        $user->company()->update([
+            'country_id' => $request->country,
+        ]);
+
+        session()->flash('success', 'Company updated successfully!');
+        return redirect()->route('companies.index');
     }
 
     /**
@@ -129,11 +152,11 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $company)
     {
-        $user->delete();
+        $company->delete();
 
-        session()->flash('success', 'User deleted successfully!');
+        session()->flash('success', 'Company deleted successfully!');
         return back();
     }
 

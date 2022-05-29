@@ -17,7 +17,6 @@
                         <table class="table ">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>SL</th>
                                     <th>Avatar</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -27,7 +26,6 @@
                             <tbody>
                                 <template v-if="admins && admins.data.length">
                                     <tr v-for="(user,index) in admins.data" :key="index">
-                                        <td>{{ index+1 }}</td>
                                         <td>
                                             <img class="rounded img-fluid avatar-img" :src="user.avatar" alt="" >
                                         </td>

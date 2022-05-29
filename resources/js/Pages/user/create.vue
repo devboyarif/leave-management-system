@@ -46,12 +46,7 @@
 </template>
 
 <script>
-import ErrorMessage from "../../Shared/Forms/ErrorMessage.vue";
-
 export default {
-    components: {
-        ErrorMessage,
-    },
     data() {
         return {
             form: this.$inertia.form({

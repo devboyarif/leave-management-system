@@ -17,7 +17,6 @@
                         <table class="table ">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>SL</th>
                                     <th>Avatar</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -27,7 +26,6 @@
                             <tbody>
                                 <template v-if="companies && companies.data.length">
                                     <tr v-for="(user,index) in companies.data" :key="index">
-                                        <td>{{ index+1 }}</td>
                                         <td>
                                             <img class="rounded img-fluid avatar-img" :src="user.avatar" alt="" >
                                         </td>
@@ -38,7 +36,7 @@
                                             <i class="fa-solid fa-pen-to-square"></i>
                                             Edit
                                             </Link>
-                                            <a @click="deleteStudent(user.id)" href="#"
+                                            <a @click="deleteCompany(user.id)" href="#"
                                                 class="btn btn-danger mx-1">
                                                 <i class="fa-solid fa-trash-can"></i>
                                                 Delete</a>
@@ -82,7 +80,7 @@ export default {
         };
     },
     methods: {
-        deleteStudent(id) {
+        deleteCompany(id) {
             if (confirm("Are you sure to delete this user?")) {
                 Inertia.delete(route("companies.destroy", id));
             }
