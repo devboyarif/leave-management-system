@@ -12,8 +12,6 @@ import {
     Link
 } from '@inertiajs/inertia-vue3';
 
-import Inertia from '@inertiajs/inertia'
-
 import {
     InertiaProgress
 } from '@inertiajs/progress';
@@ -56,7 +54,6 @@ app.use(InertiaPlugin)
     })
     .component('Head', Head)
     .component('Link', Link)
-    .component('Inertia', Inertia)
     .component('ErrorMessage', ErrorMessage)
     .component('Label', Label)
     .component('Loading', Loading)

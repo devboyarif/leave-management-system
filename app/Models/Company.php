@@ -13,4 +13,14 @@ class Company extends Model
         'user_id',
         'country_id'
     ];
+
+    public function teams()
+    {
+        return $this->hasMany(Team::class, 'company_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
