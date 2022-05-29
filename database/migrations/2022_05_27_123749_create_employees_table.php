@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Company;
-use App\Models\Designation;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -22,7 +21,6 @@ class CreateEmployeesTable extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Team::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Designation::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

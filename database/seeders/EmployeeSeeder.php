@@ -6,7 +6,6 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\Employee;
-use App\Models\Designation;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -30,7 +29,6 @@ class EmployeeSeeder extends Seeder
             'user_id' => $user->id,
             'company_id' => Company::inRandomOrder()->value('id'),
             'team_id' => Team::inRandomOrder()->value('id'),
-            'designation_id' => Designation::inRandomOrder()->value('id'),
         ]);
     }
 }

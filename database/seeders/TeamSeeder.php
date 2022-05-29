@@ -16,18 +16,22 @@ class TeamSeeder extends Seeder
     {
         $teams = [
             [
+                'company_id' => 1,
                 'name' => 'UI/UX',
                 'slug' => 'frontend',
             ],
             [
+                'company_id' => 1,
                 'name' => 'Frontend',
                 'slug' => 'frontend',
             ],
             [
+                'company_id' => 1,
                 'name' => 'Backend',
                 'slug' => 'frontend',
             ],
             [
+                'company_id' => 1,
                 'name' => 'Mobile',
                 'slug' => 'frontend',
             ]

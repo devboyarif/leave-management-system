@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdminSeeder;
 use Database\Seeders\CountrySeeder;
-use Database\Seeders\DesignationSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,9 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             CountrySeeder::class,
-            TeamSeeder::class,
-            DesignationSeeder::class,
             CompanySeeder::class,
+            TeamSeeder::class,
             EmployeeSeeder::class,
         ]);
     }
