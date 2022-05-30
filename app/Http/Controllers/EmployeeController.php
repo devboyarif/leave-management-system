@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeSaveRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class EmployeeController extends Controller
             ->when(request('search'), function ($query, $search) {
                 $query->where('name', 'Like', "%{$search}%");
             })
-            ->employee()
+            ->userEmployee()
             ->with('employee')
             ->latest()
             ->paginate(10)
@@ -43,7 +44,11 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return inertia('user/create');
+        $users = User::userCompany()->get();
+
+        return inertia('employee/create', [
+            'users' => $users,
+        ]);
     }
 
     /**
@@ -52,9 +57,10 @@ class EmployeeController extends Controller
      * @param  UserCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserCreateRequest $request)
+    public function store(EmployeeSaveRequest $request)
     {
         $data = $request->all();
+        $data['role'] = User::ROLE_EMPLOYEE;
         $data['password'] = bcrypt($data['password']);
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
@@ -65,9 +71,15 @@ class EmployeeController extends Controller
             $data['avatar'] = $url;
         }
 
-        User::create($data);
+        $user = User::create($data);
 
-        session()->flash('success', 'User created successfully!');
+        $user->employee()->create([
+            'user_id' => $user->id,
+            'company_id' => $request->user_id,
+            'team_id' => $request->team_id,
+        ]);
+
+        session()->flash('success', 'Employee created successfully!');
         return back();
     }
 
@@ -134,54 +146,6 @@ class EmployeeController extends Controller
         $user->delete();
 
         session()->flash('success', 'User deleted successfully!');
-        return back();
-    }
-
-    public function profile()
-    {
-        return inertia('user/profile', [
-            'user' => auth()->user(),
-        ]);
-    }
-
-    public function profileUpdate(ProfileUpdateRequest $request)
-    {
-        $user = auth()->user();
-
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => "required|string|email|max:255|unique:users,email, $user->id",
-        ]);
-
-        $data = $request->all();
-
-        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            $request->validate([
-                'avatar' => ['image', 'mimes:jpeg,png,jpg'],
-            ]);
-            $url = uploadFileToPublic('avatars', $request->avatar);
-            $data['avatar'] = $url;
-        }
-
-        $user->update($data);
-
-        session()->flash('success', 'Profile updated successfully!');
-        return back();
-    }
-
-    public function passwordUpdate(ProfileUpdateRequest $request)
-    {
-        $request->validate([
-            'current_password' => ['required', new MatchOldPassword],
-            'password' => ['required'],
-            'password_confirmation' => ['required', 'same:password'],
-        ]);
-
-        auth()->user()->update([
-            'password' => bcrypt($request->password),
-        ]);
-
-        session()->flash('success', 'Password changed successfully!');
         return back();
     }
 }

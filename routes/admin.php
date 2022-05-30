@@ -24,6 +24,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Companies
     Route::resource('/companies', CompanyController::class);
+    Route::get('/companies/teams/{user}', [CompanyController::class, 'companiesTeams'])->name('companies.teams');
 
     // Employees
     Route::resource('/employees', EmployeeController::class);

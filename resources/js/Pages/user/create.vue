@@ -15,22 +15,22 @@
                 <div class="card-body">
                     <form @submit.prevent="createData">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <Label name="Name"/>
                             <input v-model="form.name" type="text" class="form-control" :class="{'is-invalid':form.errors.name}" id="name">
                             <ErrorMessage :name="form.errors.name"/>
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
+                            <Label name="Email address"/>
                             <input v-model="form.email" type="email" class="form-control" :class="{'is-invalid':form.errors.email}" id="email">
                             <ErrorMessage :name="form.errors.email"/>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
+                            <Label name="Password"/>
                             <input v-model="form.password" type="password" class="form-control" :class="{'is-invalid':form.errors.password}" id="password">
                             <ErrorMessage :name="form.errors.password"/>
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Avatar</label>
+                            <Label name="Avatar" :required="false"/>
                             <input accept="image/jpeg, image/jpg/ image/png" class="form-control border-0 p-0" type="file" @input="form.avatar = $event.target.files[0]" :class="{'is-invalid':form.errors.avatar}"/>
                             <ErrorMessage :name="form.errors.avatar"/>
                         </div>

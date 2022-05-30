@@ -77,7 +77,7 @@
                             </template>
                         </NavLink>
                     </Dropdown>
-                       <NavLink title="Team" :href="route('teams.index')" :active="$page.component == 'dashboard'">
+                       <NavLink title="Team" :href="route('teams.index')" :active="$page.component == 'team/index'">
                         <template v-slot:icon>
                            <i class="fa-solid fa-gauge-high nav-icon"></i>
                         </template>

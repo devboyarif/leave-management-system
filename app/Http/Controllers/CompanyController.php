@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\CompanyCreateRequest;
 use App\Http\Requests\CompanyUpdateRequest;
+use App\Models\Company;
 
 class CompanyController extends Controller
 {
@@ -22,7 +23,7 @@ class CompanyController extends Controller
             ->when(request('search'), function ($query, $search) {
                 $query->where('name', 'Like', "%{$search}%");
             })
-            ->company()
+            ->userCompany()
             ->with('company')
             ->latest()
             ->paginate(10)
@@ -160,51 +161,14 @@ class CompanyController extends Controller
         return back();
     }
 
-    public function profile()
+    public function companiesTeams(User $user)
     {
-        return inertia('user/profile', [
-            'user' => auth()->user(),
+        $company = Company::where('user_id', $user->id)->firstOrFail();
+        $teams = $company->teams;
+
+        return response()->json([
+            'success' => true,
+            'teams' => $teams,
         ]);
-    }
-
-    public function profileUpdate(ProfileUpdateRequest $request)
-    {
-        $user = auth()->user();
-
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => "required|string|email|max:255|unique:users,email, $user->id",
-        ]);
-
-        $data = $request->all();
-
-        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            $request->validate([
-                'avatar' => ['image', 'mimes:jpeg,png,jpg'],
-            ]);
-            $url = uploadFileToPublic('avatars', $request->avatar);
-            $data['avatar'] = $url;
-        }
-
-        $user->update($data);
-
-        session()->flash('success', 'Profile updated successfully!');
-        return back();
-    }
-
-    public function passwordUpdate(ProfileUpdateRequest $request)
-    {
-        $request->validate([
-            'current_password' => ['required', new MatchOldPassword],
-            'password' => ['required'],
-            'password_confirmation' => ['required', 'same:password'],
-        ]);
-
-        auth()->user()->update([
-            'password' => bcrypt($request->password),
-        ]);
-
-        session()->flash('success', 'Password changed successfully!');
-        return back();
     }
 }
