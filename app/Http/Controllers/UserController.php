@@ -22,6 +22,7 @@ class UserController extends Controller
             ->when(request('search'), function ($query, $search) {
                 $query->where('name', 'Like', "%{$search}%");
             })
+            ->roleAdmin()
             ->latest()
             ->paginate(10)
             ->withQueryString()

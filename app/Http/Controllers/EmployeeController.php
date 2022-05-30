@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EmployeeSaveRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\EmployeeSaveRequest;
+use App\Http\Requests\EmployeeCreateRequest;
+use App\Http\Requests\EmployeeUpdateRequest;
 
 class EmployeeController extends Controller
 {
@@ -19,7 +21,7 @@ class EmployeeController extends Controller
             ->when(request('search'), function ($query, $search) {
                 $query->where('name', 'Like', "%{$search}%");
             })
-            ->userEmployee()
+            ->roleEmployee()
             ->with('employee')
             ->latest()
             ->paginate(10)
@@ -44,7 +46,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $users = User::userCompany()->get();
+        $users = User::roleCompany()->get();
 
         return inertia('employee/create', [
             'users' => $users,
@@ -57,7 +59,7 @@ class EmployeeController extends Controller
      * @param  UserCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeeSaveRequest $request)
+    public function store(EmployeeCreateRequest $request)
     {
         $data = $request->all();
         $data['role'] = User::ROLE_EMPLOYEE;
@@ -100,10 +102,18 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $employee)
     {
-        return inertia('user/edit', [
+        $user = $employee;
+        $employee = $user->employee;
+        $users = User::roleCompany()->get();
+        $teams = $employee->company->teams;
+
+        return inertia('employee/edit', [
             'user' => $user,
+            'employee' => $employee,
+            'users' => $users,
+            'teams' => $teams,
         ]);
     }
 
@@ -114,9 +124,12 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(EmployeeUpdateRequest $request, User $employee)
     {
+        $user = $employee;
+
         $data = $request->all();
+        $data['role'] = User::ROLE_EMPLOYEE;
         if ($request->password) {
             $data['password'] = bcrypt($data['password']);
         }
@@ -131,8 +144,14 @@ class EmployeeController extends Controller
 
         $user->update($data);
 
-        session()->flash('success', 'User updated successfully!');
-        return redirect()->route('admins.index');
+        $user->employee()->update([
+            'user_id' => $user->id,
+            'company_id' => $request->user_id,
+            'team_id' => $request->team_id,
+        ]);
+
+        session()->flash('success', 'Employee updated successfully!');
+        return redirect()->route('employees.index');
     }
 
     /**
@@ -145,7 +164,7 @@ class EmployeeController extends Controller
     {
         $user->delete();
 
-        session()->flash('success', 'User deleted successfully!');
+        session()->flash('success', 'Employee deleted successfully!');
         return back();
     }
 }

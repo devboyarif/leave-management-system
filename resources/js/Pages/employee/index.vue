@@ -38,7 +38,7 @@
                                             <i class="fa-solid fa-pen-to-square"></i>
                                             Edit
                                             </Link>
-                                            <a @click="deleteStudent(user.id)" href="#"
+                                            <a @click="deleteData(user.id)" href="#"
                                                 class="btn btn-danger mx-1">
                                                 <i class="fa-solid fa-trash-can"></i>
                                                 Delete</a>
@@ -82,7 +82,7 @@ export default {
         };
     },
     methods: {
-        deleteStudent(id) {
+        deleteData(id) {
             if (confirm("Are you sure to delete this user?")) {
                 Inertia.delete(route("employees.destroy", id));
             }

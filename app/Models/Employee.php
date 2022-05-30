@@ -14,4 +14,12 @@ class Employee extends Model
         'company_id',
         'team_id',
     ];
+
+    public function company(){
+        return $this->belongsTo(Company::class,'company_id');
+    }
+
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id');
+    }
 }

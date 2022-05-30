@@ -57,12 +57,17 @@ class User extends Authenticatable
         return asset($avatar);
     }
 
-    public function scopeUserCompany()
+    public function scopeRoleAdmin()
+    {
+        return $this->where('role', 'admin');
+    }
+
+    public function scopeRoleCompany()
     {
         return $this->where('role', 'company');
     }
 
-    public function scopeUserEmployee()
+    public function scopeRoleEmployee()
     {
         return $this->where('role', 'employee');
     }

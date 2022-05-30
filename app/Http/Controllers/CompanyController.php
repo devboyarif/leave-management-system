@@ -23,7 +23,7 @@ class CompanyController extends Controller
             ->when(request('search'), function ($query, $search) {
                 $query->where('name', 'Like', "%{$search}%");
             })
-            ->userCompany()
+            ->roleCompany()
             ->with('company')
             ->latest()
             ->paginate(10)
