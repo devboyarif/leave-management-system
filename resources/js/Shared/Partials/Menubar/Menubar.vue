@@ -77,11 +77,26 @@
                             </template>
                         </NavLink>
                     </Dropdown>
-                       <NavLink title="Team" :href="route('teams.index')" :active="$page.component == 'team/index'">
+                    <NavLink title="Team" :href="route('teams.index')" :active="$page.component == 'team/index'">
                         <template v-slot:icon>
                            <i class="fa-solid fa-gauge-high nav-icon"></i>
                         </template>
                     </NavLink>
+                     <Dropdown title="Leave" :active="$page.component == 'about' || $page.component == 'contact'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-plane-departure nav-icon"></i>
+                        </template>
+                        <NavLink title="Leave Type" :href="route('leaveTypes.index')" :active="$page.component == 'leaveTypes/index' || $page.component == 'leaveTypes/create' || $page.component == 'leaveTypes/edit'">
+                            <template v-slot:icon>
+                                <i class="far fa-circle nav-icon"></i>
+                            </template>
+                        </NavLink>
+                        <NavLink title="Leave Request" :href="route('companies.index')" :active="$page.component == 'company/index'">
+                            <template v-slot:icon>
+                                <i class="far fa-circle nav-icon"></i>
+                            </template>
+                        </NavLink>
+                    </Dropdown>
                 </ul>
             </nav>
         </div>

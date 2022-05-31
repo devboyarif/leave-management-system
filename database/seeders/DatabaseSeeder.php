@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             CountrySeeder::class,
             CompanySeeder::class,
+            LeaveTypeSeeder::class,
             TeamSeeder::class,
             EmployeeSeeder::class,
         ]);

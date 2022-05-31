@@ -23,3 +23,8 @@ function strSlug($name)
 {
     return Str::slug($name);
 }
+
+function redirect_to($name)
+{
+    return redirect()->route($name);
+}

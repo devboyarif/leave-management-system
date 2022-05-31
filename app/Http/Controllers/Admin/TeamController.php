@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Company;
-use App\Http\Requests\TeamCreateRequest;
-use App\Http\Requests\TeamSaveRequest;
-use App\Http\Requests\TeamUpdateRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\TeamSaveRequest;
+use App\Http\Requests\TeamCreateRequest;
+use App\Http\Requests\TeamUpdateRequest;
 
 class TeamController extends Controller
 {

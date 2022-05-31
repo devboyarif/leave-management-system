@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TeamController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\LeaveTypeController;
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/about', function () {
@@ -31,8 +32,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Teams
     Route::resource('/teams', TeamController::class);
-    // Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
-    // Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+
+    // Leave Types
+    Route::resource('/leaveTypes', LeaveTypeController::class);
 
     // Profile & Settings
     Route::controller(UserController::class)->group(function () {
