@@ -25,7 +25,6 @@ import ErrorMessage from "./Shared/Forms/ErrorMessage.vue";
 import Label from "./Shared/Forms/Label.vue";
 import Loading from "./Shared/Loading.vue";
 
-
 const app = createApp({
     render: () => h(InertiaApp, {
         initialPage: data,

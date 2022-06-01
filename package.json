@@ -17,6 +17,12 @@
         "vue-loader": "^16.2.0"
     },
     "dependencies": {
+        "@fullcalendar/core": "^5.11.0",
+        "@fullcalendar/daygrid": "^5.11.0",
+        "@fullcalendar/interaction": "^5.11.0",
+        "@fullcalendar/list": "^5.11.0",
+        "@fullcalendar/timegrid": "^5.11.0",
+        "@fullcalendar/vue3": "^5.11.1",
         "@inertiajs/inertia": "^0.10.1",
         "@inertiajs/inertia-vue3": "^0.5.2",
         "@inertiajs/progress": "^0.2.6",

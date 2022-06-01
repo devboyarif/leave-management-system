@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdminSeeder;
 use Database\Seeders\CountrySeeder;
+use Database\Seeders\CalendarSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
             LeaveTypeSeeder::class,
             TeamSeeder::class,
             EmployeeSeeder::class,
+            CalendarSeeder::class,
         ]);
     }
 }

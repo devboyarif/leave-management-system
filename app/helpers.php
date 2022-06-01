@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\Company;
 use Illuminate\Support\Str;
 
@@ -27,4 +28,11 @@ function strSlug($name)
 function redirect_to($name)
 {
     return redirect()->route($name);
+}
+
+function addDays($date, $days, $format = 'Y-m-d')
+{
+    $date = Carbon::createFromFormat($format, $date);
+    $daysToAdd = $days;
+    return $date->addDays($daysToAdd)->format($format);
 }
