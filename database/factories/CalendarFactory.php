@@ -19,9 +19,9 @@ class CalendarFactory extends Factory
         $end = $this->faker->dateTimeBetween($start, $start->format('Y-m-d') . ' +2 days');
 
         return [
-            'event_name' => Arr::random(['Test Event', 'Test Event 2', 'Test Event 3']),
-            'start_date' => $start,
-            'end_date' =>  $end,
+            'title' => Arr::random(['Test Event', 'Test Event 2', 'Test Event 3']),
+            'start' => $start,
+            'end' =>  $end,
             'color' => Arr::random(['#3c8dbc', '#00a65a', '#f39c12', '#dd4b39', '#00c0ef', '#3c8dbc', '#00a65a', '#f39c12', '#dd4b39', '#00c0ef']),
         ];
     }

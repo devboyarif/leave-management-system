@@ -36,3 +36,8 @@ function addDays($date, $days, $format = 'Y-m-d')
     $daysToAdd = $days;
     return $date->addDays($daysToAdd)->format($format);
 }
+
+function changeCurrentYear($date, $format = 'Y-m-d')
+{
+    return Carbon::parse($date)->year(now()->format('Y'))->format($format);
+}

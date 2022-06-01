@@ -8,39 +8,85 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LeaveTypeController;
+use App\Models\Holiday;
+use Illuminate\Support\Facades\Http;
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/test', function () {
-
-        // $calendar = Calendar::first();
-        // return addDays($calendar->end_date, 1);
-
-        // $date = Carbon::createFromFormat('Y-m-d', $calendar->end_date);
-        // $daysToAdd = 1;
-        // $date = $date->addDays($daysToAdd);
-
-        // return [
-        //     'calendar' => $calendar,
-        //     'date' => $date->format('Y-m-d'),
-        // ];
-
-
         $calendars = Calendar::all()
             ->transform(fn ($user) => [
                 'id' => $user->id,
-                'title' => $user->event_name,
-                'start' => $user->start_date,
-                'end' => addDays($user->end_date, 1),
+                'title' => $user->title,
+                'start' => $user->start,
+                'end' => addDays($user->end, 1),
                 'color' => $user->color,
             ]);
-        // 'id'        =>  $this->id,
-        // 'title'     =>  $this->event_name,
-        // 'start'      =>  $this->start_date,
-        // 'end'      =>  $this->end_date,
+
         return inertia('test/calendar', [
             'events' => $calendars,
         ]);
     })->name('test');
+
+    Route::get('/holiday', function () {
+
+        $holidays = Holiday::all()
+            ->transform(fn ($user) => [
+                'id' => $user->id,
+                'title' => $user->title,
+                'start' => $user->start,
+                'end' => addDays($user->end, 1),
+                'color' => $user->color,
+            ]);
+
+        return inertia('test/holiday', [
+            'events' => $holidays,
+        ]);
+
+
+
+        return Carbon::parse('2020-01-11')->year(now()->format('Y'))->format('Y-m-d');
+        // $api = "AIzaSyAUPpqerpKmENrKzgpr_pzcmiSKE58cA7k";
+        // $country_code = 'bd';
+        // $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/AIzaSyAUPpqerpKmENrKzgpr_pzcmiSKE58cA7k/events";
+
+        $api = "AIzaSyAUPpqerpKmENrKzgpr_pzcmiSKE58cA7k";
+        $country_code = 'bd';
+        $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.$country_code%23holiday%40group.v.calendar.google.com/events?key=$api";
+
+        // $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.BD%23holiday%40group.v.calendar.google.com/events?key=AIzaSyAUPpqerpKmENrKzgpr_pzcmiSKE58cA7k";
+
+        $response = Http::get($calendar_api);
+
+        $holidays_list = $response->json()['items'];
+
+        for ($i = 0; $i < count($holidays_list); $i++) {
+            $holiday_data[] = [
+                'title' => $holidays_list[$i]['summary'],
+                'start' => $holidays_list[$i]['start']['date'],
+                'end' => $holidays_list[$i]['end']['date']
+            ];
+        }
+
+        $calendar_chunks = array_chunk($holiday_data, ceil(count($holiday_data) / 3));
+
+        foreach ($calendar_chunks as $country) {
+            Holiday::insert($country);
+        }
+
+
+
+        return Holiday::all();
+
+
+
+        return gettype($response->json()['items']);
+        return [
+            'items' => $response->json()['items'],
+            'summary' => $response->json()['items'][0]['summary'],
+            'start' => $response->json()['items'][0]['start']['date'],
+            'end' => $response->json()['items'][0]['end']['date'],
+        ];
+    });
 
 
     Route::get('/about', function () {
