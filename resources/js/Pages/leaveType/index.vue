@@ -6,7 +6,7 @@
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                             <span>Team List</span>
+                             <span>Leave Type List</span>
                             <div class="row">
                                 <div class="col-6">
                                     <select @change="companyWiseLeaveType" v-model="filterForm.user_id" class="form-control w-100">
