@@ -23,7 +23,7 @@ class TeamController extends Controller
 
         $teams = $team_query->with('company.user')->latest()->paginate(10);
 
-        $users = User::where('role', 'company')->get();
+        $users = User::roleCompany()->get();
 
         return inertia('team/index', [
             'teams' => $teams,

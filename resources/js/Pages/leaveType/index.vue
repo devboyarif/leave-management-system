@@ -6,11 +6,26 @@
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <input v-model="search" type="text" placeholder="Search.." class="form-control w-50">
-                            <Link :href="route('leaveTypes.create')" class="btn btn-primary">
-                                <i class="fa-solid fa-plus"></i>
-                                Create
-                            </Link>
+                             <span>Team List</span>
+                            <div class="row">
+                                <div class="col-6">
+                                    <select @change="companyWiseLeaveType" v-model="filterForm.user_id" class="form-control w-100">
+                                       <option value="all">All</option>
+                                       <option v-for="user in users" :key="user.id" :value="user.id">
+                                           {{ user.name }}
+                                       </option>
+                                   </select>
+
+                                </div>
+                                <div class="col-6 text-right">
+                                    <!-- <input v-model="search" type="text" placeholder="Search.." class="form-control w-50"> -->
+                                        <Link :href="route('leaveTypes.create')" class="btn btn-primary">
+                                            <i class="fa-solid fa-plus"></i>
+                                            Create
+                                        </Link>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -19,10 +34,8 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Color</th>
-                                    <th>Allow Half Day</th>
-                                    <th>Auto Approve</th>
                                     <th>Leave Balance</th>
-                                    <th>Status</th>
+                                    <th>Options</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -33,10 +46,21 @@
                                         <td>
                                             {{ leave_type.color }}
                                         </td>
-                                        <td>{{ leave_type.allow_half_day }}</td>
-                                        <td>{{ leave_type.auto_approve }}</td>
-                                        <td>{{ leave_type.balance }}</td>
-                                        <td>{{ leave_type.status }}</td>
+                                        <td>
+                                            {{ leave_type.balance }} days
+                                        </td>
+                                        <td>
+                                            <span v-if="leave_type.allow_half_day" class="badge badge-pill badge-primary mx-1">
+                                                Allow half day
+                                            </span>
+                                            <span v-if="leave_type.auto_approve" class="badge badge-pill badge-info mx-1">
+                                                Allow auto approve
+                                            </span>
+                                            <span class="badge badge-pill mx-1" :class="leave_type.status ? 'badge-success':'badge-danger'">
+                                                <span v-if="leave_type.status">Active</span>
+                                                <span v-else>Inactive</span>
+                                            </span>
+                                        </td>
                                         <td>
                                             <Link :href="route('leaveTypes.edit',leave_type.id)"
                                                 class="btn btn-primary mx-1">
@@ -76,6 +100,7 @@ import { Inertia } from "@inertiajs/inertia";
 export default {
     props: {
         leave_types: Array,
+        users: Array,
         // filters: Object || Array,
     },
     components: {
@@ -84,14 +109,20 @@ export default {
     },
     data() {
         return {
+            filterForm: this.$inertia.form({
+                user_id: this.filterUserId || "all",
+            }),
             // search: this.filters.search,
         };
     },
     methods: {
         deleteData(id) {
-            if (confirm("Are you sure to delete this user?")) {
+            if (confirm("Are you sure to delete?")) {
                 Inertia.delete(route("leaveTypes.destroy", id));
             }
+        },
+        companyWiseLeaveType() {
+            this.filterForm.get(route("leaveTypes.index"));
         },
     },
     watch: {

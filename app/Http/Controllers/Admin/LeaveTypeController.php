@@ -13,10 +13,19 @@ class LeaveTypeController extends Controller
 {
     public function index()
     {
-        $leave_types = LeaveType::latest()->paginate(10);
+
+        $leave_query = LeaveType::query();
+
+        if (request('user_id') && request('user_id') != 'all') {
+            $leave_query->where('company_id', getCompany(request('user_id'))->id);
+        }
+
+        $leave_types = $leave_query->latest()->paginate(10);
+        $users = User::roleCompany()->get();
 
         return inertia('leaveType/index', [
             'leave_types' => $leave_types,
+            'users' => $users,
         ]);
     }
 

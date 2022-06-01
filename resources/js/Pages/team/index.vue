@@ -158,7 +158,7 @@ export default {
             });
         },
         deleteData(id) {
-            if (confirm("Are you sure to delete this user?")) {
+            if (confirm("Are you sure to delete?")) {
                 Inertia.delete(route("teams.destroy", id));
             }
         },

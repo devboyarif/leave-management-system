@@ -81,7 +81,7 @@ export default {
     },
     methods: {
         deleteCompany(id) {
-            if (confirm("Are you sure to delete this user?")) {
+            if (confirm("Are you sure to delete?")) {
                 Inertia.delete(route("companies.destroy", id));
             }
         },
