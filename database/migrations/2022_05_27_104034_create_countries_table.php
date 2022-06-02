@@ -18,6 +18,7 @@ class CreateCountriesTable extends Migration
             $table->string('name');
             $table->string('slug')->nullable();
             $table->string('icon')->nullable();
+            $table->string('code')->nullable();
         });
     }
 

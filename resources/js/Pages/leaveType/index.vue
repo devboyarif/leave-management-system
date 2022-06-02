@@ -45,6 +45,11 @@
                                         <td>{{ leave_type.name }}</td>
                                         <td>
                                             {{ leave_type.color }}
+
+                                            <!-- <span class="badge" style="">
+
+                                            </span> -->
+                                            <!-- <span class="m-badge m-badge--lg m-badge--very-wide" style="margin-left: 30px; width: 10px; height: 10px; background-color: rgb(255, 8, 51);"></span> -->
                                         </td>
                                         <td>
                                             {{ leave_type.balance }} days

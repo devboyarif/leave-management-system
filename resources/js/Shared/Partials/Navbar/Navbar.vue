@@ -12,8 +12,8 @@
                 <a href="#" class="nav-link">Contact</a>
             </li>
             <pre>
-                    {{ $page.url }}
-                </pre>
+                {{ $page.url }}
+            </pre>
         </ul>
 
         <!-- Right navbar links -->

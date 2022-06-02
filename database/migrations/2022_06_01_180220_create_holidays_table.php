@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Company;
+use App\Models\Country;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateHolidaysTable extends Migration
 {
@@ -15,6 +17,8 @@ class CreateHolidaysTable extends Migration
     {
         Schema::create('holidays', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Country::class)->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->date('start');
             $table->date('end');

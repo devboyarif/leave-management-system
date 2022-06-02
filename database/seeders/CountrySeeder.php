@@ -22,7 +22,8 @@ class CountrySeeder extends Seeder
             $country_data[] = [
                 'name' => $countries_list[$i]['name'],
                 'slug' => Str::slug($countries_list[$i]['name']),
-                'icon' => 'flag-icon-' . Str::lower($countries_list[$i]['sortname'])
+                'icon' => 'flag-icon-' . Str::lower($countries_list[$i]['sortname']),
+                'code' => strtolower($countries_list[$i]['sortname']),
             ];
         }
 

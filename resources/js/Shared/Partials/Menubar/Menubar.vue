@@ -97,6 +97,11 @@
                             </template>
                         </NavLink>
                     </Dropdown>
+                     <NavLink title="Holidays" :href="route('teams.index')" :active="$page.url == '/admin/holidays'">
+                        <template v-slot:icon>
+                           <i class="fa-solid fa-h nav-icon"></i>
+                        </template>
+                    </NavLink>
                 </ul>
             </nav>
         </div>

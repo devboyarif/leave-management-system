@@ -16,42 +16,42 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
+        // Company
         $user = User::create([
             'name' => 'Kodebazar',
             'email' => 'kodebazar@mail.com',
             'password' => bcrypt('password'),
             'avatar' => asset('admin/img/default-user.png')
         ]);
-
-        Company::create([
+        $country = Country::where('code', 'bd')->first();
+        $company = Company::create([
             'user_id' => $user->id,
-            'country_id' => Country::inRandomOrder()->value('id'),
+            'country_id' => $country->id,
         ]);
 
+        // Company 2
         $user2 = User::create([
             'name' => 'Templatecookie',
             'email' => 'templatecookie@mail.com',
             'password' => bcrypt('password'),
             'avatar' => asset('admin/img/default-user.png')
         ]);
-
         Company::create([
             'user_id' => $user2->id,
             'country_id' => Country::inRandomOrder()->value('id'),
         ]);
 
+        // Company 3
         $user3 = User::create([
             'name' => 'Zakirsoft',
             'email' => 'zakirsoft@mail.com',
             'password' => bcrypt('password'),
             'avatar' => asset('admin/img/default-user.png')
         ]);
-
         Company::create([
             'user_id' => $user3->id,
             'country_id' => Country::inRandomOrder()->value('id'),
         ]);
 
-        // Company::factory(12)->create();
     }
 }

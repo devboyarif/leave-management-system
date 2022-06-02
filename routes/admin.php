@@ -1,18 +1,22 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Country;
+use App\Models\Holiday;
 use App\Models\Calendar;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LeaveTypeController;
-use App\Models\Holiday;
-use Illuminate\Support\Facades\Http;
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/test', function () {
+        return getHolidays('usa');
+       return $country = Country::where('code', 'bd')->first();
+        return  strtolower('ASCKJJKLJHKJHJKH');
         $calendars = Calendar::all()
             ->transform(fn ($user) => [
                 'id' => $user->id,
@@ -28,15 +32,47 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     })->name('test');
 
     Route::get('/holiday', function () {
-        $api = "AIzaSyAUPpqerpKmENrKzgpr_pzcmiSKE58cA7k";
-        $country_code = 'uk';
-        $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.$country_code%23holiday%40group.v.calendar.google.com/events?key=$api";
 
-        // $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.BD%23holiday%40group.v.calendar.google.com/events?key=AIzaSyAUPpqerpKmENrKzgpr_pzcmiSKE58cA7k";
+        // return currentYearData('2021-12-08');
+
+
+        // $myDate = '2022-12-08';
+        // $date = Carbon::createFromFormat('Y-m-d', $myDate)->format('Y');
+
+        // return $date == now()->format('Y') ? 'true' : 'false';
+
+
+        $api = "AIzaSyAUPpqerpKmENrKzgpr_pzcmiSKE58cA7k";
+        $country_code = 'bd';
+        $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.$country_code%23holiday%40group.v.calendar.google.com/events?key=$api";
 
         $response = Http::get($calendar_api);
 
-        return $holidays_list = $response->json()['items'];
+        $holidays_list = $response->json()['items'];
+
+        $current_year_holidays = [];
+
+        foreach ($holidays_list as $holiday) {
+            return $holiday['start']['date'];
+            if (currentYearData($holiday['start']['date'])) {
+                $current_year_holidays[] = $holiday;
+            }else{
+                return 12313;
+            }
+
+
+            // $start_date = Carbon::parse($holiday['start']['date']);
+            // $end_date = Carbon::parse($holiday['end']['date']);
+            // $current_year_holidays[] = [
+            //     'title' => $holiday['summary'],
+            //     'start' => $start_date->format('Y-m-d'),
+            //     'end' => $end_date->format('Y-m-d'),
+            //     'color' => '#ff0000',
+            // ];
+        }
+
+        return $current_year_holidays;
+
 
         $holidays = Holiday::all()
             ->transform(fn ($user) => [
