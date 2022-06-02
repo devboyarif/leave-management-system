@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'password' => bcrypt('password'),
-            'avatar' => asset('admin/img/default-user.png'),
+            'avatar' => 'admin/img/default-user.png',
             'role' => 'admin',
         ]);
 
@@ -26,7 +26,7 @@ class AdminSeeder extends Seeder
             'name' => 'Developer',
             'email' => 'developer@mail.com',
             'password' => bcrypt('password'),
-            'avatar' => asset('admin/img/default-user.png'),
+            'avatar' => 'admin/img/default-user.png',
             'role' => 'admin',
         ]);
     }

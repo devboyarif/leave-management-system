@@ -28,6 +28,15 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     })->name('test');
 
     Route::get('/holiday', function () {
+        $api = "AIzaSyAUPpqerpKmENrKzgpr_pzcmiSKE58cA7k";
+        $country_code = 'uk';
+        $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.$country_code%23holiday%40group.v.calendar.google.com/events?key=$api";
+
+        // $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.BD%23holiday%40group.v.calendar.google.com/events?key=AIzaSyAUPpqerpKmENrKzgpr_pzcmiSKE58cA7k";
+
+        $response = Http::get($calendar_api);
+
+        return $holidays_list = $response->json()['items'];
 
         $holidays = Holiday::all()
             ->transform(fn ($user) => [

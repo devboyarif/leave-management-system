@@ -57,36 +57,36 @@
                             </template>
                         </NavLink>
                     </Dropdown>
-                    <Dropdown title="Users" :active="$page.component == 'about' || $page.component == 'contact'">
+                    <Dropdown title="Users" :active="$page.url == '/admin/admins/*' || $page.url == '/admin/companies/*' || $page.url == '/admin/employees/*'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-user-group nav-icon"></i>
                         </template>
-                        <NavLink title="Admin" :href="route('admins.index')" :active="$page.component == 'user/index' || $page.component == 'user/create' || $page.component == 'user/edit'">
+                        <NavLink title="Admin" :href="route('admins.index')" :active="$page.url == '/admin/admins/*'">
                             <template v-slot:icon>
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
                         </NavLink>
-                        <NavLink title="Company" :href="route('companies.index')" :active="$page.component == 'company/index'">
+                        <NavLink title="Company" :href="route('companies.index')" :active="$page.url == '/admin/companies/*'">
                             <template v-slot:icon>
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
                         </NavLink>
-                        <NavLink title="Employee" :href="route('employees.index')" :active="$page.component == 'employee/index'">
+                        <NavLink title="Employee" :href="route('employees.index')" :active="$page.url == '/admin/employees/*'">
                             <template v-slot:icon>
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
                         </NavLink>
                     </Dropdown>
-                    <NavLink title="Team" :href="route('teams.index')" :active="$page.component == 'team/index'">
+                    <NavLink title="Team" :href="route('teams.index')" :active="$page.url == '/admin/teams'">
                         <template v-slot:icon>
                            <i class="fa-solid fa-gauge-high nav-icon"></i>
                         </template>
                     </NavLink>
-                     <Dropdown title="Leave" :active="$page.component == 'about' || $page.component == 'contact'">
+                     <Dropdown title="Leave" :active="$page.url == '/admin/leaveTypes/*'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-plane-departure nav-icon"></i>
                         </template>
-                        <NavLink title="Leave Type" :href="route('leaveTypes.index')" :active="$page.component == 'leaveTypes/index' || $page.component == 'leaveTypes/create' || $page.component == 'leaveTypes/edit'">
+                        <NavLink title="Leave Type" :href="route('leaveTypes.index')" :active="$page.url == '/admin/leaveTypes/*'">
                             <template v-slot:icon>
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
