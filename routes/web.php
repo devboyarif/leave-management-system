@@ -8,6 +8,7 @@ Route::get('/', function () {
     return inertia('index');
 });
 
+include(base_path('routes/test.php'));
 include(base_path('routes/auth.php'));
 include(base_path('routes/admin.php'));
 include(base_path('routes/company.php'));

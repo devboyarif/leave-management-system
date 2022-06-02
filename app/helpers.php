@@ -43,21 +43,31 @@ function changeCurrentYear($date, $format = 'Y-m-d')
     return Carbon::parse($date)->year(now()->format('Y'))->format($format);
 }
 
-function getHolidays($country_code = 'bd'){
+function getHolidays($country_code = 'bd')
+{
     $api = config('kodebazar.google_api');
     $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.$country_code%23holiday%40group.v.calendar.google.com/events?key=$api";
 
     $response = Http::get($calendar_api);
-    return $response->json()['items'];
+    $holidays_list = $response->json()['items'];
 
+    $current_year_holidays = [];
 
+    foreach ($holidays_list as $holiday) {
+        if (currentYearData($holiday['start']['date'])) {
+            $current_year_holidays[] = [
+                'title' => $holiday['summary'],
+                'start' => $holiday['start']['date'],
+                'end' => $holiday['end']['date']
+            ];
+        }
+    }
 
-    // $api = "AIzaSyAUPpqerpKmENrKzgpr_pzcmiSKE58cA7k";
-    // $country_code = 'uk';
-    // $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.$country_code%23holiday%40group.v.calendar.google.com/events?key=$api";
+    return $current_year_holidays;
 }
 
-function currentYearData($data, $format = 'Y-m-d'){
+function currentYearData($data, $format = 'Y-m-d')
+{
     $date = Carbon::createFromFormat($format, $data)->format('Y');
 
     return $date == now()->format('Y') ? 1 : 0;

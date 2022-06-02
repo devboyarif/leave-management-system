@@ -22,7 +22,7 @@ class CreateHolidaysTable extends Migration
             $table->string('title');
             $table->date('start');
             $table->date('end');
-            $table->string('color')->default('#3c8dbc');
+            $table->string('color')->default('#ff0000');
             $table->timestamps();
         });
     }
