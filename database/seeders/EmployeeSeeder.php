@@ -21,7 +21,7 @@ class EmployeeSeeder extends Seeder
             'name' => 'Ariful Islam',
             'email' => 'arif@mail.com',
             'password' => bcrypt('password'),
-            'avatar' => asset('admin/img/default-user.png'),
+            'avatar' => 'admin/img/default-user.png',
             'role' => 'employee',
         ]);
 

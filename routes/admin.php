@@ -1,15 +1,11 @@
 <?php
 
-use Carbon\Carbon;
-use App\Models\Country;
-use App\Models\Holiday;
-use App\Models\Calendar;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\LeaveTypeController;
 
 Route::middleware('auth')->prefix('admin')->group(function () {
@@ -40,6 +36,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Leave Types
     Route::resource('/leaveTypes', LeaveTypeController::class);
+
+    // Holidays
+    Route::resource('/holidays', HolidayController::class);
 
     // Profile & Settings
     Route::controller(UserController::class)->group(function () {

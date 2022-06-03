@@ -72,3 +72,17 @@ function currentYearData($data, $format = 'Y-m-d')
 
     return $date == now()->format('Y') ? 1 : 0;
 }
+
+function diffBetweenDays($start_date, $end_date)
+{
+    $start_date = Carbon::parse(date('Y-m-d', strtotime($start_date)));
+    $end_date = Carbon::parse(date('Y-m-d', strtotime($end_date)));
+
+    return $start_date->diffInDays($end_date);
+}
+
+function formatTime($date, $format = 'Y-m-d')
+{
+    return Carbon::parse($date)->format($format);
+    // return Carbon::parse('2022-12-25')->format("D d M");
+}

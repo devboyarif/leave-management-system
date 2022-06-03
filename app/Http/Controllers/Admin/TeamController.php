@@ -25,7 +25,7 @@ class TeamController extends Controller
 
         $users = User::roleCompany()->get();
 
-        return inertia('team/index', [
+        return inertia('admin/team/index', [
             'teams' => $teams,
             'users' => $users,
             'filterUserId' => request('user_id'),

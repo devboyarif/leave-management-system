@@ -1,5 +1,5 @@
 <template>
-    <Head title="Company List"/>
+    <Head title="Admin List"/>
 
     <div class="row justify-content-center">
             <div class="col-12">
@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <input v-model="search" type="text" placeholder="Search.." class="form-control w-50">
-                            <Link :href="route('companies.create')" class="btn btn-primary">
+                            <Link :href="route('admins.create')" class="btn btn-primary">
                                 <i class="fa-solid fa-plus"></i>
                                 Create
                             </Link>
@@ -24,19 +24,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <template v-if="companies && companies.data.length">
-                                    <tr v-for="(user,index) in companies.data" :key="index">
+                                <template v-if="admins && admins.data.length">
+                                    <tr v-for="(user,index) in admins.data" :key="index">
                                         <td>
                                             <img class="rounded img-fluid avatar-img" :src="user.avatar" alt="" >
                                         </td>
                                         <td>{{ user.name }}</td>
                                         <td>{{ user.email }}</td>
                                         <td>
-                                            <Link :href="route('companies.edit',user.id)" class="btn btn-primary mx-1">
+                                            <Link :href="route('admins.edit',user.id)" class="btn btn-primary mx-1">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                             Edit
                                             </Link>
-                                            <a @click="deleteCompany(user.id)" href="#"
+                                            <a @click="deleteStudent(user.id)" href="#"
                                                 class="btn btn-danger mx-1">
                                                 <i class="fa-solid fa-trash-can"></i>
                                                 Delete</a>
@@ -52,7 +52,7 @@
                         </table>
 
                         <!-- Pagination  -->
-                        <Pagination :links="companies.links" />
+                        <Pagination :links="admins.links" />
                     </div>
                 </div>
             </div>
@@ -61,13 +61,13 @@
 
 
 <script>
-import Pagination from "../../Shared/Pagination.vue";
+import Pagination from "../../../Shared/Pagination.vue";
 import debounce from "lodash/debounce";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
     props: {
-        companies: Object,
+        admins: Object,
         filters: Object || Array,
     },
     components: {
@@ -80,9 +80,9 @@ export default {
         };
     },
     methods: {
-        deleteCompany(id) {
+        deleteStudent(id) {
             if (confirm("Are you sure to delete?")) {
-                Inertia.delete(route("companies.destroy", id));
+                Inertia.delete(route("admins.destroy", id));
             }
         },
     },

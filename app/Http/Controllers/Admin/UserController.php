@@ -34,7 +34,7 @@ class UserController extends Controller
                 'avatar' => $user->avatar,
             ]);
 
-        return inertia('user/index', [
+        return inertia('admin/user/index', [
             'admins' => $admins,
             'filters' => request()->only('search'),
         ]);
@@ -47,7 +47,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return inertia('user/create');
+        return inertia('admin/user/create');
     }
 
     /**
@@ -94,7 +94,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return inertia('user/edit', [
+        return inertia('admin/user/edit', [
             'user' => $user,
         ]);
     }
@@ -143,7 +143,7 @@ class UserController extends Controller
 
     public function profile()
     {
-        return inertia('user/profile', [
+        return inertia('admin/user/profile', [
             'user' => auth()->user(),
         ]);
     }

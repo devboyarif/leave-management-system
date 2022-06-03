@@ -14,6 +14,64 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
+
+    $holidays = Holiday::where('company_id', 3)->oldest('start')->get()->transform(function ($date) {
+        $date->format_start_date = formatTime($date->start, 'D d M');
+        $date->format_end_date = formatTime($date->end, 'D d M');
+        return $date;
+    });
+
+    return $holidays;
+
+
+
+    $formatedHolidays = $holidays->map(function ($data) {
+        $date->start = Carbon::parse($date->start)->format('Y-m-d');
+        $data->format_start_date = formatTime($date->start, 'D d M');
+
+        return $data;
+    });
+
+    return $formatedHolidays;
+
+
+    // return $date = Carbon::parse('2022-12-25')->format("D d M");
+
+
+
+
+    // $date = Carbon::parse(date('Y-m-d', strtotime('2022-12-25')));;
+
+    // return $date->format('D d M');
+    // return Carbon::tomorrow()->format('l');
+
+
+
+    // get from and throung date
+    $from_date = Carbon::parse(date('Y-m-d', strtotime('2022-12-25')));
+    $through_date = Carbon::parse(date('Y-m-d', strtotime('2022-12-27')));
+    // $from_date = Carbon::parse(date('Y-m-d', strtotime('2022-03-10')));
+    // $through_date = Carbon::parse(date('Y-m-d', strtotime('2022-03-12')));
+    // $from_date = '2022-03-10';
+    // $through_date = '2022-03-12';
+
+    // get total number of minutes between from and throung date
+    return  $shift_difference = $from_date->diffInDays($through_date);
+
+    // will output $shift_difference = 2
+
+
+
+    $then = "2022-06-01";
+    $now = Carbon::now()->toDateString();
+
+    return $now->diffInDays($then);
+    // {{ now()->diffInDays($car->buy_date) }}
+
+
+
+
+
     return getHolidays('usa');
     return $country = Country::where('code', 'bd')->first();
     return  strtolower('ASCKJJKLJHKJHJKH');

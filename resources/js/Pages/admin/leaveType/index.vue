@@ -98,7 +98,7 @@
 
 
 <script>
-import Pagination from "../../Shared/Pagination.vue";
+import Pagination from "../../../Shared/Pagination.vue";
 import debounce from "lodash/debounce";
 import { Inertia } from "@inertiajs/inertia";
 

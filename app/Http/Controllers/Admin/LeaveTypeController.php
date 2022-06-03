@@ -23,7 +23,7 @@ class LeaveTypeController extends Controller
         $leave_types = $leave_query->latest()->paginate(10);
         $users = User::roleCompany()->get();
 
-        return inertia('leaveType/index', [
+        return inertia('admin/leaveType/index', [
             'leave_types' => $leave_types,
             'users' => $users,
         ]);
@@ -33,7 +33,7 @@ class LeaveTypeController extends Controller
     {
         $users = User::roleCompany()->get();
 
-        return inertia('leaveType/create', [
+        return inertia('admin/leaveType/create', [
             'users' => $users,
         ]);
     }
@@ -60,7 +60,7 @@ class LeaveTypeController extends Controller
         $users = User::roleCompany()->get();
         $leaveType->load('company');
 
-        return inertia('leaveType/edit', [
+        return inertia('admin/leaveType/edit', [
             'users' => $users,
             'leaveType' => $leaveType,
         ]);

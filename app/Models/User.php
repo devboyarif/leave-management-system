@@ -86,4 +86,9 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Team::class, Company::class);
     }
+
+    public function holidays()
+    {
+        return $this->hasManyThrough(Holiday::class, Company::class);
+    }
 }

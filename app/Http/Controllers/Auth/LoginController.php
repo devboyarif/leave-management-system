@@ -24,7 +24,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             session()->flash('success', 'You have been successfully logged in!');
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/admin/dashboard');
         }
 
         return back()->withErrors([

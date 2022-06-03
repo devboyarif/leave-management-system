@@ -34,7 +34,7 @@ class EmployeeController extends Controller
                 'avatar' => $user->avatar,
             ]);
 
-        return inertia('employee/index', [
+        return inertia('admin/employee/index', [
             'employees' => $employees,
             'filters' => request()->only('search'),
         ]);
@@ -49,7 +49,7 @@ class EmployeeController extends Controller
     {
         $users = User::roleCompany()->get();
 
-        return inertia('employee/create', [
+        return inertia('admin/employee/create', [
             'users' => $users,
         ]);
     }
@@ -110,7 +110,7 @@ class EmployeeController extends Controller
         $users = User::roleCompany()->get();
         $teams = $employee->company->teams;
 
-        return inertia('employee/edit', [
+        return inertia('admin/employee/edit', [
             'user' => $user,
             'employee' => $employee,
             'users' => $users,

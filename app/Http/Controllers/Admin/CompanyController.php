@@ -36,7 +36,7 @@ class CompanyController extends Controller
                 'avatar' => $user->avatar,
             ]);
 
-        return inertia('company/index', [
+        return inertia('admin/company/index', [
             'companies' => $companies,
             'filters' => request()->only('search'),
         ]);
@@ -51,7 +51,7 @@ class CompanyController extends Controller
     {
         $countries = Country::all(['id', 'name']);
 
-        return inertia('company/create', [
+        return inertia('admin/company/create', [
             'countries' => $countries,
         ]);
     }
@@ -107,7 +107,7 @@ class CompanyController extends Controller
         $user = $company;
         $countries = Country::all(['id', 'name']);
 
-        return inertia('company/edit', [
+        return inertia('admin/company/edit', [
             'user' => $user,
             'country_id' => $user->company->country_id,
             'countries' => $countries,

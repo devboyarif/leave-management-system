@@ -23,7 +23,7 @@ class CompanySeeder extends Seeder
             'name' => 'Kodebazar',
             'email' => 'kodebazar@mail.com',
             'password' => bcrypt('password'),
-            'avatar' => asset('admin/img/default-user.png')
+            'avatar' => 'admin/img/default-user.png'
         ]);
         $company = Company::create([
             'user_id' => $user->id,
@@ -34,10 +34,12 @@ class CompanySeeder extends Seeder
         for ($i = 0; $i < count($holidays); $i++) {
             $holiday_data[] = [
                 'company_id' => $company->id,
-                'country_id' => $country->id,
                 'title' => $holidays[$i]['title'],
                 'start' => $holidays[$i]['start'],
                 'end' => $holidays[$i]['end'],
+                'days' => diffBetweenDays($holidays[$i]['start'], $holidays[$i]['end']),
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         }
 
@@ -53,7 +55,7 @@ class CompanySeeder extends Seeder
             'name' => 'Templatecookie',
             'email' => 'templatecookie@mail.com',
             'password' => bcrypt('password'),
-            'avatar' => asset('admin/img/default-user.png')
+            'avatar' => 'admin/img/default-user.png'
         ]);
         $company2 = Company::create([
             'user_id' => $user2->id,
@@ -65,10 +67,12 @@ class CompanySeeder extends Seeder
         for ($i = 0; $i < count($holidays2); $i++) {
             $holiday_data2[] = [
                 'company_id' => $company2->id,
-                'country_id' => $country2->id,
                 'title' => $holidays2[$i]['title'],
                 'start' => $holidays2[$i]['start'],
                 'end' => $holidays2[$i]['end'],
+                'days' => diffBetweenDays($holidays[$i]['start'], $holidays[$i]['end']),
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         }
 
@@ -84,7 +88,7 @@ class CompanySeeder extends Seeder
             'name' => 'Zakirsoft',
             'email' => 'zakirsoft@mail.com',
             'password' => bcrypt('password'),
-            'avatar' => asset('admin/img/default-user.png')
+            'avatar' => 'admin/img/default-user.png'
         ]);
         $company3 = Company::create([
             'user_id' => $user3->id,
@@ -96,10 +100,12 @@ class CompanySeeder extends Seeder
         for ($i = 0; $i < count($holidays3); $i++) {
             $holiday_data3[] = [
                 'company_id' => $company3->id,
-                'country_id' => $country3->id,
                 'title' => $holidays3[$i]['title'],
                 'start' => $holidays3[$i]['start'],
                 'end' => $holidays3[$i]['end'],
+                'days' => diffBetweenDays($holidays[$i]['start'], $holidays[$i]['end']),
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         }
 

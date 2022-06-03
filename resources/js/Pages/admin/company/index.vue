@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <input v-model="search" type="text" placeholder="Search.." class="form-control w-50">
-                            <Link :href="route('employees.create')" class="btn btn-primary">
+                            <Link :href="route('companies.create')" class="btn btn-primary">
                                 <i class="fa-solid fa-plus"></i>
                                 Create
                             </Link>
@@ -17,7 +17,6 @@
                         <table class="table ">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>SL</th>
                                     <th>Avatar</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -25,20 +24,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <template v-if="employees && employees.data.length">
-                                    <tr v-for="(user,index) in employees.data" :key="index">
-                                        <td>{{ index+1 }}</td>
+                                <template v-if="companies && companies.data.length">
+                                    <tr v-for="(user,index) in companies.data" :key="index">
                                         <td>
                                             <img class="rounded img-fluid avatar-img" :src="user.avatar" alt="" >
                                         </td>
                                         <td>{{ user.name }}</td>
                                         <td>{{ user.email }}</td>
                                         <td>
-                                            <Link :href="route('employees.edit',user.id)" class="btn btn-primary mx-1">
+                                            <Link :href="route('companies.edit',user.id)" class="btn btn-primary mx-1">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                             Edit
                                             </Link>
-                                            <a @click="deleteData(user.id)" href="#"
+                                            <a @click="deleteCompany(user.id)" href="#"
                                                 class="btn btn-danger mx-1">
                                                 <i class="fa-solid fa-trash-can"></i>
                                                 Delete</a>
@@ -54,7 +52,7 @@
                         </table>
 
                         <!-- Pagination  -->
-                        <Pagination :links="employees.links" />
+                        <Pagination :links="companies.links" />
                     </div>
                 </div>
             </div>
@@ -63,13 +61,13 @@
 
 
 <script>
-import Pagination from "../../Shared/Pagination.vue";
+import Pagination from "../../../Shared/Pagination.vue";
 import debounce from "lodash/debounce";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
     props: {
-        employees: Object,
+        companies: Object,
         filters: Object || Array,
     },
     components: {
@@ -82,9 +80,9 @@ export default {
         };
     },
     methods: {
-        deleteData(id) {
+        deleteCompany(id) {
             if (confirm("Are you sure to delete?")) {
-                Inertia.delete(route("employees.destroy", id));
+                Inertia.delete(route("companies.destroy", id));
             }
         },
     },
