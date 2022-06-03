@@ -3,27 +3,21 @@
     <Head title="Company Holidays" />
 
     <div class="row justify-content-center">
-        <!-- <div class="col-6">
-            <div class="card mt-3">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between">
-                        <span>Calendar</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <FullCalendar :options="calendarOptions" />
-                </div>
-            </div>
-        </div> -->
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <span>Official Holiday List</span>
-                        <button @click="showModal = true" class="btn btn-primary">
-                            <i class="fa-solid fa-plus"></i>
-                            Add Holiday
-                        </button>
+                        <div>
+                            <button @click="showCalendarModal = true" class="btn btn-info" type="button">
+                               <i class="fa-regular fa-calendar"></i>
+                                Show Calendar
+                            </button>
+                            <button @click="showModal = true" class="btn btn-primary ml-1" type="button">
+                                <i class="fa-solid fa-plus"></i>
+                                Add Holiday
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -65,8 +59,9 @@
         </div>
     </div>
 
+    <!-- Create or Edit Holiday Modal  -->
     <div v-if="showModal">
-        <transition name="modal">
+        <transition name="fade">
             <div class="modal-mask">
                 <div class="modal-wrapper">
                     <div class="modal-dialog" role="document">
@@ -129,12 +124,37 @@
             </div>
         </transition>
     </div>
+
+    <!-- Holiday Calendar Modal  -->
+    <div v-if="showCalendarModal">
+        <transition name="fade">
+            <div class="modal-mask">
+                <div class="modal-wrapper">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">
+                                    Official Holiday Calendar
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" @click="showCalendarModal = false">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                    <FullCalendar :options="calendarOptions" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+    </div>
 </template>
 
 <script>
-// import FullCalendar from "@fullcalendar/vue3";
-// import dayGridPlugin from "@fullcalendar/daygrid";
-// import interactionPlugin from "@fullcalendar/interaction";
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import dayjs from "dayjs";
@@ -147,10 +167,16 @@ export default {
     },
     components: {
         Datepicker,
-        // FullCalendar,
+        FullCalendar,
     },
     data() {
         return {
+            calendarOptions: {
+                plugins: [dayGridPlugin, interactionPlugin],
+                initialView: "dayGridMonth",
+                events: this.holidays,
+            },
+
             form: this.$inertia.form({
                 company_id: this.company.id,
                 title: "",
@@ -159,13 +185,9 @@ export default {
                 color: "#ff0000",
             }),
 
-            // calendarOptions: {
-            //     plugins: [dayGridPlugin, interactionPlugin],
-            //     initialView: "dayGridMonth",
-            //     events: this.holidays,
-            // },
             editMode: false,
             showModal: false,
+            showCalendarModal: false,
             holiday_id: null,
         };
     },
