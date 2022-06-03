@@ -14,6 +14,7 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
+    return getHolidays('indian');
 
     $holidays = Holiday::where('company_id', 3)->oldest('start')->get()->transform(function ($date) {
         $date->format_start_date = formatTime($date->start, 'D d M');

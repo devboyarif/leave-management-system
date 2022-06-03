@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CompanyController;
-use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\HolidayController;
+use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LeaveTypeController;
+use App\Http\Controllers\Admin\LeaveRequestController;
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/about', function () {
@@ -34,8 +35,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     // Teams
     Route::resource('/teams', TeamController::class);
 
-    // Leave Types
+    // Leave Types & Request
     Route::resource('/leaveTypes', LeaveTypeController::class);
+    Route::resource('/leaveRequests', LeaveRequestController::class);
 
     // Holidays
     Route::resource('/holidays', HolidayController::class);

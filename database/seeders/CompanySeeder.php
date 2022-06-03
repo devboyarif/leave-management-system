@@ -50,7 +50,7 @@ class CompanySeeder extends Seeder
         }
 
         // Company 2
-        $country2 = Country::inRandomOrder()->first();
+        $country2 = Country::where('code', 'in')->first();
         $user2 = User::create([
             'name' => 'Templatecookie',
             'email' => 'templatecookie@mail.com',
@@ -62,7 +62,7 @@ class CompanySeeder extends Seeder
             'country_id' => $country2->id,
         ]);
 
-        $holidays2 = getHolidays($country2->code);
+        $holidays2 = getHolidays('indian');
 
         for ($i = 0; $i < count($holidays2); $i++) {
             $holiday_data2[] = [
@@ -70,7 +70,7 @@ class CompanySeeder extends Seeder
                 'title' => $holidays2[$i]['title'],
                 'start' => $holidays2[$i]['start'],
                 'end' => $holidays2[$i]['end'],
-                'days' => diffBetweenDays($holidays[$i]['start'], $holidays[$i]['end']),
+                'days' => diffBetweenDays($holidays2[$i]['start'], $holidays2[$i]['end']),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
@@ -83,7 +83,7 @@ class CompanySeeder extends Seeder
         }
 
         // Company 3
-        $country3 = Country::inRandomOrder()->first();
+        $country3 = Country::where('code', 'us')->first();
         $user3 = User::create([
             'name' => 'Zakirsoft',
             'email' => 'zakirsoft@mail.com',
@@ -95,7 +95,7 @@ class CompanySeeder extends Seeder
             'country_id' => $country3->id,
         ]);
 
-        $holidays3 = getHolidays($country3->code);
+        $holidays3 = getHolidays('usa');
 
         for ($i = 0; $i < count($holidays3); $i++) {
             $holiday_data3[] = [
@@ -103,7 +103,7 @@ class CompanySeeder extends Seeder
                 'title' => $holidays3[$i]['title'],
                 'start' => $holidays3[$i]['start'],
                 'end' => $holidays3[$i]['end'],
-                'days' => diffBetweenDays($holidays[$i]['start'], $holidays[$i]['end']),
+                'days' => diffBetweenDays($holidays3[$i]['start'], $holidays3[$i]['end']),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

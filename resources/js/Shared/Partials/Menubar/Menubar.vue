@@ -91,13 +91,13 @@
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
                         </NavLink>
-                        <NavLink title="Leave Request" :href="route('companies.index')" :active="$page.component == 'company/index'">
+                        <NavLink title="Leave Request" :href="route('leaveRequests.index')" :active="$page.component == 'company/index'">
                             <template v-slot:icon>
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
                         </NavLink>
                     </Dropdown>
-                     <NavLink title="Holidays" :href="route('holidays.index')" :active="$page.url == '/admin/holidays/*'">
+                     <NavLink title="Holidays" :href="route('holidays.index')" :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
                         <template v-slot:icon>
                            <i class="fa-solid fa-h nav-icon"></i>
                         </template>
