@@ -11,7 +11,6 @@ class Holiday extends Model
 
     protected $fillable = [
         'company_id',
-        'country_id',
         'title',
         'start',
         'end',

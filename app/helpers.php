@@ -84,5 +84,4 @@ function diffBetweenDays($start_date, $end_date)
 function formatTime($date, $format = 'Y-m-d')
 {
     return Carbon::parse($date)->format($format);
-    // return Carbon::parse('2022-12-25')->format("D d M");
 }

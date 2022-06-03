@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\HolidaySaveRequest;
 use App\Models\Company;
 use App\Models\Holiday;
 use App\Models\User;
@@ -19,6 +20,21 @@ class HolidayController extends Controller
         ]);
     }
 
+    public function store(HolidaySaveRequest $request)
+    {
+        Holiday::create([
+            'company_id' => $request->company_id,
+            'title' => $request->title,
+            'start' => $request->start,
+            'end' => $request->end,
+            'days' => diffBetweenDays($request->start, $request->end),
+            'color' => $request->color,
+        ]);
+
+        session()->flash('success', 'Official holiday created successfully!');
+        return back();
+    }
+
     public function show(User $holiday)
     {
         $user = $holiday;
@@ -29,24 +45,32 @@ class HolidayController extends Controller
             return $date;
         });
 
-        // return [
-        //     'user' => $user,
-        //     'company' => $company,
-        //     'holidays' => $holidays,
-        // ];
-
         return inertia('admin/holiday/show', [
             'user' => $user,
             'company' => $company,
             'holidays' => $holidays,
         ]);
+    }
 
-
-        return $user;
-        $users = User::roleCompany()->with('company.country')->withCount('holidays')->latest()->paginate(10);
-
-        return inertia('admin/holiday/index', [
-            'users' => $users,
+    public function update(HolidaySaveRequest $request, Holiday $holiday)
+    {
+        $holiday->update([
+            'title' => $request->title,
+            'start' => $request->start,
+            'end' => $request->end,
+            'days' => diffBetweenDays($request->start, $request->end),
+            'color' => $request->color,
         ]);
+
+        session()->flash('success', 'Official holiday updated successfully!');
+        return back();
+    }
+
+    public function destroy(Holiday $holiday)
+    {
+        $holiday->delete();
+
+        session()->flash('success', 'Holiday deleted successfully!');
+        return back();
     }
 }
