@@ -40,10 +40,14 @@
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
+
+
+
                     <table class="table table-valign-middle">
                         <thead>
                             <tr>
                                 <th>Employee</th>
+                                <th>Leave Type</th>
                                 <th>Team</th>
                                 <th>Status</th>
                                 <th>More</th>
@@ -57,18 +61,29 @@
                                             class="img-circle img-size-32 mr-2">
                                         {{ leaveRequest.employee.user.name }}
                                     </td>
-                                    <td>$13 USD</td>
                                     <td>
-                                        <small class="text-success mr-1">
-                                            <i class="fas fa-arrow-up"></i>
-                                            12%
-                                        </small>
-                                        12,000 Sold
+                                        <span :style="{ background: leaveRequest.leave_type.color, border: '2px solid '+leaveRequest.leave_type.color }" class="leave-type-color">
+                                            {{ leaveRequest.leave_type.name }}
+                                        </span>
                                     </td>
                                     <td>
-                                        <a href="#" class="text-muted">
+                                        <a href="#">{{ leaveRequest.employee.team.name }}</a>
+                                    </td>
+                                    <td>
+                                        <span class="toCapitalFirst badge" :class="getBadgeType(leaveRequest.status)">
+                                            {{ leaveRequest.status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success-outline">
+                                            <i class="fa-solid fa-check fa-2x"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger-outline mx-1">
+                                            <i class="fa-solid fa-xmark fa-2x"></i>
+                                        </button>
+                                        <!-- <a href="#" class="text-muted">
                                             <i class="fas fa-search"></i>
-                                        </a>
+                                        </a> -->
                                     </td>
                                 </tr>
                             </template>
@@ -179,6 +194,15 @@ export default {
             this.filterForm.get(route("leaveRequests.index"));
             console.log(this.filterForm);
         },
+        getBadgeType(status) {
+            if (status == "pending") {
+                return "badge-warning";
+            } else if (status == "approved") {
+                return "badge-success";
+            } else {
+                return "badge-danger";
+            }
+        },
     },
     // watch: {
     //     search: debounce((value) => {
@@ -200,5 +224,11 @@ export default {
         height: 60px;
         width: 60px;
         object-fit: cover;
+    }
+
+    .leave-type-color {
+        border-radius: 30px;
+        padding: 5px;
+        color: #fff;
     }
 </style>

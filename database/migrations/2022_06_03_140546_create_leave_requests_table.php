@@ -23,8 +23,9 @@ class CreateLeaveRequestsTable extends Migration
             $table->foreignIdFor(LeaveType::class)->constrained()->cascadeOnDelete();
             $table->date('start');
             $table->date('end');
+            $table->integer('days');
             $table->text('reason');
-            $table->boolean('status');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

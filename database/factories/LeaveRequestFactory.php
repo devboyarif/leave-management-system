@@ -16,21 +16,18 @@ class LeaveRequestFactory extends Factory
      */
     public function definition()
     {
-        // $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
-        // $table->foreignIdFor(Employee::class)->constrained()->cascadeOnDelete();
-        // $table->foreignIdFor(LeaveType::class)->constrained()->cascadeOnDelete();
-        // $table->date('start');
-        // $table->date('end');
-        // $table->text('reason');
-        // $table->boolean('status');
+        $start_date = $this->faker->dateTimeBetween('-1 week', '+1 week')->format('Y-m-d');
+        $end_date = $this->faker->dateTimeBetween($start_date, '+1 week')->format('Y-m-d');
+
         return [
             'company_id' => Company::inRandomOrder()->value('id'),
             'employee_id' => Employee::inRandomOrder()->value('id'),
             'leave_type_id' => LeaveType::inRandomOrder()->value('id'),
-            'start' => $this->faker->dateTimeBetween('-1 year', '+1 year'),
-            'end' => $this->faker->dateTimeBetween('-1 year', '+1 year'),
+            'start' => $start_date,
+            'end' => $end_date,
+            'days' => diffBetweenDays($start_date, $end_date),
             'reason' => $this->faker->sentence,
-            'status' => $this->faker->boolean,
+            'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
         ];
     }
 }
