@@ -38,6 +38,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     // Leave Types & Request
     Route::resource('/leaveTypes', LeaveTypeController::class);
     Route::resource('/leaveRequests', LeaveRequestController::class);
+    Route::post('/status/change', [LeaveRequestController::class, 'statusChange'])->name('leaveRequests.status');
 
     // Holidays
     Route::resource('/holidays', HolidayController::class);

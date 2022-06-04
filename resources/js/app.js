@@ -29,6 +29,8 @@ import Loading from "./Shared/Loading.vue";
 // 3rd party plugins
 import FloatingVue from 'floating-vue'
 import 'floating-vue/dist/style.css'
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const app = createApp({
     render: () => h(InertiaApp, {
@@ -50,7 +52,9 @@ const app = createApp({
     })
 });
 
+// 3rd party plugins
 app.use(FloatingVue)
+app.use(VueSweetalert2);
 
 
 app.use(InertiaPlugin)

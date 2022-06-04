@@ -72,18 +72,7 @@
                                         </span>
                                     </td>
                                     <td class="d-flex">
-                                        <button v-tooltip="'Accept Request'" class="btn btn-sm">
-                                            <i class="fa-solid fa-check fa-2x accept-request"></i>
-                                        </button>
-                                        <button v-tooltip="'Reject Request'" class="btn btn-sm mx-1">
-                                            <i class="fa-solid fa-xmark fa-2x reject-request"></i>
-                                        </button>
-                                        <button v-tooltip="'Edit Request'" class="btn btn-sm mx-1">
-                                            <i class="fa-solid fa-pen-to-square fa-2x edit-request"></i>
-                                        </button>
-                                        <button v-tooltip="'Delete Request'" class="btn btn-sm mx-1">
-                                            <i class="fa-solid fa-trash-can fa-2x delete-request"></i>
-                                        </button>
+                                       <Actions :leaveRequest="leaveRequest" />
                                     </td>
                                 </tr>
                             </template>
@@ -99,57 +88,6 @@
                     <Pagination :links="leaveRequests.links" />
                 </div>
             </div>
-            <!-- <div class="card mt-3">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between">
-                        <span>Leave Request List</span>
-
-                    </div>
-                    <input v-model="search" type="text" placeholder="Search.." class="form-control w-50">
-                            <Link :href="route('leaveRequests.create')" class="btn btn-primary">
-                                <i class="fa-solid fa-plus"></i>
-                                Create
-                            </Link>
-                </div>
-                <div class="card-body">
-                    <table class="table ">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Employee</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template v-if="leaveRequests && leaveRequests.data.length">
-                                <tr v-for="(leaveRequest,index) in leaveRequests.data" :key="index">
-
-
-
-                                    <td>
-                                            <Link :href="route('leaveRequests.edit',user.id)" class="btn btn-primary mx-1">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                            Edit
-                                            </Link>
-                                            <a @click="deleteCompany(user.id)" href="#"
-                                                class="btn btn-danger mx-1">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                                Delete</a>
-                                        </td>
-                                </tr>
-                            </template>
-                            <tr v-else>
-                                <td colspan="5" class="text-center">
-                                    <h3>No User Found</h3>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <Pagination :links="leaveRequests.links" />
-                </div>
-            </div> -->
         </div>
     </div>
     <div class="row justify-content-center" v-else>
@@ -164,6 +102,7 @@
 import Pagination from "../../../Shared/Pagination.vue";
 import debounce from "lodash/debounce";
 import { Inertia } from "@inertiajs/inertia";
+import Actions from "../../../Shared/Admin/LeaveRequest/Status.vue";
 
 export default {
     props: {
@@ -175,6 +114,7 @@ export default {
     components: {
         Pagination,
         Inertia,
+        Actions,
     },
     data() {
         return {
@@ -226,25 +166,10 @@ export default {
         object-fit: cover;
     }
 
-    .leave-type-color {
+     .leave-type-color {
         border-radius: 30px;
         padding: 2px 5px;
             font-weight: 500;
         color: #fff;
-    }
-
-    .accept-request {
-        color: #28a745;
-    }
-
-    .reject-request {
-        color: #dc3545;
-    }
-
-    .edit-request {
-        color: #007bff;
-    }
-    .delete-request {
-        color: #dc3545;
     }
 </style>

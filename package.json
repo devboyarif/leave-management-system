@@ -32,6 +32,7 @@
         "dayjs": "^1.11.2",
         "floating-vue": "^2.0.0-beta.17",
         "vue": "^3.2.26",
+        "vue-sweetalert2": "^5.0.5",
         "vue3-apexcharts": "^1.4.1",
         "vue3-click-away": "^1.2.1"
     }

@@ -17,8 +17,6 @@ class LeaveRequestController extends Controller
      */
     public function index(Request $request)
     {
-        // return request('leave_type_id');
-        // return $request->all();
         $leave_query = LeaveRequest::query();
 
         if (request('user_id') && request('user_id') != 'all') {
@@ -109,8 +107,23 @@ class LeaveRequestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(LeaveRequest $leaveRequest)
     {
-        //
+        $leaveRequest->delete();
+
+        session()->flash('success', 'Leave Request deleted successfully');
+        return back();
+    }
+
+    public function statusChange(Request $request)
+    {
+        // return $request;
+        $leave_request = LeaveRequest::findOrFail($request->id);
+        $leave_request->update([
+            'status' => $request->status,
+        ]);
+
+        session()->flash('success', 'Leave Request ' . $request->status . ' successfully');
+        return back();
     }
 }
