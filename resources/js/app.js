@@ -19,11 +19,16 @@ import {
 const el = document.getElementById('app');
 const data = JSON.parse(el.dataset.page);
 
+// Made components available globally
 import Layout from "./Shared/Layout/Default.vue";
 import AuthLayout from "./Shared/Layout/Auth.vue";
 import ErrorMessage from "./Shared/Forms/ErrorMessage.vue";
 import Label from "./Shared/Forms/Label.vue";
 import Loading from "./Shared/Loading.vue";
+
+// 3rd party plugins
+import FloatingVue from 'floating-vue'
+import 'floating-vue/dist/style.css'
 
 const app = createApp({
     render: () => h(InertiaApp, {
@@ -44,6 +49,9 @@ const app = createApp({
         },
     })
 });
+
+app.use(FloatingVue)
+
 
 app.use(InertiaPlugin)
     .mixin({

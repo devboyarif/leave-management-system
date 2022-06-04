@@ -40,9 +40,6 @@
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
-
-
-
                     <table class="table table-valign-middle">
                         <thead>
                             <tr>
@@ -50,7 +47,7 @@
                                 <th>Leave Type</th>
                                 <th>Team</th>
                                 <th>Status</th>
-                                <th>More</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,16 +71,19 @@
                                             {{ leaveRequest.status }}
                                         </span>
                                     </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-success-outline">
-                                            <i class="fa-solid fa-check fa-2x"></i>
+                                    <td class="d-flex">
+                                        <button v-tooltip="'Accept Request'" class="btn btn-sm">
+                                            <i class="fa-solid fa-check fa-2x accept-request"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-danger-outline mx-1">
-                                            <i class="fa-solid fa-xmark fa-2x"></i>
+                                        <button v-tooltip="'Reject Request'" class="btn btn-sm mx-1">
+                                            <i class="fa-solid fa-xmark fa-2x reject-request"></i>
                                         </button>
-                                        <!-- <a href="#" class="text-muted">
-                                            <i class="fas fa-search"></i>
-                                        </a> -->
+                                        <button v-tooltip="'Edit Request'" class="btn btn-sm mx-1">
+                                            <i class="fa-solid fa-pen-to-square fa-2x edit-request"></i>
+                                        </button>
+                                        <button v-tooltip="'Delete Request'" class="btn btn-sm mx-1">
+                                            <i class="fa-solid fa-trash-can fa-2x delete-request"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             </template>
@@ -228,7 +228,23 @@ export default {
 
     .leave-type-color {
         border-radius: 30px;
-        padding: 5px;
+        padding: 2px 5px;
+            font-weight: 500;
         color: #fff;
+    }
+
+    .accept-request {
+        color: #28a745;
+    }
+
+    .reject-request {
+        color: #dc3545;
+    }
+
+    .edit-request {
+        color: #007bff;
+    }
+    .delete-request {
+        color: #dc3545;
     }
 </style>
