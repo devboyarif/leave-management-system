@@ -31,6 +31,7 @@ import FloatingVue from 'floating-vue'
 import 'floating-vue/dist/style.css'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import Toaster from "@meforma/vue-toaster";
 
 const app = createApp({
     render: () => h(InertiaApp, {
@@ -55,13 +56,30 @@ const app = createApp({
 // 3rd party plugins
 app.use(FloatingVue)
 app.use(VueSweetalert2);
-
+app.use(Toaster, {
+    position: 'top-right',
+    duration: 5000,
+})
 
 app.use(InertiaPlugin)
     .mixin({
         methods: {
-            route: window.route
-        }
+            route: window.route,
+            toastSuccess(message = 'Action completed successfully') {
+                this.$toast.success(message);
+            },
+            toastError(message = 'Something went wrong') {
+                this.$toast.error(message);
+            },
+            toastWarning(message = 'Something went wrong') {
+                this.$toast.warning(message);
+            }
+        },
+        computed: {
+            pageFlashes() {
+                return this.$page.props.flash
+            }
+        },
     })
     .component('Head', Head)
     .component('Link', Link)

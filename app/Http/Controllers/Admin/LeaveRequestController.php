@@ -123,7 +123,7 @@ class LeaveRequestController extends Controller
             'status' => $request->status,
         ]);
 
-        session()->flash('success', 'Leave Request ' . $request->status . ' successfully');
+        session()->flash('error', 'Leave Request ' . $request->status . ' successfully');
         return back();
     }
 }

@@ -8,14 +8,6 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div v-if="$page.props.flash.success" class="alert alert-success" role="alert">
-                        {{ $page.props.flash.success }}
-                    </div>
-                </div>
-            </div>
-
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
@@ -36,6 +28,28 @@ export default {
         Navbar,
         Menubar,
         Breadcrumb,
+    },
+    watch: {
+        pageFlashes: {
+            handler(flashes) {
+                if (flashes.success) {
+                    this.toastSuccess(flashes.success);
+                }
+                if (flashes.error) {
+                    this.toastError(flashes.error);
+                }
+                if (flashes.warning) {
+                    this.toastWarning(flashes.warning);
+                }
+                // console.log(flashes.success);
+                // alert();
+                // _.each(flashes, (flash, index) => {
+                //     this.$toasted.global[index](flash);
+                //     this.pageFlashes = "EMPTY";
+                // });
+            },
+            deep: true,
+        },
     },
 };
 </script>
