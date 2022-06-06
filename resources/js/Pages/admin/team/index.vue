@@ -166,12 +166,6 @@ export default {
             this.filterForm.get(route("teams.index"));
         },
     },
-    mounted() {
-        // if (this.users.length) {
-        //     this.filterForm.user_id = this.users[0].id;
-        //     this.companyWiseTeam();
-        // }
-    },
     // watch: {
     //     search: debounce((value) => {
     //         Inertia.get(

@@ -121,8 +121,6 @@ export default {
         display: inline-block;
         width: 35px;
         height: 19px;
-        /* width: 60px;
-                                                                                                                                                height: 34px; */
     }
 
     /* Hide default HTML checkbox */

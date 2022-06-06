@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\LeaveRequestCreateRequest;
 use App\Models\LeaveType;
 
 class LeaveRequestController extends Controller
@@ -24,7 +25,6 @@ class LeaveRequestController extends Controller
         }
 
         $leave_requests = $leave_query->with(['employee.user', 'employee.team', 'leaveType'])->latest()->paginate(10);
-        // $leave_requests = $leave_query->with(['employee.{user,team}', 'leaveType'])->latest()->paginate(10);
 
         $users = User::roleCompany()->get();
 
@@ -35,15 +35,6 @@ class LeaveRequestController extends Controller
                 'user_id' => request('user_id'),
             ],
         ]);
-
-
-
-
-        return $leave_requests = LeaveRequest::latest()->paginate(10);
-
-        return inertia('admin/leaveRequest/index', [
-            'leave_requests' => $leave_requests,
-        ]);
     }
 
     /**
@@ -53,18 +44,34 @@ class LeaveRequestController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::roleCompany()->get();
+
+        return inertia('admin/leaveRequest/create', [
+            'users' => $users,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  LeaveRequestCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LeaveRequestCreateRequest $request)
     {
-        //
+        LeaveRequest::create([
+            'company_id' => getCompany($request->user_id)->id,
+            'employee_id' => $request->employee_id,
+            'leave_type_id' => $request->leave_type_id,
+            'start' => $request->start,
+            'end' => $request->end,
+            'days' => diffBetweenDays($request->start, $request->end),
+            'reason' => $request->reason,
+            'status' => $request->status,
+        ]);
+
+        session()->flash('success', 'Leave request created successfully!');
+        return redirect_to('leaveRequests.index');
     }
 
     /**
@@ -117,7 +124,6 @@ class LeaveRequestController extends Controller
 
     public function statusChange(Request $request)
     {
-        // return $request;
         $leave_request = LeaveRequest::findOrFail($request->id);
         $leave_request->update([
             'status' => $request->status,

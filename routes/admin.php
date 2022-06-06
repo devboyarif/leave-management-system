@@ -27,7 +27,11 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Companies
     Route::resource('/companies', CompanyController::class);
-    Route::get('/companies/teams/{user}', [CompanyController::class, 'companiesTeams'])->name('companies.teams');
+    Route::controller(CompanyController::class)->group(function () {
+        Route::get('/companies/teams/{user}', 'companiesTeams')->name('companies.teams');
+        Route::get('/companies/leaveTypes/{user}', 'companiesLeaveTypes')->name('companies.leaveTypes');
+        Route::get('/companies/employees/{user}', 'companiesEmployees')->name('companies.employees');
+    });
 
     // Employees
     Route::resource('/employees', EmployeeController::class);

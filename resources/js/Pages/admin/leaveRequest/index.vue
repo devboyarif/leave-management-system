@@ -29,14 +29,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-0">
-                    <h3 class="card-title">Leave Request List</h3>
-                    <div class="card-tools">
-                        <a href="#" class="btn btn-tool btn-sm">
-                            <i class="fas fa-download"></i>
-                        </a>
-                        <a href="#" class="btn btn-tool btn-sm">
-                            <i class="fas fa-bars"></i>
-                        </a>
+                    <div class="d-flex justify-content-between">
+                        <h3 class="card-title">Leave Request List</h3>
+                        <Link :href="route('leaveRequests.create')" class="btn btn-primary">
+                            <i class="fa-solid fa-plus"></i>
+                            Create a new request
+                        </Link>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">

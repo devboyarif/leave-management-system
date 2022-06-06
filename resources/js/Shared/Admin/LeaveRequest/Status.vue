@@ -35,27 +35,24 @@ export default {
         },
         editData() {},
         deleteData() {
-            // this.$toast.success(`Hey! I'm here`);
-            // this.toastSuccess();
-            // this.toastError();
-            // this.toastError();
-            // this.showSweetAlert();
-            // this.$swal({
-            //     title: "Are you sure?",
-            //     text: "You won't be able to revert this!",
-            //     icon: "warning",
-            //     showCancelButton: true,
-            //     confirmButtonColor: "#3085d6",
-            //     cancelButtonColor: "#d33",
-            //     confirmButtonText: "Yes, delete it!",
-            // }).then((result) => {
-            //     console.log(result);
-            //     if (result.isConfirmed) {
-            //         Inertia.delete(
-            //             route("leaveRequests.destroy", this.leaveRequest.id)
-            //         );
-            //     }
-            // });
+            this.$swal({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Inertia.delete(
+                        route("leaveRequests.destroy", this.leaveRequest.id),
+                        {
+                            preserveScroll: true,
+                        }
+                    );
+                }
+            });
         },
     },
 };

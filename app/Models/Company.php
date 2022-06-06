@@ -40,4 +40,9 @@ class Company extends Model
     {
         return $this->hasMany(Holiday::class, 'company_id');
     }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'company_id');
+    }
 }

@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use App\Models\Company;
+use App\Models\Employee;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 
@@ -19,6 +20,11 @@ function uploadFileToPublic(string $path, $file)
 function getCompany($user_id)
 {
     return Company::where('user_id', $user_id)->firstOrFail();
+}
+
+function getEmployee($user_id)
+{
+    return Employee::where('user_id', $user_id)->firstOrFail();
 }
 
 function strSlug($name)

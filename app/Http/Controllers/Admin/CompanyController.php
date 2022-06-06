@@ -172,4 +172,24 @@ class CompanyController extends Controller
             'teams' => $teams,
         ]);
     }
+
+    public function companiesLeaveTypes(User $user)
+    {
+        $leaveTypes = $user->company->leaveTypes;
+
+        return response()->json([
+            'success' => true,
+            'leaveTypes' => $leaveTypes,
+        ]);
+    }
+
+    public function companiesEmployees(User $user)
+    {
+        $employeesUsers = $user->company->employees->load('user');
+
+        return response()->json([
+            'success' => true,
+            'employeesUsers' => $employeesUsers,
+        ]);
+    }
 }
