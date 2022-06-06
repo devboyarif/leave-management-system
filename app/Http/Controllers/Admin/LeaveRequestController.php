@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Employee;
+use App\Models\LeaveType;
 use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\LeaveRequestCreateRequest;
-use App\Models\LeaveType;
+use App\Http\Requests\Admin\LeaveRequestSaveRequest;
 
 class LeaveRequestController extends Controller
 {
@@ -54,10 +55,10 @@ class LeaveRequestController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  LeaveRequestCreateRequest  $request
+     * @param  LeaveRequestSaveRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LeaveRequestCreateRequest $request)
+    public function store(LeaveRequestSaveRequest $request)
     {
         LeaveRequest::create([
             'company_id' => getCompany($request->user_id)->id,
@@ -91,21 +92,44 @@ class LeaveRequestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(LeaveRequest $leaveRequest)
     {
-        //
+        $company_id = $leaveRequest->company_id;
+        $leaveTypes = LeaveType::where('company_id', $company_id)->get(['id', 'name']);
+        $employeesUsers = Employee::with('user')->where('company_id', $company_id)->get(['id', 'user_id']);
+        $users = User::roleCompany()->get();
+        $leaveRequest['user_id'] = getUserByCompanyId($leaveRequest->company_id)->id;
+
+        return inertia('admin/leaveRequest/edit', [
+            'leaveRequest' => $leaveRequest,
+            'users' => $users,
+            'leaveTypes' => $leaveTypes,
+            'employeesUsers' => $employeesUsers,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  LeaveRequestSaveRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LeaveRequestSaveRequest $request, LeaveRequest $leaveRequest)
     {
-        //
+        $leaveRequest->update([
+            'company_id' => getCompany($request->user_id)->id,
+            'employee_id' => $request->employee_id,
+            'leave_type_id' => $request->leave_type_id,
+            'start' => $request->start,
+            'end' => $request->end,
+            'days' => diffBetweenDays($request->start, $request->end),
+            'reason' => $request->reason,
+            'status' => $request->status,
+        ]);
+
+        session()->flash('success', 'Leave request updated successfully!');
+        return redirect_to('leaveRequests.index');
     }
 
     /**

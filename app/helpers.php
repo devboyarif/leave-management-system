@@ -27,6 +27,16 @@ function getEmployee($user_id)
     return Employee::where('user_id', $user_id)->firstOrFail();
 }
 
+function getUserByCompanyId($id)
+{
+    return Company::where('id', $id)->firstOrFail()->user;
+}
+
+function getUserByEmployeeId($id)
+{
+    return Employee::where('id', $id)->firstOrFail()->user;
+}
+
 function strSlug($name)
 {
     return Str::slug($name);

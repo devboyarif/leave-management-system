@@ -5,7 +5,7 @@
     <button v-if="leaveRequest.status == 'pending' || leaveRequest.status == 'approved'" @click="statusChange('rejected')" v-tooltip="'Reject Request'" class="btn btn-sm mx-1">
         <i class="fa-solid fa-xmark fa-2x reject-request"></i>
     </button>
-    <button @click="editData('edit')" v-tooltip="'Edit Request'" class="btn btn-sm mx-1">
+    <button @click="editData(leaveRequest.id)" v-tooltip="'Edit Request'" class="btn btn-sm mx-1">
         <i class="fa-solid fa-pen-to-square fa-2x edit-request"></i>
     </button>
     <button @click="deleteData()" v-tooltip="'Delete Request'" class="btn btn-sm mx-1">
@@ -33,7 +33,9 @@ export default {
                 status: status,
             });
         },
-        editData() {},
+        editData(leaveRequestId) {
+            Inertia.get(route("leaveRequests.edit", leaveRequestId));
+        },
         deleteData() {
             this.$swal({
                 title: "Are you sure?",

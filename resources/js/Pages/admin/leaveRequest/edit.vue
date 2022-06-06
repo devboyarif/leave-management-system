@@ -1,5 +1,4 @@
 <template>
-
     <Head title="Leave Request Create" />
     <div class="row justify-content-center">
         <div class="col-4">
@@ -19,7 +18,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form @submit.prevent="createData">
+                    <form @submit.prevent="updateData">
                         <div class="mb-3 row">
                             <div class="col-md-4">
                                 <Label name="Company" />
@@ -120,6 +119,18 @@ export default {
             type: Array,
             required: true,
         },
+        leaveRequest: {
+            type: Object,
+            required: true,
+        },
+        leaveTypes: {
+            type: Array,
+            required: true,
+        },
+        employeesUsers: {
+            type: Array,
+            required: true,
+        },
     },
     components: {
         Datepicker,
@@ -127,22 +138,22 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                user_id: "",
-                leave_type_id: "",
-                employee_id: "",
-                start: "",
-                end: "",
-                reason: "",
-                status: "pending",
+                user_id: this.leaveRequest.user_id,
+                leave_type_id: this.leaveRequest.leave_type_id,
+                employee_id: this.leaveRequest.employee_id,
+                start: dayjs(this.leaveRequest.start).format("YYYY-MM-DD"),
+                end: dayjs(this.leaveRequest.end).format("YYYY-MM-DD"),
+                reason: this.leaveRequest.reason,
+                status: this.leaveRequest.status,
             }),
 
-            leaveTypes: [],
-            employeesUsers: [],
+            leaveTypes: this.leaveTypes,
+            employeesUsers: this.employeesUsers,
         };
     },
     methods: {
-        createData() {
-            this.form.post(route("leaveRequests.store"));
+        updateData() {
+            this.form.put(route("leaveRequests.update", this.leaveRequest.id));
         },
         statusChange(event) {
             this.form.status = event.target.checked;
@@ -150,6 +161,7 @@ export default {
         async fetchCompanyWiseData() {
             this.leaveTypes = [];
             this.employeesUsers = [];
+
             let leaveTypesData = await axios.get(
                 route("companies.leaveTypes", this.form.user_id)
             );
