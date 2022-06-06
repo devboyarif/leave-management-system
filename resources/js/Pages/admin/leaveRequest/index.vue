@@ -3,7 +3,7 @@
     <Head title="Company List" />
 
     <div class="row justify-content-center">
-        <div class="col-12 mb-3">
+        <div class="col-12 my-5">
             <div class="row justify-content-center">
                 <div class="col-12 ">
                     <div class="row justify-content-center">
@@ -44,6 +44,7 @@
                                 <th>Employee</th>
                                 <th>Leave Type</th>
                                 <th>Team</th>
+                                <th>Period</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -55,6 +56,7 @@
                                         <img :src="leaveRequest.employee.user.avatar" alt="Product 1"
                                             class="img-circle img-size-32 mr-2">
                                         {{ leaveRequest.employee.user.name }}
+                                        (<small v-tooltip="'Company Name'">{{ leaveRequest.company.user.name }}</small>)
                                     </td>
                                     <td>
                                         <span :style="{ background: leaveRequest.leave_type.color, border: '2px solid '+leaveRequest.leave_type.color }" class="leave-type-color">
@@ -63,6 +65,13 @@
                                     </td>
                                     <td>
                                         <a href="#">{{ leaveRequest.employee.team.name }}</a>
+                                    </td>
+                                    <td>
+                                        {{ startDate(leaveRequest.start_date) }} - {{ endDate(leaveRequest.end_date) }}
+
+                                         (<span class="text-danger ml-1">
+                                        {{ leaveRequest.days }} Day
+                                    </span>)
                                     </td>
                                     <td>
                                         <span class="toCapitalFirst badge" :class="getBadgeType(leaveRequest.status)">
@@ -101,6 +110,7 @@ import Pagination from "../../../Shared/Pagination.vue";
 import debounce from "lodash/debounce";
 import { Inertia } from "@inertiajs/inertia";
 import Actions from "../../../Shared/Admin/LeaveRequest/Status.vue";
+import dayjs from "dayjs";
 
 export default {
     props: {
@@ -140,6 +150,12 @@ export default {
             } else {
                 return "badge-danger";
             }
+        },
+        startDate(Date) {
+            return dayjs(Date).format("DD MMM, YYYY");
+        },
+        endDate(Date) {
+            return dayjs(Date).format("DD MMM, YYYY");
         },
     },
     // watch: {

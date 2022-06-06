@@ -27,7 +27,7 @@
                                  <template v-if="users && users.data.length">
                                     <tr v-for="(user,index) in users.data" :key="index">
                                         <td>{{ user.name }}</td>
-                                        <td>
+                                        <td v-if="user.company.country">
                                             {{ user.company.country.name }}
                                         </td>
                                         <td>
