@@ -52,20 +52,13 @@
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button> -->
 
-                                 <button @click="editData(holiday)" v-tooltip="'Edit Holiday'" class="btn btn-sm">
+                                 <button @click="editData(holiday)" v-tooltip="'Edit Holiday'" class="btn btn-sm  pl-0">
                                     <EditIcon/>
                                 </button>
                                  <button @click="deleteData(holiday.id)" v-tooltip="'Delete Holiday'" class="btn btn-sm">
                                     <DeleteIcon/>
                                 </button>
 
-
-                                 <!-- <Link :href="route('employees.edit',user.id)" v-tooltip="'Edit Employee'" class="btn btn-sm mx-1">
-                                    <EditIcon/>
-                                </Link>
-                                <button @click="deleteData(user.id)" v-tooltip="'Delete Employee'" class="btn btn-sm mx-1">
-                                    <DeleteIcon/>
-                                </button> -->
                             </div>
                         </div>
                     </div>

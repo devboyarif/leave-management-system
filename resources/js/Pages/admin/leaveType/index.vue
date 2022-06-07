@@ -62,10 +62,10 @@
                                             </span>
                                         </td>
                                         <td class="d-flex">
-                                            <Link :href="route('leaveTypes.edit',leave_type.id)" v-tooltip="'Edit Leave Type'" class="btn btn-sm mx-1">
+                                            <Link :href="route('leaveTypes.edit',leave_type.id)" v-tooltip="'Edit Leave Type'" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </Link>
-                                            <button @click="deleteData(leave_type.id)" v-tooltip="'Delete Leave Type'" class="btn btn-sm mx-1">
+                                            <button @click="deleteData(leave_type.id)" v-tooltip="'Delete Leave Type'" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>

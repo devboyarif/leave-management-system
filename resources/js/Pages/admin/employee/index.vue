@@ -32,10 +32,10 @@
                                         </td>
                                         <td>{{ user.email }}</td>
                                         <td class="d-flex">
-                                            <Link :href="route('employees.edit',user.id)" v-tooltip="'Edit Employee'" class="btn btn-sm mx-1">
+                                            <Link :href="route('employees.edit',user.id)" v-tooltip="'Edit Employee'" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </Link>
-                                            <button @click="deleteData(user.id)" v-tooltip="'Delete Employee'" class="btn btn-sm mx-1">
+                                            <button @click="deleteData(user.id)" v-tooltip="'Delete Employee'" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>

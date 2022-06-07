@@ -30,10 +30,10 @@
                                         <td>{{ team.company.user.name }}</td>
                                         <td>{{ team.name }}</td>
                                         <td class="d-flex">
-                                            <button @click="editTeam(team)" v-tooltip="'Delete Leave Type'" class="btn btn-sm mx-1">
+                                            <button @click="editTeam(team)" v-tooltip="'Delete Leave Type'" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </button>
-                                            <button @click="deleteData(team.id)" v-tooltip="'Delete Leave Type'" class="btn btn-sm mx-1">
+                                            <button @click="deleteData(team.id)" v-tooltip="'Delete Leave Type'" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>

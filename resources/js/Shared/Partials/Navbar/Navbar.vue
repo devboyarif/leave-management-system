@@ -11,9 +11,6 @@
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Contact</a>
             </li>
-            <pre>
-                {{ $page.url }}
-            </pre>
         </ul>
 
         <!-- Right navbar links -->
@@ -27,17 +24,17 @@
 </template>
 
 <script>
-import QuickAction from './QuickAction.vue';
-import LanguageSwitcher from './LanguageSwitcher.vue';
-import Appearance from './Appearance.vue';
-import UserMenu from './UserMenu.vue';
+import QuickAction from "./QuickAction.vue";
+import LanguageSwitcher from "./LanguageSwitcher.vue";
+import Appearance from "./Appearance.vue";
+import UserMenu from "./UserMenu.vue";
 
 export default {
     components: {
         QuickAction,
         LanguageSwitcher,
         Appearance,
-        UserMenu
-    }
-}
+        UserMenu,
+    },
+};
 </script>

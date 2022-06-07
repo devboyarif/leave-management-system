@@ -35,7 +35,7 @@
                                         </td>
                                         <td>
                                             <Link :href="route('holidays.show',user.id)"
-                                                class="btn btn-info mx-1">
+                                                class="btn btn-info">
                                             <i class="fa-solid fa-eye"></i>
                                             Show Holidays
                                             </Link>
@@ -51,7 +51,7 @@
                         </table>
 
                         <!-- Pagination  -->
-                        <Pagination v-if="users.data.length > 10" :links="users.links" />
+                        <Pagination :links="users.links" />
                     </div>
                 </div>
             </div>

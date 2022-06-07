@@ -42,7 +42,7 @@
                            <i class="fa-solid fa-gauge-high nav-icon"></i>
                         </template>
                     </NavLink>
-                    <Dropdown title="Pages" :active="$page.component == 'about' || $page.component == 'contact'">
+                    <!-- <Dropdown title="Test" :active="$page.component == 'about' || $page.component == 'contact'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-cube nav-icon"></i>
                         </template>
@@ -56,7 +56,7 @@
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
                         </NavLink>
-                    </Dropdown>
+                    </Dropdown> -->
                     <Dropdown title="Users" :active="$page.url == '/admin/admins/*' || $page.url == '/admin/companies/*' || $page.url == '/admin/employees/*'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-user-group nav-icon"></i>
@@ -79,7 +79,7 @@
                     </Dropdown>
                     <NavLink title="Team" :href="route('teams.index')" :active="$page.url == '/admin/teams'">
                         <template v-slot:icon>
-                           <i class="fa-solid fa-gauge-high nav-icon"></i>
+                           <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
                     </NavLink>
                      <Dropdown title="Leave" :active="$page.url == '/admin/leaveTypes/*'">

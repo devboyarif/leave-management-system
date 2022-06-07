@@ -2,13 +2,13 @@
     <button v-if="leaveRequest.status == 'pending' || leaveRequest.status == 'rejected'" @click="statusChange('approved')" v-tooltip="'Accept Request'" class="btn btn-sm">
         <i class="fa-solid fa-check fa-2x accept-request"></i>
     </button>
-    <button v-if="leaveRequest.status == 'pending' || leaveRequest.status == 'approved'" @click="statusChange('rejected')" v-tooltip="'Reject Request'" class="btn btn-sm mx-1">
+    <button v-if="leaveRequest.status == 'pending' || leaveRequest.status == 'approved'" @click="statusChange('rejected')" v-tooltip="'Reject Request'" class="btn btn-sm ">
         <i class="fa-solid fa-xmark fa-2x reject-request"></i>
     </button>
-    <button @click="editData(leaveRequest.id)" v-tooltip="'Edit Request'" class="btn btn-sm mx-1">
+    <button @click="editData(leaveRequest.id)" v-tooltip="'Edit Request'" class="btn btn-sm">
         <EditIcon/>
     </button>
-    <button @click="deleteData()" v-tooltip="'Delete Request'" class="btn btn-sm mx-1">
+    <button @click="deleteData()" v-tooltip="'Delete Request'" class="btn btn-sm">
         <DeleteIcon/>
     </button>
 </template>

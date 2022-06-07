@@ -17,8 +17,7 @@
                         <table class="table table-valign-middle">
                             <thead>
                                <tr>
-                                    <th>Avatar</th>
-                                    <th>Name</th>
+                                    <th>Company</th>
                                     <th>Email</th>
                                     <th>Action</th>
                                 </tr>
@@ -33,10 +32,10 @@
                                         </td>
                                         <td>{{ user.email }}</td>
                                         <td class="d-flex">
-                                            <Link :href="route('companies.edit',user.id)" v-tooltip="'Edit Company'" class="btn btn-sm mx-1">
+                                            <Link :href="route('companies.edit',user.id)" v-tooltip="'Edit Company'" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </Link>
-                                            <button @click="deleteCompany(user.id)" v-tooltip="'Delete Company'" class="btn btn-sm mx-1">
+                                            <button @click="deleteCompany(user.id)" v-tooltip="'Delete Company'" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
