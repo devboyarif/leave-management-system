@@ -13,10 +13,10 @@
                             </Link>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table ">
-                            <thead class="thead-light">
-                                <tr>
+                     <div class="card-body table-responsive p-0">
+                        <table class="table table-valign-middle">
+                            <thead>
+                               <tr>
                                     <th>Name</th>
                                     <th>Country</th>
                                     <th>Total Holidays</th>
@@ -24,7 +24,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <template v-if="users && users.data.length">
+                                <template v-if="users && users.data.length">
                                     <tr v-for="(user,index) in users.data" :key="index">
                                         <td>{{ user.name }}</td>
                                         <td v-if="user.company.country">
@@ -44,14 +44,14 @@
                                 </template>
                                 <tr v-else>
                                     <td colspan="5" class="text-center">
-                                        <h3>No data Found</h3>
+                                        <h3>No User Found</h3>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
 
                         <!-- Pagination  -->
-                        <Pagination :links="users.links" />
+                        <Pagination v-if="users.data.length > 10" :links="users.links" />
                     </div>
                 </div>
             </div>
@@ -70,10 +70,10 @@ export default {
         users: Array,
         // filters: Object || Array,
     },
-    // components: {
-    //     Inertia,
-    //     Pagination,
-    // },
+    components: {
+        Inertia,
+        Pagination,
+    },
     data() {
         return {
             // filterForm: this.$inertia.form({

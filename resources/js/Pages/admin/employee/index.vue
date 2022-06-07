@@ -13,13 +13,11 @@
                             </Link>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table ">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Avatar</th>
-                                    <th>Name</th>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-valign-middle">
+                            <thead>
+                               <tr>
+                                    <th>Employee</th>
                                     <th>Email</th>
                                     <th>Action</th>
                                 </tr>
@@ -27,21 +25,19 @@
                             <tbody>
                                 <template v-if="employees && employees.data.length">
                                     <tr v-for="(user,index) in employees.data" :key="index">
-                                        <td>{{ index+1 }}</td>
                                         <td>
-                                            <img class="rounded img-fluid avatar-img" :src="user.avatar" alt="" >
+                                            <img :src="user.avatar" alt="Product 1"
+                                                class="img-circle img-size-32 mr-2">
+                                            {{ user.name }}
                                         </td>
-                                        <td>{{ user.name }}</td>
                                         <td>{{ user.email }}</td>
-                                        <td>
-                                            <Link :href="route('employees.edit',user.id)" class="btn btn-primary mx-1">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                            Edit
+                                        <td class="d-flex">
+                                            <Link :href="route('employees.edit',user.id)" v-tooltip="'Edit Employee'" class="btn btn-sm mx-1">
+                                                <EditIcon/>
                                             </Link>
-                                            <a @click="deleteData(user.id)" href="#"
-                                                class="btn btn-danger mx-1">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                                Delete</a>
+                                            <button @click="deleteData(user.id)" v-tooltip="'Delete Employee'" class="btn btn-sm mx-1">
+                                                <DeleteIcon/>
+                                            </button>
                                         </td>
                                     </tr>
                                 </template>

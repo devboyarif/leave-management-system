@@ -13,10 +13,10 @@
                             </Link>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table ">
-                            <thead class="thead-light">
-                                <tr>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-valign-middle">
+                            <thead>
+                               <tr>
                                     <th>Avatar</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -27,19 +27,18 @@
                                 <template v-if="companies && companies.data.length">
                                     <tr v-for="(user,index) in companies.data" :key="index">
                                         <td>
-                                            <img class="rounded img-fluid avatar-img" :src="user.avatar" alt="" >
+                                            <img :src="user.avatar" alt="Product 1"
+                                                class="img-circle img-size-32 mr-2">
+                                            {{ user.name }}
                                         </td>
-                                        <td>{{ user.name }}</td>
                                         <td>{{ user.email }}</td>
-                                        <td>
-                                            <Link :href="route('companies.edit',user.id)" class="btn btn-primary mx-1">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                            Edit
+                                        <td class="d-flex">
+                                            <Link :href="route('companies.edit',user.id)" v-tooltip="'Edit Company'" class="btn btn-sm mx-1">
+                                                <EditIcon/>
                                             </Link>
-                                            <a @click="deleteCompany(user.id)" href="#"
-                                                class="btn btn-danger mx-1">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                                Delete</a>
+                                            <button @click="deleteCompany(user.id)" v-tooltip="'Delete Company'" class="btn btn-sm mx-1">
+                                                <DeleteIcon/>
+                                            </button>
                                         </td>
                                     </tr>
                                 </template>

@@ -45,12 +45,27 @@
                                 </h6>
                             </div>
                             <div>
-                                <button @click="editData(holiday)" class="btn btn-primary btn-sm ">
+                                <!-- <button @click="editData(holiday)" class="btn btn-primary btn-sm ">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                                 <button @click="deleteData(holiday.id)" class="btn btn-danger btn-sm mx-1">
                                     <i class="fa-solid fa-trash-can"></i>
+                                </button> -->
+
+                                 <button @click="editData(holiday)" v-tooltip="'Edit Holiday'" class="btn btn-sm">
+                                    <EditIcon/>
                                 </button>
+                                 <button @click="deleteData(holiday.id)" v-tooltip="'Delete Holiday'" class="btn btn-sm">
+                                    <DeleteIcon/>
+                                </button>
+
+
+                                 <!-- <Link :href="route('employees.edit',user.id)" v-tooltip="'Edit Employee'" class="btn btn-sm mx-1">
+                                    <EditIcon/>
+                                </Link>
+                                <button @click="deleteData(user.id)" v-tooltip="'Delete Employee'" class="btn btn-sm mx-1">
+                                    <DeleteIcon/>
+                                </button> -->
                             </div>
                         </div>
                     </div>

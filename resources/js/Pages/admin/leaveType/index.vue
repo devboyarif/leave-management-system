@@ -28,11 +28,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table ">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th>Name</th>
+                     <div class="card-body table-responsive p-0">
+                        <table class="table table-valign-middle">
+                            <thead>
+                               <tr>
+                                     <th>Name</th>
                                     <th>Color</th>
                                     <th>Leave Balance</th>
                                     <th>Options</th>
@@ -40,16 +40,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <template v-if="leave_types && leave_types.data.length">
+                                <template v-if="leave_types && leave_types.data.length">
                                     <tr v-for="(leave_type,index) in leave_types.data" :key="index">
                                         <td>{{ leave_type.name }}</td>
-                                        <td>
+                                         <td>
                                             {{ leave_type.color }}
-
-                                            <!-- <span class="badge" style="">
-
-                                            </span> -->
-                                            <!-- <span class="m-badge m-badge--lg m-badge--very-wide" style="margin-left: 30px; width: 10px; height: 10px; background-color: rgb(255, 8, 51);"></span> -->
                                         </td>
                                         <td>
                                             {{ leave_type.balance }} days
@@ -66,23 +61,19 @@
                                                 <span v-else>Inactive</span>
                                             </span>
                                         </td>
-                                        <td>
-                                            <Link :href="route('leaveTypes.edit',leave_type.id)"
-                                                class="btn btn-primary mx-1">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                            Edit
+                                        <td class="d-flex">
+                                            <Link :href="route('leaveTypes.edit',leave_type.id)" v-tooltip="'Edit Leave Type'" class="btn btn-sm mx-1">
+                                                <EditIcon/>
                                             </Link>
-                                            <a @click="deleteData(leave_type.id)" href="#"
-                                                class="btn btn-danger mx-1">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                                Delete
-                                            </a>
+                                            <button @click="deleteData(leave_type.id)" v-tooltip="'Delete Leave Type'" class="btn btn-sm mx-1">
+                                                <DeleteIcon/>
+                                            </button>
                                         </td>
                                     </tr>
                                 </template>
                                 <tr v-else>
                                     <td colspan="5" class="text-center">
-                                        <h3>No data Found</h3>
+                                        <h3>No User Found</h3>
                                     </td>
                                 </tr>
                             </tbody>

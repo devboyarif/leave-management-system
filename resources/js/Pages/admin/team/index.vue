@@ -15,10 +15,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table mb-4">
-                            <thead class="thead-light">
-                                <tr>
+                     <div class="card-body table-responsive p-0">
+                        <table class="table table-valign-middle">
+                            <thead>
+                               <tr>
                                     <th>Company</th>
                                     <th>Name</th>
                                     <th>Action</th>
@@ -29,17 +29,13 @@
                                     <tr v-for="(team,index) in teams.data" :key="index">
                                         <td>{{ team.company.user.name }}</td>
                                         <td>{{ team.name }}</td>
-                                        <td>
-                                            <a @click="editTeam(team)" href="#"
-                                                class="btn btn-primary mx-1">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                                Edit
-                                            </a>
-                                            <a @click="deleteData(team.id)" href="#"
-                                                class="btn btn-danger mx-1">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                                Delete
-                                            </a>
+                                        <td class="d-flex">
+                                            <button @click="editTeam(team)" v-tooltip="'Delete Leave Type'" class="btn btn-sm mx-1">
+                                                <EditIcon/>
+                                            </button>
+                                            <button @click="deleteData(team.id)" v-tooltip="'Delete Leave Type'" class="btn btn-sm mx-1">
+                                                <DeleteIcon/>
+                                            </button>
                                         </td>
                                     </tr>
                                 </template>
@@ -52,7 +48,7 @@
                         </table>
 
                         <!-- Pagination  -->
-                        <Pagination :links="teams.links" />
+                         <Pagination :links="teams.links" />
                     </div>
                 </div>
             </div>

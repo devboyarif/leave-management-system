@@ -25,6 +25,8 @@ import AuthLayout from "./Shared/Layout/Auth.vue";
 import ErrorMessage from "./Shared/Forms/ErrorMessage.vue";
 import Label from "./Shared/Forms/Label.vue";
 import Loading from "./Shared/Loading.vue";
+import EditIcon from "./Shared/Icons/EditIcon.vue";
+import DeleteIcon from "./Shared/Icons/DeleteIcon.vue";
 
 // 3rd party plugins
 import FloatingVue from 'floating-vue'
@@ -86,6 +88,8 @@ app.use(InertiaPlugin)
     .component('ErrorMessage', ErrorMessage)
     .component('Label', Label)
     .component('Loading', Loading)
+    .component('EditIcon', EditIcon)
+    .component('DeleteIcon', DeleteIcon)
 
     .mount(el);
 

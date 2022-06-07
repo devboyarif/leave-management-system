@@ -6,10 +6,10 @@
         <i class="fa-solid fa-xmark fa-2x reject-request"></i>
     </button>
     <button @click="editData(leaveRequest.id)" v-tooltip="'Edit Request'" class="btn btn-sm mx-1">
-        <i class="fa-solid fa-pen-to-square fa-2x edit-request"></i>
+        <EditIcon/>
     </button>
     <button @click="deleteData()" v-tooltip="'Delete Request'" class="btn btn-sm mx-1">
-        <i class="fa-solid fa-trash-can fa-2x delete-request"></i>
+        <DeleteIcon/>
     </button>
 </template>
 
@@ -66,13 +66,6 @@ export default {
     }
 
     .reject-request {
-        color: #dc3545;
-    }
-
-    .edit-request {
-        color: #007bff;
-    }
-    .delete-request {
         color: #dc3545;
     }
 </style>
