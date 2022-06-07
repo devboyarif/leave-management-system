@@ -109,23 +109,11 @@
 </template>
 
 <script>
-import IconHome from "../../Icons/HomeIcon.vue";
-import IconCircle from "../../Icons/CircleIcon.vue";
-import IconChevronDown from "../../Icons/ChevronDownIcon.vue";
-import IconChevronUp from "../../Icons/ChevronUpIcon.vue";
-import IconChevronLeft from "../../Icons/ChevronLeftIcon.vue";
-import IconCube from "../../Icons/CubeIcon.vue";
 import Dropdown from "./Dropdown.vue";
 import NavLink from "./NavItem.vue";
 
 export default {
     components: {
-        IconHome,
-        IconCircle,
-        IconChevronUp,
-        IconChevronDown,
-        IconChevronLeft,
-        IconCube,
         Dropdown,
         NavLink,
     },
