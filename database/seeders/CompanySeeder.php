@@ -114,5 +114,38 @@ class CompanySeeder extends Seeder
         foreach ($holiday_chunks3 as $country) {
             Holiday::insert($country);
         }
+
+        // Company 4
+        $country4 = Country::where('code', 'us')->first();
+        $user4 = User::create([
+            'name' => 'Company',
+            'email' => 'company@mail.com',
+            'password' => bcrypt('password'),
+            'avatar' => 'admin/img/default-user.png'
+        ]);
+        $company4 = Company::create([
+            'user_id' => $user4->id,
+            'country_id' => $country4->id,
+        ]);
+
+        $holidays4 = getHolidays('bd');
+
+        for ($i = 0; $i < count($holidays4); $i++) {
+            $holiday_data4[] = [
+                'company_id' => $company4->id,
+                'title' => $holidays4[$i]['title'],
+                'start' => $holidays4[$i]['start'],
+                'end' => $holidays4[$i]['end'],
+                'days' => diffBetweenDays($holidays4[$i]['start'], $holidays4[$i]['end']),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        $holiday_chunks4 = array_chunk($holiday_data4, ceil(count($holiday_data4) / 3));
+
+        foreach ($holiday_chunks4 as $country) {
+            Holiday::insert($country);
+        }
     }
 }

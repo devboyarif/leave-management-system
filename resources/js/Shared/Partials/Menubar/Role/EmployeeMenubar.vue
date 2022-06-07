@@ -18,7 +18,7 @@
                 <div class="info">
                     <a href="#" class="d-block">
                         {{ $page.props.user.name }}
-                        Admin
+                        Employee
                     </a>
                 </div>
             </div>

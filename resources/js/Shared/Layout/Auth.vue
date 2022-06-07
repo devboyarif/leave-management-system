@@ -1,5 +1,5 @@
 <template>
-<div class="container mt-5 pt-5">
+<div class="container mt-3 pt-3">
     <div class="mt-5 pt-2 row align-items-center justify-content-center">
         <div class="login-box">
             <div class="card card-outline card-primary">
@@ -24,6 +24,6 @@ export default {
     @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css";
 
     .login-box {
-        width: 400px;
+        width: 500px;
     }
 </style>

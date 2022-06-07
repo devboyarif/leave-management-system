@@ -1,11 +1,13 @@
 <template>
-    <Head title="Sign in"/>
+
+    <Head title="Sign in" />
 
     <div class="card-body">
         <p class="login-box-msg">Sign in to start your session</p>
-        <form @submit.prevent="createData">
+        <form @submit.prevent="login">
             <div class="input-group mb-3">
-                <input v-model="form.email" :class="{'is-invalid':form.errors.email}" type="email" class="form-control" placeholder="Email">
+                <input v-model="form.email" :class="{'is-invalid':form.errors.email}" type="email" class="form-control"
+                    placeholder="Email">
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-envelope"></span>
@@ -14,7 +16,8 @@
                 <span v-if="errors.email" class="invalid-feedback">{{ form.errors.email }}</span>
             </div>
             <div class="input-group mb-3">
-                <input v-model="form.password" type="password"  :class="{'is-invalid':form.errors.password}" class="form-control" placeholder="Password">
+                <input v-model="form.password" type="password" :class="{'is-invalid':form.errors.password}"
+                    class="form-control" placeholder="Password">
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-lock"></span>
@@ -34,7 +37,7 @@
 
                 <div class="col-4">
                     <button type="submit" class="btn btn-primary btn-block">
-                        <Loading v-if="form.processing"/>
+                        <Loading v-if="form.processing" />
                         Sign In
                     </button>
                 </div>
@@ -47,16 +50,74 @@
         </p>
         <p class="mb-0">
             <Link :href="route('register.form')" class="text-center">
-                Create company account
+            Create company account
             </Link>
         </p>
     </div>
+    <div class="card mt-2">
+        <div class="card-body table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Role</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="cursor-pointer">
+                        <td>admin@mail.com</td>
+                        <td>password</td>
+                        <td>Admin</td>
+                        <td>
+                            <button @click="roleLogin('admin@mail.com','password')" class="btn btn-primary btn-sm">
+                                <LoginIcon/>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="cursor-pointer">
+                        <td>company@mail.com</td>
+                        <td>password</td>
+                        <td>Company</td>
+                        <td>
+                            <button @click="roleLogin('company@mail.com', 'password')" class="btn btn-primary btn-sm">
+                                <LoginIcon/>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="cursor-pointer">
+                        <td>employee@mail.com</td>
+                        <td>password</td>
+                        <td>Employee</td>
+                        <td>
+                            <button @click="roleLogin('employee@mail.com', 'password')" class="btn btn-primary btn-sm">
+                                <LoginIcon/>
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- <div class="card-body">
+        <Button class="btn btn-primary btn-sm">Login with Admin</Button> <br>
+        <Button class="btn btn-primary btn-sm">Login with Company</Button> <br>
+        <Button class="btn btn-primary btn-sm">Login with Employee</Button> <br>
+    </div> -->
 </template>
 
 <script>
+import LoginIcon from "../../Shared/Icons/LoginIcon.vue";
 export default {
     layout: "Auth",
-    props: { errors: Object },
+    props: {
+        errors: Object,
+    },
+    components: {
+        LoginIcon,
+    },
     data() {
         return {
             form: this.$inertia.form({
@@ -71,8 +132,13 @@ export default {
         },
     },
     methods: {
-        createData() {
+        login() {
             this.form.post("/login");
+        },
+        roleLogin(email, password) {
+            this.form.email = email;
+            this.form.password = password;
+            this.login();
         },
     },
 };

@@ -17,6 +17,7 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
+        // Employee
         $user = User::create([
             'name' => 'Ariful Islam',
             'email' => 'arif@mail.com',
@@ -27,6 +28,21 @@ class EmployeeSeeder extends Seeder
 
         Employee::create([
             'user_id' => $user->id,
+            'company_id' => Company::inRandomOrder()->value('id'),
+            'team_id' => Team::inRandomOrder()->value('id'),
+        ]);
+
+        // Employee 2
+        $user2 = User::create([
+            'name' => 'Employee',
+            'email' => 'employee@mail.com',
+            'password' => bcrypt('password'),
+            'avatar' => 'admin/img/default-user.png',
+            'role' => 'employee',
+        ]);
+
+        Employee::create([
+            'user_id' => $user2->id,
             'company_id' => Company::inRandomOrder()->value('id'),
             'team_id' => Team::inRandomOrder()->value('id'),
         ]);
