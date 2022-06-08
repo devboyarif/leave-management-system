@@ -9,35 +9,9 @@
 
         <!-- Sidebar -->
         <div class="sidebar" style="overflow-y: auto;">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img :src="$page.props.user.avatar" class="img-circle elevation-2"
-                        alt="User Image">
-                </div>
-                <div class="info">
-                    <a href="#" class="d-block">
-                        {{ $page.props.user.name }}
-                        Admin
-                    </a>
-                </div>
-            </div>
-
-            <!-- SidebarSearch Form -->
-            <div class="form-inline">
-                <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                        aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-sidebar">
-                            <i class="fas fa-search fa-fw"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
 
             <!-- Sidebar Menu -->
-            <nav class="mt-2">
+            <nav class="sidebar-main-nav mt-3">
                 <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-legacy nav-flat nav-child-indent" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <NavLink title="Dashboard" :href="route('dashboard')" :active="$page.component == 'dashboard'">
@@ -105,6 +79,17 @@
                            <i class="fa-solid fa-h nav-icon"></i>
                         </template>
                     </NavLink>
+                     <NavLink title="Setting" :href="route('holidays.index')" :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-gear nav-icon"></i>
+                        </template>
+                    </NavLink>
+                     <li class="nav-item">
+                        <Link href="/logout" class="nav-link" method="post">
+                           <i class="fa-solid fa-right-from-bracket nav-icon"></i>
+                            <p>Logout</p>
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </div>

@@ -23,6 +23,7 @@ import Navbar from "../Partials/Navbar/Navbar.vue";
 import Menubar from "../Partials/Menubar/Menubar.vue";
 import Breadcrumb from "../Breadcrumb.vue";
 
+//
 export default {
     components: {
         Navbar,
@@ -50,6 +51,9 @@ export default {
             },
             deep: true,
         },
+    },
+    mounted() {
+        document.body.classList.add("sidebar-mini", "layout-fixed");
     },
 };
 </script>
