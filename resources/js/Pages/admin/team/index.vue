@@ -21,6 +21,7 @@
                                <tr>
                                     <th>Company</th>
                                     <th>Name</th>
+                                    <th>Employees</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -29,6 +30,14 @@
                                     <tr v-for="(team,index) in teams.data" :key="index">
                                         <td>{{ team.company.user.name }}</td>
                                         <td>{{ team.name }}</td>
+                                        <td>
+                                            <ul class="list-inline" v-if="team.employees && team.employees.length">
+                                                <li class="list-inline-item" v-for="employee in team.employees" :key="employee.id" v-tooltip="employee.user.name">
+                                                    <img v-if="employee.user" alt="Avatar" class="table-avatar" :src="employee.user.avatar">
+                                                </li>
+                                            </ul>
+                                            <small v-else>No employee found</small>
+                                        </td>
                                         <td class="d-flex">
                                             <button @click="editTeam(team)" v-tooltip="'Delete Leave Type'" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
@@ -182,5 +191,13 @@ export default {
     height: 60px;
     width: 60px;
     object-fit: cover;
+}
+
+.table-avatar{
+    height: 25px;
+    width: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: inline;
 }
 </style>

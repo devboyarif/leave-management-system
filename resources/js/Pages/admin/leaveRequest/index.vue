@@ -44,7 +44,7 @@
                                 <th>Employee</th>
                                 <th>Leave Type</th>
                                 <th>Team</th>
-                                <th>Period</th>
+                                <th>Request For</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>

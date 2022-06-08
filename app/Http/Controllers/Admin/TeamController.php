@@ -21,7 +21,7 @@ class TeamController extends Controller
             $team_query->where('company_id', getCompany(request('user_id'))->id);
         }
 
-        $teams = $team_query->with('company.user')->latest()->paginate(10);
+        $teams = $team_query->with('employees.user', 'company.user')->latest()->paginate(10);
 
         $users = User::roleCompany()->get();
 

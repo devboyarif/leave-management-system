@@ -27,4 +27,9 @@ class Team extends Model
     {
         return $this->belongsToThrough(User::class, Company::class);
     }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'team_id');
+    }
 }
