@@ -15,26 +15,26 @@
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-            <QuickAction/>
-            <LanguageSwitcher/>
-            <Appearance/>
-            <UserMenu/>
+            <QuickAction />
+            <Appearance />
+            <Notification />
+            <UserMenu />
         </ul>
     </nav>
 </template>
 
 <script>
 import QuickAction from "./QuickAction.vue";
-import LanguageSwitcher from "./LanguageSwitcher.vue";
 import Appearance from "./Appearance.vue";
 import UserMenu from "./UserMenu.vue";
+import Notification from "./Notification.vue";
 
 export default {
     components: {
         QuickAction,
-        LanguageSwitcher,
         Appearance,
         UserMenu,
+        Notification,
     },
 };
 </script>
