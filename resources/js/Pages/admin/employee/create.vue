@@ -68,9 +68,11 @@
                             <ErrorMessage :name="form.errors.avatar"/>
                         </div>
                         <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                            <i v-if="!form.processing" class="fa-solid fa-check"></i>
-                            <Loading v-else/>
-                            Save
+                            <Loading v-if="form.processing"/>
+                            <span v-else>
+                                <i class="fa-solid fa-check mr-1"></i>
+                                Save
+                            </span>
                         </button>
                     </form>
                 </div>
@@ -114,7 +116,9 @@ export default {
             });
         },
         async loadTeams() {
-            let response = await axios.get(route("companies.teams", this.form.user_id))
+            let response = await axios.get(
+                route("companies.teams", this.form.user_id)
+            );
             this.teams = response.data.teams;
         },
     },

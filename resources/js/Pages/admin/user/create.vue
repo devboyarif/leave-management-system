@@ -35,8 +35,11 @@
                             <ErrorMessage :name="form.errors.avatar"/>
                         </div>
                         <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                        <i class="fa-solid fa-check"></i>
-                            Save
+                            <Loading v-if="form.processing"/>
+                            <span v-else>
+                                <i class="fa-solid fa-check mr-1"></i>
+                                Save
+                            </span>
                         </button>
                     </form>
                 </div>

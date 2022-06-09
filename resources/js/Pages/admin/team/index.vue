@@ -93,9 +93,11 @@
                                 <ErrorMessage :name="form.errors.user_id" />
                             </div>
                             <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                                <i v-if="!form.processing" class="fa-solid fa-check"></i>
-                                <Loading v-else/>
-                                Save
+                                <Loading v-if="form.processing"/>
+                                <span v-else>
+                                    <i class="fa-solid fa-check mr-1"></i>
+                                    Save
+                                </span>
                             </button>
                             <button v-if="isEditMode" @click="cancelEdit" type="button" class="btn btn-danger ml-2">
                                 <i class="fa-solid fa-times"></i>

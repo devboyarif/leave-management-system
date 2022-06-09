@@ -100,9 +100,11 @@
                                         <div class="form-group">
                                             <div class="offset-sm-3 col-sm-9">
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i v-if="!form.processing" class="fa-solid fa-check"></i>
-                                                    <Loading v-else/>
-                                                    Update Profile
+                                                    <Loading v-if="form.processing"/>
+                                                    <span v-else>
+                                                        <i class="fa-solid fa-check mr-1"></i>
+                                                        Update Profile
+                                                    </span>
                                                 </button>
 
 
@@ -148,12 +150,12 @@
                                         <div class="form-group">
                                             <div class="offset-sm-3 col-sm-9">
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i v-if="!passwordForm.processing" class="fa-solid fa-check"></i>
-                                                    <Loading v-else/>
-                                                    Update Password
+                                                    <Loading v-if="passwordForm.processing"/>
+                                                    <span v-else>
+                                                        <i class="fa-solid fa-check mr-1"></i>
+                                                        Update Password
+                                                    </span>
                                                 </button>
-
-
                                             </div>
                                         </div>
                                     </form>

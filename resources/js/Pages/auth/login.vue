@@ -37,11 +37,10 @@
 
                 <div class="col-4">
                     <button type="submit" class="btn btn-primary btn-block">
-                        <Loading v-if="form.processing" />
-                        Sign In
+                        <Loading v-if="form.processing"/>
+                        <span v-else>Sign In</span>
                     </button>
                 </div>
-
             </div>
         </form>
 
@@ -101,15 +100,11 @@
             </table>
         </div>
     </div>
-    <!-- <div class="card-body">
-        <Button class="btn btn-primary btn-sm">Login with Admin</Button> <br>
-        <Button class="btn btn-primary btn-sm">Login with Company</Button> <br>
-        <Button class="btn btn-primary btn-sm">Login with Employee</Button> <br>
-    </div> -->
 </template>
 
 <script>
 import LoginIcon from "../../Shared/Icons/LoginIcon.vue";
+
 export default {
     layout: "Auth",
     props: {

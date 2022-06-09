@@ -62,9 +62,11 @@
                             </div>
                         </div>
                         <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                            <i v-if="!form.processing" class="fa-solid fa-check"></i>
-                            <Loading v-else/>
-                            Save
+                            <Loading v-if="form.processing"/>
+                            <span v-else>
+                                <i class="fa-solid fa-check mr-1"></i>
+                                Save
+                            </span>
                         </button>
                     </form>
                 </div>
@@ -93,7 +95,7 @@ export default {
         teams: {
             type: Array,
             required: true,
-        }
+        },
     },
     components: {
         Inertia,
@@ -107,7 +109,7 @@ export default {
                 avatar: null,
                 user_id: this.employee.company_id,
                 team_id: this.employee.team_id,
-                _method: 'PUT',
+                _method: "PUT",
             }),
             companies: this.companies,
             teams: this.teams,
@@ -119,7 +121,9 @@ export default {
         },
         async loadTeams() {
             this.teams = [];
-            let response = await axios.get(route("companies.teams", this.form.user_id))
+            let response = await axios.get(
+                route("companies.teams", this.form.user_id)
+            );
             this.teams = response.data.teams;
         },
     },

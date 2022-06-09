@@ -1,11 +1,6 @@
 <template>
     <Head title="Leave Request Create" />
     <div class="row justify-content-center">
-        <div class="col-4">
-            <pre>
-                {{ form }}
-            </pre>
-        </div>
         <div class="col-8">
             <div class="card mt-3">
                 <div class="card-header">
@@ -97,9 +92,11 @@
                             </div>
                         </div>
                         <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                            <i v-if="!form.processing" class="fa-solid fa-check"></i>
-                            <Loading v-else />
-                            Save
+                            <Loading v-if="form.processing"/>
+                            <span v-else>
+                                <i class="fa-solid fa-check mr-1"></i>
+                                Save
+                            </span>
                         </button>
                     </form>
                 </div>

@@ -1,3 +1,3 @@
 <template>
-    <i class="fa-solid fa-circle-notch fa-spin"></i>
+    <i class="fa-solid fa-spinner fa-spin mr-1"></i> Processing...
 </template>

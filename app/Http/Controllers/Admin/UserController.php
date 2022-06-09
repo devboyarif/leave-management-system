@@ -92,8 +92,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $admin)
     {
+        $user = $admin;
         return inertia('admin/user/edit', [
             'user' => $user,
         ]);
@@ -106,8 +107,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $admin)
     {
+        $user = $admin;
         $data = $request->all();
         if ($request->password) {
             $data['password'] = bcrypt($data['password']);
