@@ -42,6 +42,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Holidays
     Route::resource('/holidays', HolidayController::class);
+    Route::get('/requested/holidays/{company}', [HolidayController::class, 'requestedHolidays'])->name('request.holidays.index');
 
     // Profile & Settings
     Route::controller(UserController::class)->group(function () {

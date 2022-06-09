@@ -1,61 +1,66 @@
 <template>
-    <Head title="Company List"/>
+
+    <Head title="Company List" />
 
     <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                             <span>Company List</span>
-                            <Link :href="route('leaveTypes.create')" class="btn btn-primary">
-                                <i class="fa-solid fa-plus"></i>
-                                Create
-                            </Link>
-                        </div>
+        <div class="col-12">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <span>Company List</span>
+                        <Link :href="route('leaveTypes.create')" class="btn btn-primary">
+                        <i class="fa-solid fa-plus"></i>
+                        Create
+                        </Link>
                     </div>
-                     <div class="card-body table-responsive p-0">
-                        <table class="table table-valign-middle">
-                            <thead>
-                               <tr>
-                                    <th>Name</th>
-                                    <th>Country</th>
-                                    <th>Total Holidays</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-if="users && users.data.length">
-                                    <tr v-for="(user,index) in users.data" :key="index">
-                                        <td>{{ user.name }}</td>
-                                        <td v-if="user.company.country">
-                                            {{ user.company.country.name }}
-                                        </td>
-                                        <td>
-                                            {{ user.holidays_count }}
-                                        </td>
-                                        <td>
-                                            <Link :href="route('holidays.show',user.id)"
-                                                class="btn btn-info">
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-valign-middle">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Country</th>
+                                <th>Total Holidays</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-if="users && users.data.length">
+                                <tr v-for="(user,index) in users.data" :key="index">
+                                    <td>{{ user.name }}</td>
+                                    <td v-if="user.company.country">
+                                        {{ user.company.country.name }}
+                                    </td>
+                                    <td>
+                                        {{ user.holidays_count }}
+                                    </td>
+                                    <td>
+                                        <Link v-tooltip="'Show all official holidays'" :href="route('holidays.show',user.id)" class="btn btn-info">
+                                        <i class="fa-solid fa-eye"></i>
+                                        Holidays
+                                        </Link>
+                                        <Link v-tooltip="'Show all requested holidays'" class="btn btn-warning ml-1"
+                                            :href="route('request.holidays.index', user.company.id)">
                                             <i class="fa-solid fa-eye"></i>
-                                            Show Holidays
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                </template>
-                                <tr v-else>
-                                    <td colspan="5" class="text-center">
-                                        <h3>No User Found</h3>
+                                            Request Holidays
+                                        </Link>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
+                            </template>
+                             <tr v-else>
+                                <td colspan="5" class="text-center">
+                                    <h3>No User Found</h3>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                        <!-- Pagination  -->
-                        <Pagination :links="users.links" />
-                    </div>
+                    <!-- Pagination  -->
+                    <Pagination :links="users.links" />
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 

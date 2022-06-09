@@ -3,6 +3,17 @@
     <Head title="Company Holidays" />
 
     <div class="row justify-content-center">
+        <div class="col-md-4 mt-3">
+            <div class="card bg-secondary text-white">
+                <div class="card-body">
+                    <div class="text-center">
+                        <h3>{{ user.name }}</h3>
+                        <h5>Country : {{ company.country.name }}</h5>
+                        <h6>Total Holidays : {{ holidays.length }}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
@@ -10,9 +21,13 @@
                         <span>Official Holiday List</span>
                         <div>
                             <button @click="showCalendarModal = true" class="btn btn-info" type="button">
-                               <i class="fa-regular fa-calendar"></i>
+                                <i class="fa-regular fa-calendar"></i>
                                 Calendar View
                             </button>
+                            <Link class="btn btn-warning ml-1" :href="route('holidays.index')">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Company Holidays List
+                            </Link>
                             <button @click="showModal = true" class="btn btn-primary ml-1" type="button">
                                 <i class="fa-solid fa-plus"></i>
                                 Add Holiday
@@ -45,20 +60,12 @@
                                 </h6>
                             </div>
                             <div>
-                                <!-- <button @click="editData(holiday)" class="btn btn-primary btn-sm ">
-                                    <i class="fa-solid fa-pen-to-square"></i>
+                                <button @click="editData(holiday)" v-tooltip="'Edit Holiday'" class="btn btn-sm  pl-0">
+                                    <EditIcon />
                                 </button>
-                                <button @click="deleteData(holiday.id)" class="btn btn-danger btn-sm mx-1">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button> -->
-
-                                 <button @click="editData(holiday)" v-tooltip="'Edit Holiday'" class="btn btn-sm  pl-0">
-                                    <EditIcon/>
+                                <button @click="deleteData(holiday.id)" v-tooltip="'Delete Holiday'" class="btn btn-sm">
+                                    <DeleteIcon />
                                 </button>
-                                 <button @click="deleteData(holiday.id)" v-tooltip="'Delete Holiday'" class="btn btn-sm">
-                                    <DeleteIcon/>
-                                </button>
-
                             </div>
                         </div>
                     </div>
@@ -97,14 +104,16 @@
                                         <div class="col-md-6">
                                             <Label name="Start Date" />
                                             <Datepicker v-model="form.start" :enableTimePicker="false"
-                                                @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}"/>
-                                            <ErrorMessage :name="form.errors.start"/>
+                                                @update:modelValue="handleStartDate"
+                                                :class="{'is-invalid':form.errors.start}" />
+                                            <ErrorMessage :name="form.errors.start" />
                                         </div>
                                         <div class="col-md-6">
                                             <Label name="End Date" />
                                             <Datepicker v-model="form.end" :enableTimePicker="false"
-                                                @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}"/>
-                                            <ErrorMessage :name="form.errors.end"/>
+                                                @update:modelValue="handleEndDate"
+                                                :class="{'is-invalid':form.errors.end}" />
+                                            <ErrorMessage :name="form.errors.end" />
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -112,7 +121,7 @@
                                             <Label name="Holiday Color" :required="false" />
                                             <input v-model="form.color" type="color" class="form-control"
                                                 :class="{'is-invalid':form.errors.color}" id="name">
-                                            <ErrorMessage :name="form.errors.color"/>
+                                            <ErrorMessage :name="form.errors.color" />
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +129,7 @@
                                     <button type="button" class="btn btn-secondary"
                                         @click="showModal = false">Close</button>
                                     <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                                         <Loading v-if="form.processing"/>
+                                        <Loading v-if="form.processing" />
                                         <span v-else>
                                             <i class="fa-solid fa-check mr-1"></i>
                                             Save
@@ -151,7 +160,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                    <FullCalendar :options="calendarOptions" />
+                                <FullCalendar :options="calendarOptions" />
                             </div>
                         </div>
                     </div>
