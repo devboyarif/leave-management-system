@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Holiday;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\HolidayRequest;
 
 class EmployeeController extends Controller
 {
@@ -28,5 +29,22 @@ class EmployeeController extends Controller
             'company' => $company,
             'holidays' => $holidays,
         ]);
+    }
+
+    public function storeHolidayRequest(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'note' => 'required',
+        ]);
+
+        $request = $request->all();
+        $request['employee_id'] = currentUserId();
+        HolidayRequest::create($request);
+
+        session()->flash('success', 'Holiday request sent successfully!');
+        return back();
     }
 }

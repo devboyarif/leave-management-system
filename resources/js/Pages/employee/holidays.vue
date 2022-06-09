@@ -13,6 +13,10 @@
                                <i class="fa-regular fa-calendar"></i>
                                 Calendar View
                             </button>
+                            <button @click="showModal = true" class="btn btn-primary ml-1" type="button">
+                                <i class="fa-solid fa-plus"></i>
+                                Create Holiday Request
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -47,6 +51,82 @@
         </div>
     </div>
 
+    <!-- Create or Edit Holiday Modal  -->
+    <div v-if="showModal">
+        <transition name="fade">
+            <div class="modal-mask">
+                <div class="modal-wrapper">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">
+                                    <span>Create Holiday Request</span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" @click="showModal = false">&times;</span>
+                                </button>
+                            </div>
+                            <form @submit.prevent="saveData">
+                                <div class="modal-body">
+                                    <div class="mb-3 row">
+                                        <div class="col-md-12">
+                                            <Label name="Title" />
+                                            <input v-model="form.title" type="text" class="form-control"
+                                                :class="{'is-invalid':form.errors.title}" id="name">
+                                            <ErrorMessage :name="form.errors.title" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <div class="col-md-6">
+                                            <Label name="Start Date" />
+                                            <Datepicker v-model="form.start" :enableTimePicker="false"
+                                                @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}"/>
+                                            <ErrorMessage :name="form.errors.start"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <Label name="End Date" />
+                                            <Datepicker v-model="form.end" :enableTimePicker="false"
+                                                @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}"/>
+                                            <ErrorMessage :name="form.errors.end"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="col-md-12">
+                                            <Label name="Holiday Color" :required="false" />
+                                            <input v-model="form.color" type="color" class="form-control"
+                                                :class="{'is-invalid':form.errors.color}" id="name">
+                                            <ErrorMessage :name="form.errors.color"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="col-md-12">
+                                            <Label name="Note"/>
+                                            <textarea v-model="form.note" rows="5" class="form-control"
+                                                :class="{'is-invalid':form.errors.note}">
+                                            </textarea>
+                                            <ErrorMessage :name="form.errors.note"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        @click="showModal = false">Close</button>
+                                    <button :disabled="form.processing" type="submit" class="btn btn-primary">
+                                        <Loading v-if="form.processing"/>
+                                        <span v-else>
+                                            <i class="fa-solid fa-check mr-1"></i>
+                                            Save
+                                        </span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+    </div>
+
     <!-- Holiday Calendar Modal  -->
     <div v-if="showCalendarModal">
         <transition name="fade">
@@ -63,7 +143,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                    <FullCalendar :options="calendarOptions" />
+                                <FullCalendar :options="calendarOptions" />
                             </div>
                         </div>
                     </div>
@@ -79,6 +159,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import dayjs from "dayjs";
 
 export default {
     props: {
@@ -104,11 +185,32 @@ export default {
                 start: "",
                 end: "",
                 color: "#ff0000",
+                note: "",
             }),
 
+            showModal: false,
             showCalendarModal: false,
             holiday_id: null,
         };
+    },
+    methods: {
+        saveData() {
+            console.log(this.form);
+            this.form.post(route("employee.holiday.request.create"), {
+                onSuccess: () => {
+                    this.showModal = false;
+                    this.form.reset();
+                },
+            });
+        },
+        handleStartDate(startDate) {
+            const formatTime = dayjs(startDate).format("YYYY-MM-DD");
+            this.form.start = formatTime;
+        },
+        handleEndDate(endDate) {
+            const formatTime = dayjs(endDate).format("YYYY-MM-DD");
+            this.form.end = formatTime;
+        },
     },
 };
 </script>
