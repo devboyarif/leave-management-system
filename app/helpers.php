@@ -17,6 +17,17 @@ function uploadFileToPublic(string $path, $file)
     return $url;
 }
 
+function currentUser()
+{
+    return auth()->user();
+}
+
+function getCompanyUserByEmployeeUser($user_id)
+{
+    $company_id = Employee::where('user_id', $user_id)->value('company_id');
+    return Company::findOrFail($company_id)->user;
+}
+
 function getCompany($user_id)
 {
     return Company::where('user_id', $user_id)->firstOrFail();

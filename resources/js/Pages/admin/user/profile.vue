@@ -99,7 +99,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="offset-sm-3 col-sm-9">
-                                                <button type="submit" class="btn btn-primary">
+                                                <button :disabled="form.processing" type="submit" class="btn btn-primary">
                                                     <Loading v-if="form.processing"/>
                                                     <span v-else>
                                                         <i class="fa-solid fa-check mr-1"></i>
@@ -149,7 +149,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="offset-sm-3 col-sm-9">
-                                                <button type="submit" class="btn btn-primary">
+                                                <button :disabled="passwordForm.processing" type="submit" class="btn btn-primary">
                                                     <Loading v-if="passwordForm.processing"/>
                                                     <span v-else>
                                                         <i class="fa-solid fa-check mr-1"></i>

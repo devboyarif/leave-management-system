@@ -1,6 +1,6 @@
 <template>
     <Head title="Dashboard"/>
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header border-0">

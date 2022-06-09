@@ -1,11 +1,12 @@
 <template>
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="index3.html" class="brand-link">
-            <img src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+            <img :src="employeeCompanyUser.avatar" alt="AdminLTE Logo"
                 class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3 ( {{ $page.props.user.role }})</span>
+            <span class="brand-text font-weight-light">{{ employeeCompanyUser.name }}</span>
         </a>
         <div class="sidebar" style="overflow-y: auto;">
+
             <nav class="sidebar-main-nav mt-3">
                 <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-legacy nav-flat nav-child-indent"
                     data-widget="treeview" role="menu" data-accordion="false">
@@ -63,6 +64,8 @@ export default {
     data() {
         return {
             role: this.$page.props.user.role,
+            user: this.$page.props.user,
+            employeeCompanyUser: this.$page.props.employeeCompanyUser,
         };
     },
 };

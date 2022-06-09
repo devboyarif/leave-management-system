@@ -97,5 +97,6 @@ app.use(InertiaPlugin)
 InertiaProgress.init({
     color: 'red',
     delay: 500,
+    includeCSS: true,
     showSpinner: true
 })
