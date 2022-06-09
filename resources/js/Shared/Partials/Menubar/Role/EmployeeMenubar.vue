@@ -17,7 +17,7 @@
                     </NavLink>
 
                     <NavLink title="My Team" :href="route('holidays.index')"
-                        :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
+                        :active="$page.url == '/employee/holidays'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
@@ -28,8 +28,8 @@
                             <i class="fa-solid fa-chart-pie nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Holidays" :href="route('holidays.index')"
-                        :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
+                    <NavLink title="Holidays" :href="route('employee.holidays')"
+                        :active="$page.url == '/employee/holidays'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-h nav-icon"></i>
                         </template>

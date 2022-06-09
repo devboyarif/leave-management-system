@@ -22177,7 +22177,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_NavLink, {
     title: "My Team",
     href: _ctx.route('holidays.index'),
-    active: _ctx.$page.url == '/admin/holidays' || _ctx.$page.url == '/admin/holidays/*'
+    active: _ctx.$page.url == '/employee/holidays'
   }, {
     icon: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_9];
@@ -22202,8 +22202,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_NavLink, {
     title: "Holidays",
-    href: _ctx.route('holidays.index'),
-    active: _ctx.$page.url == '/admin/holidays' || _ctx.$page.url == '/admin/holidays/*'
+    href: _ctx.route('employee.holidays'),
+    active: _ctx.$page.url == '/employee/holidays'
   }, {
     icon: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_11];
@@ -51206,6 +51206,14 @@ var map = {
 		"./resources/js/Pages/dashboard.vue",
 		"resources_js_Pages_dashboard_vue"
 	],
+	"./employee/holidays": [
+		"./resources/js/Pages/employee/holidays.vue",
+		"resources_js_Pages_employee_holidays_vue"
+	],
+	"./employee/holidays.vue": [
+		"./resources/js/Pages/employee/holidays.vue",
+		"resources_js_Pages_employee_holidays_vue"
+	],
 	"./index": [
 		"./resources/js/Pages/index.vue",
 		"resources_js_Pages_index_vue"
@@ -52957,7 +52965,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_Pages_index_vue":1,"resources_js_Pages_about_vue":1,"resources_js_Pages_admin_company_index_vue":1,"resources_js_Pages_admin_company_create_vue":1,"resources_js_Pages_admin_company_edit_vue":1,"resources_js_Pages_admin_employee_index_vue":1,"resources_js_Pages_admin_employee_create_vue":1,"resources_js_Pages_admin_employee_edit_vue":1,"resources_js_Pages_admin_holiday_index_vue":1,"resources_js_Pages_admin_holiday_show_vue":1,"resources_js_Pages_admin_leaveRequest_index_vue":1,"resources_js_Pages_admin_leaveRequest_create_vue":1,"resources_js_Pages_admin_leaveRequest_edit_vue":1,"resources_js_Pages_admin_leaveType_index_vue":1,"resources_js_Pages_admin_leaveType_create_vue":1,"resources_js_Pages_admin_leaveType_edit_vue":1,"resources_js_Pages_admin_team_index_vue":1,"resources_js_Pages_admin_user_index_vue":1,"resources_js_Pages_admin_user_create_vue":1,"resources_js_Pages_admin_user_edit_vue":1,"resources_js_Pages_admin_user_profile_vue":1,"resources_js_Pages_auth_login_vue":1,"resources_js_Pages_auth_register_vue":1,"resources_js_Pages_contact_vue":1,"resources_js_Pages_dashboard_vue":1,"resources_js_Pages_test_calendar_vue":1,"resources_js_Pages_test_holiday_vue":1,"resources_js_Pages_test_login_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_Pages_index_vue":1,"resources_js_Pages_about_vue":1,"resources_js_Pages_admin_company_index_vue":1,"resources_js_Pages_admin_company_create_vue":1,"resources_js_Pages_admin_company_edit_vue":1,"resources_js_Pages_admin_employee_index_vue":1,"resources_js_Pages_admin_employee_create_vue":1,"resources_js_Pages_admin_employee_edit_vue":1,"resources_js_Pages_admin_holiday_index_vue":1,"resources_js_Pages_admin_holiday_show_vue":1,"resources_js_Pages_admin_leaveRequest_index_vue":1,"resources_js_Pages_admin_leaveRequest_create_vue":1,"resources_js_Pages_admin_leaveRequest_edit_vue":1,"resources_js_Pages_admin_leaveType_index_vue":1,"resources_js_Pages_admin_leaveType_create_vue":1,"resources_js_Pages_admin_leaveType_edit_vue":1,"resources_js_Pages_admin_team_index_vue":1,"resources_js_Pages_admin_user_index_vue":1,"resources_js_Pages_admin_user_create_vue":1,"resources_js_Pages_admin_user_edit_vue":1,"resources_js_Pages_admin_user_profile_vue":1,"resources_js_Pages_auth_login_vue":1,"resources_js_Pages_auth_register_vue":1,"resources_js_Pages_contact_vue":1,"resources_js_Pages_dashboard_vue":1,"resources_js_Pages_employee_holidays_vue":1,"resources_js_Pages_test_calendar_vue":1,"resources_js_Pages_test_holiday_vue":1,"resources_js_Pages_test_login_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

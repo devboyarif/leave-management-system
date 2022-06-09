@@ -22,6 +22,11 @@ function currentUser()
     return auth()->user();
 }
 
+function currentUserId()
+{
+    return auth()->id();
+}
+
 function getCompanyUserByEmployeeUser($user_id)
 {
     $company_id = Employee::where('user_id', $user_id)->value('company_id');

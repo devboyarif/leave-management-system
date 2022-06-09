@@ -35,7 +35,7 @@ class RegisterController extends Controller
             $request->session()->regenerate();
 
             session()->flash('success', 'You have been successfully registered and logged in!');
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/user/dashboard');
         }
     }
 }

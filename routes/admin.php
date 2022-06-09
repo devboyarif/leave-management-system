@@ -18,10 +18,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         return inertia('contact');
     })->name('contact');
 
-    Route::get('/dashboard', function () {
-        return inertia('dashboard');
-    })->name('dashboard');
-
     // Admins
     Route::resource('/admins', UserController::class);
 
@@ -54,3 +50,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::post('/password/update', 'passwordUpdate')->name('user.password.update');
     });
 });
+
+Route::get('/user/dashboard', function () {
+    return inertia('dashboard');
+})->name('dashboard')->middleware('auth');

@@ -11,7 +11,7 @@
                         <div>
                             <button @click="showCalendarModal = true" class="btn btn-info" type="button">
                                <i class="fa-regular fa-calendar"></i>
-                                Show Calendar
+                                Calendar View
                             </button>
                             <button @click="showModal = true" class="btn btn-primary ml-1" type="button">
                                 <i class="fa-solid fa-plus"></i>
