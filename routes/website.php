@@ -9,4 +9,11 @@ use Illuminate\Support\Facades\Route;
 //     // return inertia('index');
 // });
 
-Route::get('/', [WebsiteController::class, 'index'])->name('index');
+Route::controller(WebsiteController::class)->group(function () {
+    Route::get('/', 'home')->name('website.home');
+    Route::get('/about', 'about')->name('website.about');
+    Route::get('/pricing', 'pricing')->name('website.pricing');
+    Route::get('/contact', 'contact')->name('website.contact');
+    Route::get('/blog', 'blog')->name('website.blog');
+    Route::get('/blog/{blog}', 'blogDetails')->name('website.blog.details');
+});
