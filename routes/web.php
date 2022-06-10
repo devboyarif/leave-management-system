@@ -1,15 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    // return inertia('test/login');
-    return redirect()->route('dashboard');
-    return inertia('index');
-});
-
+include(base_path('routes/website.php'));
 include(base_path('routes/test.php'));
 include(base_path('routes/auth.php'));
-include(base_path('routes/admin.php'));
-include(base_path('routes/company.php'));
-include(base_path('routes/employee.php'));
+include(base_path('routes/role/admin.php'));
+include(base_path('routes/role/company.php'));
+include(base_path('routes/role/employee.php'));

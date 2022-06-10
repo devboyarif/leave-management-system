@@ -8,12 +8,6 @@ use App\Models\Employee;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    // return inertia('test/login');
-    return redirect()->route('dashboard');
-    return inertia('index');
-});
-
 Route::get('/test', function () {
     // return auth()->user()->employee->team->employees->load('user');
     // $employee = currentUser()->employee;
