@@ -24,11 +24,11 @@
                                 <i class="fa-regular fa-calendar"></i>
                                 Calendar View
                             </button>
-                            <Link class="btn btn-warning ml-1" :href="route('holidays.index')">
-                            <i class="fa-solid fa-arrow-left"></i>
-                            Company Holidays List
+                            <Link v-tooltip="'Show all requested holidays'" :href="route('company.request.holidays')" class="btn btn-warning mx-2" type="button">
+                                <i class="fa-solid fa-eye"></i>
+                                Requested Holidays
                             </Link>
-                            <button @click="showModal = true" class="btn btn-primary ml-1" type="button">
+                            <button @click="showModal = true" class="btn btn-primary" type="button">
                                 <i class="fa-solid fa-plus"></i>
                                 Add Holiday
                             </button>
@@ -213,21 +213,33 @@ export default {
     methods: {
         saveData() {
             if (!this.editMode) {
-                this.form.post(route("holidays.store"), {
-                    onSuccess: () => {
-                        this.showModal = false;
-                        this.form.reset();
-                        // this.$toast.success("Holiday Created Successfully");
+                this.form.post(
+                    route("company.holidays.store"),
+                    {
+                        onSuccess: () => {
+                            this.showModal = true;
+                            this.form.reset();
+                        },
                     },
-                });
+                    {
+                        preserveScroll: true,
+                        preserveState: true,
+                    }
+                );
             } else {
-                this.form.put(route("holidays.update", this.holiday_id), {
-                    onSuccess: () => {
-                        this.showModal = false;
-                        this.form.reset();
-                        // this.$toast.success("Holiday Created Successfully");
+                this.form.put(
+                    route("company.holidays.update", this.holiday_id),
+                    {
+                        onSuccess: () => {
+                            this.showModal = false;
+                            this.form.reset();
+                        },
                     },
-                });
+                    {
+                        preserveScroll: false,
+                        preserveState: true,
+                    }
+                );
             }
         },
         editData(holiday) {
@@ -244,7 +256,7 @@ export default {
         },
         deleteData(holiday_id) {
             if (confirm("Are you sure to delete?")) {
-                this.form.delete(route("holidays.destroy", holiday_id));
+                this.form.delete(route("company.holidays.destroy", holiday_id));
             }
         },
         handleStartDate(startDate) {

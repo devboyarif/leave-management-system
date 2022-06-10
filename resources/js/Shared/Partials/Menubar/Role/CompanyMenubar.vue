@@ -47,7 +47,7 @@
                             <i class="fa-solid fa-chart-pie nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Holidays" :href="route('holidays.index')" :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
+                    <NavLink title="Holidays" :href="route('company.holidays.index')" :active="$page.url == '/company/holidays' || $page.url == '/company/holidays/*'">
                         <template v-slot:icon>
                            <i class="fa-solid fa-h nav-icon"></i>
                         </template>
