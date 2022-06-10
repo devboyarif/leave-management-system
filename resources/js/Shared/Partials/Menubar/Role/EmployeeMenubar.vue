@@ -63,8 +63,8 @@ export default {
     },
     data() {
         return {
-            role: this.$page.props.user.role,
-            user: this.$page.props.user,
+            role: this.$page.props.authenticatedUser.role,
+            user: this.$page.props.authenticatedUser,
             employeeCompanyUser: this.$page.props.employeeCompanyUser,
         };
     },

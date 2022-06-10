@@ -1,9 +1,9 @@
 <template>
-    <li class="nav-item dropdown user-menu" :class="{'show':show}">
+    <li v-tooltip="'Profile'" class="nav-item dropdown user-menu" :class="{'show':show}">
         <Link :href="route('user.profile')" class="nav-link">
-            <img :src="$page.props.user.avatar"
+            <img :src="$page.props.authenticatedUser.avatar"
                 class="user-image img-circle elevation-2" alt="User Image">
-            <span class="d-none d-md-inline"> {{ $page.props.user.name }}</span>
+            <span class="d-none d-md-inline"> {{ $page.props.authenticatedUser.name }}</span>
         </Link>
     </li>
 </template>

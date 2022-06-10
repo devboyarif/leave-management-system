@@ -17,7 +17,7 @@ export default {
     },
     data() {
         return {
-            role: this.$page.props.user.role,
+            role: this.$page.props.authenticatedUser.role,
         };
     },
 };

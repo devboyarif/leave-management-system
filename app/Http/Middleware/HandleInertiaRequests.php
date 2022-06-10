@@ -36,7 +36,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
-        $data['user'] = currentUser();
+        $data['authenticatedUser'] = currentUser();
         if (auth()->check() && currentUser()->role == 'employee') {
             $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
         }

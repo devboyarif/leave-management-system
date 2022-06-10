@@ -1,6 +1,6 @@
 <template>
     <li class="nav-item">
-        <a class="nav-link" href="#" role="button">
+        <a v-tooltip="'Appearance'" class="nav-link" href="#" role="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
                 stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icon-tabler-moon">
@@ -14,12 +14,12 @@
 
 <script>
 export default {
-    name: 'appearance',
+    name: "appearance",
     data() {
         return {
             show: false,
-        }
-    }
-}
+        };
+    },
+};
 </script>
 
