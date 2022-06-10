@@ -22,7 +22,7 @@
                             <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Reports" :href="route('holidays.index')"
+                    <NavLink title="Leave Reports" :href="route('holidays.index')"
                         :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-chart-pie nav-icon"></i>
@@ -44,6 +44,12 @@
                         <Link href="/logout" class="nav-link" method="post">
                         <i class="fa-solid fa-right-from-bracket nav-icon"></i>
                         <p>Logout</p>
+                        </Link>
+                    </li>
+                    <li class="nav-item">
+                        <Link href="/logout" class="nav-link" method="post">
+                        <i class="fa-solid fa-right-from-bracket nav-icon"></i>
+                        <p>Apply for Leave</p>
                         </Link>
                     </li>
                 </ul>
