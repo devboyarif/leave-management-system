@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Employee;
 
 use App\Models\Company;
 use App\Models\Holiday;
+use App\Models\Employee;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\HolidayRequest;
+use App\Http\Controllers\Controller;
 
 class EmployeeController extends Controller
 {
@@ -46,5 +47,18 @@ class EmployeeController extends Controller
 
         session()->flash('success', 'Holiday request sent successfully!');
         return back();
+    }
+
+    public function teams()
+    {
+        $team = currentUser()->employee->team;
+        $employeeUsers = Employee::with('user:id,name,email,avatar', 'team:id,name')
+            ->where('team_id', $team->id)
+            ->get();
+
+        return inertia('employee/teams', [
+            'team' => $team,
+            'employeeUsers' => $employeeUsers,
+        ]);
     }
 }

@@ -16,7 +16,7 @@
                         </template>
                     </NavLink>
 
-                    <NavLink title="My Team" :href="route('holidays.index')"
+                    <NavLink title="Colleagues" :href="route('employee.teams')"
                         :active="$page.url == '/employee/holidays'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-people-group nav-icon"></i>

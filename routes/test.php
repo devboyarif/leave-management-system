@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use App\Models\Country;
 use App\Models\Holiday;
 use App\Models\Calendar;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,27 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
+    // return auth()->user()->employee->team->employees->load('user');
+    // $employee = currentUser()->employee;
+    // $team = $employee->team;
+    // $company = $employee->company;
+    // $employees = $team->employees->load('user');
+    $company = currentUser()->employee->team;
+    return $employeeUsers = Employee::with('user:id,name,avatar', 'team:id,name')
+        ->where('team_id', $company->id)
+        ->get();
+
+
+    return [
+        'employee' => $employee,
+        'team' => $team,
+        'company' => $company,
+        'employees' => $employees,
+    ];
+
+
+
+
     return getHolidays('indian');
 
     $holidays = Holiday::where('company_id', 3)->oldest('start')->get()->transform(function ($date) {
