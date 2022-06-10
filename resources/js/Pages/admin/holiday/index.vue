@@ -8,10 +8,6 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <span>Company List</span>
-                        <Link :href="route('leaveTypes.create')" class="btn btn-primary">
-                        <i class="fa-solid fa-plus"></i>
-                        Create
-                        </Link>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
@@ -42,7 +38,7 @@
                                         <Link v-tooltip="'Show all requested holidays'" class="btn btn-warning ml-1"
                                             :href="route('request.holidays.index', user.company.id)">
                                             <i class="fa-solid fa-eye"></i>
-                                            Request Holidays
+                                            Requested Holidays
                                         </Link>
                                     </td>
                                 </tr>

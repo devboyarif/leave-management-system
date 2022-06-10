@@ -25,18 +25,17 @@
                         <thead>
                             <tr>
                                 <th>Employee</th>
-                                <th>Request For</th>
+                                <th>Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <template v-if="holidays && holidays.data.length">
                                 <tr v-for="(holiday,index) in holidays.data" :key="index">
-                                    <!-- {{ holiday }} -->
                                     <td v-if="holiday.employee.user">
                                         <img :src="holiday.employee.user.avatar" alt="Product 1"
                                             class="img-circle img-size-32 mr-2">
-                                        {{ holiday.employee.user.name }}
+                                        <a href="#">{{ holiday.employee.user.name }}</a>
                                     </td>
                                     <td v-if="holiday.start && holiday.end">
                                         {{ requestFor(holiday.start, holiday.end) }}
@@ -45,10 +44,14 @@
                                         </span>)
                                     </td>
                                     <td>
-                                        <button v-tooltip="'Details holiday'" @click="showDetails(holiday)"
-                                            class="btn btn-primary">
-                                            <i class="fa-solid fa-eye"></i>
-                                            Show Holidays
+                                        <button @click="showDetails(holiday)" v-tooltip="'View holiday details'" class="btn btn-sm  pl-0">
+                                            <EyeIcon/>
+                                        </button>
+                                        <button @click="acceptRequest(holiday.id)" v-tooltip="'Accept and add to official holiday list'" class="btn btn-sm  pl-0">
+                                            <CheckIcon/>
+                                        </button>
+                                        <button @click="rejectRequest(holiday.id)" v-tooltip="'Reject and delete from holiday request list'" class="btn btn-sm  pl-0">
+                                            <CrossIcon/>
                                         </button>
                                     </td>
                                 </tr>
@@ -78,47 +81,46 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    Holiday Details
+                                    Request Holiday Details
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" @click="showModal = false">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <!-- {{ form }} -->
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td>Employee Name</td>
-                                            <td>{{ form.employee_name }}</td>
+                                            <td width="30%">Employee Name</td>
+                                            <td width="70%"><a href="#">{{ form.employee_name }}</a></td>
                                         </tr>
                                         <tr>
-                                            <td>Email</td>
-                                            <td>{{ form.employee_email }}</td>
+                                            <td width="30%">Email</td>
+                                            <td width="70%">{{ form.employee_email }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Holiday Title</td>
-                                            <td>{{ form.title }}</td>
+                                            <td width="30%">Holiday Title</td>
+                                            <td width="70%">{{ form.title }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Date</td>
-                                            <td>{{ requestFor(form.start, form.end) }}</td>
+                                            <td width="30%">Date</td>
+                                            <td width="70%">{{ requestFor(form.start, form.end) }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Total Days</td>
-                                            <td>{{  form.days }} Days</td>
+                                            <td width="30%">Total Days</td>
+                                            <td width="70%">{{  form.days }} Days</td>
                                         </tr>
                                         <tr>
-                                            <td>Background Color</td>
-                                            <td>
+                                            <td width="30%">Background Color</td>
+                                            <td width="70%">
                                                 <span :style="{ background: form.color, border: '2px solid '+form.color }" class="leave-type-color">
                                                    {{ form.color }}
                                                 </span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Note</td>
-                                            <td>{{ form.note }}</td>
+                                            <td width="50%">Note</td>
+                                            <td width="50%">{{ form.note }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -135,10 +137,8 @@
     </div>
 </template>
 
-
 <script>
 import Pagination from "../../../Shared/Pagination.vue";
-import debounce from "lodash/debounce";
 import { Inertia } from "@inertiajs/inertia";
 import dayjs from "dayjs";
 
@@ -154,7 +154,7 @@ export default {
     },
     data() {
         return {
-            showModal: true,
+            showModal: false,
             form: {
                 employee_name: "",
                 employee_email: "",
@@ -185,6 +185,26 @@ export default {
             this.form.note = holiday.note;
 
             this.showModal = true;
+        },
+        acceptRequest(id) {
+            Inertia.post(route("request.holidays.accept"), {
+                id,
+            });
+        },
+        rejectRequest(id) {
+            this.$swal({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Inertia.delete(route("request.holidays.reject", id));
+                }
+            });
         },
     },
 };

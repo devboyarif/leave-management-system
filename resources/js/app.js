@@ -26,7 +26,10 @@ import ErrorMessage from "./Shared/Forms/ErrorMessage.vue";
 import Label from "./Shared/Forms/Label.vue";
 import Loading from "./Shared/Loading.vue";
 import EditIcon from "./Shared/Icons/EditIcon.vue";
+import EyeIcon from "./Shared/Icons/EyeIcon.vue";
 import DeleteIcon from "./Shared/Icons/DeleteIcon.vue";
+import CheckIcon from "./Shared/Icons/CheckIcon.vue";
+import CrossIcon from "./Shared/Icons/CrossIcon.vue";
 
 // 3rd party plugins
 import FloatingVue from 'floating-vue'
@@ -90,6 +93,9 @@ app.use(InertiaPlugin)
     .component('Loading', Loading)
     .component('EditIcon', EditIcon)
     .component('DeleteIcon', DeleteIcon)
+    .component('EyeIcon', EyeIcon)
+    .component('CheckIcon', CheckIcon)
+    .component('CrossIcon', CrossIcon)
 
     .mount(el);
 

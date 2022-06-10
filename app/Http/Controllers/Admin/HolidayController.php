@@ -81,30 +81,37 @@ class HolidayController extends Controller
             ->with('employee.user')
             ->latest()
             ->paginate(10);
-        // ->transform(function ($date) {
-        //     $date->format_start_date = formatTime($date->start, 'D d M');
-        //     $date->format_end_date = formatTime($date->end, 'D d M');
-        //     return $date;
-        // });
 
         return inertia('admin/holiday/holidayRequest', [
             'holidays' => $holidays,
             'company' => $company->load('country:id,name'),
             'user' => $company->user,
         ]);
-        return $holidays;
-        // $user = $holiday;
-        // $company = Company::where('user_id', $user->id)->firstOrFail();
-        // $holidays = Holiday::where('company_id', $company->id)->oldest('start')->get()->transform(function ($date) {
-        //     $date->format_start_date = formatTime($date->start, 'D d M');
-        //     $date->format_end_date = formatTime($date->end, 'D d M');
-        //     return $date;
-        // });
+    }
 
-        // return inertia('admin/holiday/show', [
-        //     'user' => $user,
-        //     'company' => $company,
-        //     'holidays' => $holidays,
-        // ]);
+    public function requestedHolidaysAccept(Request $request)
+    {
+        $request_holiday = HolidayRequest::findOrFail($request->id);
+        Holiday::create([
+            'company_id' => $request_holiday->company_id,
+            'title' => $request_holiday->title,
+            'start' => $request_holiday->start,
+            'end' => $request_holiday->end,
+            'days' => diffBetweenDays($request_holiday->start, $request_holiday->end),
+            'color' => $request_holiday->color,
+        ]);
+
+        $request_holiday->delete();
+
+        session()->flash('success', 'Holiday request accepted successfully!');
+        return back();
+    }
+
+    public function requestedHolidaysReject(HolidayRequest $holiday)
+    {
+        $holiday->delete();
+
+        session()->flash('success', 'Holiday request rejected successfully!');
+        return back();
     }
 }

@@ -42,7 +42,11 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Holidays
     Route::resource('/holidays', HolidayController::class);
-    Route::get('/requested/holidays/{company}', [HolidayController::class, 'requestedHolidays'])->name('request.holidays.index');
+    Route::controller(HolidayController::class)->group(function () {
+        Route::get('/requested/holidays/{company}', 'requestedHolidays')->name('request.holidays.index');
+        Route::post('/requested/holiday/accept', 'requestedHolidaysAccept')->name('request.holidays.accept');
+        Route::delete('/requested/holiday/reject/{holiday}', 'requestedHolidaysReject')->name('request.holidays.reject');
+    });
 
     // Profile & Settings
     Route::controller(UserController::class)->group(function () {

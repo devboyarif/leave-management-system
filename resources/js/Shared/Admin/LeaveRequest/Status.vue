@@ -1,9 +1,9 @@
 <template>
     <button v-if="leaveRequest.status == 'pending' || leaveRequest.status == 'rejected'" @click="statusChange('approved')" v-tooltip="'Accept Request'" class="btn btn-sm">
-        <i class="fa-solid fa-check fa-2x accept-request"></i>
+        <CheckIcon/>
     </button>
     <button v-if="leaveRequest.status == 'pending' || leaveRequest.status == 'approved'" @click="statusChange('rejected')" v-tooltip="'Reject Request'" class="btn btn-sm ">
-        <i class="fa-solid fa-xmark fa-2x reject-request"></i>
+        <CrossIcon/>
     </button>
     <button @click="editData(leaveRequest.id)" v-tooltip="'Edit Request'" class="btn btn-sm">
         <EditIcon/>
@@ -59,13 +59,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-    .accept-request {
-        color: #28a745;
-    }
-
-    .reject-request {
-        color: #dc3545;
-    }
-</style>
