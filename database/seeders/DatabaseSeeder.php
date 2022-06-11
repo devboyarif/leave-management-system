@@ -6,6 +6,7 @@ use Database\Seeders\FaqSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdminSeeder;
 use Database\Seeders\CountrySeeder;
+use Database\Seeders\FeatureSeeder;
 use Database\Seeders\CalendarSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
             HolidayRequestSeeder::class,
             PostSeeder::class,
             FaqSeeder::class,
+            FeatureSeeder::class,
         ]);
     }
 }

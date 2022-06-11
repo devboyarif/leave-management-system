@@ -6,13 +6,15 @@ use App\Models\Faq;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Feature;
 
 class WebsiteController extends Controller
 {
     public function home()
     {
         $faqs = Faq::all();
-        return view('website.home', compact('faqs'));
+        $features = Feature::all();
+        return view('website.home', compact('faqs', 'features'));
     }
 
     public function about()
