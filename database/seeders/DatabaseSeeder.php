@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
             EmployeeSeeder::class,
             CalendarSeeder::class,
             LeaveRequestSeeder::class,
-            HolidayRequestSeeder::class
+            HolidayRequestSeeder::class,
+            PostSeeder::class
         ]);
     }
 }

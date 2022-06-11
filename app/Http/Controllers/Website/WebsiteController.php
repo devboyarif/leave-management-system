@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -24,12 +25,34 @@ class WebsiteController extends Controller
 
     public function blog()
     {
-        return view('website.blog');
+        $posts = Post::select('id', 'title', 'slug', 'thumbnail', 'short_description')
+            ->latest()
+            ->where('status', 1)
+            ->paginate(12);
+
+        return view('website.blog', compact('posts'));
     }
 
-    public function blogDetails($blog)
+    public function blogDetails(Post $post)
     {
-        return view('website.blog-details');
+        $post->increment('total_views');
+        $post->load('user');
+        $popular_posts = Post::select('id', 'title', 'slug', 'thumbnail')
+            ->latest('total_views')
+            ->where('status', 1)
+            ->limit(4)
+            ->get();
+        $latest_posts = Post::select('id', 'title', 'slug', 'thumbnail')
+            ->latest()
+            ->where('status', 1)
+            ->limit(3)
+            ->get();
+
+        return view('website.blog-details', compact(
+            'post',
+            'popular_posts',
+            'latest_posts'
+        ));
     }
 
     public function contact()

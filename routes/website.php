@@ -15,5 +15,5 @@ Route::controller(WebsiteController::class)->group(function () {
     Route::get('/pricing', 'pricing')->name('website.pricing');
     Route::get('/contact', 'contact')->name('website.contact');
     Route::get('/blog', 'blog')->name('website.blog');
-    Route::get('/blog/{blog}', 'blogDetails')->name('website.blog.details');
+    Route::get('/blog/{post:slug}', 'blogDetails')->name('website.blog.details');
 });
