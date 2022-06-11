@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Website;
 
-use App\Http\Controllers\Controller;
+use App\Models\Faq;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class WebsiteController extends Controller
 {
     public function home()
     {
-        return view('website.home');
+        $faqs = Faq::all();
+        return view('website.home', compact('faqs'));
     }
 
     public function about()
@@ -20,7 +22,8 @@ class WebsiteController extends Controller
 
     public function pricing()
     {
-        return view('website.pricing');
+        $faqs = Faq::all();
+        return view('website.pricing', compact('faqs'));
     }
 
     public function blog()

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\FaqSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdminSeeder;
 use Database\Seeders\CountrySeeder;
@@ -28,7 +29,8 @@ class DatabaseSeeder extends Seeder
             CalendarSeeder::class,
             LeaveRequestSeeder::class,
             HolidayRequestSeeder::class,
-            PostSeeder::class
+            PostSeeder::class,
+            FaqSeeder::class,
         ]);
     }
 }
