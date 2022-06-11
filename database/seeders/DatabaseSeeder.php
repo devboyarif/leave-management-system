@@ -8,6 +8,7 @@ use Database\Seeders\AdminSeeder;
 use Database\Seeders\CountrySeeder;
 use Database\Seeders\FeatureSeeder;
 use Database\Seeders\CalendarSeeder;
+use Database\Seeders\TestimonialSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             FaqSeeder::class,
             FeatureSeeder::class,
+            TestimonialSeeder::class,
         ]);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Feature;
+use App\Models\Testimonial;
 
 class WebsiteController extends Controller
 {
@@ -14,12 +15,16 @@ class WebsiteController extends Controller
     {
         $faqs = Faq::all();
         $features = Feature::all();
-        return view('website.home', compact('faqs', 'features'));
+        $testimonials = Testimonial::all();
+
+        return view('website.home', compact('faqs', 'features', 'testimonials'));
     }
 
     public function about()
     {
-        return view('website.about');
+        $testimonials = Testimonial::all();
+
+        return view('website.about', compact('testimonials'));
     }
 
     public function pricing()
