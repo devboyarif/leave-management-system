@@ -22,9 +22,24 @@ function currentUser()
     return auth()->user();
 }
 
+function currentUserRole()
+{
+    return auth()->user()->role;
+}
+
 function currentUserId()
 {
     return auth()->id();
+}
+
+function currentCompany()
+{
+    return auth()->user()->company;
+}
+
+function currentEmployee()
+{
+    return auth()->user()->company;
 }
 
 function getCompanyUserByEmployeeUser($user_id)

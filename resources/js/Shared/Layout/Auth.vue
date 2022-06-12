@@ -20,9 +20,6 @@ export default {
 </script>
 
 <style>
-    @import '../../../../public/admin/css/adminlte.min.css';
-    @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css";
-
     .login-box {
         width: 500px;
     }

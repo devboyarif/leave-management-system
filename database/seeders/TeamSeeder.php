@@ -60,6 +60,21 @@ class TeamSeeder extends Seeder
                 'name' => 'Backend',
                 'slug' => 'backend',
             ],
+            [
+                'company_id' => 4,
+                'name' => 'UI/UX',
+                'slug' => 'ui-ux',
+            ],
+            [
+                'company_id' => 4,
+                'name' => 'Frontend',
+                'slug' => 'frontend',
+            ],
+            [
+                'company_id' => 4,
+                'name' => 'Backend',
+                'slug' => 'backend',
+            ]
         ];
 
         foreach ($teams as $team) {
