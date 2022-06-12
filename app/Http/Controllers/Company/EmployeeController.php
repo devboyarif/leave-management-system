@@ -81,4 +81,13 @@ class EmployeeController extends Controller
         session()->flash('success', 'Employee updated successfully!');
         return back();
     }
+
+    public function destroy(User $employee)
+    {
+        $employee->delete();
+        $employee->employee()->delete();
+
+        session()->flash('success', 'Employee deleted successfully!');
+        return back();
+    }
 }

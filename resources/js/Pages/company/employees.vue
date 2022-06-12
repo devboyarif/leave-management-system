@@ -50,7 +50,7 @@
                                             <button @click="editData(employee)" v-tooltip="'Edit Employee'" class="btn btn-sm">
                                                 <EditIcon/>
                                             </button>
-                                            <button @click="deleteData(employee.id)" v-tooltip="'Delete Employee'" class="btn btn-sm">
+                                            <button @click="deleteData(employee.user.id)" v-tooltip="'Delete Employee'" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -120,12 +120,24 @@ export default {
     },
     methods: {
         deleteData(id) {
-            if (confirm("Are you sure to delete?")) {
-                Inertia.delete(route("employees.destroy", id));
-            }
+            this.$swal({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Inertia.delete(route("company.employees.destroy", id));
+                }
+            });
+            // if (confirm("Are you sure to delete?")) {
+            //     Inertia.delete(route("employees.destroy", id));
+            // }
         },
         editData(employee) {
-            // console.log(employee);
             this.employee = employee;
             this.showEmployeeEditModal = true;
         },
