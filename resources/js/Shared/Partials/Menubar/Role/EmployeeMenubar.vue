@@ -46,12 +46,12 @@
                         <p>Logout</p>
                         </Link>
                     </li>
-                    <li class="nav-item">
-                        <Link href="/logout" class="nav-link" method="post">
+                    <!-- <li class="nav-item">
+                        </li> -->
+                        <Link :href="route('employee.leave.request')" class="btn btn-primary text-light m-2 pt-2" >
                         <i class="fa-solid fa-right-from-bracket nav-icon"></i>
-                        <p>Apply for Leave</p>
+                        <h6 class="m-2">Apply for Leave</h6>
                         </Link>
-                    </li>
                 </ul>
             </nav>
         </div>

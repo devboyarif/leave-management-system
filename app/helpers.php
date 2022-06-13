@@ -39,7 +39,7 @@ function currentCompany()
 
 function currentEmployee()
 {
-    return auth()->user()->company;
+    return auth()->user()->employee;
 }
 
 function getCompanyUserByEmployeeUser($user_id)

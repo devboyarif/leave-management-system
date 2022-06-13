@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Employee;
 use App\Models\Company;
 use App\Models\Holiday;
 use App\Models\Employee;
+use App\Models\LeaveType;
+use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use App\Models\HolidayRequest;
 use App\Http\Controllers\Controller;
@@ -60,6 +62,42 @@ class EmployeeController extends Controller
             'team' => $team,
             'employeeUsers' => $employeeUsers,
         ]);
+    }
+
+    public function leaveRequest()
+    {
+        $leaveTypes = LeaveType::where('company_id', currentUser()->employee->company_id)->get();
+
+        return inertia('employee/leave-request', [
+            'leaveTypes' => $leaveTypes,
+        ]);
+    }
+
+    public function leaveRequestSend(Request $request)
+    {
+        $request->validate([
+            'start' => 'required',
+            'end' => 'required',
+            'leave_type_id' => 'required',
+            'reason' => 'required',
+        ], [
+            'leave_type_id.required' => 'Leave type is required',
+        ]);
+
+        $employee = currentEmployee();
+
+        LeaveRequest::create([
+            'company_id' => $employee->company_id,
+            'employee_id' => $employee->id,
+            'leave_type_id' => $request->leave_type_id,
+            'start' => $request->start,
+            'end' => $request->end,
+            'days' => diffBetweenDays($request->start, $request->end),
+            'reason' => $request->reason,
+        ]);
+
+        session()->flash('success', 'Leave request sent successfully!');
+        return back();
     }
 
     public function setupProfile()
