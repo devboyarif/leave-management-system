@@ -22036,7 +22036,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_NavLink, {
         title: "Leave Type",
-        href: _ctx.route('leaveTypes.index'),
+        href: _ctx.route('company.leaveTypes.index'),
         active: _ctx.$page.url == '/admin/leaveTypes/*'
       }, {
         icon: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22049,7 +22049,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["href", "active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_NavLink, {
         title: "Leave Request",
-        href: _ctx.route('leaveRequests.index'),
+        href: _ctx.route('company.leaveRequests.index'),
         active: _ctx.$page.component == 'company/index'
       }, {
         icon: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22232,7 +22232,13 @@ var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "fa-solid fa-right-from-bracket nav-icon"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
   "class": "m-2"
 }, "Apply for Leave", -1
 /* HOISTED */
@@ -22335,7 +22341,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "btn btn-primary text-light m-2 pt-2"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"fa-solid fa-right-from-bracket nav-icon\"></i> "), _hoisted_16];
+      return [_hoisted_16, _hoisted_17];
     }),
     _: 1
     /* STABLE */
@@ -51580,6 +51586,70 @@ var map = {
 		"./resources/js/Pages/company/holiday/holidays.vue",
 		"resources_js_Pages_company_holiday_holidays_vue"
 	],
+	"./company/leaveRequest": [
+		"./resources/js/Pages/company/leaveRequest/index.vue",
+		"resources_js_Pages_company_leaveRequest_index_vue"
+	],
+	"./company/leaveRequest/": [
+		"./resources/js/Pages/company/leaveRequest/index.vue",
+		"resources_js_Pages_company_leaveRequest_index_vue"
+	],
+	"./company/leaveRequest/create": [
+		"./resources/js/Pages/company/leaveRequest/create.vue",
+		"resources_js_Pages_company_leaveRequest_create_vue"
+	],
+	"./company/leaveRequest/create.vue": [
+		"./resources/js/Pages/company/leaveRequest/create.vue",
+		"resources_js_Pages_company_leaveRequest_create_vue"
+	],
+	"./company/leaveRequest/edit": [
+		"./resources/js/Pages/company/leaveRequest/edit.vue",
+		"resources_js_Pages_company_leaveRequest_edit_vue"
+	],
+	"./company/leaveRequest/edit.vue": [
+		"./resources/js/Pages/company/leaveRequest/edit.vue",
+		"resources_js_Pages_company_leaveRequest_edit_vue"
+	],
+	"./company/leaveRequest/index": [
+		"./resources/js/Pages/company/leaveRequest/index.vue",
+		"resources_js_Pages_company_leaveRequest_index_vue"
+	],
+	"./company/leaveRequest/index.vue": [
+		"./resources/js/Pages/company/leaveRequest/index.vue",
+		"resources_js_Pages_company_leaveRequest_index_vue"
+	],
+	"./company/leaveType": [
+		"./resources/js/Pages/company/leaveType/index.vue",
+		"resources_js_Pages_company_leaveType_index_vue"
+	],
+	"./company/leaveType/": [
+		"./resources/js/Pages/company/leaveType/index.vue",
+		"resources_js_Pages_company_leaveType_index_vue"
+	],
+	"./company/leaveType/create": [
+		"./resources/js/Pages/company/leaveType/create.vue",
+		"resources_js_Pages_company_leaveType_create_vue"
+	],
+	"./company/leaveType/create.vue": [
+		"./resources/js/Pages/company/leaveType/create.vue",
+		"resources_js_Pages_company_leaveType_create_vue"
+	],
+	"./company/leaveType/edit": [
+		"./resources/js/Pages/company/leaveType/edit.vue",
+		"resources_js_Pages_company_leaveType_edit_vue"
+	],
+	"./company/leaveType/edit.vue": [
+		"./resources/js/Pages/company/leaveType/edit.vue",
+		"resources_js_Pages_company_leaveType_edit_vue"
+	],
+	"./company/leaveType/index": [
+		"./resources/js/Pages/company/leaveType/index.vue",
+		"resources_js_Pages_company_leaveType_index_vue"
+	],
+	"./company/leaveType/index.vue": [
+		"./resources/js/Pages/company/leaveType/index.vue",
+		"resources_js_Pages_company_leaveType_index_vue"
+	],
 	"./company/teams": [
 		"./resources/js/Pages/company/teams.vue",
 		"resources_js_Pages_company_teams_vue"
@@ -53395,7 +53465,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_Pages_index_vue":1,"resources_js_Pages_about_vue":1,"resources_js_Pages_admin_company_index_vue":1,"resources_js_Pages_admin_company_create_vue":1,"resources_js_Pages_admin_company_edit_vue":1,"resources_js_Pages_admin_employee_index_vue":1,"resources_js_Pages_admin_employee_create_vue":1,"resources_js_Pages_admin_employee_edit_vue":1,"resources_js_Pages_admin_holiday_index_vue":1,"resources_js_Pages_admin_holiday_holidayRequest_vue":1,"resources_js_Pages_admin_holiday_show_vue":1,"resources_js_Pages_admin_leaveRequest_index_vue":1,"resources_js_Pages_admin_leaveRequest_create_vue":1,"resources_js_Pages_admin_leaveRequest_edit_vue":1,"resources_js_Pages_admin_leaveType_index_vue":1,"resources_js_Pages_admin_leaveType_create_vue":1,"resources_js_Pages_admin_leaveType_edit_vue":1,"resources_js_Pages_admin_team_index_vue":1,"resources_js_Pages_admin_user_index_vue":1,"resources_js_Pages_admin_user_create_vue":1,"resources_js_Pages_admin_user_edit_vue":1,"resources_js_Pages_admin_user_profile_vue":1,"resources_js_Pages_auth_login_vue":1,"resources_js_Pages_auth_register_vue":1,"resources_js_Pages_company_employees_vue":1,"resources_js_Pages_company_holiday_holidayRequest_vue":1,"resources_js_Pages_company_holiday_holidays_vue":1,"resources_js_Pages_company_teams_vue":1,"resources_js_Pages_contact_vue":1,"resources_js_Pages_dashboard_vue":1,"resources_js_Pages_employee_holidays_vue":1,"resources_js_Pages_employee_leave-request_vue":1,"resources_js_Pages_employee_setup-profile_vue":1,"resources_js_Pages_employee_teams_vue":1,"resources_js_Pages_test_calendar_vue":1,"resources_js_Pages_test_demo_vue":1,"resources_js_Pages_test_holiday_vue":1,"resources_js_Pages_test_login_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_Pages_index_vue":1,"resources_js_Pages_about_vue":1,"resources_js_Pages_admin_company_index_vue":1,"resources_js_Pages_admin_company_create_vue":1,"resources_js_Pages_admin_company_edit_vue":1,"resources_js_Pages_admin_employee_index_vue":1,"resources_js_Pages_admin_employee_create_vue":1,"resources_js_Pages_admin_employee_edit_vue":1,"resources_js_Pages_admin_holiday_index_vue":1,"resources_js_Pages_admin_holiday_holidayRequest_vue":1,"resources_js_Pages_admin_holiday_show_vue":1,"resources_js_Pages_admin_leaveRequest_index_vue":1,"resources_js_Pages_admin_leaveRequest_create_vue":1,"resources_js_Pages_admin_leaveRequest_edit_vue":1,"resources_js_Pages_admin_leaveType_index_vue":1,"resources_js_Pages_admin_leaveType_create_vue":1,"resources_js_Pages_admin_leaveType_edit_vue":1,"resources_js_Pages_admin_team_index_vue":1,"resources_js_Pages_admin_user_index_vue":1,"resources_js_Pages_admin_user_create_vue":1,"resources_js_Pages_admin_user_edit_vue":1,"resources_js_Pages_admin_user_profile_vue":1,"resources_js_Pages_auth_login_vue":1,"resources_js_Pages_auth_register_vue":1,"resources_js_Pages_company_employees_vue":1,"resources_js_Pages_company_holiday_holidayRequest_vue":1,"resources_js_Pages_company_holiday_holidays_vue":1,"resources_js_Pages_company_leaveRequest_index_vue":1,"resources_js_Pages_company_leaveRequest_create_vue":1,"resources_js_Pages_company_leaveRequest_edit_vue":1,"resources_js_Pages_company_leaveType_index_vue":1,"resources_js_Pages_company_leaveType_create_vue":1,"resources_js_Pages_company_leaveType_edit_vue":1,"resources_js_Pages_company_teams_vue":1,"resources_js_Pages_contact_vue":1,"resources_js_Pages_dashboard_vue":1,"resources_js_Pages_employee_holidays_vue":1,"resources_js_Pages_employee_leave-request_vue":1,"resources_js_Pages_employee_setup-profile_vue":1,"resources_js_Pages_employee_teams_vue":1,"resources_js_Pages_test_calendar_vue":1,"resources_js_Pages_test_demo_vue":1,"resources_js_Pages_test_holiday_vue":1,"resources_js_Pages_test_login_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Company;
 
 use App\Models\User;
 use App\Models\Company;
@@ -13,33 +13,23 @@ class LeaveTypeController extends Controller
 {
     public function index()
     {
-        $leave_query = LeaveType::query();
+        $leave_types = LeaveType::where('company_id', currentCompany()->id)->latest()->paginate(10);
 
-        if (request('user_id') && request('user_id') != 'all') {
-            $leave_query->where('company_id', getCompany(request('user_id'))->id);
-        }
-
-        $leave_types = $leave_query->latest()->paginate(10);
-        $users = User::roleCompany()->get();
-
-        return inertia('admin/leaveType/index', [
+        return inertia('company/leaveType/index', [
             'leave_types' => $leave_types,
-            'users' => $users,
         ]);
     }
 
     public function create()
     {
-        $users = User::roleCompany()->get();
-
-        return inertia('admin/leaveType/create', [
-            'users' => $users,
-        ]);
+        return inertia('company/leaveType/create');
     }
 
-    public function store(LeaveTypeSaveRequest $request)
+    public function store(Request $request)
     {
-        $company = Company::where('user_id', $request->user_id)->firstOrFail();
+        $request->validate(['name' => 'required|string|max:255']);
+
+        $company = currentCompany();
 
         $company->leaveTypes()->create([
             'name' => $request->name,
@@ -51,25 +41,23 @@ class LeaveTypeController extends Controller
         ]);
 
         session()->flash('success', 'Leave type created successfully!');
-        return redirect_to('leaveTypes.index');
+        return redirect_to('company.leaveTypes.index');
     }
 
     public function edit(LeaveType $leaveType)
     {
-        $users = User::roleCompany()->get();
         $leaveType->load('company');
 
-        return inertia('admin/leaveType/edit', [
-            'users' => $users,
+        return inertia('company/leaveType/edit', [
             'leaveType' => $leaveType,
         ]);
     }
 
-    public function update(LeaveTypeSaveRequest $request, LeaveType $leaveType)
+    public function update(Request $request, LeaveType $leaveType)
     {
-        $company = Company::where('user_id', $request->user_id)->firstOrFail();
+        $request->validate(['name' => 'required|string|max:255']);
 
-        $company->leaveTypes()->update([
+        $leaveType->update([
             'name' => $request->name,
             'color' => $request->color,
             'balance' => $request->balance,
@@ -79,7 +67,7 @@ class LeaveTypeController extends Controller
         ]);
 
         session()->flash('success', 'Leave type updated successfully!');
-        return redirect_to('leaveTypes.index');
+        return redirect_to('company.leaveTypes.index');
     }
 
     public function destroy(LeaveType $leaveType)
@@ -87,6 +75,6 @@ class LeaveTypeController extends Controller
         $leaveType->delete();
 
         session()->flash('success', 'Leave type deleted successfully!');
-        return redirect_to('leaveTypes.index');
+        return redirect_to('company.leaveTypes.index');
     }
 }

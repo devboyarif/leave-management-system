@@ -21,12 +21,12 @@
                         <template v-slot:icon>
                             <i class="fa-solid fa-plane-departure nav-icon"></i>
                         </template>
-                        <NavLink title="Leave Type" :href="route('leaveTypes.index')" :active="$page.url == '/admin/leaveTypes/*'">
+                        <NavLink title="Leave Type" :href="route('company.leaveTypes.index')" :active="$page.url == '/admin/leaveTypes/*'">
                             <template v-slot:icon>
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
                         </NavLink>
-                        <NavLink title="Leave Request" :href="route('leaveRequests.index')" :active="$page.component == 'company/index'">
+                        <NavLink title="Leave Request" :href="route('company.leaveRequests.index')" :active="$page.component == 'company/index'">
                             <template v-slot:icon>
                                 <i class="far fa-circle nav-icon"></i>
                             </template>

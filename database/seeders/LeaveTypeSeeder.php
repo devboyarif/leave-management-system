@@ -47,5 +47,10 @@ class LeaveTypeSeeder extends Seeder
             $type['company_id'] = 3;
             LeaveType::create($type);
         }
+
+        foreach ($types as $type) {
+            $type['company_id'] = 4;
+            LeaveType::create($type);
+        }
     }
 }
