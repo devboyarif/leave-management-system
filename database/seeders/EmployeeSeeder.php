@@ -48,5 +48,13 @@ class EmployeeSeeder extends Seeder
         ]);
 
         Employee::factory(14)->create();
+
+        User::create([
+            'email' => 'invite@mail.com',
+            'password' => bcrypt('password'),
+            'role' => 'employee',
+            'isInvited' => 1,
+            'isProfileComplete' => 0,
+        ]);
     }
 }

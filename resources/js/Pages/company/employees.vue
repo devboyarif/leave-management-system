@@ -133,9 +133,6 @@ export default {
                     Inertia.delete(route("company.employees.destroy", id));
                 }
             });
-            // if (confirm("Are you sure to delete?")) {
-            //     Inertia.delete(route("employees.destroy", id));
-            // }
         },
         editData(employee) {
             this.employee = employee;

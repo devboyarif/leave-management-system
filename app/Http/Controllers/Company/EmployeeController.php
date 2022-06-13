@@ -52,6 +52,19 @@ class EmployeeController extends Controller
         return back();
     }
 
+    public function inviteEmployee(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|max:255',
+            'team_id' => 'required|integer',
+        ]);
+
+
+
+
+        return $request;
+    }
+
     public function update(EmployeeUpdateRequest $request, Employee $employee)
     {
         $user = $employee->user;

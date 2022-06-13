@@ -37,7 +37,7 @@
 
                 <div class="col-4">
                     <button :disabled="form.processing" type="submit" class="btn btn-primary btn-block">
-                        <Loading v-if="form.processing"/>
+                        <Loading v-if="form.processing" :messageShow="false"/>
                         <span v-else>Sign In</span>
                     </button>
                 </div>

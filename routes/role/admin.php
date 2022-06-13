@@ -55,7 +55,3 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::post('/password/update', 'passwordUpdate')->name('user.password.update');
     });
 });
-
-Route::get('/user/dashboard', function () {
-    return inertia('dashboard');
-})->name('dashboard')->middleware('auth');

@@ -10,11 +10,16 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
+        if (auth()->check()) {
+            return redirect()->route('dashboard');
+        }
         return inertia('auth/login');
     }
 
     public function login(Request $request)
     {
+
+
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],

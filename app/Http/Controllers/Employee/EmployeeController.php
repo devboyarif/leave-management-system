@@ -61,4 +61,9 @@ class EmployeeController extends Controller
             'employeeUsers' => $employeeUsers,
         ]);
     }
+
+    public function setupProfile()
+    {
+        return inertia('employee/setup-profile');
+    }
 }
