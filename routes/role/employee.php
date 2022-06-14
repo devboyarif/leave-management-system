@@ -10,5 +10,6 @@ Route::middleware('auth')->prefix('employee')->name('employee.')->group(function
         Route::get('/teams', 'teams')->name('teams');
         Route::get('/leave/request', 'leaveRequest')->name('leave.request');
         Route::post('/leave/request/send', 'leaveRequestSend')->name('leave.request.send');
+        Route::get('/teams/employees', 'teamEmployees')->name('teams.employees');
     });
 });

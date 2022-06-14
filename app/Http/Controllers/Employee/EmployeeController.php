@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Employee;
 
+use App\Models\Team;
 use App\Models\Company;
 use App\Models\Holiday;
 use App\Models\Employee;
@@ -53,14 +54,13 @@ class EmployeeController extends Controller
 
     public function teams()
     {
-        $team = currentUser()->employee->team;
-        $employeeUsers = Employee::with('user:id,name,email,avatar', 'team:id,name')
-            ->where('team_id', $team->id)
-            ->get();
+        $company = currentUser()->employee;
+        $teams = Team::where('company_id', $company->company_id)->get(['id', 'name', 'slug']);
+        $employees = Employee::with('user:id,name,email,avatar', 'team:id,name')->where('company_id', $company->company_id)->get();
 
         return inertia('employee/teams', [
-            'team' => $team,
-            'employeeUsers' => $employeeUsers,
+            'teams' => $teams,
+            'employees' => $employees,
         ]);
     }
 
@@ -98,6 +98,20 @@ class EmployeeController extends Controller
 
         session()->flash('success', 'Leave request sent successfully!');
         return back();
+    }
+
+    public function teamEmployees(Request $request)
+    {
+        if ($request->team && $request->team != 'all') {
+            $team = Team::whereSlug($request->team)->firstOrFail();
+            $employees = $team->employees()->with('user:id,name,email,avatar', 'team:id,name')->get();
+        } else {
+            $employees = Employee::with('user:id,name,email,avatar', 'team:id,name')->where('company_id', currentCompany()->id)->get();
+        }
+
+        return [
+            'employees' => $employees,
+        ];
     }
 
     public function setupProfile()

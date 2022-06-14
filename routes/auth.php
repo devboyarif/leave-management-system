@@ -15,8 +15,7 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 Route::get('/setup-profile', [EmployeeController::class, 'setupProfile'])->name('employee.setup-profile');
 
-
-
+//
 Route::controller(DashboardController::class)->middleware('auth')->group(function () {
     Route::get('/user/dashboard', 'dashboard')->name('dashboard');
     Route::get('/admin/dashboard', 'adminDashboard')->name('admin.dashboard');
