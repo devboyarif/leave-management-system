@@ -13,6 +13,7 @@ Route::middleware('auth')->prefix('company')->name('company.')->group(function (
 
     Route::resource('/leaveTypes', LeaveTypeController::class);
     Route::resource('/leaveRequests', LeaveRequestController::class);
+    Route::post('/status/change', [LeaveRequestController::class, 'statusChange'])->name('leaveRequests.status');
 
     Route::controller(HolidayController::class)->group(function () {
         Route::get('/requested/holidays', 'requestedHolidays')->name('request.holidays');

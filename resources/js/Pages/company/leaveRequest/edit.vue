@@ -6,27 +6,16 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3>Leave Request Create</h3>
-                        <Link :href="route('leaveTypes.index')" class="btn btn-primary">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        Back
+                        <Link :href="route('company.leaveTypes.index')" class="btn btn-primary">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Back
                         </Link>
                     </div>
                 </div>
                 <div class="card-body">
                     <form @submit.prevent="updateData">
                         <div class="mb-3 row">
-                            <div class="col-md-4">
-                                <Label name="Company" />
-                                <select @change="fetchCompanyWiseData" v-model="form.user_id" id="company" class="form-control"
-                                    :class="{'is-invalid':form.errors.user_id}">
-                                    <option value="" class="d-none">Select Company</option>
-                                    <option :value="user.id" v-for="user in users" :key="user.id">
-                                        {{ user.name }}
-                                    </option>
-                                </select>
-                                <ErrorMessage :name="form.errors.user_id" />
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                  <Label name="Leave Type" />
                                 <select v-model="form.leave_type_id" id="company" class="form-control"
                                     :class="{'is-invalid':form.errors.leave_type_id}">
@@ -37,7 +26,7 @@
                                 </select>
                                 <ErrorMessage :name="form.errors.leave_type_id" />
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                  <Label name="Employee" />
                                 <select v-model="form.employee_id" id="company" class="form-control"
                                     :class="{'is-invalid':form.errors.employee_id}">
@@ -135,7 +124,6 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                user_id: this.leaveRequest.user_id,
                 leave_type_id: this.leaveRequest.leave_type_id,
                 employee_id: this.leaveRequest.employee_id,
                 start: dayjs(this.leaveRequest.start).format("YYYY-MM-DD"),
@@ -150,26 +138,13 @@ export default {
     },
     methods: {
         updateData() {
-            this.form.put(route("leaveRequests.update", this.leaveRequest.id));
+            this.form.put(
+                route("company.leaveRequests.update", this.leaveRequest.id)
+            );
         },
         statusChange(event) {
             this.form.status = event.target.checked;
         },
-        async fetchCompanyWiseData() {
-            this.leaveTypes = [];
-            this.employeesUsers = [];
-
-            let leaveTypesData = await axios.get(
-                route("companies.leaveTypes", this.form.user_id)
-            );
-            let employeesUsersData = await axios.get(
-                route("companies.employees", this.form.user_id)
-            );
-
-            this.leaveTypes = leaveTypesData.data.leaveTypes;
-            this.employeesUsers = employeesUsersData.data.employeesUsers;
-        },
-
         handleStartDate(startDate) {
             const formatTime = dayjs(startDate).format("YYYY-MM-DD");
             this.form.start = formatTime;

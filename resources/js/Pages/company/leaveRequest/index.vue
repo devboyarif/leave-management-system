@@ -2,36 +2,13 @@
 
     <Head title="Company List" />
 
-    <div class="row justify-content-center">
-        <div class="col-12 my-5">
-            <div class="row justify-content-center">
-                <div class="col-12 ">
-                    <div class="row justify-content-center">
-                        <div class="col-md-3 col-xl-3">
-                            <select v-model="filterForm.user_id" class="form-control">
-                                <option value="all" class="d-none">Select Company</option>
-                                <option v-for="user in users" :key="user.id" :value="user.id">
-                                    {{ user.name }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 col-xl-2">
-                            <button @click="getCompanyWiseRequest" class="btn btn-primary btn-outline">
-                                Get Request
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row justify-content-center" v-if="leaveRequests && leaveRequests.data.length">
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">Leave Request List</h3>
-                        <Link :href="route('leaveRequests.create')" class="btn btn-primary">
+                        <Link :href="route('company.leaveRequests.create')" class="btn btn-primary">
                             <i class="fa-solid fa-plus"></i>
                             Create a new request
                         </Link>
@@ -109,15 +86,12 @@
 import Pagination from "../../../Shared/Pagination.vue";
 import debounce from "lodash/debounce";
 import { Inertia } from "@inertiajs/inertia";
-import Actions from "../../../Shared/Admin/LeaveRequest/Status.vue";
+import Actions from "../../../Shared/Company/LeaveRequest/Status.vue";
 import dayjs from "dayjs";
 
 export default {
     props: {
-        users: Array,
-        filters: Object || Array,
         leaveRequests: Array,
-        filterRequest: Number,
     },
     components: {
         Pagination,
@@ -125,17 +99,12 @@ export default {
         Actions,
     },
     data() {
-        return {
-            // search: this.filters.search,
-            filterForm: this.$inertia.form({
-                user_id: this.filterRequest.user_id || "all",
-            }),
-        };
+        return {};
     },
     methods: {
         deleteCompany(id) {
             if (confirm("Are you sure to delete?")) {
-                Inertia.delete(route("leaveRequests.destroy", id));
+                Inertia.delete(route("company.leaveRequests.destroy", id));
             }
         },
         getCompanyWiseRequest() {
@@ -158,18 +127,6 @@ export default {
             return dayjs(Date).format("DD MMM, YYYY");
         },
     },
-    // watch: {
-    //     search: debounce((value) => {
-    //         Inertia.get(
-    //             "users",
-    //             { search: value },
-    //             {
-    //                 preserveState: true,
-    //                 replace: true,
-    //             }
-    //         );
-    //     }, 500),
-    // },
 };
 </script>
 
