@@ -112,7 +112,7 @@
                                         </tr>
                                         <tr>
                                             <td width="30%">Total Days</td>
-                                            <td width="70%">{{  form.days }} Days</td>
+                                            <td width="70%">{{ form.days }} {{ pluralize(form.days, 'Day') }}</td>
                                         </tr>
                                         <tr>
                                             <td width="30%">Background Color</td>

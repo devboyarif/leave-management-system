@@ -19,21 +19,6 @@
                            <i class="fa-solid fa-gauge-high nav-icon"></i>
                         </template>
                     </NavLink>
-                    <!-- <Dropdown title="Test" :active="$page.component == 'about' || $page.component == 'contact'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-cube nav-icon"></i>
-                        </template>
-                        <NavLink title="About" :href="route('about')" :active="$page.component == 'about'">
-                            <template v-slot:icon>
-                                <i class="far fa-circle nav-icon"></i>
-                            </template>
-                        </NavLink>
-                        <NavLink title="Contact" :href="route('contact')" :active="$page.component == 'contact'">
-                            <template v-slot:icon>
-                                <i class="far fa-circle nav-icon"></i>
-                            </template>
-                        </NavLink>
-                    </Dropdown> -->
                     <Dropdown title="Users" :active="$page.url == '/admin/admins/*' || $page.url == '/admin/companies/*' || $page.url == '/admin/employees/*'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-user-group nav-icon"></i>

@@ -28,7 +28,7 @@
                                         {{ user.company.country.name }}
                                     </td>
                                     <td>
-                                        {{ user.holidays_count }}
+                                        {{ user.holidays_count }} {{ pluralize(user.holidays_count, 'Day') }}
                                     </td>
                                     <td>
                                         <Link v-tooltip="'Show all official holidays'" :href="route('holidays.show',user.id)" class="btn btn-info">

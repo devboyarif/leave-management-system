@@ -42,7 +42,7 @@
                             <div class="mt-4">
                                 <h6><strong>{{ holiday.title }}</strong>
                                     <span class="text-danger ml-1">
-                                        {{ holiday.days }} Days
+                                        {{ holiday.days }} {{ pluralize(holiday.days, 'Day') }}
                                     </span>
                                 </h6>
                                 <h6 class="d-flex align-items-center">

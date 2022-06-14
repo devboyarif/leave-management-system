@@ -52,11 +52,6 @@
                            <i class="fa-solid fa-h nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Announcement" :href="route('holidays.index')" :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-bullhorn nav-icon"></i>
-                        </template>
-                    </NavLink>
                      <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">
                            <i class="fa-solid fa-right-from-bracket nav-icon"></i>

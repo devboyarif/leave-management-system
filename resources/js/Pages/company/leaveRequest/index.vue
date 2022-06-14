@@ -3,6 +3,7 @@
     <Head title="Company List" />
 
     <div class="row justify-content-center" v-if="leaveRequests && leaveRequests.data.length">
+    {{ pluralize(5, 'apple') }}
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-0">
@@ -44,10 +45,10 @@
                                         <a href="#">{{ leaveRequest.employee.team.name }}</a>
                                     </td>
                                     <td>
-                                        {{ startDate(leaveRequest.start_date) }} - {{ endDate(leaveRequest.end_date) }}
+                                        {{ startDate(leaveRequest.start) }} - {{ endDate(leaveRequest.end) }}
 
                                          (<span class="text-danger ml-1">
-                                        {{ leaveRequest.days }} Day
+                                        {{ leaveRequest.days }} {{ pluralize(leaveRequest.days, 'Day') }}
                                     </span>)
                                     </td>
                                     <td>
@@ -102,15 +103,6 @@ export default {
         return {};
     },
     methods: {
-        deleteCompany(id) {
-            if (confirm("Are you sure to delete?")) {
-                Inertia.delete(route("company.leaveRequests.destroy", id));
-            }
-        },
-        getCompanyWiseRequest() {
-            this.filterForm.get(route("leaveRequests.index"));
-            console.log(this.filterForm);
-        },
         getBadgeType(status) {
             if (status == "pending") {
                 return "badge-warning";
@@ -120,11 +112,11 @@ export default {
                 return "badge-danger";
             }
         },
-        startDate(Date) {
-            return dayjs(Date).format("DD MMM, YYYY");
+        startDate(date) {
+            return dayjs(date).format("DD MMM, YYYY");
         },
-        endDate(Date) {
-            return dayjs(Date).format("DD MMM, YYYY");
+        endDate(date) {
+            return dayjs(date).format("DD MMM, YYYY");
         },
     },
 };

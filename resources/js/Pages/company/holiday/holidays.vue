@@ -3,17 +3,6 @@
     <Head title="Company Holidays" />
 
     <div class="row justify-content-center">
-        <div class="col-md-4 mt-3">
-            <div class="card bg-secondary text-white">
-                <div class="card-body">
-                    <div class="text-center">
-                        <h3>{{ user.name }}</h3>
-                        <h5>Country : {{ company.country.name }}</h5>
-                        <h6>Total Holidays : {{ holidays.length }}</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
@@ -42,7 +31,7 @@
                             <div class="mt-4">
                                 <h6><strong>{{ holiday.title }}</strong>
                                     <span class="text-danger ml-1">
-                                        {{ holiday.days }} Days
+                                        {{ holiday.days }} {{ pluralize(holiday.days, 'Day') }}
                                     </span>
                                 </h6>
                                 <h6 class="d-flex align-items-center">

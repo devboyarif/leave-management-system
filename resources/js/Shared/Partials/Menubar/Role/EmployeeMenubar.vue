@@ -34,24 +34,16 @@
                             <i class="fa-solid fa-h nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Announcement" :href="route('holidays.index')"
-                        :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-bullhorn nav-icon"></i>
-                        </template>
-                    </NavLink>
                     <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">
                         <i class="fa-solid fa-right-from-bracket nav-icon"></i>
                         <p>Logout</p>
                         </Link>
                     </li>
-                    <!-- <li class="nav-item">
-                        </li> -->
-                        <Link :href="route('employee.leave.request')" class="btn btn-primary text-light m-2 pt-2" >
+                    <Link :href="route('employee.leave.request')" class="btn btn-primary text-light m-2 pt-2" >
                         <i class="fa-solid fa-right-from-bracket nav-icon"></i>
                         <h6 class="m-2">Apply for Leave</h6>
-                        </Link>
+                    </Link>
                 </ul>
             </nav>
         </div>
