@@ -92,14 +92,6 @@
                                     </div>
                                     <div class="mb-3">
                                         <div class="col-md-12">
-                                            <Label name="Holiday Color" :required="false" />
-                                            <input v-model="form.color" type="color" class="form-control"
-                                                :class="{'is-invalid':form.errors.color}" id="name">
-                                            <ErrorMessage :name="form.errors.color"/>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="col-md-12">
                                             <Label name="Note"/>
                                             <textarea v-model="form.note" rows="5" class="form-control"
                                                 :class="{'is-invalid':form.errors.note}">

@@ -41,7 +41,6 @@
                         </Link>
                     </li>
                     <Link :href="route('employee.leave.request')" class="btn btn-primary text-light m-2 pt-2" >
-                        <i class="fa-solid fa-right-from-bracket nav-icon"></i>
                         <h6 class="m-2">Apply for Leave</h6>
                     </Link>
                 </ul>

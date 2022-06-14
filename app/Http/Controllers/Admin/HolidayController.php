@@ -29,7 +29,7 @@ class HolidayController extends Controller
             'start' => $request->start,
             'end' => $request->end,
             'days' => diffBetweenDays($request->start, $request->end),
-            'color' => $request->color,
+            'color' => "#ff0000",
         ]);
 
         session()->flash('success', 'Official holiday created successfully!');
@@ -60,7 +60,7 @@ class HolidayController extends Controller
             'start' => $request->start,
             'end' => $request->end,
             'days' => diffBetweenDays($request->start, $request->end),
-            'color' => $request->color,
+            'color' => "#ff0000",
         ]);
 
         session()->flash('success', 'Official holiday updated successfully!');
@@ -98,7 +98,7 @@ class HolidayController extends Controller
             'start' => $request_holiday->start,
             'end' => $request_holiday->end,
             'days' => diffBetweenDays($request_holiday->start, $request_holiday->end),
-            'color' => $request_holiday->color,
+            'color' =>  "#ff0000",
         ]);
 
         $request_holiday->delete();

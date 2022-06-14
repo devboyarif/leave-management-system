@@ -105,14 +105,6 @@
                                             <ErrorMessage :name="form.errors.end" />
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
-                                        <div class="col-md-12">
-                                            <Label name="Holiday Color" :required="false" />
-                                            <input v-model="form.color" type="color" class="form-control"
-                                                :class="{'is-invalid':form.errors.color}" id="name">
-                                            <ErrorMessage :name="form.errors.color" />
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -190,7 +182,6 @@ export default {
                 title: "",
                 start: "",
                 end: "",
-                color: "#ff0000",
             }),
 
             editMode: false,
@@ -239,9 +230,7 @@ export default {
             this.form.title = holiday.title;
             this.form.start = holiday.start;
             this.form.end = holiday.end;
-            this.form.color = holiday.color;
             this.showModal = true;
-            console.log(holiday);
         },
         deleteData(holiday_id) {
             if (confirm("Are you sure to delete?")) {

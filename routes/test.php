@@ -5,10 +5,82 @@ use App\Models\Country;
 use App\Models\Holiday;
 use App\Models\Calendar;
 use App\Models\Employee;
+use Illuminate\Support\Arr;
+use App\Models\LeaveRequest;
+use App\Models\LeaveType;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
+    $employee = currentCompany();
+
+
+    return $leaveRequest = LeaveRequest::with('leaveType', 'employee.user')
+        ->where('company_id', $company->company_id)
+        ->where('status', 'approved')
+        ->get()
+        ->transform(function ($leaveRequest) {
+            return [
+                'title' => $leaveRequest->company->user->name,
+                'end' => $leaveRequest->end,
+                'start' => $leaveRequest->start,
+                'color' => $leaveRequest->leaveType->color,
+            ];
+        });
+
+    $employee = currentEmployee();
+    $leave_type_color = LeaveType::where('company_id', $employee->company_id)->get(['name', 'color']);
+    $holiday = [
+        [
+            'name' => 'Holiday',
+            'color' => '#ff0000'
+        ]
+    ];
+
+    return    $array = Arr::collapse([$holiday, $leave_type_color]);
+
+    // return $array = Arr::collapse([[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 2, 3]]);
+    // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+    $holidays = Holiday::where('company_id', 4)
+        ->get()
+        ->transform(function ($holiday) {
+            return [
+                'title' => $holiday->title,
+                'start' => $holiday->start,
+                'end' => $holiday->end,
+                'color' => $holiday->color,
+            ];
+        });
+
+    $leaveRequest = LeaveRequest::with('leaveType', 'employee.user')
+        ->where('company_id', 4)
+        ->where('status', 'approved')
+        ->get()
+        ->transform(function ($leaveRequest) {
+            return [
+                'title' => $leaveRequest->employee->user->name,
+                'end' => $leaveRequest->end,
+                'start' => $leaveRequest->start,
+                'color' => $leaveRequest->leaveType->color,
+            ];
+        });
+
+    return Arr::collapse([$holidays, $leaveRequest]);
+
+    $merged = $holidays->merge($leaveRequest);
+
+    return $merged->all();
+
+    // $collection = collect(['Desk', 'Chair']);
+
+    // $merged = $collection->merge(['Bookcase', 'Door']);
+
+    // $merged->all();
+
+
+
     // return auth()->user()->employee->team->employees->load('user');
     // $employee = currentUser()->employee;
     // $team = $employee->team;

@@ -111,14 +111,6 @@
                                             <td width="70%">{{  form.days }} {{ pluralize(form.days, 'Day') }}</td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Background Color</td>
-                                            <td width="70%">
-                                                <span :style="{ background: form.color, border: '2px solid '+form.color }" class="leave-type-color">
-                                                   {{ form.color }}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td width="50%">Note</td>
                                             <td width="50%">{{ form.note }}</td>
                                         </tr>
@@ -162,7 +154,6 @@ export default {
                 start: "",
                 end: "",
                 days: "",
-                color: "#ff0000",
                 note: "",
             },
         };
@@ -181,7 +172,6 @@ export default {
             this.form.title = holiday.title;
             this.form.start = holiday.start;
             this.form.end = holiday.end;
-            this.form.color = holiday.color;
             this.form.note = holiday.note;
 
             this.showModal = true;

@@ -59,9 +59,6 @@ class EmployeeController extends Controller
             'team_id' => 'required|integer',
         ]);
 
-
-
-
         return $request;
     }
 
