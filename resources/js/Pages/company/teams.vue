@@ -90,51 +90,6 @@
                 </div>
             </div>
         </div>
-        <!-- Create or Edit Holiday Modal  -->
-    <!-- <div v-if="showModal">
-        <transition name="fade">
-            <div class="modal-mask">
-                <div class="modal-wrapper">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">
-                                    <span v-if="!editMode">Create a New Team</span>
-                                    <span v-else>Edit Team</span>
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true" @click="showModal = false">&times;</span>
-                                </button>
-                            </div>
-                            <form @submit.prevent="saveData">
-                                <div class="modal-body">
-                                    <div class="mb-3 row">
-                                        <div class="col-md-12">
-                                            <Label name="Name" />
-                                            <input v-model="form.name" type="text" class="form-control"
-                                                :class="{'is-invalid':form.errors.name}" id="name">
-                                            <ErrorMessage :name="form.errors.name" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        @click="showModal = false">Close</button>
-                                    <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                                        <Loading v-if="form.processing" />
-                                        <span v-else>
-                                            <i class="fa-solid fa-check mr-1"></i>
-                                            Save
-                                        </span>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </transition>
-    </div> -->
 </template>
 
 
@@ -153,22 +108,9 @@ export default {
         return {
             isEditMode: false,
             selectedId: null,
-            // search: this.filters.search,
             form: this.$inertia.form({
                 name: null,
                 user_id: "",
-            }),
-
-            // Unused
-
-            currentActiveTeamId: null,
-            editMode: false,
-            showModal: false,
-            showTeamAction: false,
-            team_id: null,
-
-            form: this.$inertia.form({
-                name: null,
             }),
         };
     },

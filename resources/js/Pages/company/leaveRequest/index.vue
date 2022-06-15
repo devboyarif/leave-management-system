@@ -2,7 +2,7 @@
 
     <Head title="Company List" />
 
-    <div class="row justify-content-center" v-if="leaveRequests && leaveRequests.data.length">
+    <div class="row justify-content-center">
     {{ pluralize(5, 'apple') }}
         <div class="col-12">
             <div class="card">
@@ -62,8 +62,8 @@
                                 </tr>
                             </template>
                             <tr v-else>
-                                <td colspan="5" class="text-center">
-                                    <h3>No User Found</h3>
+                                <td colspan="20" class="text-center my-5 py-5">
+                                    <h6>No Data Found</h6>
                                 </td>
                             </tr>
                         </tbody>
@@ -73,11 +73,6 @@
                     <Pagination :links="leaveRequests.links" />
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row justify-content-center" v-else>
-        <div class="col-12 text-center mt-5 pt-5">
-            <h3>Please select a company</h3>
         </div>
     </div>
 </template>
