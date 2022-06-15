@@ -14,15 +14,23 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $current_company_id = currentCompany()->id;
-        $employees = Employee::with('user:id,name,email,avatar')
-            ->where('company_id', $current_company_id)->paginate(10);
+        // $current_company_id = currentCompany()->id;
+        // $employees = Employee::with('user:id,name,email,avatar')
+        //     ->where('company_id', $current_company_id)->paginate(10);
 
-        $teams = Team::where('company_id', $current_company_id)->get(['id', 'name']);
+        // $teams = Team::where('company_id', $current_company_id)->get(['id', 'name']);
+
+        // return inertia('company/employees', [
+        //     'employees' => $employees,
+        //     'teams' => $teams,
+        // ]);
+
+        $teams = Team::where('company_id', currentCompany()->id)->get(['id', 'name', 'slug']);
+        $employees = Employee::with('user:id,name,email,avatar', 'team:id,name')->where('company_id', currentCompany()->id)->get();
 
         return inertia('company/employees', [
-            'employees' => $employees,
             'teams' => $teams,
+            'employees' => $employees,
         ]);
     }
 

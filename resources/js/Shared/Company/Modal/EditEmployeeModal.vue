@@ -129,6 +129,7 @@ export default {
                 route("company.employees.update", this.employee.id),
                 {
                     onSuccess: () => {
+                        this.$emit("updated");
                         this.form.reset();
                         this.hideModal();
                     },

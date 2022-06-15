@@ -122,6 +122,7 @@ export default {
         saveData() {
             this.form.post(route("company.employees.store"), {
                 onSuccess: () => {
+                    this.$emit("created");
                     this.form.reset();
                     this.hideModal();
                 },

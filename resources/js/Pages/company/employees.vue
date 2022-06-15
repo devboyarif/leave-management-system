@@ -1,15 +1,13 @@
 <template>
-    <Head title="Company List"/>
+    <Head title="Employee List"/>
 
-    <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                            <h4>Employee List</h4>
-                            <!-- <input v-model="search" type="text" placeholder="Search.." class="form-control w-50"> -->
-                           <div>
-
+<div class="row justify-content-center mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <span>Employee List</span>
+                        <div>
                             <div class="btn-group" :class="{'show':showEmployeeDropdown}" role="group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle" @click="showEmployeeDropdown = !showEmployeeDropdown">
                                 Create Employee
@@ -25,61 +23,93 @@
                                     </a>
                                 </div>
                             </div>
-                           </div>
                         </div>
-                    </div>
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-valign-middle">
-                            <thead>
-                               <tr>
-                                    <th>Employee</th>
-                                    <th>Email</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-if="employees && employees.data.length">
-                                    <tr v-for="(employee,index) in employees.data" :key="index">
-                                        <td>
-                                            <img :src="employee.user.avatar" alt="Product 1"
-                                                class="img-circle img-size-32 mr-2">
-                                            {{ employee.user.name }}
-                                        </td>
-                                        <td>{{ employee.user.email }}</td>
-                                        <td class="d-flex">
-                                            <button @click="editData(employee)" v-tooltip="'Edit Employee'" class="btn btn-sm">
-                                                <EditIcon/>
-                                            </button>
-                                            <button @click="deleteData(employee.user.id)" v-tooltip="'Delete Employee'" class="btn btn-sm">
-                                                <DeleteIcon/>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </template>
-                                <tr v-else>
-                                    <td colspan="5" class="text-center">
-                                        <h3>No User Found</h3>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- Pagination  -->
-                        <Pagination :links="employees.links" />
                     </div>
                 </div>
             </div>
+           <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" @click="changeTab('all')" class="nav-link" :class="{'active': currentTab == 'all'}">All</a>
+                            </li>
+                            <li class="nav-item" v-for="team in teams" :key="team.id">
+                                <a href="javascript:void(0)" @click="changeTab(team.slug)" class="nav-link" :class="{'active': currentTab == team.slug}">{{ team.name }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade" :class="{'show active': currentTab == 'all'}">
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 semi-gutters">
+                                <template v-if="employees && employees.length">
+                                    <div class="col mb-4" v-for="employee in employees" :key="employee.id">
+                                        <div class="card h-100" v-if="employee.user">
+                                            <img :src="employee.user.avatar" class="card-image-top">
+                                            <div class="card-body">
+                                                <h6 class="card-title">{{ employee.user.name }}</h6> <br>
+                                                <p  class="m-0 p-0" v-if="employee.team">{{ employee.team.name }}</p>
+                                                <p class="mt-0 p-0">
+                                                    {{ employee.user.email }}
+                                                </p>
+                                                <button @click="editData(employee)" class="btn btn-sm team-member-edit">
+                                                    <EditIcon/>
+                                                </button>
+                                                <button @click="deleteData(employee.user.id)" class="btn btn-sm team-member-delete">
+                                                    <DeleteIcon/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <h5 v-else>No employees found</h5>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" :class="{'show active': currentTab == team.slug}" v-for="team in teams" :key="team.id">
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 semi-gutters">
+                                 <template v-if="employees && employees.length">
+                                <div class="col mb-4" v-for="employee in employees" :key="employee.id">
+                                    <div class="card h-100" v-if="employee.user">
+                                        <img :src="employee.user.avatar" class="card-image-top">
+                                        <div class="card-body">
+                                            <h6 class="card-title">{{ employee.user.name }}</h6> <br>
+                                            <p  class="m-0 p-0" v-if="employee.team">{{ employee.team.name }}</p>
+                                            <p class="mt-0 p-0">
+                                                {{ employee.user.email }}
+                                            </p>
+                                            <button @click="editData(employee)" class="btn btn-sm team-member-edit">
+                                                <EditIcon/>
+                                            </button>
+                                            <button @click="deleteData(employee.user.id)" class="btn btn-sm team-member-delete">
+                                                <DeleteIcon/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </template>
+                                <template v-else>
+                                   <div class="d-flex justify-content-center text-center m-auto">
+                                        <h6>No Data Found</h6>
+                                   </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
         </div>
+    </div>
 
         <!-- Invite Employee Modal -->
         <InviteEmployeeModal :show="showEmployeeInviteModal" @close="showEmployeeInviteModal = false" :teams="teams"/>
 
         <!-- Create Employee Modal -->
-        <CreateEmployeeModal :show="showEmployeeCreateModal" @close="showEmployeeCreateModal = false" :teams="teams"/>
+        <CreateEmployeeModal :show="showEmployeeCreateModal" @close="showEmployeeCreateModal = false" :teams="teams" @created="changeTab(currentTab)"/>
 
         <!-- Edit Employee Modal -->
-
-        <EditEmployeeModal v-if="showEmployeeEditModal" :show="showEmployeeEditModal" @close="showEmployeeEditModal = false" :teams="teams" :employee="showEmployeeEditModal ? employee:''"/>
+        <EditEmployeeModal v-if="showEmployeeEditModal" :show="showEmployeeEditModal" @close="showEmployeeEditModal = false" :teams="teams" :employee="showEmployeeEditModal ? employee:''" @updated="changeTab(currentTab)"/>
 </template>
 
 
@@ -93,12 +123,8 @@ import EditEmployeeModal from "../../Shared/Company/Modal/EditEmployeeModal.vue"
 
 export default {
     props: {
-        employees: Object,
-        filters: Object || Array,
-        teams: {
-            type: Array,
-            required: true,
-        },
+        teams: Array,
+        employees: Array,
     },
     components: {
         Pagination,
@@ -109,16 +135,27 @@ export default {
     },
     data() {
         return {
+            currentTab: "all",
+            employees: this.employees,
             showEmployeeDropdown: false,
             showEmployeeInviteModal: false,
             showEmployeeCreateModal: false,
             showEmployeeEditModal: false,
-            teams: this.teams,
             employee: "",
-            // search: this.filters.search,
         };
     },
     methods: {
+        async changeTab(tab) {
+            this.currentTab = tab;
+            this.currentActiveTeam = tab;
+            let response = await axios.get(
+                route("company.teams.employees", {
+                    team: tab,
+                })
+            );
+
+            this.employees = response.data.employees;
+        },
         deleteData(id) {
             this.$swal({
                 title: "Are you sure?",
@@ -130,7 +167,11 @@ export default {
                 confirmButtonText: "Yes, delete it!",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Inertia.delete(route("company.employees.destroy", id));
+                    Inertia.delete(route("company.employees.destroy", id), {
+                        onSuccess: () => {
+                            this.changeTab(this.currentTab);
+                        },
+                    });
                 }
             });
         },
@@ -138,18 +179,6 @@ export default {
             this.employee = employee;
             this.showEmployeeEditModal = true;
         },
-    },
-    watch: {
-        // search: debounce((value) => {
-        //     Inertia.get(
-        //         "users",
-        //         { search: value },
-        //         {
-        //             preserveState: true,
-        //             replace: true,
-        //         }
-        //     );
-        // }, 500),
     },
 };
 </script>
@@ -168,5 +197,16 @@ export default {
     left: 0px;
     will-change: transform;
 }
+
+   .team-member-edit{
+        position: absolute;
+        top: 0;
+        right: 30px;
+    }
+    .team-member-delete{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
 </style>
 

@@ -18,6 +18,12 @@ class Team extends Model
         'slug',
     ];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = strSlug($value);
+    }
+
     public function company()
     {
         return $this->belongsTo(Company::class, 'company_id');
