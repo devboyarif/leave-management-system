@@ -177,7 +177,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">Leave Balance</h3>
-                        <button class="btn btn-primary btn-sm">Apply for Leave</button>
+                        <Link :href="route('employee.leave.request')" class="btn btn-primary btn-sm">Apply for Leave</Link>
                     </div>
                 </div>
                 <div class="card-body">

@@ -1,5 +1,7 @@
 <template>
-    <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
+    <div class="d-flex justify-content-center">
+        <apexchart height="400px" width="380px" type="donut" :options="chartOptions" :series="series"/>
+    </div>
 </template>
 
 
@@ -23,11 +25,6 @@ export default {
         colors: {
             type: Array,
             default: ["#3498db", "#e74c3c"],
-            // default: ["#2A8737", "#F23D4E"],
-        },
-        width: {
-            type: Number,
-            default: 300,
         },
     },
     components: {
@@ -38,7 +35,6 @@ export default {
             series: this.series,
             chartOptions: {
                 chart: {
-                    width: this.width,
                     type: "pie",
                 },
                 colors: this.colors,
@@ -53,8 +49,18 @@ export default {
                         color: "#263238",
                     },
                 },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val) {
+                        return val + "%";
+                    },
+                },
+                tooltip: {
+                    enabled: false,
+                },
             },
         };
     },
 };
 </script>
+
