@@ -8,7 +8,7 @@
         <div class="sidebar" style="overflow-y: auto;">
 
             <nav class="sidebar-main-nav mt-3">
-                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-legacy nav-flat nav-child-indent"
+                <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-flat"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <NavLink title="Dashboard" :href="route('dashboard')" :active="$page.component == 'dashboard'">
                         <template v-slot:icon>
