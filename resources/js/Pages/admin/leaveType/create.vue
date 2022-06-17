@@ -59,11 +59,6 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="custom-control custom-checkbox">
-                                    <input v-model="form.allow_half_day" type="checkbox" class="custom-control-input"
-                                        id="half_day">
-                                    <label class="custom-control-label" for="half_day">Allow half day</label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
                                     <input v-model="form.auto_approve" type="checkbox" class="custom-control-input"
                                         id="auto_approve">
                                     <label class="custom-control-label" for="auto_approve">Allow auto approve</label>
@@ -100,7 +95,6 @@ export default {
                 name: null,
                 color: "#ABB8C3",
                 balance: 7,
-                allow_half_day: false,
                 auto_approve: false,
                 status: true,
             }),

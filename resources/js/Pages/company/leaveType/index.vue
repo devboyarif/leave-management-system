@@ -35,9 +35,6 @@
                                             {{ leave_type.balance }} days
                                         </td>
                                         <td>
-                                            <span v-if="leave_type.allow_half_day" class="badge badge-pill badge-primary mx-1">
-                                                Allow half day
-                                            </span>
                                             <span v-if="leave_type.auto_approve" class="badge badge-pill badge-info mx-1">
                                                 Allow auto approve
                                             </span>

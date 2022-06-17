@@ -35,7 +35,6 @@ class LeaveTypeController extends Controller
             'name' => $request->name,
             'color' => $request->color,
             'balance' => $request->balance,
-            'allow_half_day' => $request->allow_half_day ? 1 : 0,
             'auto_approve' => $request->auto_approve ? 1 : 0,
             'status' => $request->status ? 1 : 0,
         ]);
@@ -61,7 +60,6 @@ class LeaveTypeController extends Controller
             'name' => $request->name,
             'color' => $request->color,
             'balance' => $request->balance,
-            'allow_half_day' => $request->allow_half_day ? 1 : 0,
             'auto_approve' => $request->auto_approve ? 1 : 0,
             'status' => $request->status ? 1 : 0,
         ]);

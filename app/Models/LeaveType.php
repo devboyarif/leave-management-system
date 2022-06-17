@@ -14,7 +14,6 @@ class LeaveType extends Model
         'name',
         'slug',
         'color',
-        'allow_half_day',
         'auto_approve',
         'balance',
         'status',

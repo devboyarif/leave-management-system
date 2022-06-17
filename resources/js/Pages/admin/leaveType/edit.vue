@@ -59,11 +59,6 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="custom-control custom-checkbox">
-                                    <input v-model="form.allow_half_day" type="checkbox" class="custom-control-input"
-                                        id="half_day" :checked="form.allow_half_day">
-                                    <label class="custom-control-label" for="half_day">Allow half day</label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
                                     <input v-model="form.auto_approve" type="checkbox" class="custom-control-input"
                                         id="auto_approve" :checked="form.auto_approve">
                                     <label class="custom-control-label" for="auto_approve">Allow auto approve</label>
@@ -104,7 +99,6 @@ export default {
                 name: this.leaveType.name,
                 color: this.leaveType.color,
                 balance: this.leaveType.balance,
-                allow_half_day: this.leaveType.allow_half_day ? true : false,
                 auto_approve: this.leaveType.auto_approve ? true : false,
                 status: this.leaveType.status ? true : false,
             }),

@@ -20,7 +20,6 @@ class CreateLeaveTypesTable extends Migration
             $table->string('name');
             $table->string('slug')->nullable();
             $table->string('color')->default('#ABB8C3');
-            $table->boolean('allow_half_day')->default(1);
             $table->boolean('auto_approve')->default(0);
             $table->unsignedInteger('balance')->default(7);
             $table->boolean('status')->default(1);
