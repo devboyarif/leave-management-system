@@ -38,10 +38,10 @@
                     </div>
 
                     <div class="navbar-btn d-none d-sm-inline-block">
-                        <a href="login.html" class="ud-main-btn ud-login-btn">
+                        <a href="{{ route('login') }}" class="ud-main-btn ud-login-btn">
                             Sign In
                         </a>
-                        <a class="ud-main-btn ud-white-btn" href="javascript:void(0)">
+                        <a class="ud-main-btn ud-white-btn" href="{{ route('register') }}">
                             Sign Up
                         </a>
                     </div>
