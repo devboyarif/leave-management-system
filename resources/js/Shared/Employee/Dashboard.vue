@@ -175,27 +175,26 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">My Leave Balance</h3>
+                    <div class="d-flex justify-content-between">
+                        <h3 class="card-title">Leave Balance</h3>
+                        <button class="btn btn-primary btn-sm">Apply for Leave</button>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div>
-                        <PieChart :title="'Casual'" :series="[20,80]"/>
-                        <ul class="list-group list-group-horizontal mt-2 d-flex justify-content-center">
+                    <div v-for="(leave_balance, index) in leave_balances" :key="index">
+                        <PieChart :title="leave_balance.title" :series="leavePercentage(leave_balance)"/>
+                        <ul class="list-group list-group-horizontal my-2 d-flex justify-content-center">
                             <li class="list-group-item">
-                                Total - <span>10</span>
+                                Total - <span>{{ leave_balance.total_days }}</span>
                             </li>
                             <li class="list-group-item">
-                                Used - <span>4</span>
+                                Used - <span>{{ leave_balance.used_days }}</span>
                             </li>
                             <li class="list-group-item">
-                                Remaining - <span>6</span>
+                                Remaining - <span>{{ leave_balance.remaining_days }}</span>
                             </li>
                         </ul>
-                    </div>
-                    <hr>
-                    <div>
-                         <PieChart :title="'Paid'" :series="[60,40]"/> <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
-
+                        <hr v-if="index+1 != leave_balances.length">
                     </div>
                 </div>
             </div>
@@ -225,12 +224,24 @@ export default {
                 events: [],
             },
             event_types: [],
+            leave_balances: [],
         };
+    },
+    methods: {
+        leavePercentage(leave_balance) {
+            return [
+                leave_balance.user_percentage,
+                leave_balance.remaining_percentage,
+            ];
+        },
     },
     async mounted() {
         let response = await axios.get(route("employee.dashboard"));
         this.calendarOptions.events = response.data.events;
         this.event_types = response.data.event_types;
+        this.leave_balances = response.data.leave_balances;
+
+        console.log(response.data.leave_balances);
     },
 };
 </script>

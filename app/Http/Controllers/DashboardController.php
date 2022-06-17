@@ -6,10 +6,13 @@ use App\Models\Holiday;
 use App\Models\LeaveType;
 use Illuminate\Support\Arr;
 use App\Models\LeaveRequest;
+use App\Traits\HasEmployee;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    use HasEmployee;
+
     public function dashboard()
     {
         return inertia('dashboard');
@@ -48,16 +51,8 @@ class DashboardController extends Controller
     {
         $employee = currentEmployee();
 
-        $holidays = Holiday::where('company_id', $employee->company_id)
-            ->get()
-            ->transform(function ($holiday) {
-                return [
-                    'title' => $holiday->title,
-                    'start' => $holiday->start,
-                    'end' => $holiday->end,
-                    'color' => $holiday->color,
-                ];
-            });
+        // Calendar Events
+        $holidays = $this->employeeDashboardHolidays($employee);
 
         $leaveRequest = LeaveRequest::with('leaveType', 'employee.user')
             ->where('company_id', $employee->company_id)
@@ -76,9 +71,13 @@ class DashboardController extends Controller
             ->get(['name', 'color']);
         $holiday = [['name' => 'Holiday', 'color' => '#ff0000']];
 
+        // Leave Balance
+        $leave_balances = $this->employeeDashboardLeaveBalance($employee);
+
         return [
             'events' => Arr::collapse([$holidays, $leaveRequest]),
             'event_types' => Arr::collapse([$holiday, $leave_type_color]),
+            'leave_balances' => $leave_balances,
         ];
     }
 

@@ -29,4 +29,9 @@ class Employee extends Model
     {
         return $this->belongsTo(Team::class, 'team_id');
     }
+
+    public function leaveBalances()
+    {
+        return $this->hasMany(LeaveBalance::class, 'employee_id');
+    }
 }

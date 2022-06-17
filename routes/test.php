@@ -5,6 +5,7 @@ use App\Models\Country;
 use App\Models\Holiday;
 use App\Models\Calendar;
 use App\Models\Employee;
+use App\Models\LeaveBalance;
 use Illuminate\Support\Arr;
 use App\Models\LeaveRequest;
 use App\Models\LeaveType;
@@ -12,8 +13,48 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
-    return LeaveType::get();
-    $employee = currentCompany();
+    $employee = currentEmployee()->leaveBalances;
+
+
+    $leave_balances = $employee->load('leaveType:id,name')->transform(function ($leaveBalance) {
+        $total_days = $leaveBalance->total_days;
+        $used_days = $leaveBalance->used_days;
+        $remaining_days = $leaveBalance->remaining_days;
+
+        return [
+            'title' => $leaveBalance->leaveType->name,
+            'total_days' => $total_days,
+            'used_days' => $used_days,
+            'remaining_days' => $remaining_days,
+            'user_percentage' => round(($used_days / $total_days) * 100),
+            'remaining_percentage' => round(($remaining_days / $total_days) * 100),
+        ];
+    });
+
+    return $leave_balances;
+
+    // $employee = currentEmployee();
+    // $leave_types = LeaveType::where('company_id', $employee->company_id)->get();
+    // // $total_days = $leave_types->balance;
+
+    // foreach ($leave_types as $leave_type) {
+    //     LeaveBalance::create([
+    //         'employee_id' => $employee->id,
+    //         'leave_type_id' => $leave_type->id,
+    //         'total_days' => $leave_type->balance,
+    //     ]);
+    // }
+
+
+    // return $employee->leaveBalances;
+
+
+
+    // return LeaveType::get();
+    // $employee = currentCompany();
+
+
+
 
 
     return $leaveRequest = LeaveRequest::with('leaveType', 'employee.user')

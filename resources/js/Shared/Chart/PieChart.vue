@@ -22,7 +22,8 @@ export default {
         },
         colors: {
             type: Array,
-            default: ["#2A8737", "#F23D4E"],
+            default: ["#3498db", "#e74c3c"],
+            // default: ["#2A8737", "#F23D4E"],
         },
         width: {
             type: Number,
