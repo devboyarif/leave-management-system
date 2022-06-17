@@ -1,22 +1,60 @@
 <template>
-    <Head title="Employee Dashboard"/>
-    <div class="row mt-4">
-        <div class="col-lg-8">
+
+    <Head title="Employee Dashboard" />
+    <div class="row mt-3">
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box shadow-sm">
+                <span class="info-box-icon bg-primary"><i class="fa-regular fa-calendar-minus"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Leave Request</span>
+                    <span class="info-box-number">50</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box shadow-sm">
+                <span class="info-box-icon bg-warning"><i class="fa-regular fa-hourglass"></i></span>
+                <div class="info-box-content">
+
+                    <span class="info-box-text">Pending Request</span>
+                    <span class="info-box-number">50</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box shadow-sm">
+                <span class="info-box-icon bg-info"><i class="fa-solid fa-people-group nav-icon"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Teams</span>
+                    <span class="info-box-number">50</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box shadow-sm">
+                <span class="info-box-icon bg-success"><i class="fa-solid fa-users"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Employees</span>
+                    <span class="info-box-number">50</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-lg-8 shadow">
             <div class="card">
                 <div class="card-header">
-                    <h3>Calendar</h3>
+                    <h3 class="card-title">Calendar</h3>
                 </div>
                 <div class="card-body">
                     <FullCalendar :options="calendarOptions" />
                 </div>
                 <div class="card-footer row justify-content-between">
                     <span v-for="(event_type,index) in event_types" :key="index">
-                        <span class="mr-2 event-size"
-                        :style="{
+                        <span class="mr-2 event-size" :style="{
                             backgroundColor: event_type.color,
                             border: '2px solid '+ event_type.color
-                        }"
-                       ></span>
+                        }"></span>
                         {{ event_type.name }}
                     </span>
                 </div>
@@ -48,8 +86,8 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                        class="img-circle img-size-32 mr-2">
+                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png"
+                                        alt="Product 1" class="img-circle img-size-32 mr-2">
                                     Some Product
                                 </td>
                                 <td>$13 USD</td>
@@ -68,8 +106,8 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                        class="img-circle img-size-32 mr-2">
+                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png"
+                                        alt="Product 1" class="img-circle img-size-32 mr-2">
                                     Another Product
                                 </td>
                                 <td>$29 USD</td>
@@ -88,8 +126,8 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                        class="img-circle img-size-32 mr-2">
+                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png"
+                                        alt="Product 1" class="img-circle img-size-32 mr-2">
                                     Amazing Product
                                 </td>
                                 <td>$1,230 USD</td>
@@ -108,8 +146,8 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                        class="img-circle img-size-32 mr-2">
+                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png"
+                                        alt="Product 1" class="img-circle img-size-32 mr-2">
                                     Perfect Item
                                     <span class="badge bg-danger">NEW</span>
                                 </td>
@@ -136,113 +174,48 @@
         <!-- /.col-md-6 -->
         <div class="col-lg-4">
             <div class="card">
-                <div class="card-header border-0">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Sales</h3>
-                        <a href="javascript:void(0);">View Report</a>
-                    </div>
+                <div class="card-header">
+                    <h3 class="card-title">My Leave Balance</h3>
                 </div>
                 <div class="card-body">
-                    <div class="d-flex">
-                        <p class="d-flex flex-column">
-                            <span class="text-bold text-lg">$18,230.00</span>
-                            <span>Sales Over Time</span>
-                        </p>
-                        <p class="ml-auto d-flex flex-column text-right">
-                            <span class="text-success">
-                                <i class="fas fa-arrow-up"></i> 33.1%
-                            </span>
-                            <span class="text-muted">Since last month</span>
-                        </p>
+                    <div>
+                        <PieChart :title="'Casual'" :series="[20,80]"/>
+                        <ul class="list-group list-group-horizontal mt-2 d-flex justify-content-center">
+                            <li class="list-group-item">
+                                Total - <span>10</span>
+                            </li>
+                            <li class="list-group-item">
+                                Used - <span>4</span>
+                            </li>
+                            <li class="list-group-item">
+                                Remaining - <span>6</span>
+                            </li>
+                        </ul>
                     </div>
-                    <!-- /.d-flex -->
+                    <hr>
+                    <div>
+                         <PieChart :title="'Paid'" :series="[60,40]"/> <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
 
-                    <div class="position-relative mb-4">
-                        <canvas id="sales-chart" height="200"></canvas>
                     </div>
-
-                    <div class="d-flex flex-row justify-content-end">
-                        <span class="mr-2">
-                            <i class="fas fa-square text-primary"></i> This year
-                        </span>
-
-                        <span>
-                            <i class="fas fa-square text-gray"></i> Last year
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <!-- /.card -->
-
-            <div class="card">
-                <div class="card-header border-0">
-                    <h3 class="card-title">Online Store Overview</h3>
-                    <div class="card-tools">
-                        <a href="#" class="btn btn-sm btn-tool">
-                            <i class="fas fa-download"></i>
-                        </a>
-                        <a href="#" class="btn btn-sm btn-tool">
-                            <i class="fas fa-bars"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                        <p class="text-success text-xl">
-                            <i class="ion ion-ios-refresh-empty"></i>
-                        </p>
-                        <p class="d-flex flex-column text-right">
-                            <span class="font-weight-bold">
-                                <i class="ion ion-android-arrow-up text-success"></i> 12%
-                            </span>
-                            <span class="text-muted">CONVERSION RATE</span>
-                        </p>
-                    </div>
-                    <!-- /.d-flex -->
-                    <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                        <p class="text-warning text-xl">
-                            <i class="ion ion-ios-cart-outline"></i>
-                        </p>
-                        <p class="d-flex flex-column text-right">
-                            <span class="font-weight-bold">
-                                <i class="ion ion-android-arrow-up text-warning"></i> 0.8%
-                            </span>
-                            <span class="text-muted">SALES RATE</span>
-                        </p>
-                    </div>
-                    <!-- /.d-flex -->
-                    <div class="d-flex justify-content-between align-items-center mb-0">
-                        <p class="text-danger text-xl">
-                            <i class="ion ion-ios-people-outline"></i>
-                        </p>
-                        <p class="d-flex flex-column text-right">
-                            <span class="font-weight-bold">
-                                <i class="ion ion-android-arrow-down text-danger"></i> 1%
-                            </span>
-                            <span class="text-muted">REGISTRATION RATE</span>
-                        </p>
-                    </div>
-                    <!-- /.d-flex -->
                 </div>
             </div>
         </div>
-        <!-- /.col-md-6 -->
     </div>
 </template>
 
 <script>
-import VueApexCharts from "vue3-apexcharts";
 import Layout from "../Layout/Default.vue";
-
 import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
+import PieChart from "../Chart/PieChart.vue";
+
 export default {
     components: {
         Layout,
-        apexchart: VueApexCharts,
         FullCalendar,
+        PieChart,
     },
     data() {
         return {
@@ -252,29 +225,6 @@ export default {
                 events: [],
             },
             event_types: [],
-
-            series: [80, 20],
-            chartOptions: {
-                chart: {
-                    width: 380,
-                    type: "pie",
-                },
-                colors: ["#2A8737", "#F23D4E"],
-                labels: ["Present", "Absent"],
-                responsive: [
-                    {
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: 200,
-                            },
-                            legend: {
-                                position: "bottom",
-                            },
-                        },
-                    },
-                ],
-            },
         };
     },
     async mounted() {
@@ -286,8 +236,8 @@ export default {
 </script>
 
 <style scoped>
-.event-size{
-    padding: 0px 10px !important;
-    border-radius: 5px !important;
-}
+    .event-size {
+        padding: 0px 10px !important;
+        border-radius: 5px !important;
+    }
 </style>
