@@ -3,7 +3,7 @@
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                <a v-tooltip="'Collapse Sidebar'" @click="sidebarCollapse" class="nav-link" href="javascript:void(0)" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="index3.html" class="nav-link">Home</a>
@@ -35,6 +35,19 @@ export default {
         Appearance,
         UserMenu,
         Notification,
+    },
+    methods: {
+        sidebarCollapse() {
+            let sidebarCollapse = localStorage.getItem("sidebarCollapse");
+
+            if (sidebarCollapse === "true") {
+                localStorage.setItem("sidebarCollapse", "false");
+                document.body.classList.remove("sidebar-collapse");
+            } else {
+                localStorage.setItem("sidebarCollapse", "true");
+                document.body.classList.add("sidebar-collapse");
+            }
+        },
     },
 };
 </script>

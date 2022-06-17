@@ -42,18 +42,19 @@ export default {
                 if (flashes.warning) {
                     this.toastWarning(flashes.warning);
                 }
-                // console.log(flashes.success);
-                // alert();
-                // _.each(flashes, (flash, index) => {
-                //     this.$toasted.global[index](flash);
-                //     this.pageFlashes = "EMPTY";
-                // });
             },
             deep: true,
         },
     },
     mounted() {
         document.body.classList.add("sidebar-mini", "layout-fixed");
+
+        let sidebarCollapse = localStorage.getItem("sidebarCollapse");
+        if (sidebarCollapse === "true") {
+            document.body.classList.add("sidebar-collapse");
+        } else {
+            document.body.classList.remove("sidebar-collapse");
+        }
     },
 };
 </script>
