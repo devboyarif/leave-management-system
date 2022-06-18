@@ -50,14 +50,13 @@ class DashboardController extends Controller
     public function employeeDashboard()
     {
         $employee = currentEmployee();
+        $all_leave_requests = LeaveRequest::where('employee_id', $employee->id)->where('company_id', $employee->company_id)->get();
 
         // Calendar Events
         $holidays = $this->employeeDashboardHolidays($employee);
 
-        $leaveRequest = LeaveRequest::with('leaveType', 'employee.user')
-            ->where('company_id', $employee->company_id)
+        $leaveRequest = $all_leave_requests->load('leaveType', 'employee.user')
             ->where('status', 'approved')
-            ->get()
             ->transform(function ($leaveRequest) {
                 return [
                     'title' => $leaveRequest->employee->user->name,
@@ -67,6 +66,7 @@ class DashboardController extends Controller
                 ];
             });
 
+
         $leave_type_color = LeaveType::where('company_id', $employee->company_id)
             ->get(['name', 'color']);
         $holiday = [['name' => 'Holiday', 'color' => '#ff0000']];
@@ -74,10 +74,18 @@ class DashboardController extends Controller
         // Leave Balance
         $leave_balances = $this->employeeDashboardLeaveBalance($employee);
 
+        // Summery
+        $summery = $this->employeeDashboardSummery($employee, $all_leave_requests);
+
+        // Pending Leave Request
+        $pending_leave_requests = $this->employeeDashboardPendingLeave($all_leave_requests);
+
         return [
             'events' => Arr::collapse([$holidays, $leaveRequest]),
             'event_types' => Arr::collapse([$holiday, $leave_type_color]),
             'leave_balances' => $leave_balances,
+            'summery' => $summery,
+            'pending_leave_requests' => $pending_leave_requests,
         ];
     }
 

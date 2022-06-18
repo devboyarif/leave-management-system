@@ -25,7 +25,7 @@ class LeaveRequestController extends Controller
             $leave_query->where('company_id', getCompany(request('user_id'))->id);
         }
 
-        $leave_requests = $leave_query->with(['employee.user', 'employee.team', 'company.user', 'leaveType'])->latest()->paginate(10);
+        $leave_requests = $leave_query->with(['employee.user', 'leaveType'])->latest()->paginate(10);
 
         $users = User::roleCompany()->get();
 

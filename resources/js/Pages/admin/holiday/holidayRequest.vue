@@ -71,8 +71,7 @@
         </div>
     </div>
 
-
-    <!-- Create or Edit Holiday Modal  -->
+    <!-- Details Holiday Modal  -->
     <div v-if="showModal">
         <transition name="fade">
             <div class="modal-mask">
@@ -199,7 +198,6 @@ export default {
     },
 };
 </script>
-
 
 <style scoped>
     .modal-mask {

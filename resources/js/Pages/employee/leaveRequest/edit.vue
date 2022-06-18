@@ -6,15 +6,15 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3>Leave Request Create</h3>
-                        <Link :href="route('leaveTypes.index')" class="btn btn-primary">
+                        <h3>Leave Request Edit</h3>
+                        <Link :href="route('employee.leave.request.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         Back
                         </Link>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form @submit.prevent="sendData">
+                    <form @submit.prevent="saveData">
                         <div class="mb-3 row">
                             <div class="col-md-12">
                                  <Label name="Leave Type" />
@@ -53,7 +53,7 @@
                             <Loading v-if="form.processing" message="Sending..."/>
                             <span v-else>
                                 <i class="fa-regular fa-paper-plane"></i>
-                                Send Request
+                                Update Request
                             </span>
                         </button>
                     </form>
@@ -74,6 +74,10 @@ export default {
             type: Array,
             required: true,
         },
+        leaveRequest: {
+            type: Object,
+            required: true,
+        },
     },
     components: {
         Datepicker,
@@ -81,18 +85,21 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                leave_type_id: "",
-                start: "",
-                end: "",
-                reason: "",
+                leave_type_id: this.leaveRequest.leave_type_id,
+                start: this.leaveRequest.start,
+                end: this.leaveRequest.end,
+                reason: this.leaveRequest.reason,
             }),
         };
     },
     methods: {
-        sendData() {
-            this.form.post(route("employee.leave.request.send"), {
-                onSuccess: () => this.form.reset(),
-            });
+        saveData() {
+            this.form.put(
+                route("employee.leave.request.update", this.leaveRequest.id),
+                {
+                    onSuccess: () => this.form.reset(),
+                }
+            );
         },
         statusChange(event) {
             this.form.status = event.target.checked;

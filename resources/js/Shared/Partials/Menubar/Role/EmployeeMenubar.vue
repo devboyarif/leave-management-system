@@ -22,7 +22,7 @@
                             <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Leave Reports" :href="route('holidays.index')"
+                    <NavLink title="Leave Request" :href="route('employee.leave.request.index')"
                         :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-chart-pie nav-icon"></i>
@@ -40,7 +40,7 @@
                         <p>Logout</p>
                         </Link>
                     </li>
-                    <Link :href="route('employee.leave.request')" class="btn btn-primary text-light m-2 pt-2" >
+                    <Link :href="route('employee.leave.request.create')" class="btn btn-primary text-light m-2 pt-2" >
                         <h6 class="m-2">Apply for Leave</h6>
                     </Link>
                 </ul>

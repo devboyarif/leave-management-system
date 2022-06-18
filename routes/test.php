@@ -13,6 +13,65 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
+    $employee = currentEmployee();
+    $company = $employee->company;
+    $leave_requests = LeaveRequest::where('company_id', $employee->company_id)->get();
+
+    return     $pending_leave_requests = $leave_requests->where('status', 'pending')->load('leaveType')->transform(function ($leaveRequest) {
+        return [
+            'type' => $leaveRequest->leaveType->name,
+            'start' => formatTime($leaveRequest->start, 'D d M'),
+            'end' => formatTime($leaveRequest->end, 'D d M'),
+            'days' => $leaveRequest->days,
+            'status' => $leaveRequest->status,
+            'color' => $leaveRequest->leaveType->color,
+
+        ];
+    });
+
+
+    // $leaveRequest = $leave_requests->load('leaveType', 'employee.user')
+    //     ->where('status', 'approved')
+    //     ->transform(function ($leaveRequest) {
+    //         return [
+    //             'title' => $leaveRequest->employee->user->name,
+    //             'end' => $leaveRequest->end,
+    //             'start' => $leaveRequest->start,
+    //             'color' => $leaveRequest->leaveType->color,
+    //         ];
+    //     });
+
+    // $total_leave_request = $leave_requests->where('status', 'approved')->count();
+    // $pending_leave_request = $leave_requests->where('status', 'pending')->count();
+    // $total_teams = $company->teams->count();
+    // $total_employees = $company->employees->count();
+
+    return $leave_requests->where('status', 'pending')->load('leaveType');
+    return [
+        'events' => $leaveRequest,
+        'total_leaves' => $total_leave_request,
+        'total_pending_leaves' => $pending_leave_request,
+        'total_teams' => $total_teams,
+        'total_employees' => $total_employees,
+    ];
+
+
+    // $company = currentEmployee()->company;
+    // $leave_requests = LeaveRequest::where('company_id', $company->id)->get();
+    // $total_leave_request = $leave_requests->where('status', 'approved')->count();
+    // $pending_leave_request = $leave_requests->where('status', 'pending')->count();
+    // $total_teams = $company->teams->count();
+    // $total_employees = $company->employees->count();
+
+    // return [
+    //     'total_leaves' => $total_leave_request,
+    //     'total_pending_leaves' => $pending_leave_request,
+    //     'total_teams' => $total_teams,
+    //     'total_employees' => $total_employees,
+    // ];
+
+
+
     $employee = currentEmployee()->leaveBalances;
 
 
