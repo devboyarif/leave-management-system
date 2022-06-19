@@ -200,7 +200,6 @@ export default {
             return `${start} - ${end}`;
         },
         showDetails(request) {
-            console.log(request);
             this.form.type = request.leave_type.name;
             this.form.color = request.leave_type.color;
             this.form.status = request.status;
@@ -208,11 +207,6 @@ export default {
             this.form.end = request.end;
             this.form.days = request.days;
             this.form.reason = request.reason;
-            // this.form.title = holiday.title;
-            // this.form.start = holiday.start;
-            // this.form.end = holiday.end;
-            // this.form.note = holiday.note;
-
             this.showModal = true;
         },
     },

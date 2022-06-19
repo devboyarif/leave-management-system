@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use App\Models\Country;
 use App\Models\Holiday;
 use App\Models\Calendar;
+use App\Models\Demo;
 use App\Models\Employee;
 use App\Models\LeaveBalance;
 use Illuminate\Support\Arr;
@@ -13,6 +14,41 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
+    $company = currentCompany();
+
+    $leave_requests = LeaveRequest::where('company_id', $company->id)->latest()->get();
+    $pending_requests = $leave_requests->filter(function ($leave_request) {
+        return $leave_request->status == 'pending';
+    });
+
+    return [
+        'company' => $company,
+        'pending_requests' => $pending_requests,
+        'approved_requests' => $approved_requests,
+    ];
+
+    $time_start = microtime(true);
+
+    $users = Demo::all()->filter(function ($user) {
+        return $user->id > 500;
+    });
+
+    // $users = Demo::cursor()->filter(function ($user) {
+    //     return $user->id > 500;
+    // });
+
+    $time_end = microtime(true);
+    $execution_time = ($time_end - $time_start);
+    echo '<b>Total Execution Time:</b> ' . ($execution_time * 1000 * 1000) . 'Milliseconds';
+
+    return [
+        'execution_time' => $execution_time,
+        'users' => $users,
+    ];
+
+
+
+
     $employee = currentEmployee();
     $company = $employee->company;
     $leave_requests = LeaveRequest::where('company_id', $employee->company_id)->get();

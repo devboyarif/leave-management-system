@@ -90,7 +90,7 @@
                                         {{ leave_request.name }}
                                     </span>
                                 </td>
-                                <td>Sat 05 Jan - Sun 06 Jan (<span class="text-danger ml-1">
+                                <td>{{ leave_request.start }} - {{ leave_request.end }} (<span class="text-danger ml-1">
                                         {{ leave_request.days }} {{ pluralize(leave_request.days, 'Day') }}
                                     </span>)</td>
                                 <td>
@@ -117,7 +117,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">Leave Balance</h3>
-                        <Link :href="route('employee.leave.request.create')" class="btn btn-danger btn-sm">
+                        <Link v-tooltip="'Apply for leave new request'" :href="route('employee.leave.request.create')" class="btn btn-danger btn-sm">
                             <i class="fa-regular fa-calendar-check"></i>
                             Apply for Leave
                         </Link>
