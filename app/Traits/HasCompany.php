@@ -69,4 +69,19 @@ trait HasCompany
                 ];
             })->take(5);
     }
+
+    public function companyDashboardSummery($company, $all_leave_requests)
+    {
+        // $total_leave_request =  $all_leave_requests->where('status', 'approved')->count();
+        $pending_leave_request =  $all_leave_requests->where('status', 'pending')->count();
+        $total_teams = $company->teams->count();
+        $total_employees = $company->employees->count();
+
+        return [
+            // 'total_leaves' => $total_leave_request,
+            'total_pending_leaves' => $pending_leave_request,
+            'total_teams' => $total_teams,
+            'total_employees' => $total_employees,
+        ];
+    }
 }

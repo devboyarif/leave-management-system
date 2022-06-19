@@ -95,6 +95,9 @@ class DashboardController extends Controller
         $company = currentCompany();
         $all_leave_requests = LeaveRequest::where('company_id', $company->id)->with('leaveType', 'employee.user')->latest()->get();
 
+        // Summery
+        $summery = $this->companyDashboardSummery($company, $all_leave_requests);
+
         // Holidays
         $holidays = $this->companyDashboardHolidays($company);
 
@@ -110,21 +113,11 @@ class DashboardController extends Controller
         $recent_approved_requests = $this->companyDashboardApprovedLeave($all_leave_requests);
 
         return [
+            'summery' => $summery,
             'events' => Arr::collapse([$holidays, $leaveRequest]),
             'event_types' => Arr::collapse([$holiday, $leave_type_color]),
             'pending_requests' => $pending_requests,
             'recent_approved_requests' => $recent_approved_requests,
         ];
-
-        // $leave_requests = LeaveRequest::where('company_id', $company->id)->latest()->get();
-        // $pending_requests = $leave_requests->filter(function ($leave_request) {
-        //     return $leave_request->status == 'pending';
-        // });
-
-        // return [
-        //     'company' => $company,
-        //     'pending_requests' => $pending_requests,
-        //     'approved_requests' => $approved_requests,
-        // ];
     }
 }

@@ -7,7 +7,7 @@
                 <span class="info-box-icon bg-primary"><i class="fa-regular fa-calendar-minus"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Total Expense</span>
-                    <span class="info-box-number">1</span>
+                    <span class="info-box-number">$99999999</span>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
                 <div class="info-box-content">
 
                     <span class="info-box-text">Pending Request</span>
-                    <span class="info-box-number">4</span>
+                    <span class="info-box-number">{{ summery.total_pending_leaves }}</span>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <span class="info-box-icon bg-info"><i class="fa-solid fa-people-group nav-icon"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Total Teams</span>
-                    <span class="info-box-number">5</span>
+                    <span class="info-box-number">{{ summery.total_teams }}</span>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 <span class="info-box-icon bg-success"><i class="fa-solid fa-users"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Total Employees</span>
-                    <span class="info-box-number">5</span>
+                    <span class="info-box-number">{{ summery.total_employees }}</span>
                 </div>
             </div>
         </div>
@@ -356,6 +356,7 @@ export default {
                 initialView: "dayGridMonth",
                 events: [],
             },
+            summery: {},
             event_types: [],
             pending_requests: [],
             recent_approved_requests: [],
@@ -370,29 +371,6 @@ export default {
                 reason: "",
             },
             showModal: false,
-
-            series: [80, 20],
-            chartOptions: {
-                chart: {
-                    width: 380,
-                    type: "pie",
-                },
-                colors: ["#2A8737", "#F23D4E"],
-                labels: ["Present", "Absent"],
-                responsive: [
-                    {
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: 200,
-                            },
-                            legend: {
-                                position: "bottom",
-                            },
-                        },
-                    },
-                ],
-            },
         };
     },
     methods: {
@@ -445,6 +423,7 @@ export default {
         },
         async loadData() {
             let response = await axios.get(route("company.dashboard"));
+            this.summery = response.data.summery;
             this.calendarOptions.events = response.data.events;
             this.event_types = response.data.event_types;
             this.pending_requests = response.data.pending_requests;
