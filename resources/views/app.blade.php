@@ -8,9 +8,9 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('admin') }}/css/adminlte.min.css" />
     <link rel="stylesheet" href="{{ asset('kodebazar') }}/font-awesome/v6/css/all.min.css" />
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
+    <link href="{{ mix('admin/css/app.css') }}" rel="stylesheet" />
     @routes
-    <script src="{{ mix('/js/app.js') }}" defer></script>
+    <script src="{{ mix('admin/js/app.js') }}" defer></script>
 </head>
 
 <body>
