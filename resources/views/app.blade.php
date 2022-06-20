@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('kodebazar') }}/font-awesome/v6/css/all.min.css" />
     <link href="{{ mix('admin/css/app.css') }}" rel="stylesheet" />
     @routes
-    <script src="{{ mix('admin/js/app.js') }}" defer></script>
+    <script src="{{ mix('admin/js/compiled/app.js') }}" defer></script>
 </head>
 
 <body>
