@@ -43,7 +43,7 @@
     <div class="row mt-2">
         <div class="col-lg-8">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header border-0">
                     <h3 class="card-title">Calendar</h3>
                 </div>
                 <div class="card-body">
@@ -114,7 +114,7 @@
         <!-- /.col-md-6 -->
         <div class="col-lg-4">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">Leave Balance</h3>
                         <Link v-tooltip="'Apply for leave new request'" :href="route('employee.leave.request.create')" class="btn btn-danger btn-sm">

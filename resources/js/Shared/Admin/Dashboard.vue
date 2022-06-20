@@ -1,217 +1,289 @@
 <template>
     <Head title="Admin Dashboard"/>
-    <div class="row mt-4">
+        <div class="row mt-3">
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box shadow-md">
+                <span class="info-box-icon bg-primary"><i class="fa-regular fa-money-bill-1"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Income</span>
+                    <span class="info-box-number">$99999999</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box shadow-md">
+                <span class="info-box-icon bg-warning"><i class="fa-regular fa-building"></i></span>
+                <div class="info-box-content">
+
+                    <span class="info-box-text">Total Companies</span>
+                    <span class="info-box-number">1</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box shadow-md">
+                <span class="info-box-icon bg-info"><i class="fa-solid fa-people-group nav-icon"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Teams</span>
+                    <span class="info-box-number">1</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box shadow-md">
+                <span class="info-box-icon bg-success"><i class="fa-solid fa-users"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Employees</span>
+                    <span class="info-box-number">1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
         <div class="col-lg-8">
             <div class="card">
-                <div class="card-header">
-                    <h3>Calendar</h3>
+                <div class="card-header border-0">
+                    <h3 class="card-title">Yearly Earning</h3>
                 </div>
                 <div class="card-body">
-                    <FullCalendar :options="calendarOptions" />
+                    <YearlyEarningChart/>
                 </div>
             </div>
             <!-- /.card -->
 
-            <div class="card">
-                <div class="card-header border-0">
-                    <h3 class="card-title">Products</h3>
-                    <div class="card-tools">
-                        <a href="#" class="btn btn-tool btn-sm">
-                            <i class="fas fa-download"></i>
-                        </a>
-                        <a href="#" class="btn btn-tool btn-sm">
-                            <i class="fas fa-bars"></i>
-                        </a>
+           <div class="row">
+            <div class="col-lg-6">
+                    <div class="card">
+                    <div class="card-header border-0">
+                        <h3 class="card-title">Recent Registered Companies</h3>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-striped table-valign-middle">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Sales</th>
+                                    <th>More</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
+                                            class="img-circle img-size-32 mr-2">
+                                        Some Product
+                                    </td>
+                                    <td>$13 USD</td>
+                                    <td>
+                                        <small class="text-success mr-1">
+                                            <i class="fas fa-arrow-up"></i>
+                                            12%
+                                        </small>
+                                        12,000 Sold
+                                    </td>
+                                    <td>
+                                        <a href="#" class="text-muted">
+                                            <i class="fas fa-search"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
+                                            class="img-circle img-size-32 mr-2">
+                                        Another Product
+                                    </td>
+                                    <td>$29 USD</td>
+                                    <td>
+                                        <small class="text-warning mr-1">
+                                            <i class="fas fa-arrow-down"></i>
+                                            0.5%
+                                        </small>
+                                        123,234 Sold
+                                    </td>
+                                    <td>
+                                        <a href="#" class="text-muted">
+                                            <i class="fas fa-search"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
+                                            class="img-circle img-size-32 mr-2">
+                                        Amazing Product
+                                    </td>
+                                    <td>$1,230 USD</td>
+                                    <td>
+                                        <small class="text-danger mr-1">
+                                            <i class="fas fa-arrow-down"></i>
+                                            3%
+                                        </small>
+                                        198 Sold
+                                    </td>
+                                    <td>
+                                        <a href="#" class="text-muted">
+                                            <i class="fas fa-search"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
+                                            class="img-circle img-size-32 mr-2">
+                                        Perfect Item
+                                        <span class="badge bg-danger">NEW</span>
+                                    </td>
+                                    <td>$199 USD</td>
+                                    <td>
+                                        <small class="text-success mr-1">
+                                            <i class="fas fa-arrow-up"></i>
+                                            63%
+                                        </small>
+                                        87 Sold
+                                    </td>
+                                    <td>
+                                        <a href="#" class="text-muted">
+                                            <i class="fas fa-search"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     </div>
                 </div>
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-striped table-valign-middle">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Sales</th>
-                                <th>More</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                        class="img-circle img-size-32 mr-2">
-                                    Some Product
-                                </td>
-                                <td>$13 USD</td>
-                                <td>
-                                    <small class="text-success mr-1">
-                                        <i class="fas fa-arrow-up"></i>
-                                        12%
-                                    </small>
-                                    12,000 Sold
-                                </td>
-                                <td>
-                                    <a href="#" class="text-muted">
-                                        <i class="fas fa-search"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                        class="img-circle img-size-32 mr-2">
-                                    Another Product
-                                </td>
-                                <td>$29 USD</td>
-                                <td>
-                                    <small class="text-warning mr-1">
-                                        <i class="fas fa-arrow-down"></i>
-                                        0.5%
-                                    </small>
-                                    123,234 Sold
-                                </td>
-                                <td>
-                                    <a href="#" class="text-muted">
-                                        <i class="fas fa-search"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                        class="img-circle img-size-32 mr-2">
-                                    Amazing Product
-                                </td>
-                                <td>$1,230 USD</td>
-                                <td>
-                                    <small class="text-danger mr-1">
-                                        <i class="fas fa-arrow-down"></i>
-                                        3%
-                                    </small>
-                                    198 Sold
-                                </td>
-                                <td>
-                                    <a href="#" class="text-muted">
-                                        <i class="fas fa-search"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                        class="img-circle img-size-32 mr-2">
-                                    Perfect Item
-                                    <span class="badge bg-danger">NEW</span>
-                                </td>
-                                <td>$199 USD</td>
-                                <td>
-                                    <small class="text-success mr-1">
-                                        <i class="fas fa-arrow-up"></i>
-                                        63%
-                                    </small>
-                                    87 Sold
-                                </td>
-                                <td>
-                                    <a href="#" class="text-muted">
-                                        <i class="fas fa-search"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <h3 class="card-title">Products</h3>
+                            <div class="card-tools">
+                                <a href="#" class="btn btn-tool btn-sm">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                                <a href="#" class="btn btn-tool btn-sm">
+                                    <i class="fas fa-bars"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-striped table-valign-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Sales</th>
+                                        <th>More</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
+                                                class="img-circle img-size-32 mr-2">
+                                            Some Product
+                                        </td>
+                                        <td>$13 USD</td>
+                                        <td>
+                                            <small class="text-success mr-1">
+                                                <i class="fas fa-arrow-up"></i>
+                                                12%
+                                            </small>
+                                            12,000 Sold
+                                        </td>
+                                        <td>
+                                            <a href="#" class="text-muted">
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
+                                                class="img-circle img-size-32 mr-2">
+                                            Another Product
+                                        </td>
+                                        <td>$29 USD</td>
+                                        <td>
+                                            <small class="text-warning mr-1">
+                                                <i class="fas fa-arrow-down"></i>
+                                                0.5%
+                                            </small>
+                                            123,234 Sold
+                                        </td>
+                                        <td>
+                                            <a href="#" class="text-muted">
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
+                                                class="img-circle img-size-32 mr-2">
+                                            Amazing Product
+                                        </td>
+                                        <td>$1,230 USD</td>
+                                        <td>
+                                            <small class="text-danger mr-1">
+                                                <i class="fas fa-arrow-down"></i>
+                                                3%
+                                            </small>
+                                            198 Sold
+                                        </td>
+                                        <td>
+                                            <a href="#" class="text-muted">
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
+                                                class="img-circle img-size-32 mr-2">
+                                            Perfect Item
+                                            <span class="badge bg-danger">NEW</span>
+                                        </td>
+                                        <td>$199 USD</td>
+                                        <td>
+                                            <small class="text-success mr-1">
+                                                <i class="fas fa-arrow-up"></i>
+                                                63%
+                                            </small>
+                                            87 Sold
+                                        </td>
+                                        <td>
+                                            <a href="#" class="text-muted">
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+           </div>
             <!-- /.card -->
         </div>
         <!-- /.col-md-6 -->
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header border-0">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Sales</h3>
-                        <a href="javascript:void(0);">View Report</a>
-                    </div>
+                    <h3 class="card-title">Expenses per Company (Most expenses companies)</h3>
                 </div>
-                <div class="card-body">
-                    <div class="d-flex">
-                        <p class="d-flex flex-column">
-                            <span class="text-bold text-lg">$18,230.00</span>
-                            <span>Sales Over Time</span>
-                        </p>
-                        <p class="ml-auto d-flex flex-column text-right">
-                            <span class="text-success">
-                                <i class="fas fa-arrow-up"></i> 33.1%
-                            </span>
-                            <span class="text-muted">Since last month</span>
-                        </p>
-                    </div>
-                    <!-- /.d-flex -->
-
-                    <div class="position-relative mb-4">
-                        <canvas id="sales-chart" height="200"></canvas>
-                    </div>
-
-                    <div class="d-flex flex-row justify-content-end">
-                        <span class="mr-2">
-                            <i class="fas fa-square text-primary"></i> This year
-                        </span>
-
-                        <span>
-                            <i class="fas fa-square text-gray"></i> Last year
-                        </span>
-                    </div>
+                <div class="card-body d-flex justify-content-center">
+                    <CompaniesExpenseChart/>
                 </div>
             </div>
-            <!-- /.card -->
-
             <div class="card">
                 <div class="card-header border-0">
-                    <h3 class="card-title">Online Store Overview</h3>
-                    <div class="card-tools">
-                        <a href="#" class="btn btn-sm btn-tool">
-                            <i class="fas fa-download"></i>
-                        </a>
-                        <a href="#" class="btn btn-sm btn-tool">
-                            <i class="fas fa-bars"></i>
-                        </a>
-                    </div>
+                    <h3 class="card-title">Companies per Country (Most active countries)</h3>
                 </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                        <p class="text-success text-xl">
-                            <i class="ion ion-ios-refresh-empty"></i>
-                        </p>
-                        <p class="d-flex flex-column text-right">
-                            <span class="font-weight-bold">
-                                <i class="ion ion-android-arrow-up text-success"></i> 12%
-                            </span>
-                            <span class="text-muted">CONVERSION RATE</span>
-                        </p>
-                    </div>
-                    <!-- /.d-flex -->
-                    <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                        <p class="text-warning text-xl">
-                            <i class="ion ion-ios-cart-outline"></i>
-                        </p>
-                        <p class="d-flex flex-column text-right">
-                            <span class="font-weight-bold">
-                                <i class="ion ion-android-arrow-up text-warning"></i> 0.8%
-                            </span>
-                            <span class="text-muted">SALES RATE</span>
-                        </p>
-                    </div>
-                    <!-- /.d-flex -->
-                    <div class="d-flex justify-content-between align-items-center mb-0">
-                        <p class="text-danger text-xl">
-                            <i class="ion ion-ios-people-outline"></i>
-                        </p>
-                        <p class="d-flex flex-column text-right">
-                            <span class="font-weight-bold">
-                                <i class="ion ion-android-arrow-down text-danger"></i> 1%
-                            </span>
-                            <span class="text-muted">REGISTRATION RATE</span>
-                        </p>
-                    </div>
-                    <!-- /.d-flex -->
+                <div class="card-body d-flex justify-content-center">
+                    <CompaniesExpenseChart/>
                 </div>
             </div>
         </div>
@@ -220,53 +292,47 @@
 </template>
 
 <script>
-import VueApexCharts from "vue3-apexcharts";
 import Layout from "../Layout/Default.vue";
-import FullCalendar from "@fullcalendar/vue3";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction";
+import YearlyEarningChart from "./Dashboard/YearlyEarningChart.vue";
+import CompaniesExpenseChart from "./Dashboard/CompaniesExpenseChart.vue";
+import CountriesCompanyChart from "./Dashboard/CountriesCompanyChart.vue";
 
 export default {
     components: {
         Layout,
-        apexchart: VueApexCharts,
-        FullCalendar,
+        YearlyEarningChart,
+        CompaniesExpenseChart,
+        CountriesCompanyChart,
     },
     data() {
         return {
-            calendarOptions: {
-                plugins: [dayGridPlugin, interactionPlugin],
-                initialView: "dayGridMonth",
-                events: [],
-            },
-
-            series: [80, 20],
-            chartOptions: {
-                chart: {
-                    width: 380,
-                    type: "pie",
-                },
-                colors: ["#2A8737", "#F23D4E"],
-                labels: ["Present", "Absent"],
-                responsive: [
-                    {
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: 200,
-                            },
-                            legend: {
-                                position: "bottom",
-                            },
-                        },
-                    },
-                ],
-            },
+            // series: [80, 20],
+            // chartOptions: {
+            //     chart: {
+            //         width: 380,
+            //         type: "pie",
+            //     },
+            //     colors: ["#2A8737", "#F23D4E"],
+            //     labels: ["Present", "Absent"],
+            //     responsive: [
+            //         {
+            //             breakpoint: 480,
+            //             options: {
+            //                 chart: {
+            //                     width: 200,
+            //                 },
+            //                 legend: {
+            //                     position: "bottom",
+            //                 },
+            //             },
+            //         },
+            //     ],
+            // },
         };
     },
     async mounted() {
-        let response = await axios.get(route("admin.dashboard"));
-        this.calendarOptions.events = response.data.events;
+        // let response = await axios.get(route("admin.dashboard"));
+        // this.calendarOptions.events = response.data.events;
     },
 };
 </script>
