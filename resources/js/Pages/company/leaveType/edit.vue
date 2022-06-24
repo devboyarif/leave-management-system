@@ -2,19 +2,20 @@
 
     <Head title="Leave Type Edit" />
     <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3>Leave Type Edit</h3>
-                        <Link :href="route('leaveTypes.index')" class="btn btn-primary">
+                        <h3 class="card-title">Leave Type Edit</h3>
+                        <Link :href="route('company.leaveTypes.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         Back
                         </Link>
                     </div>
                 </div>
-                <div class="card-body">
-                    <form @submit.prevent="updateData">
+                <div class="card-body row justify-content-center">
+                    <div class="col-lg-6">
+                        <form @submit.prevent="updateData">
                         <div class="mb-3 row">
                             <div class="col-md-12">
                                 <Label name="Type Name" />
@@ -63,6 +64,7 @@
                             </span>
                         </button>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>

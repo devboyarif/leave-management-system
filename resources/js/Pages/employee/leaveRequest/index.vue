@@ -8,7 +8,7 @@
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">Leave Request List</h3>
-                        <Link :href="route('leaveRequests.create')" class="btn btn-primary">
+                        <Link :href="route('employee.leave.request.create')" class="btn btn-primary">
                             <i class="fa-solid fa-plus"></i>
                             Apply for leave
                         </Link>

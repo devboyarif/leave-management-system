@@ -64,7 +64,6 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title"></h3>
-
                      <div class="d-flex justify-content-between">
                         <h3 class="card-title">Pending Leave Request</h3>
                         <Link v-tooltip="'Show all leave requests'" :href="route('employee.leave.request.index')" class="btn btn-primary btn-sm">

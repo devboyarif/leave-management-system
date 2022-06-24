@@ -53,17 +53,19 @@
                             <template v-if="leaveRequests && leaveRequests.data.length">
                                 <tr v-for="(leaveRequest,index) in leaveRequests.data" :key="index">
                                     <td>
-                                        <img :src="leaveRequest.employee.user.avatar" alt="Product 1"
+                                        <img v-if="leaveRequest.employee && leaveRequest.employee.user" :src="leaveRequest.employee.user.avatar" alt="Product 1"
                                             class="img-circle img-size-32 mr-2">
                                         {{ leaveRequest.employee.user.name }}
-                                        (<small v-tooltip="'Company Name'">{{ leaveRequest.company.user.name }}</small>)
+                                        <template v-if="leaveRequest.company && leaveRequest.company.user">
+                                            (<small v-tooltip="'Company Name'">{{ leaveRequest.company.user.name }}</small>)
+                                        </template>
                                     </td>
                                     <td>
                                         <span :style="{ background: leaveRequest.leave_type.color, border: '2px solid '+leaveRequest.leave_type.color }" class="leave-type-color">
                                             {{ leaveRequest.leave_type.name }}
                                         </span>
                                     </td>
-                                    <td>
+                                    <td v-if="leaveRequest.employee.team">
                                         <a href="#">{{ leaveRequest.employee.team.name }}</a>
                                     </td>
                                     <td>

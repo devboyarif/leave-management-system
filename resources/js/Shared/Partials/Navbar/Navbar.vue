@@ -11,6 +11,10 @@
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Contact</a>
             </li>
+            Url - {{ $page.url }} <br>
+            Component - {{ $page.component }} <br>
+            {{ $page.component == 'company/teams' ? 'active':'active na' }}
+            <!-- {{ $page.component == '/employee/leaveRequest/index' || $page.component == '/employee/leaveRequest/create' || $page.component == '/employee/leaveRequest/edit' ? 'active':'active na' }} -->
         </ul>
 
         <!-- Right navbar links -->

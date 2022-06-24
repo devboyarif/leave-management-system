@@ -17,13 +17,13 @@
                     </NavLink>
 
                     <NavLink title="Colleagues" :href="route('employee.teams')"
-                        :active="$page.url == '/employee/holidays'">
+                        :active="$page.component == 'employee/teams'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
                     </NavLink>
                     <NavLink title="Leave Request" :href="route('employee.leave.request.index')"
-                        :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
+                        :active="$page.component == 'employee/leaveRequest/index' || $page.component == 'employee/leaveRequest/create' || $page.component == 'employee/leaveRequest/edit'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-chart-pie nav-icon"></i>
                         </template>
@@ -36,8 +36,8 @@
                     </NavLink>
                     <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">
-                        <i class="fa-solid fa-right-from-bracket nav-icon"></i>
-                        <p>Logout</p>
+                            <i class="fa-solid fa-right-from-bracket nav-icon"></i>
+                            <p>Logout</p>
                         </Link>
                     </li>
                     <Link :href="route('employee.leave.request.create')" class="btn btn-primary text-light m-2 pt-2" >

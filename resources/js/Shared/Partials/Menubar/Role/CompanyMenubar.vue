@@ -17,27 +17,27 @@
                            <i class="fa-solid fa-gauge-high nav-icon"></i>
                         </template>
                     </NavLink>
-                     <Dropdown title="Leave" :active="$page.url == '/admin/leaveTypes/*'">
+                     <Dropdown title="Leave" :active="dropdownActive($page.component)">
                         <template v-slot:icon>
                             <i class="fa-solid fa-plane-departure nav-icon"></i>
                         </template>
-                        <NavLink title="Leave Type" :href="route('company.leaveTypes.index')" :active="$page.url == '/admin/leaveTypes/*'">
+                        <NavLink title="Leave Type" :href="route('company.leaveTypes.index')" :active="$page.component == 'company/leaveType/index' || $page.component == 'company/leaveType/create' || $page.component == 'company/leaveType/edit'">
                             <template v-slot:icon>
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
                         </NavLink>
-                        <NavLink title="Leave Request" :href="route('company.leaveRequests.index')" :active="$page.component == 'company/index'">
+                        <NavLink title="Leave Request" :href="route('company.leaveRequests.index')" :active="$page.component == 'company/leaveRequest/index' || $page.component == 'company/leaveRequest/create' || $page.component == 'company/leaveRequest/edit'">
                             <template v-slot:icon>
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
                         </NavLink>
                     </Dropdown>
-                    <NavLink title="Employees" :href="route('company.employees.index')" :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
+                    <NavLink title="Employees" :href="route('company.employees.index')" :active="$page.component == 'company/employees'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-user-group nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Teams" :href="route('company.teams.index')" :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
+                    <NavLink title="Teams" :href="route('company.teams.index')" :active="$page.url == '/admin/holidays' || $page.component == 'company/teams'">
                         <template v-slot:icon>
                           <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
@@ -77,6 +77,18 @@ export default {
         return {
             role: this.$page.props.authenticatedUser.role,
         };
+    },
+    methods: {
+        dropdownActive(pageComponent) {
+            return (
+                pageComponent == "company/leaveType/index" ||
+                pageComponent == "company/leaveType/create" ||
+                pageComponent == "company/leaveType/edit" ||
+                pageComponent == "company/leaveRequest/index" ||
+                pageComponent == "company/leaveRequest/create" ||
+                pageComponent == "company/leaveRequest/edit"
+            );
+        },
     },
 };
 </script>

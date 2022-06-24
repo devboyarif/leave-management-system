@@ -14,10 +14,6 @@
                     </div>
                 </div>
                 <div class="card-body row justify-content-center">
-                    <div class="col-">
-                        {{ leaveTypes }}
-                        {{ form }}
-                    </div>
                     <div class="col-lg-6">
                         <form @submit.prevent="saveData">
                         <div class="mb-3 row">

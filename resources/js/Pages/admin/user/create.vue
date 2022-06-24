@@ -1,19 +1,20 @@
 <template>
     <Head title="User Create"/>
     <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3>User Create</h3>
+                        <h3 class="card-title">Admin Create</h3>
                         <Link :href="route('admins.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         Back
                         </Link>
                     </div>
                 </div>
-                <div class="card-body">
-                    <form @submit.prevent="createData">
+                <div class="card-body row justify-content-center">
+                   <div class="col-lg-6">
+                     <form @submit.prevent="createData">
                         <div class="mb-3">
                             <Label name="Name"/>
                             <input v-model="form.name" type="text" class="form-control" :class="{'is-invalid':form.errors.name}" id="name">
@@ -42,6 +43,7 @@
                             </span>
                         </button>
                     </form>
+                   </div>
                 </div>
             </div>
         </div>

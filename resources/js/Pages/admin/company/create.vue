@@ -2,19 +2,20 @@
 
     <Head title="Company Create" />
     <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3>Company Create</h3>
+                        <h3 class="card-title">Company Create</h3>
                         <Link :href="route('companies.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         Back
                         </Link>
                     </div>
                 </div>
-                <div class="card-body">
-                    <form @submit.prevent="createData">
+                <div class="card-body row justify-content-center">
+                    <div class="col-lg-6">
+                        <form @submit.prevent="createData">
                         <div class="mb-3 row">
                             <div class="col-lg-6">
                                 <Label name="Name"/>
@@ -72,6 +73,7 @@
                             </span>
                         </button>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
