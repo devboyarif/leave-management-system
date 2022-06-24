@@ -68,43 +68,46 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-wrap col-12">
-                        <div v-for="request in pending_requests" :key="request.id"
-                            class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
-                            <div class="mt-4">
-                                <h6><strong>{{ request.title }}</strong>
-                                    <span class="text-danger ml-1">
-                                        {{ request.days }} {{ pluralize(request.days, 'Day') }}
-                                    </span>
-                                </h6>
-                                <h6 class="d-flex align-items-center">
-                                    <span class="m-widget4__sub">
-                                        <span class="m-widget4__sm-text mr-1">
-                                            <i class="fa-regular fa-calendar-days"></i>
-                                            {{ startDate(request.start) }}
+                        <template v-if="pending_requests && pending_requests.length">
+                            <div v-for="request in pending_requests" :key="request.id"
+                                class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
+                                <div class="mt-4">
+                                    <h6><strong>{{ request.title }}</strong>
+                                        <span class="text-danger ml-1">
+                                            {{ request.days }} {{ pluralize(request.days, 'Day') }}
                                         </span>
-                                        <span class="m-widget4__sm-text ml-1">
-                                            <i class="fa-regular fa-calendar-days"></i>
-                                            {{ endDate(request.end) }}
+                                    </h6>
+                                    <h6 class="d-flex align-items-center">
+                                        <span class="m-widget4__sub">
+                                            <span class="m-widget4__sm-text mr-1">
+                                                <i class="fa-regular fa-calendar-days"></i>
+                                                {{ startDate(request.start) }}
+                                            </span>
+                                            <span class="m-widget4__sm-text ml-1">
+                                                <i class="fa-regular fa-calendar-days"></i>
+                                                {{ endDate(request.end) }}
+                                            </span>
                                         </span>
+                                    </h6>
+                                    <span :style="{ background: request.color, border: '2px solid '+request.color }"
+                                        class="leave-type-color" v-tooltip="'Leave Type'">
+                                        {{ request.type }}
                                     </span>
-                                </h6>
-                                <span :style="{ background: request.color, border: '2px solid '+request.color }"
-                                    class="leave-type-color" v-tooltip="'Leave Type'">
-                                    {{ request.type }}
-                                </span>
+                                </div>
+                                <div>
+                                    <button @click="statusChange('approved', request.id)" v-tooltip="'Accept Request'" class="btn btn-sm">
+                                        <CheckIcon />
+                                    </button>
+                                    <button @click="statusChange('rejected', request.id)" v-tooltip="'Reject Request'" class="btn btn-sm px-0">
+                                        <CrossIcon />
+                                    </button>
+                                     <button @click="showDetails(request)" v-tooltip="'Show Request Details'" class="btn btn-sm">
+                                        <EyeIcon />
+                                    </button>
+                                </div>
                             </div>
-                            <div>
-                                <button @click="statusChange('approved', request.id)" v-tooltip="'Accept Request'" class="btn btn-sm">
-                                    <CheckIcon />
-                                </button>
-                                <button @click="statusChange('rejected', request.id)" v-tooltip="'Reject Request'" class="btn btn-sm px-0">
-                                    <CrossIcon />
-                                </button>
-                                 <button @click="showDetails(request)" v-tooltip="'Show Request Details'" class="btn btn-sm">
-                                    <EyeIcon />
-                                </button>
-                            </div>
-                        </div>
+                        </template>
+                        <h6 class="text-center m-auto" v-else>No pending leaves found</h6>
                     </div>
                 </div>
             </div>

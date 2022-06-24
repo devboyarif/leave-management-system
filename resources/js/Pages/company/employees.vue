@@ -64,7 +64,7 @@
                                         </div>
                                     </div>
                                 </template>
-                                <h5 v-else>No employees found</h5>
+                                <h6 class="text-center m-auto" v-else>No employees found</h6>
                             </div>
                         </div>
                         <div class="tab-pane fade" :class="{'show active': currentTab == team.slug}" v-for="team in teams" :key="team.id">
@@ -91,7 +91,7 @@
                                 </template>
                                 <template v-else>
                                    <div class="d-flex justify-content-center text-center m-auto">
-                                        <h6>No Data Found</h6>
+                                        <h6>No employees found</h6>
                                    </div>
                                 </template>
                             </div>

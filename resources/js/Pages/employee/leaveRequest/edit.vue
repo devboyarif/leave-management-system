@@ -9,7 +9,7 @@
                         <h3>Leave Request Edit</h3>
                         <Link :href="route('employee.leave.request.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
-                        Back
+                        Leave Request List
                         </Link>
                     </div>
                 </div>
