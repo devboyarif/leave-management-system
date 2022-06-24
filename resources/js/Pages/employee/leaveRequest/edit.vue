@@ -2,7 +2,7 @@
 
     <Head title="Leave Request Create" />
     <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
@@ -13,8 +13,13 @@
                         </Link>
                     </div>
                 </div>
-                <div class="card-body">
-                    <form @submit.prevent="saveData">
+                <div class="card-body row justify-content-center">
+                    <div class="col-">
+                        {{ leaveTypes }}
+                        {{ form }}
+                    </div>
+                    <div class="col-lg-6">
+                        <form @submit.prevent="saveData">
                         <div class="mb-3 row">
                             <div class="col-md-12">
                                  <Label name="Leave Type" />
@@ -57,6 +62,7 @@
                             </span>
                         </button>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
