@@ -1,5 +1,5 @@
 <template>
-    <li class="nav-item dropdown show">
+    <li class="nav-item dropdown show" v-click-outside="()=> showNotification = false">
         <a v-tooltip="'Notification'" class="nav-link" href="#" @click="showNotification = !showNotification">
             <i class="far fa-bell"></i>
             <span class="badge badge-danger navbar-badge">3</span>
