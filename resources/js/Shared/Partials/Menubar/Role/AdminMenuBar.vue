@@ -12,7 +12,7 @@
 
             <!-- Sidebar Menu -->
             <nav class="sidebar-main-nav mt-3">
-                <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-flat" data-widget="treeview" role="menu"
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <NavLink title="Dashboard" :href="route('dashboard')" :active="$page.component == 'dashboard'">
                         <template v-slot:icon>
