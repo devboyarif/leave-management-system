@@ -37,6 +37,7 @@ import 'floating-vue/dist/style.css'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Toaster from "@meforma/vue-toaster";
+import vClickOutside from "click-outside-vue3"
 
 const app = createApp({
     render: () => h(InertiaApp, {
@@ -59,6 +60,7 @@ const app = createApp({
 });
 
 // 3rd party plugins
+app.use(vClickOutside)
 app.use(FloatingVue)
 app.use(VueSweetalert2);
 app.use(Toaster, {
