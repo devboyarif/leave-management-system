@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Http\Controllers\Controller;
-use App\Models\Employee;
 use App\Models\Team;
+use App\Models\Invite;
+use App\Models\Employee;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Mail\Company\InviteSendMail;
+use Illuminate\Support\Facades\Mail;
 
 class TeamController extends Controller
 {
@@ -34,9 +38,36 @@ class TeamController extends Controller
             return back();
         }
 
-        $company->teams()->create([
+        $team = Team::create([
             'name' => $request->name,
+            'company_id' => $company->id,
         ]);
+
+        if (isset($request->emails) && count($request->emails)) {
+            foreach ($request->emails as $email) {
+                $token = Str::random(60);
+
+                if (!Invite::whereToken($token)->exists()) {
+                    $invite = Invite::create([
+                        'team_id' => $team->id,
+                        'email' => $email,
+                        'token' => $token,
+                        'company_id' => $company->id,
+                    ]);
+                } else {
+                    $token = Str::random(100);
+                    $invite = Invite::create([
+                        'team_id' => $team->id,
+                        'email' => $email,
+                        'token' => $token,
+                        'company_id' => $company->id,
+                    ]);
+                }
+
+                // send the email
+                Mail::to($email)->send(new InviteSendMail($invite));
+            }
+        }
 
         session()->flash('success', 'Team created successfully!');
         return back();

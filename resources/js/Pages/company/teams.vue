@@ -52,7 +52,6 @@
                                 </tr>
                             </tbody>
                         </table>
-
                         <!-- Pagination  -->
                          <Pagination :links="teams.links" />
                     </div>
@@ -73,6 +72,24 @@
                                 <input v-model="form.name" type="text" class="form-control"
                                     :class="{'is-invalid':form.errors.name}" id="name">
                                 <ErrorMessage :name="form.errors.name" />
+                            </div>
+                            <div class="mb-3" v-if="!isEditMode">
+                                <Label name="Invite Employee" :required="false"/>
+                                <div class="row my-1" v-for="(email, index) in form.emails" :key="index">
+                                    <div class="col-lg-10">
+                                        <input v-model="form.emails[index]" type="email" class="form-control">
+                                    </div>
+                                    <div class="col-lg-2" v-if="index == 0">
+                                        <button type="button" class="btn btn-primary" @click="addMore">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-2" v-else>
+                                        <button type="button" class="btn btn-danger" @click="removeField(index)">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             <button :disabled="form.processing" type="submit" class="btn btn-primary">
                                 <Loading v-if="form.processing"/>
@@ -111,6 +128,7 @@ export default {
             form: this.$inertia.form({
                 name: null,
                 user_id: "",
+                emails: [""],
             }),
         };
     },
@@ -124,11 +142,13 @@ export default {
             });
         },
         editTeam(team) {
+            this.form.clearErrors();
             this.isEditMode = true;
             this.selectedId = team.id;
             this.form.name = team.name;
         },
         cancelEdit() {
+            this.form.clearErrors();
             this.isEditMode = false;
             this.form.reset();
         },
@@ -154,6 +174,12 @@ export default {
                     Inertia.delete(route("company.teams.destroy", id));
                 }
             });
+        },
+        addMore() {
+            this.form.emails.push("");
+        },
+        removeField(index) {
+            this.form.emails.splice(index, 1);
         },
     },
 };
