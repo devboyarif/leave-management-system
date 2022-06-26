@@ -77,21 +77,8 @@ export default {
     },
     data() {
         return {
-            // filterForm: this.$inertia.form({
-            //     user_id: this.filterUserId || "all",
-            // }),
-            // search: this.filters.search,
+          //
         };
-    },
-    methods: {
-        // deleteData(id) {
-        //     if (confirm("Are you sure to delete?")) {
-        //         Inertia.delete(route("leaveTypes.destroy", id));
-        //     }
-        // },
-        // companyWiseLeaveType() {
-        //     this.filterForm.get(route("leaveTypes.index"));
-        // },
     },
     watch: {
         // search: debounce((value) => {
