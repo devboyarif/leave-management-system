@@ -15,7 +15,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public const ROLE_EMPLOYEE = 'employee';
-    public const ROLE_COMPANY = 'copmany';
+    public const ROLE_COMPANY = 'company';
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +27,7 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
+        'role',
     ];
 
     /**

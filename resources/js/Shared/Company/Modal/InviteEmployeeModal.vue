@@ -83,12 +83,19 @@ export default {
             this.$emit("close");
         },
         sendData() {
-            this.form.post(route("company.employees.invite"), {
+            // console.log(this.form);
+            this.form.post(route("company.invite.send"), {
                 onSuccess: () => {
                     this.form.reset();
                     this.hideModal();
                 },
             });
+            // this.form.post(route("company.employees.invite"), {
+            //     onSuccess: () => {
+            //         this.form.reset();
+            //         this.hideModal();
+            //     },
+            // });
         },
     },
 };
