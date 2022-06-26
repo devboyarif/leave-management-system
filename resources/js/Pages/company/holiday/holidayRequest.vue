@@ -3,16 +3,6 @@
     <Head title="Company List" />
 
     <div class="row justify-content-center">
-        <div class="col-md-4 mt-3">
-            <div class="card bg-secondary text-white">
-                <div class="card-body">
-                    <div class="text-center">
-                        <h3>{{ user.name }}</h3>
-                        <h5>Country : {{ company.country.name }}</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
@@ -76,13 +66,13 @@
     </div>
 
 
-    <!-- Create or Edit Holiday Modal  -->
+    <!-- Holiday Details Modal  -->
     <div v-if="showModal">
         <transition name="fade">
             <div class="modal-mask">
                 <div class="modal-wrapper">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content" v-click-outside="()=> showModal = false">
                             <div class="modal-header">
                                 <h5 class="modal-title">
                                     Request Holiday Details
@@ -205,23 +195,3 @@ export default {
     },
 };
 </script>
-
-
-<style scoped>
-    .modal-mask {
-        position: fixed;
-        z-index: 9998;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, .5);
-        display: table;
-        transition: opacity .3s ease;
-    }
-
-    .modal-wrapper {
-        display: table-cell;
-        vertical-align: middle;
-    }
-</style>

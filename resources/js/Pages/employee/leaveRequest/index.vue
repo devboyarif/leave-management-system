@@ -80,7 +80,7 @@
             <div class="modal-mask">
                 <div class="modal-wrapper">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content" v-click-outside="()=> showModal = false">
                             <div class="modal-header">
                                 <h5 class="modal-title">
                                     Leave Request Details

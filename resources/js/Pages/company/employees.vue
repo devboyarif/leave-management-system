@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <span>Employee List</span>
-                        <div>
+                        <div v-click-outside="()=> showEmployeeDropdown = false">
                             <div class="btn-group" :class="{'show':showEmployeeDropdown}" role="group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle" @click="showEmployeeDropdown = !showEmployeeDropdown">
                                 Create Employee

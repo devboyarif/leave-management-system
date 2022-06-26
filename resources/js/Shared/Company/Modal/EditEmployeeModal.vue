@@ -4,7 +4,7 @@
             <div class="modal-mask">
                 <div class="modal-wrapper">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content" v-click-outside="hideModalOutsideClick">
                             <div class="modal-header">
                                 <h5 class="modal-title">
                                     Edit Employee
@@ -123,6 +123,13 @@ export default {
     methods: {
         hideModal() {
             this.$emit("close");
+        },
+        hideModalOutsideClick() {
+            if (this.form.processing) {
+                return;
+            }else{
+                this.$emit("close");
+            }
         },
         saveData() {
             this.form.post(

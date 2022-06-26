@@ -1,10 +1,10 @@
 <template>
     <div v-if="show">
         <transition name="fade">
-            <div class="modal-mask">
-                <div class="modal-wrapper">
+            <div class="modal-mask" >
+                <div class="modal-wrapper" >
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content" v-click-outside="hideModalOutsideClick">
                             <div class="modal-header">
                                 <h5 class="modal-title">
                                     Invite Employee
@@ -96,6 +96,13 @@ export default {
             //         this.hideModal();
             //     },
             // });
+        },
+        hideModalOutsideClick() {
+            if (this.form.processing) {
+                return;
+            }else{
+                this.$emit("close");
+            }
         },
     },
 };
