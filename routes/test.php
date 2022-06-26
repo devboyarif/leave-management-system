@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
+    return inertia('test/modal');
+
+
     $company = currentCompany();
 
     $leave_requests = LeaveRequest::where('company_id', $company->id)->latest()->get();
