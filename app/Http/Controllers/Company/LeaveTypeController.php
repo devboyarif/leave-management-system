@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Company;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\LeaveType;
+use App\Models\LeaveBalance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LeaveTypeSaveRequest;
@@ -74,5 +75,14 @@ class LeaveTypeController extends Controller
 
         session()->flash('success', 'Leave type deleted successfully!');
         return redirect_to('company.leaveTypes.index');
+    }
+
+    public function leaveTypeBalance(Request $request)
+    {
+        $leave_balance = LeaveBalance::where('employee_id', $request->employee_id)
+            ->where('leave_type_id', $request->leave_type_id)
+            ->first();
+
+        return $leave_balance;
     }
 }

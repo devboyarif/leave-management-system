@@ -21,6 +21,7 @@ Route::middleware('auth')->prefix('company')->name('company.')->group(function (
     Route::resource('/leaveTypes', LeaveTypeController::class);
     Route::resource('/leaveRequests', LeaveRequestController::class);
     Route::post('/status/change', [LeaveRequestController::class, 'statusChange'])->name('leaveRequests.status');
+    Route::get('/employee/leave/balance', [LeaveTypeController::class, 'leaveTypeBalance'])->name('employee.leave.type.balance');
 
     // Holiday routes
     Route::controller(HolidayController::class)->group(function () {

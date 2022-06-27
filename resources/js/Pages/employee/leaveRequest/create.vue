@@ -145,24 +145,6 @@ export default {
         dates() {
             return `${this.form.start}|${this.form.end}`;
         },
-        async getDifferenceBetweenDays() {
-            console.log(65465456);
-            if (this.form.start && this.form.end) {
-                let response = await axios.get(
-                    route("difference.between.days"),
-                    {
-                        params: {
-                            start: this.form.start,
-                            end: this.form.end,
-                        },
-                    }
-                );
-
-                console.log(response.data);
-
-                this.diffBetweenDays = response.data;
-            }
-        },
         submitButtonDisabled() {
             return (
                 this.form.processing ||
