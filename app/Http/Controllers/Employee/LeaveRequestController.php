@@ -6,6 +6,7 @@ use App\Models\LeaveType;
 use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\LeaveBalance;
 
 class LeaveRequestController extends Controller
 {
@@ -99,5 +100,14 @@ class LeaveRequestController extends Controller
 
         session()->flash('success', 'Leave Request deleted successfully');
         return back();
+    }
+
+    public function leaveTypeBalance(LeaveType $leaveType)
+    {
+        $leave_balance = LeaveBalance::where('employee_id', currentEmployee()->id)
+            ->where('leave_type_id', $leaveType->id)
+            ->first();
+
+        return $leave_balance;
     }
 }

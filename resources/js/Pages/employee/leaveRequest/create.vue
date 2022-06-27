@@ -20,13 +20,16 @@
                             <div class="col-md-12">
                                  <Label name="Leave Type" />
                                 <select v-model="form.leave_type_id" id="company" class="form-control"
-                                    :class="{'is-invalid':form.errors.leave_type_id}">
+                                    :class="{'is-invalid':form.errors.leave_type_id}" @change="checkLeaveTypeBalance">
                                     <option value="" class="d-none">Select Leave Type</option>
                                     <option :value="leaveType.id" v-for="leaveType in leaveTypes" :key="leaveType.id">
                                         {{ leaveType.name }}
                                     </option>
                                 </select>
                                 <ErrorMessage :name="form.errors.leave_type_id" />
+                                <template v-if="showLeaveTypeBalance">
+                                    <strong :class="!leaveTypeBalance.remaining_days ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">Leave Type Balance: {{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</strong>
+                                </template>
                             </div>
                         </div>
                          <div class="mb-3 row">
@@ -35,14 +38,19 @@
                                 <Datepicker v-model="form.start" :enableTimePicker="false"
                                     @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}"/>
                                 <ErrorMessage :name="form.errors.start"/>
+
                             </div>
                             <div class="col-md-6">
                                 <Label name="End Date" />
                                 <Datepicker v-model="form.end" :enableTimePicker="false"
-                                    @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}"/>
+                                    @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}" :disabled="!form.start"/>
                                 <ErrorMessage :name="form.errors.end"/>
                             </div>
+                             <template v-if="diffBetweenDays">
+                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">Number of requested Days: {{ diffBetweenDays }}</strong>
+                            </template>
                         </div>
+
                         <div class="mb-3 row">
                             <div class="col-lg-12">
                                 <Label name="Reason" />
@@ -50,7 +58,7 @@
                                 <ErrorMessage :name="form.errors.reason" />
                             </div>
                         </div>
-                        <button :disabled="form.processing" type="submit" class="btn btn-primary">
+                        <button :disabled="submitButtonDisabled" type="submit" class="btn btn-primary">
                             <Loading v-if="form.processing" message="Sending..."/>
                             <span v-else>
                                 <i class="fa-regular fa-paper-plane"></i>
@@ -88,6 +96,10 @@ export default {
                 end: "",
                 reason: "",
             }),
+
+            leaveTypeBalance: {},
+            showLeaveTypeBalance: false,
+            diffBetweenDays: 0,
         };
     },
     methods: {
@@ -112,7 +124,6 @@ export default {
             this.leaveTypes = leaveTypesData.data.leaveTypes;
             this.employeesUsers = employeesUsersData.data.employeesUsers;
         },
-
         handleStartDate(startDate) {
             const formatTime = dayjs(startDate).format("YYYY-MM-DD");
             this.form.start = formatTime;
@@ -120,6 +131,63 @@ export default {
         handleEndDate(endDate) {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
             this.form.end = formatTime;
+        },
+        async checkLeaveTypeBalance() {
+            let response = await axios.get(
+                route("employee.leave.type.balance", this.form.leave_type_id)
+            );
+
+            this.leaveTypeBalance = response.data;
+            this.showLeaveTypeBalance = true;
+        },
+    },
+    computed: {
+        dates() {
+            return `${this.form.start}|${this.form.end}`;
+        },
+        async getDifferenceBetweenDays() {
+            console.log(65465456);
+            if (this.form.start && this.form.end) {
+                let response = await axios.get(
+                    route("difference.between.days"),
+                    {
+                        params: {
+                            start: this.form.start,
+                            end: this.form.end,
+                        },
+                    }
+                );
+
+                console.log(response.data);
+
+                this.diffBetweenDays = response.data;
+            }
+        },
+        submitButtonDisabled() {
+            return (
+                this.form.processing ||
+                !this.leaveTypeBalance.remaining_days ||
+                this.leaveTypeBalance.remaining_days < this.diffBetweenDays
+            );
+        },
+    },
+    watch: {
+        async dates(newVal) {
+            const [start, end] = newVal.split("|");
+
+            if (start && end) {
+                let response = await axios.get(
+                    route("difference.between.days"),
+                    {
+                        params: {
+                            start: this.form.start,
+                            end: this.form.end,
+                        },
+                    }
+                );
+
+                this.diffBetweenDays = response.data;
+            }
         },
     },
 };

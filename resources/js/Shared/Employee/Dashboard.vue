@@ -149,8 +149,8 @@ import Layout from "../Layout/Default.vue";
 import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-
 import PieChart from "../Chart/PieChart.vue";
+import { Inertia } from "@inertiajs/inertia";
 
 export default {
     components: {
@@ -189,20 +189,25 @@ export default {
                 confirmButtonText: "Yes, delete it!",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Inertia.delete(route("employee.leave.request.delete", id));
+                    Inertia.delete(route("employee.leave.request.delete", id), {
+                        onSuccess: () => {
+                            this.loadData();
+                        },
+                    });
                 }
             });
         },
+        async loadData() {
+            let response = await axios.get(route("employee.dashboard"));
+            this.calendarOptions.events = response.data.events;
+            this.event_types = response.data.event_types;
+            this.leave_balances = response.data.leave_balances;
+            this.summery = response.data.summery;
+            this.pending_leave_requests = response.data.pending_leave_requests;
+        },
     },
     async mounted() {
-        let response = await axios.get(route("employee.dashboard"));
-        this.calendarOptions.events = response.data.events;
-        this.event_types = response.data.event_types;
-        this.leave_balances = response.data.leave_balances;
-        this.summery = response.data.summery;
-        this.pending_leave_requests = response.data.pending_leave_requests;
-
-        console.log(response.data.leave_balances);
+        await this.loadData();
     },
 };
 </script>

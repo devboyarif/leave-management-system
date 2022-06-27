@@ -28,15 +28,15 @@ class EmployeeSeeder extends Seeder
             'role' => 'employee',
         ]);
 
-        $company_id = Company::inRandomOrder()->value('id');
-        $team_id = Team::inRandomOrder()->value('id');
+        $company = Company::inRandomOrder()->first();
+        $team = $company->teams->first();
         $employee = Employee::create([
             'user_id' => $user->id,
-            'company_id' => $company_id,
-            'team_id' => $team_id,
+            'company_id' => $company->id,
+            'team_id' => $team->id,
         ]);
 
-        $leave_types = LeaveType::where('company_id', $company_id)->get();
+        $leave_types = LeaveType::where('company_id', $company->id)->get();
         foreach ($leave_types as $leave_type) {
             LeaveBalance::create([
                 'employee_id' => $employee->id,
@@ -54,15 +54,15 @@ class EmployeeSeeder extends Seeder
             'role' => 'employee',
         ]);
 
-        $company2_id = Company::inRandomOrder()->value('id');
-        $team2_id = Team::inRandomOrder()->value('id');
+        $company2 = Company::inRandomOrder()->first();
+        $team2 = $company->teams->first();
         $employee = Employee::create([
             'user_id' => $user2->id,
-            'company_id' => $company2_id,
-            'team_id' => $team2_id,
+            'company_id' => $company2->id,
+            'team_id' => $team2->id,
         ]);
 
-        $leave_types2 = LeaveType::where('company_id', $company2_id)->get();
+        $leave_types2 = LeaveType::where('company_id', $company2->id)->get();
         foreach ($leave_types2 as $leave_type) {
             LeaveBalance::create([
                 'employee_id' => $employee->id,
@@ -70,39 +70,5 @@ class EmployeeSeeder extends Seeder
                 'total_days' => $leave_type->balance,
             ]);
         }
-
-
-
-        // Employee::factory(14)->create()->each(function ($employee) {
-        //     $leave_types2 = LeaveType::where('company_id', $employee->company2_id)->get();
-        //     foreach ($leave_types2 as $leave_type) {
-        //         LeaveBalance::create([
-        //             'employee_id' => $employee->id,
-        //             'leave_type_id' => $leave_type->id,
-        //             'total_days' => $leave_type->balance,
-        //         ]);
-        //     }
-        // });
-
-
-        //     factory(App\Models\User::class, 10)->create()->each(function($u) {
-        //         $u->profile()->save(factory(App\Models\UserProfile::class)->make());
-        //         $u->posts()->saveMany(factory(App\Models\UserPost::class, 10)->make());
-
-        //         // 3rd nest seeding
-        //         $u->posts()->each(function($post){
-        //             $post->comments()->saveMany(factory(App\Models\Comments::class, 10)->make())
-        //         });
-        // });
-
-
-
-        // User::create([
-        //     'email' => 'invite@mail.com',
-        //     'password' => bcrypt('password'),
-        //     'role' => 'employee',
-        //     'isInvited' => 1,
-        //     'isProfileComplete' => 0,
-        // ]);
     }
 }

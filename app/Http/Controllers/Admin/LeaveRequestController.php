@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Employee;
 use App\Models\LeaveType;
+use App\Models\LeaveBalance;
 use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -153,11 +154,21 @@ class LeaveRequestController extends Controller
     public function statusChange(Request $request)
     {
         $leave_request = LeaveRequest::findOrFail($request->id);
+
+        if ($leave_request->status == 'pending' && $request->status == 'approved') {
+            $leave_balance = LeaveBalance::where('leave_type_id', $leave_request->leave_type_id)
+                ->where('employee_id', $leave_request->employee_id)
+                ->first();
+
+            $diffDays = diffBetweenDays($leave_request->start, $leave_request->end);
+            $leave_balance->increment('used_days', $diffDays);
+        }
+
         $leave_request->update([
             'status' => $request->status,
         ]);
 
-        session()->flash('error', 'Leave Request ' . $request->status . ' successfully');
+        session()->flash('success', 'Leave Request ' . $request->status . ' successfully');
         return back();
     }
 }

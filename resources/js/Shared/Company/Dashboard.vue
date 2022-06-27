@@ -68,7 +68,8 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-wrap col-12">
-                        <template v-if="pending_requests && pending_requests.length">
+
+                        <template v-if="pending_requests">
                             <div v-for="request in pending_requests" :key="request.id"
                                 class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
                                 <div class="mt-4">

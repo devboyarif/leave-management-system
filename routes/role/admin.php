@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\LeaveRequestController;
 
@@ -54,4 +55,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::post('/profile/update', 'profileUpdate')->name('user.profile.update');
         Route::post('/password/update', 'passwordUpdate')->name('user.password.update');
     });
+});
+
+Route::controller(GlobalController::class)->group(function () {
+    Route::get('/diff/between/days', 'diffBetweenDays')->name('difference.between.days');
 });

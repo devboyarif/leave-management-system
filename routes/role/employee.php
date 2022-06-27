@@ -19,5 +19,6 @@ Route::middleware('auth')->prefix('employee')->name('employee.')->group(function
         Route::get('/leave/request/{leave_request}/edit', 'edit')->name('leave.request.edit');
         Route::put('/leave/request/update/{leave_request}', 'update')->name('leave.request.update');
         Route::delete('/leave/request/{leave_request}', 'destroy')->name('leave.request.delete');
+        Route::get('/leave/{leaveType}/balance', 'leaveTypeBalance')->name('leave.type.balance');
     });
 });

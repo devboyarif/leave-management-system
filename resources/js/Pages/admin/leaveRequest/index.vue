@@ -69,7 +69,7 @@
                                         <a href="#">{{ leaveRequest.employee.team.name }}</a>
                                     </td>
                                     <td>
-                                        {{ startDate(leaveRequest.start_date) }} - {{ endDate(leaveRequest.end_date) }}
+                                        {{ startDate(leaveRequest.start) }} - {{ endDate(leaveRequest.end) }}
 
                                          (<span class="text-danger ml-1">
                                         {{ leaveRequest.days }} Day
@@ -136,7 +136,7 @@ export default {
     },
     methods: {
         deleteCompany(id) {
-             this.$swal({
+            this.$swal({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
                 icon: "warning",

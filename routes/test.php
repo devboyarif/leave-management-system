@@ -1,19 +1,23 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Demo;
+use App\Models\Company;
 use App\Models\Country;
 use App\Models\Holiday;
 use App\Models\Calendar;
-use App\Models\Demo;
 use App\Models\Employee;
-use App\Models\LeaveBalance;
-use Illuminate\Support\Arr;
-use App\Models\LeaveRequest;
 use App\Models\LeaveType;
+use Illuminate\Support\Arr;
+use App\Models\LeaveBalance;
+use App\Models\LeaveRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
+    $company = Company::inRandomOrder()->first();
+    $team = $company->teams->first();
+    return $employee = $team->employees->first();
     return inertia('test/modal');
 
 
