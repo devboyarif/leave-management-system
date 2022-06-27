@@ -40,6 +40,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('/leaveTypes', LeaveTypeController::class);
     Route::resource('/leaveRequests', LeaveRequestController::class);
     Route::post('/status/change', [LeaveRequestController::class, 'statusChange'])->name('leaveRequests.status');
+    Route::get('/companies/employee/leave/balance', [LeaveTypeController::class, 'leaveTypeBalance'])->name('companies.employee.leave.type.balance');
 
     // Holidays
     Route::resource('/holidays', HolidayController::class);

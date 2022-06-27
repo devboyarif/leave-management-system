@@ -65,7 +65,7 @@ class LeaveRequestController extends Controller
      */
     public function store(LeaveRequestSaveRequest $request)
     {
-        LeaveRequest::create([
+        $leave_request = LeaveRequest::create([
             'company_id' => getCompany($request->user_id)->id,
             'employee_id' => $request->employee_id,
             'leave_type_id' => $request->leave_type_id,
@@ -75,6 +75,15 @@ class LeaveRequestController extends Controller
             'reason' => $request->reason,
             'status' => $request->status,
         ]);
+
+        if ($request->status == 'approved') {
+            $leave_balance = LeaveBalance::where('leave_type_id', $leave_request->leave_type_id)
+                ->where('employee_id', $leave_request->employee_id)
+                ->first();
+
+            $diffDays = diffBetweenDays($leave_request->start, $leave_request->end);
+            $leave_balance->increment('used_days', $diffDays);
+        }
 
         session()->flash('success', 'Leave request created successfully!');
         return redirect_to('leaveRequests.index');
