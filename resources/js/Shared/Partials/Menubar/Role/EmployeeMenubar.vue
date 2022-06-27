@@ -40,7 +40,7 @@
                             <p>Logout</p>
                         </Link>
                     </li>
-                    <Link :href="route('employee.leave.request.create')" class="btn btn-primary text-light m-2 pt-2" >
+                    <Link :href="route('employee.leave.request.create')" class="btn btn-danger text-light m-2 p-0" >
                         <h6 class="m-2">Apply for Leave</h6>
                     </Link>
                 </ul>
