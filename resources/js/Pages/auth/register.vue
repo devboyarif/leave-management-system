@@ -70,8 +70,8 @@
 
                 <div class="col-4">
                     <button :disabled="form.processing"  class="btn btn-primary btn-block">
-                        <Loading v-if="form.processing" />
-                        Sign Up
+                        <Loading v-if="form.processing" message="Signing Up..."/>
+                       <span v-else>Sign Up</span>
                     </button>
                 </div>
 
@@ -114,7 +114,6 @@ export default {
     // },
     methods: {
         createData() {
-            // console.log(this.form);
             this.form.post(route("register"));
         },
     },

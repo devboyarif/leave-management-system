@@ -37,6 +37,7 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-wrap col-12">
+                        <template v-if="holidays && holidays.length">
                         <div v-for="holiday in holidays" :key="holiday.id"
                             class="col-12 col-md-6 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
                             <div class="mt-4">
@@ -67,6 +68,10 @@
                                     <DeleteIcon />
                                 </button>
                             </div>
+                        </div>
+                        </template>
+                        <div v-else class="col-12 text-center">
+                            <h5 class="text-center">No Holidays Found</h5>
                         </div>
                     </div>
                 </div>
@@ -234,7 +239,7 @@ export default {
             console.log(holiday);
         },
         deleteData(holiday_id) {
-             this.$swal({
+            this.$swal({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
                 icon: "warning",
@@ -259,7 +264,7 @@ export default {
         hideModalOutsideClick() {
             if (this.form.processing) {
                 return;
-            }else{
+            } else {
                 this.showModal = false;
             }
         },

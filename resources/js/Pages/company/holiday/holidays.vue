@@ -26,36 +26,41 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-wrap col-12">
-                        <div v-for="holiday in holidays" :key="holiday.id"
-                            class="col-12 col-md-6 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
-                            <div class="mt-4">
-                                <h6><strong>{{ holiday.title }}</strong>
-                                    <span class="text-danger ml-1">
-                                        {{ holiday.days }} {{ pluralize(holiday.days, 'Day') }}
-                                    </span>
-                                </h6>
-                                <h6 class="d-flex align-items-center">
-                                    <span class="m-widget4__sub">
-                                        <span class="m-widget4__sm-text mr-1">
-                                            <i class="fa-regular fa-calendar-days"></i>
-                                            {{ holiday.format_start_date }}
+                         <template v-if="holidays && holidays.length">
+                            <div v-for="holiday in holidays" :key="holiday.id"
+                                class="col-12 col-md-6 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
+                                <div class="mt-4">
+                                    <h6><strong>{{ holiday.title }}</strong>
+                                        <span class="text-danger ml-1">
+                                            {{ holiday.days }} {{ pluralize(holiday.days, 'Day') }}
                                         </span>
+                                    </h6>
+                                    <h6 class="d-flex align-items-center">
+                                        <span class="m-widget4__sub">
+                                            <span class="m-widget4__sm-text mr-1">
+                                                <i class="fa-regular fa-calendar-days"></i>
+                                                {{ holiday.format_start_date }}
+                                            </span>
 
-                                        <span class="m-widget4__sm-text ml-1">
-                                            <i class="fa-regular fa-calendar-days"></i>
-                                            {{ holiday.format_end_date }}
+                                            <span class="m-widget4__sm-text ml-1">
+                                                <i class="fa-regular fa-calendar-days"></i>
+                                                {{ holiday.format_end_date }}
+                                            </span>
                                         </span>
-                                    </span>
-                                </h6>
+                                    </h6>
+                                </div>
+                                <div>
+                                    <button @click="editData(holiday)" v-tooltip="'Edit Holiday'" class="btn btn-sm  pl-0">
+                                        <EditIcon />
+                                    </button>
+                                    <button @click="deleteData(holiday.id)" v-tooltip="'Delete Holiday'" class="btn btn-sm">
+                                        <DeleteIcon />
+                                    </button>
+                                </div>
                             </div>
-                            <div>
-                                <button @click="editData(holiday)" v-tooltip="'Edit Holiday'" class="btn btn-sm  pl-0">
-                                    <EditIcon />
-                                </button>
-                                <button @click="deleteData(holiday.id)" v-tooltip="'Delete Holiday'" class="btn btn-sm">
-                                    <DeleteIcon />
-                                </button>
-                            </div>
+                        </template>
+                        <div v-else class="col-12 text-center">
+                            <h5 class="text-center">No Holidays Found</h5>
                         </div>
                     </div>
                 </div>
@@ -223,7 +228,7 @@ export default {
             }
         },
         editData(holiday) {
-            this.form.clearErrors()
+            this.form.clearErrors();
             this.editMode = true;
             this.form.reset();
             this.form.company_id = this.company.id;
@@ -234,7 +239,7 @@ export default {
             this.showModal = true;
         },
         deleteData(holiday_id) {
-             this.$swal({
+            this.$swal({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
                 icon: "warning",
@@ -244,7 +249,9 @@ export default {
                 confirmButtonText: "Yes, delete it!",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.form.delete(route("company.holidays.destroy", holiday_id));
+                    this.form.delete(
+                        route("company.holidays.destroy", holiday_id)
+                    );
                 }
             });
         },
@@ -256,13 +263,13 @@ export default {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
             this.form.end = formatTime;
         },
-        hideModalOutsideClick(){
+        hideModalOutsideClick() {
             if (this.form.processing) {
                 return;
-            }else{
+            } else {
                 this.showModal = false;
             }
-        }
+        },
     },
 };
 </script>

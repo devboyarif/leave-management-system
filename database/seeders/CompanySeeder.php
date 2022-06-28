@@ -25,8 +25,7 @@ class CompanySeeder extends Seeder
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png'
         ]);
-        $company = Company::create([
-            'user_id' => $user->id,
+        $company = $user->company()->create([
             'country_id' => $country->id,
         ]);
         $holidays = getHolidays($country->code);
@@ -57,8 +56,7 @@ class CompanySeeder extends Seeder
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png'
         ]);
-        $company2 = Company::create([
-            'user_id' => $user2->id,
+        $company2 = $user2->company()->create([
             'country_id' => $country2->id,
         ]);
 
@@ -90,8 +88,7 @@ class CompanySeeder extends Seeder
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png'
         ]);
-        $company3 = Company::create([
-            'user_id' => $user3->id,
+        $company3 = $user3->company()->create([
             'country_id' => $country3->id,
         ]);
 
@@ -123,8 +120,7 @@ class CompanySeeder extends Seeder
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png'
         ]);
-        $company4 = Company::create([
-            'user_id' => $user4->id,
+        $company4 = $user4->company()->create([
             'country_id' => $country4->id,
         ]);
 
