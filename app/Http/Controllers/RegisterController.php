@@ -67,6 +67,9 @@ class RegisterController extends Controller
             }
         }
 
+        // Notification create
+        $user->notify(new \App\Notifications\WelcomeNotification($user));
+
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
 
