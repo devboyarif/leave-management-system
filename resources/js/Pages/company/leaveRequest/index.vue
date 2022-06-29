@@ -62,7 +62,7 @@
                                 </tr>
                             </template>
                             <tr v-else>
-                                <td colspan="20" class="text-center my-5 py-5">
+                                <td colspan="20" class="text-center">
                                     <h6>No Data Found</h6>
                                 </td>
                             </tr>

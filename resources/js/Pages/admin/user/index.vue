@@ -43,7 +43,7 @@
                                 </template>
                                 <tr v-else>
                                     <td colspan="5" class="text-center">
-                                        <h3>No User Found</h3>
+                                        <h6>No DataFound</h6>
                                     </td>
                                 </tr>
                             </tbody>
@@ -79,8 +79,8 @@ export default {
     },
     methods: {
         deleteStudent(id) {
-             this.$swal({
-                 title: "Are you sure?",
+            this.$swal({
+                title: "Are you sure?",
                 text: "You won't be able to revert this!",
                 icon: "warning",
                 showCancelButton: true,

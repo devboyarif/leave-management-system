@@ -69,7 +69,7 @@
                 <div class="card-body">
                     <div class="d-flex flex-wrap col-12">
 
-                        <template v-if="pending_requests">
+                        <template v-if="pending_requests && pending_requests.length">
                             <div v-for="request in pending_requests" :key="request.id"
                                 class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
                                 <div class="mt-4">
@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                         </template>
-                        <h6 class="text-center m-auto" v-else>No pending leaves found</h6>
+                        <h6 class="text-center m-auto" v-else>No pending request found</h6>
                     </div>
                 </div>
             </div>
@@ -118,6 +118,7 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-wrap col-12">
+                        <template v-if="recent_approved_requests && recent_approved_requests.length">
                         <div v-for="request in recent_approved_requests" :key="request.id"
                             class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
                             <div class="mt-4">
@@ -149,6 +150,8 @@
                                 </button>
                             </div>
                         </div>
+                        </template>
+                        <h6 class="text-center m-auto" v-else>No approved leaves found</h6>
                     </div>
                 </div>
             </div>

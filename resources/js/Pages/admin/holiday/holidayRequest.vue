@@ -58,7 +58,7 @@
                             </template>
                             <tr v-else>
                                 <td colspan="5" class="text-center">
-                                    <h3>No User Found</h3>
+                                    <h3>No Data Found</h3>
                                 </td>
                             </tr>
                         </tbody>
