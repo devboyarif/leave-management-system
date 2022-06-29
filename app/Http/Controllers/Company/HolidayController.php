@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Holiday;
 use App\Models\HolidayRequest;
 use App\Models\User;
+use App\Notifications\Company\NewHolidayRequest;
 use Illuminate\Http\Request;
 
 class HolidayController extends Controller

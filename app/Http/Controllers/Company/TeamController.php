@@ -45,27 +45,29 @@ class TeamController extends Controller
 
         if (isset($request->emails) && count($request->emails)) {
             foreach ($request->emails as $email) {
-                $token = Str::random(60);
+                if ($email != null) {
+                    $token = Str::random(60);
 
-                if (!Invite::whereToken($token)->exists()) {
-                    $invite = Invite::create([
-                        'team_id' => $team->id,
-                        'email' => $email,
-                        'token' => $token,
-                        'company_id' => $company->id,
-                    ]);
-                } else {
-                    $token = Str::random(100);
-                    $invite = Invite::create([
-                        'team_id' => $team->id,
-                        'email' => $email,
-                        'token' => $token,
-                        'company_id' => $company->id,
-                    ]);
+                    if (!Invite::whereToken($token)->exists()) {
+                        $invite = Invite::create([
+                            'team_id' => $team->id,
+                            'email' => $email,
+                            'token' => $token,
+                            'company_id' => $company->id,
+                        ]);
+                    } else {
+                        $token = Str::random(100);
+                        $invite = Invite::create([
+                            'team_id' => $team->id,
+                            'email' => $email,
+                            'token' => $token,
+                            'company_id' => $company->id,
+                        ]);
+                    }
+
+                    // send the email
+                    Mail::to($email)->send(new InviteSendMail($invite));
                 }
-
-                // send the email
-                Mail::to($email)->send(new InviteSendMail($invite));
             }
         }
 

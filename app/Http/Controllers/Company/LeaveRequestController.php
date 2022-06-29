@@ -75,6 +75,10 @@ class LeaveRequestController extends Controller
             $leave_balance->increment('used_days', $diffDays);
         }
 
+        // currentCompany()->employees->each(function ($employee) {
+        //     $employee->user->notify(new NewHolidayRequest());
+        // });
+
         session()->flash('success', 'Leave request created successfully!');
         return redirect_to('company.leaveRequests.index');
     }

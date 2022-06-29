@@ -7,6 +7,7 @@ use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\LeaveBalance;
+use App\Notifications\Company\NewLeaveRequest;
 
 class LeaveRequestController extends Controller
 {
@@ -56,6 +57,11 @@ class LeaveRequestController extends Controller
             'days' => diffBetweenDays($request->start, $request->end),
             'reason' => $request->reason,
         ]);
+
+        // Notification for company
+        $user = $employee->company->user ?? null;
+        isset($user) ? $user->notify(new NewLeaveRequest()) : '';
+
 
         session()->flash('success', 'Leave request sent successfully!');
         return back();

@@ -11,6 +11,7 @@ use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use App\Models\HolidayRequest;
 use App\Http\Controllers\Controller;
+use App\Notifications\Company\NewHolidayRequest;
 
 class EmployeeController extends Controller
 {
@@ -44,9 +45,21 @@ class EmployeeController extends Controller
             'note' => 'required',
         ]);
 
-        $request = $request->all();
-        $request['employee_id'] = currentUserId();
-        HolidayRequest::create($request);
+        $employee = currentEmployee();
+
+        HolidayRequest::create([
+            'title' => $request->title,
+            'start' => $request->start,
+            'end' => $request->end,
+            'days' => diffBetweenDays($request->start, $request->end),
+            'note' => $request->note,
+            'employee_id' => $employee->id,
+            'company_id' => $employee->company_id,
+        ]);
+
+        // Notification for company
+        $user = $employee->company->user ?? null;
+        isset($user) ? $user->notify(new NewHolidayRequest()) : '';
 
         session()->flash('success', 'Holiday request sent successfully!');
         return back();

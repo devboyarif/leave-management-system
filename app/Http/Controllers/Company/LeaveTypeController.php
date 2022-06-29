@@ -9,6 +9,7 @@ use App\Models\LeaveBalance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LeaveTypeSaveRequest;
+use App\Notifications\Employee\NewLeaveTypeAdded;
 
 class LeaveTypeController extends Controller
 {
@@ -39,6 +40,11 @@ class LeaveTypeController extends Controller
             'auto_approve' => $request->auto_approve ? 1 : 0,
             'status' => $request->status ? 1 : 0,
         ]);
+
+        // Notification for company
+        $company->employees->each(function ($employee) {
+            $employee->user->notify(new NewLeaveTypeAdded());
+        });
 
         session()->flash('success', 'Leave type created successfully!');
         return redirect_to('company.leaveTypes.index');

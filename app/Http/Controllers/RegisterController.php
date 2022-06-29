@@ -9,6 +9,7 @@ use App\Traits\HasCountry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CompanyCreateRequest;
+use App\Notifications\Admin\NewCompanyJoined;
 
 class RegisterController extends Controller
 {
@@ -66,9 +67,6 @@ class RegisterController extends Controller
                 Holiday::insert($country);
             }
         }
-
-        // Notification create
-        $user->notify(new \App\Notifications\WelcomeNotification($user));
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();

@@ -126,8 +126,7 @@ export default {
             isEditMode: false,
             selectedId: null,
             form: this.$inertia.form({
-                name: null,
-                user_id: "",
+                name: "",
                 emails: [""],
             }),
         };
