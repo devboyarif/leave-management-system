@@ -26,7 +26,10 @@
                                         <td>{{ language.code }}</td>
                                         <td>{{ language.direction }}</td>
                                         <td class="d-flex">
-                                            <button @click="editLanguage(language)" v-tooltip="'Edit Language'" class="btn btn-sm  pl-0">
+                                            <Link :href="route('languages.translation.edit', language.id)" v-tooltip="'Translate Language'" class="btn btn-sm  pl-0">
+                                                <CogIcon/>
+                                            </Link>
+                                            <button @click="editLanguage(language)" v-tooltip="'Edit Language'" class="btn btn-sm ">
                                                 <EditIcon/>
                                             </button>
                                             <button @click="deleteData(language.id)" v-tooltip="'Delete Language'" class="btn btn-sm">
@@ -99,7 +102,6 @@
 
 
 <script>
-import Info from "../../../../Shared/Forms/Info.vue";
 export default {
     props: {
         languages: Array,
@@ -165,7 +167,6 @@ export default {
             this.filterForm.get(route("teams.index"));
         },
     },
-    components: { Info },
 };
 </script>
 

@@ -57,6 +57,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::post('/languages', 'store')->name('languages.store');
         Route::put('/languages/{language}', 'update')->name('languages.update');
         Route::delete('/languages/{language}', 'destroy')->name('languages.destroy');
+        Route::get('/languages/translation/{language}', 'translationEdit')->name('languages.translation.edit');
+        Route::put('/languages/translation/{language}', 'translationUpdate')->name('languages.translation.update');
     });
 
     // Profile & Settings

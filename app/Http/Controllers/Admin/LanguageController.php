@@ -66,4 +66,36 @@ class LanguageController extends Controller
         session()->flash('success', 'Language deleted successfully.');
         return back();
     }
+
+    public function translationEdit(Language $language)
+    {
+        $path = base_path('resources/lang/' . $language->code . '.json');
+        $translations = json_decode(file_get_contents($path), true);
+
+        return inertia('admin/setting/language/translation', [
+            'language' => $language,
+            'translations' => $translations,
+        ]);
+    }
+
+    public function translationUpdate(Request $request, Language $language)
+    {
+        $filePath = base_path('resources/lang/' . $language->code . '.json');
+
+        $data = file_get_contents($filePath);
+        $translations = json_decode($data, true);
+        $requestTranslations = $request->translations;
+
+        foreach ($translations as $key => $value) {
+            if ($requestTranslations[$key]) {
+                $translations[$key] = $requestTranslations[$key];
+            } else {
+                $translations[$key] = "";
+            }
+        }
+        file_put_contents($filePath, json_encode($translations, JSON_UNESCAPED_UNICODE));
+
+        session()->flash('success', 'Language translation updated successfully.');
+        return back();
+    }
 }
