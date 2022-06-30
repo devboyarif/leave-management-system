@@ -23,6 +23,7 @@ const data = JSON.parse(el.dataset.page);
 import Layout from "./Shared/Layout/Default.vue";
 import AuthLayout from "./Shared/Layout/Auth.vue";
 import ErrorMessage from "./Shared/Forms/ErrorMessage.vue";
+import Info from "./Shared/Forms/Info.vue";
 import Label from "./Shared/Forms/Label.vue";
 import Loading from "./Shared/Loading.vue";
 import EditIcon from "./Shared/Icons/EditIcon.vue";
@@ -98,6 +99,7 @@ app.use(InertiaPlugin)
     .component('Head', Head)
     .component('Link', Link)
     .component('ErrorMessage', ErrorMessage)
+    .component('Info', Info)
     .component('Label', Label)
     .component('Loading', Loading)
     .component('EditIcon', EditIcon)

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\GlobalController;
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\LeaveRequestController;
 
@@ -48,6 +49,14 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('/requested/holidays/{company}', 'requestedHolidays')->name('request.holidays.index');
         Route::post('/requested/holiday/accept', 'requestedHolidaysAccept')->name('request.holidays.accept');
         Route::delete('/requested/holiday/reject/{holiday}', 'requestedHolidaysReject')->name('request.holidays.reject');
+    });
+
+    // Languages
+    Route::controller(LanguageController::class)->group(function () {
+        Route::get('/languages', 'index')->name('languages.index');
+        Route::post('/languages', 'store')->name('languages.store');
+        Route::put('/languages/{language}', 'update')->name('languages.update');
+        Route::delete('/languages/{language}', 'destroy')->name('languages.destroy');
     });
 
     // Profile & Settings

@@ -64,11 +64,16 @@
                            <i class="fa-solid fa-h nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="Setting" :href="route('holidays.index')" :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
+                     <NavLink title="Language" :href="route('languages.index')" :active="$page.url == '/admin/setting/language' || $page.url == '/admin/setting/language'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-language nav-icon"></i>
+                        </template>
+                    </NavLink>
+                     <!-- <NavLink title="Setting" :href="route('holidays.index')" :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-gear nav-icon"></i>
                         </template>
-                    </NavLink>
+                    </NavLink> -->
                      <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">
                            <i class="fa-solid fa-right-from-bracket nav-icon"></i>

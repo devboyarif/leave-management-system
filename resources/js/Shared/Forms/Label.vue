@@ -2,6 +2,7 @@
      <label :class="className" :for="forName ? forName:name">
         {{ name }}
         <span v-if="required" class="text-danger">*</span>
+        <slot/>
     </label>
 </template>
 
