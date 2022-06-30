@@ -14,313 +14,87 @@ use App\Models\LeaveRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
+Route::get('language/{language}', function ($language) {
+    // return $language;
+    session(['current_lang' => $language]);
+
+
+    $current_lang = session('current_lang');
+
+    if (session()->has('current_lang')) {
+        app()->setLocale($current_lang);
+    } else {
+        app()->setLocale(config('app.locale'));
+    }
+
+
+    return redirect()->back();
+})->name('language');
+
 Route::get('/test', function () {
-    $company = Company::inRandomOrder()->first();
-    $team = $company->teams->first();
-    return $employee = $team->employees->first();
-    return inertia('test/modal');
 
+    // app()->setLocale(config('app.locale'));
+    // return app()->getLocale();
+    $current_lang = session('current_lang');
 
-    $company = currentCompany();
+    if (session()->has('current_lang')) {
+        session(['current_lang' => 'de']);
+        app()->setLocale(session('current_lang'));
+    } else {
+        app()->setLocale($current_lang);
+    }
 
-    $leave_requests = LeaveRequest::where('company_id', $company->id)->latest()->get();
-    $pending_requests = $leave_requests->filter(function ($leave_request) {
-        return $leave_request->status == 'pending';
-    });
+    return app()->getLocale();
 
-    return [
-        'company' => $company,
-        'pending_requests' => $pending_requests,
-        'approved_requests' => $approved_requests,
-    ];
+    $old = app()->getLocale();
+    app()->setLocale('dee');
 
-    $time_start = microtime(true);
+    $new = app()->getLocale();
 
-    $users = Demo::all()->filter(function ($user) {
-        return $user->id > 500;
-    });
+    return $old . ' -> ' . $new;
+})->name('test');
 
-    // $users = Demo::cursor()->filter(function ($user) {
-    //     return $user->id > 500;
-    // });
+Route::get('/test2', function () {
 
-    $time_end = microtime(true);
-    $execution_time = ($time_end - $time_start);
-    echo '<b>Total Execution Time:</b> ' . ($execution_time * 1000 * 1000) . 'Milliseconds';
-
-    return [
-        'execution_time' => $execution_time,
-        'users' => $users,
-    ];
-
-
-
-
-    $employee = currentEmployee();
-    $company = $employee->company;
-    $leave_requests = LeaveRequest::where('company_id', $employee->company_id)->get();
-
-    return     $pending_leave_requests = $leave_requests->where('status', 'pending')->load('leaveType')->transform(function ($leaveRequest) {
-        return [
-            'type' => $leaveRequest->leaveType->name,
-            'start' => formatTime($leaveRequest->start, 'D d M'),
-            'end' => formatTime($leaveRequest->end, 'D d M'),
-            'days' => $leaveRequest->days,
-            'status' => $leaveRequest->status,
-            'color' => $leaveRequest->leaveType->color,
-
-        ];
-    });
-
-
-    // $leaveRequest = $leave_requests->load('leaveType', 'employee.user')
-    //     ->where('status', 'approved')
-    //     ->transform(function ($leaveRequest) {
-    //         return [
-    //             'title' => $leaveRequest->employee->user->name,
-    //             'end' => $leaveRequest->end,
-    //             'start' => $leaveRequest->start,
-    //             'color' => $leaveRequest->leaveType->color,
-    //         ];
-    //     });
-
-    // $total_leave_request = $leave_requests->where('status', 'approved')->count();
-    // $pending_leave_request = $leave_requests->where('status', 'pending')->count();
-    // $total_teams = $company->teams->count();
-    // $total_employees = $company->employees->count();
-
-    return $leave_requests->where('status', 'pending')->load('leaveType');
-    return [
-        'events' => $leaveRequest,
-        'total_leaves' => $total_leave_request,
-        'total_pending_leaves' => $pending_leave_request,
-        'total_teams' => $total_teams,
-        'total_employees' => $total_employees,
-    ];
-
-
-    // $company = currentEmployee()->company;
-    // $leave_requests = LeaveRequest::where('company_id', $company->id)->get();
-    // $total_leave_request = $leave_requests->where('status', 'approved')->count();
-    // $pending_leave_request = $leave_requests->where('status', 'pending')->count();
-    // $total_teams = $company->teams->count();
-    // $total_employees = $company->employees->count();
-
-    // return [
-    //     'total_leaves' => $total_leave_request,
-    //     'total_pending_leaves' => $pending_leave_request,
-    //     'total_teams' => $total_teams,
-    //     'total_employees' => $total_employees,
-    // ];
-
-
-
-    $employee = currentEmployee()->leaveBalances;
-
-
-    $leave_balances = $employee->load('leaveType:id,name')->transform(function ($leaveBalance) {
-        $total_days = $leaveBalance->total_days;
-        $used_days = $leaveBalance->used_days;
-        $remaining_days = $leaveBalance->remaining_days;
-
-        return [
-            'title' => $leaveBalance->leaveType->name,
-            'total_days' => $total_days,
-            'used_days' => $used_days,
-            'remaining_days' => $remaining_days,
-            'user_percentage' => round(($used_days / $total_days) * 100),
-            'remaining_percentage' => round(($remaining_days / $total_days) * 100),
-        ];
-    });
-
-    return $leave_balances;
-
-    // $employee = currentEmployee();
-    // $leave_types = LeaveType::where('company_id', $employee->company_id)->get();
-    // // $total_days = $leave_types->balance;
-
-    // foreach ($leave_types as $leave_type) {
-    //     LeaveBalance::create([
-    //         'employee_id' => $employee->id,
-    //         'leave_type_id' => $leave_type->id,
-    //         'total_days' => $leave_type->balance,
-    //     ]);
-    // }
-
-
-    // return $employee->leaveBalances;
-
-
-
-    // return LeaveType::get();
-    // $employee = currentCompany();
-
-
-
-
-
-    return $leaveRequest = LeaveRequest::with('leaveType', 'employee.user')
-        ->where('company_id', $company->company_id)
-        ->where('status', 'approved')
-        ->get()
-        ->transform(function ($leaveRequest) {
-            return [
-                'title' => $leaveRequest->company->user->name,
-                'end' => $leaveRequest->end,
-                'start' => $leaveRequest->start,
-                'color' => $leaveRequest->leaveType->color,
-            ];
-        });
-
-    $employee = currentEmployee();
-    $leave_type_color = LeaveType::where('company_id', $employee->company_id)->get(['name', 'color']);
-    $holiday = [
+    $languages = [
         [
-            'name' => 'Holiday',
-            'color' => '#ff0000'
+            'name' => 'English',
+            'code' => 'en',
+        ],
+        [
+            'name' => 'Germen',
+            'code' => 'de',
         ]
     ];
 
-    return    $array = Arr::collapse([$holiday, $leave_type_color]);
+    return view('website.test', compact('languages'));
+    // app()->setLocale(config('app.locale'));
+    // return app()->getLocale();
+    // $current_lang = session('current_lang');
 
-    // return $array = Arr::collapse([[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 2, 3]]);
-    // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    // if (session()->has('current_lang')) {
+    //     session(['current_lang' => 'de']);
+    //     app()->setLocale(session('current_lang'));
+    // } else {
+    //     app()->setLocale($current_lang);
+    // }
 
+    // return app()->getLocale();
 
-    $holidays = Holiday::where('company_id', 4)
-        ->get()
-        ->transform(function ($holiday) {
-            return [
-                'title' => $holiday->title,
-                'start' => $holiday->start,
-                'end' => $holiday->end,
-                'color' => $holiday->color,
-            ];
-        });
+    // $old = app()->getLocale();
+    // app()->setLocale('dee');
 
-    $leaveRequest = LeaveRequest::with('leaveType', 'employee.user')
-        ->where('company_id', 4)
-        ->where('status', 'approved')
-        ->get()
-        ->transform(function ($leaveRequest) {
-            return [
-                'title' => $leaveRequest->employee->user->name,
-                'end' => $leaveRequest->end,
-                'start' => $leaveRequest->start,
-                'color' => $leaveRequest->leaveType->color,
-            ];
-        });
+    // $new = app()->getLocale();
 
-    return Arr::collapse([$holidays, $leaveRequest]);
-
-    $merged = $holidays->merge($leaveRequest);
-
-    return $merged->all();
-
-    // $collection = collect(['Desk', 'Chair']);
-
-    // $merged = $collection->merge(['Bookcase', 'Door']);
-
-    // $merged->all();
-
-
-
-    // return auth()->user()->employee->team->employees->load('user');
-    // $employee = currentUser()->employee;
-    // $team = $employee->team;
-    // $company = $employee->company;
-    // $employees = $team->employees->load('user');
-    $company = currentUser()->employee->team;
-    return $employeeUsers = Employee::with('user:id,name,avatar', 'team:id,name')
-        ->where('team_id', $company->id)
-        ->get();
-
-
-    return [
-        'employee' => $employee,
-        'team' => $team,
-        'company' => $company,
-        'employees' => $employees,
-    ];
-
-
-
-
-    return getHolidays('indian');
-
-    $holidays = Holiday::where('company_id', 3)->oldest('start')->get()->transform(function ($date) {
-        $date->format_start_date = formatTime($date->start, 'D d M');
-        $date->format_end_date = formatTime($date->end, 'D d M');
-        return $date;
-    });
-
-    return $holidays;
-
-
-
-    $formatedHolidays = $holidays->map(function ($data) {
-        $date->start = Carbon::parse($date->start)->format('Y-m-d');
-        $data->format_start_date = formatTime($date->start, 'D d M');
-
-        return $data;
-    });
-
-    return $formatedHolidays;
-
-
-    // return $date = Carbon::parse('2022-12-25')->format("D d M");
-
-
-
-
-    // $date = Carbon::parse(date('Y-m-d', strtotime('2022-12-25')));;
-
-    // return $date->format('D d M');
-    // return Carbon::tomorrow()->format('l');
-
-
-
-    // get from and throung date
-    $from_date = Carbon::parse(date('Y-m-d', strtotime('2022-12-25')));
-    $through_date = Carbon::parse(date('Y-m-d', strtotime('2022-12-27')));
-    // $from_date = Carbon::parse(date('Y-m-d', strtotime('2022-03-10')));
-    // $through_date = Carbon::parse(date('Y-m-d', strtotime('2022-03-12')));
-    // $from_date = '2022-03-10';
-    // $through_date = '2022-03-12';
-
-    // get total number of minutes between from and throung date
-    return  $shift_difference = $from_date->diffInDays($through_date);
-
-    // will output $shift_difference = 2
-
-
-
-    $then = "2022-06-01";
-    $now = Carbon::now()->toDateString();
-
-    return $now->diffInDays($then);
-    // {{ now()->diffInDays($car->buy_date) }}
-
-
-
-
-
-    return getHolidays('usa');
-    return $country = Country::where('code', 'bd')->first();
-    return  strtolower('ASCKJJKLJHKJHJKH');
-    $calendars = Calendar::all()
-        ->transform(fn ($user) => [
-            'id' => $user->id,
-            'title' => $user->title,
-            'start' => $user->start,
-            'end' => addDays($user->end, 1),
-            'color' => $user->color,
-        ]);
-
-    return inertia('test/calendar', [
-        'events' => $calendars,
-    ]);
+    // return $old . ' -> ' . $new;
 })->name('test');
+
+Route::post('change/language', function () {
+    $language = request('language');
+    session(['current_lang' => $language]);
+    app()->setLocale($language);
+    return back();
+})->name('change.language');
 
 Route::get('/holiday', function () {
 

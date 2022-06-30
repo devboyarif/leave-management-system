@@ -11,14 +11,15 @@
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Contact</a>
             </li>
-            Url - {{ $page.url }} <br>
+            <!-- Url - {{ $page.url }} <br>
             Component - {{ $page.component }} <br>
-            {{ $page.component == 'company/teams' ? 'active':'active na' }}
+            {{ $page.component == 'company/teams' ? 'active':'active na' }} -->
             <!-- {{ $page.component == '/employee/leaveRequest/index' || $page.component == '/employee/leaveRequest/create' || $page.component == '/employee/leaveRequest/edit' ? 'active':'active na' }} -->
         </ul>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
+            <LanguageSelector/>
             <QuickAction />
             <Appearance />
             <Notification />
@@ -32,6 +33,7 @@ import QuickAction from "./QuickAction.vue";
 import Appearance from "./Appearance.vue";
 import UserMenu from "./UserMenu.vue";
 import Notification from "./Notification.vue";
+import LanguageSelector from "./LanguageSelector.vue";
 
 export default {
     components: {
@@ -39,6 +41,7 @@ export default {
         Appearance,
         UserMenu,
         Notification,
+        LanguageSelector,
     },
     methods: {
         sidebarCollapse() {

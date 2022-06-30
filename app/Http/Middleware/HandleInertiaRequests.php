@@ -46,15 +46,9 @@ class HandleInertiaRequests extends Middleware
             'warning' => session('warning')
         ];
 
-        return array_merge(parent::share($request), $data);
+        $data['locale'] = session()->has('current_lang') ?  session('current_lang') : app()->getLocale();
+        $data['language'] = translations(resource_path('lang/' . $data['locale'] . '.json'));
 
-        // return array_merge(parent::share($request), [
-        //     'user' => auth()->user(),
-        //     'flash' => [
-        //         'success' => session('success'),
-        //         'error' => session('error'),
-        //         'warning' => session('warning')
-        //     ],
-        // ]);
+        return array_merge(parent::share($request), $data);
     }
 }

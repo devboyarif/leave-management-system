@@ -132,3 +132,11 @@ function formatTime($date, $format = 'Y-m-d')
 {
     return Carbon::parse($date)->format($format);
 }
+
+function translations($json)
+{
+    if (!file_exists($json)) {
+        return [];
+    }
+    return json_decode(file_get_contents($json), true);
+}

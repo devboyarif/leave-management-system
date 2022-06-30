@@ -94,6 +94,7 @@ app.use(InertiaPlugin)
             }
         },
     })
+    .mixin(require('./base'))
     .component('Head', Head)
     .component('Link', Link)
     .component('ErrorMessage', ErrorMessage)

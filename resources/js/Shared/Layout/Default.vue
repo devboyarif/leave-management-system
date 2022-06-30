@@ -11,6 +11,18 @@
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
+                    <!-- Locale: {{ $page.props.locale }} <br>
+                    Session Locale: {{ $page.props.session_locale }} <br>
+                    Languages: {{ $page.props.language }} <br> -->
+                    <!-- En Languages: {{ $page.props.en_language }} <br>
+                    De Languages: {{ $page.props.de_language }} <br> -->
+
+                    <LanguageSelector/>
+
+                    <span>{{ __('My Prdofile') }}</span>
+
+
+
                     <slot />
                 </div>
             </div>
@@ -22,6 +34,7 @@
 import Navbar from "../Partials/Navbar/Navbar.vue";
 import Menubar from "../Partials/Menubar/Menubar.vue";
 import Breadcrumb from "../Breadcrumb.vue";
+import LanguageSelector from "../Partials/Navbar/LanguageSelector.vue";
 
 //
 export default {
@@ -29,6 +42,7 @@ export default {
         Navbar,
         Menubar,
         Breadcrumb,
+        LanguageSelector,
     },
     watch: {
         pageFlashes: {
