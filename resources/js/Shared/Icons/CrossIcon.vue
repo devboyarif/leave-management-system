@@ -1,9 +1,3 @@
 <template>
-    <i class="fa-solid fa-xmark fa-2x reject-request"></i>
+    <i class="fa-solid fa-xmark fa-2x text-primary"></i>
 </template>
-
-<style scoped>
-.reject-request {
-    color: #dc3545;
-}
-</style>

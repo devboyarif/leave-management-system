@@ -66,7 +66,6 @@ export default {
 
             if (this.darkMode) {
                 document.body.classList.add("dark-mode");
-
                 document.querySelector("#navbar").classList.add("navbar-dark");
                 document
                     .querySelector("#navbar")
@@ -80,18 +79,6 @@ export default {
             }
 
             localStorage.setItem("toggleDarkMode", this.darkMode);
-
-            // console.log(this.darkMode);
-            // console.log(this.darkMode);
-            // this.$store.commit("SET_DARK_MODE");
-            // state.darkMode = !state.darkMode;
-            // if (state.darkMode) {
-            //     document.body.classList.add("dark-mode");
-            // } else {
-            //     document.body.classList.remove("dark-mode");
-            // }
-            // localStorage.setItem("toggleDarkMode", state.darkMode);
-            // darkMode: JSON.parse(localStorage.getItem('toggleDarkMode')) === true ? true : false,
         },
     },
     mounted() {
