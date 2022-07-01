@@ -116,27 +116,23 @@ class LanguageController extends Controller
 
         session()->flash('success', 'Language status updated successfully.');
         return back();
-
-        return response()->json(['success' => 'Language status updated successfully.']);
-
-        $lang = Language::find(request('id'));
-        $lang->status = request('status');
-        $lang->save();
     }
 
     public function singleTranslate(Request $request)
     {
-        $code = $request->code;
-        $key = $request->key;
+        try {
+            $code = $request->code;
+            $key = $request->key;
 
-        $translatedText = translateIt($key, $code);
-        return response()->json($translatedText);
+            $translatedText = translateIt($key, $code);
+            return response()->json($translatedText);
+        } catch (\Exception $e) {
+            return response()->json($key);
+        }
     }
     public function allTranslate()
     {
         $language = Language::findOrFail(request('id'));
-
-        // return $language;
 
         $tr = new GoogleTranslate($language->code);
 
@@ -159,12 +155,5 @@ class LanguageController extends Controller
         }
 
         return response()->json($newTranslatedTextArray);
-
-
-        // $code = $request->code;
-        // $key = $request->key;
-
-        // $translatedText = translateIt($key, $code);
-        // return response()->json($translatedText);
     }
 }

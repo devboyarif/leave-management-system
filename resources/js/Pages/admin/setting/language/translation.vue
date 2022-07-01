@@ -102,11 +102,12 @@ export default {
                         code: this.lang.code,
                     },
                 });
+
                 this.translationsData[key] = response.data;
-                //  this.singleTranslating = true;
+                // this.singleTranslating = true;
             } catch (error) {
                 console.log(error);
-                this.singleTranslating = false;
+                // this.singleTranslating = false;
             }
         },
         async translateAll() {
@@ -121,19 +122,21 @@ export default {
                     }
                 );
 
-                // console.log(response.data);
-                // this.translationsData = response.data;
+                let response_keys = response.data[0];
+                let response_values = response.data[1];
 
-                for (let response in response.data) {
-                    console.log(response);
-                    // this.translationsData[response] = response;
-                    // this.translationsData[key] = response;
+                for (let i = 0; i < response_keys.length; i++) {
+                    this.translationsData[response_keys[i]] = response_values[i]
+                        ? response_values[i]
+                        : response_keys[i];
+
+                    // console.log(response_keys[i], response_values[i]);
+
+                    // console.log(response_values[i] == null ? "nai" : "");
+                    // this.translationsData[response_keys[i]] =
+                    //     response_values[i];
+                    // this.translationsData[lang_keys[i]] = response_values[i];
                 }
-
-                // $.each(response.data, function (key, value) {
-                //     this.translationsData[key] = value;
-                //     // $("input[name=" + key + "]").val(value);
-                // });
 
                 this.allTranslating = false;
             } catch (error) {
