@@ -24,8 +24,8 @@ class LanguageUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => "required|unique:languages,name,{$this->language->id}",
-            'code' => "required|unique:languages,code,{$this->language->id}",
+            'name' => "required|unique:languages,name,{$this->lang->id}",
+            'code' => "required|unique:languages,code,{$this->lang->id}",
             'direction' => 'required',
         ];
     }

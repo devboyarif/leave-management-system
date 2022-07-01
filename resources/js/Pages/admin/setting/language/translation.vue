@@ -6,7 +6,11 @@
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <span>Language List</span>
+                            <h3 class="card-title">Language List</h3>
+                            <Link :href="route('languages.index')" class="btn btn-primary">
+                            <i class="fa-solid fa-arrow-left"></i>
+                                Back
+                            </Link>
                         </div>
                     </div>
                      <div class="card-body table-responsive p-0">
@@ -39,7 +43,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button type="submit" class="lang-btn btn btn-primary">
+                            <button :disabled="loading" type="submit" class="lang-btn btn btn-primary">
                                 <Loading v-if="loading" message="Saving..."/>
                                <span v-else>
                                 <i class="fa-solid fa-check"></i>
@@ -57,7 +61,7 @@
 <script>
 export default {
     props: {
-        language: Array,
+        lang: Array,
         translations: Array,
     },
     data() {
@@ -70,7 +74,7 @@ export default {
         saveData() {
             this.loading = true;
             this.$inertia.put(
-                route("languages.translation.update", this.language.id),
+                route("languages.translation.update", this.lang.id),
                 {
                     translations: this.translationsData,
                 },

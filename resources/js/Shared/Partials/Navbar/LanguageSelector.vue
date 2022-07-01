@@ -1,7 +1,7 @@
 <template>
     <div class="ml-4">
         <select v-model="lang" @change="changeLanguage" class="form-control">
-            <option v-for="lang in languages" :key="lang.code" :value="lang.code" :selected="lang.code == lang">
+            <option v-for="lang in languageList" :key="lang.code" :value="lang.code" :selected="lang.code == lang">
             {{ lang.name }}
             </option>
         </select>
@@ -18,10 +18,7 @@ export default {
     data() {
         return {
             lang: this.$page.props.locale,
-            languages: [
-                { name: "English", code: "en" },
-                { name: "Bangla", code: "bn" },
-            ],
+            languageList: this.$page.props.languageList,
         };
     },
     methods: {

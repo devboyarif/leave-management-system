@@ -36,16 +36,16 @@ class LanguageController extends Controller
         return back();
     }
 
-    public function update(LanguageUpdateRequest $request, Language $language)
+    public function update(LanguageUpdateRequest $request, Language $lang)
     {
-        $oldFile = $language->code . '.json';
+        $oldFile = $lang->code . '.json';
         $oldName = base_path('resources/lang/' . $oldFile);
         $newFile = strSlug($request->code) . '.json';
         $newName = base_path('resources/lang/' . $newFile);
 
         rename($oldName, $newName);
 
-        $language->update([
+        $lang->update([
             'name' => $request->name,
             'code' => $request->code,
             'direction' => $request->direction
@@ -55,32 +55,32 @@ class LanguageController extends Controller
         return back();
     }
 
-    public function destroy(Language $language)
+    public function destroy(Language $lang)
     {
-        if (File::exists(base_path('resources/lang/' . $language->code . '.json'))) {
-            File::delete(base_path('resources/lang/' . $language->code . '.json'));
+        if (File::exists(base_path('resources/lang/' . $lang->code . '.json'))) {
+            File::delete(base_path('resources/lang/' . $lang->code . '.json'));
         }
 
-        $language->delete();
+        $lang->delete();
 
         session()->flash('success', 'Language deleted successfully.');
         return back();
     }
 
-    public function translationEdit(Language $language)
+    public function translationEdit(Language $lang)
     {
-        $path = base_path('resources/lang/' . $language->code . '.json');
+        $path = base_path('resources/lang/' . $lang->code . '.json');
         $translations = json_decode(file_get_contents($path), true);
 
         return inertia('admin/setting/language/translation', [
-            'language' => $language,
+            'lang' => $lang,
             'translations' => $translations,
         ]);
     }
 
-    public function translationUpdate(Request $request, Language $language)
+    public function translationUpdate(Request $request, Language $lang)
     {
-        $filePath = base_path('resources/lang/' . $language->code . '.json');
+        $filePath = base_path('resources/lang/' . $lang->code . '.json');
 
         $data = file_get_contents($filePath);
         $translations = json_decode($data, true);

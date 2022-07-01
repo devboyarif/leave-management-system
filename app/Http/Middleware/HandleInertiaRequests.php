@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Inertia\Middleware;
+use App\Models\Language;
+use Illuminate\Http\Request;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -47,6 +48,7 @@ class HandleInertiaRequests extends Middleware
         ];
 
         $data['locale'] = session()->has('current_lang') ?  session('current_lang') : app()->getLocale();
+        $data['languageList'] = Language::all(['id', 'code', 'name']);
         $data['language'] = translations(resource_path('lang/' . $data['locale'] . '.json'));
 
         return array_merge(parent::share($request), $data);

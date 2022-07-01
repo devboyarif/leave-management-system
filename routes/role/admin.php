@@ -55,10 +55,10 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::controller(LanguageController::class)->group(function () {
         Route::get('/languages', 'index')->name('languages.index');
         Route::post('/languages', 'store')->name('languages.store');
-        Route::put('/languages/{language}', 'update')->name('languages.update');
-        Route::delete('/languages/{language}', 'destroy')->name('languages.destroy');
-        Route::get('/languages/translation/{language}', 'translationEdit')->name('languages.translation.edit');
-        Route::put('/languages/translation/{language}', 'translationUpdate')->name('languages.translation.update');
+        Route::put('/languages/{lang}', 'update')->name('languages.update');
+        Route::delete('/languages/{lang}', 'destroy')->name('languages.destroy');
+        Route::get('/languages/translation/{lang}', 'translationEdit')->name('languages.translation.edit');
+        Route::put('/languages/translation/{lang}', 'translationUpdate')->name('languages.translation.update');
     });
 
     // Profile & Settings

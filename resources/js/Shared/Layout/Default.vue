@@ -16,6 +16,8 @@
                     De Languages: {{ $page.props.de_language }} <br> -->
                     <span>{{ __('My Profile') }}</span>
 
+                    {{ $page.props.language }}
+
                     <slot />
                 </div>
             </div>

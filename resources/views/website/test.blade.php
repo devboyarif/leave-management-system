@@ -13,3 +13,5 @@
 
 <p>Current Language: {{ app()->getLocale() }}</p>
 <p>Session Language: {{ session('current_lang') }}</p>
+
+<p>{{ __('My Profile') }}</p>
