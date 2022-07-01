@@ -1,6 +1,27 @@
 {
-    "My Profile": "My Profile",
-    "Manage Users": "Manage Users",
-    "Logout": "Logout",
-    "Dashboard": "Dashboard"
+    "Company Create": "Company Create",
+    "Company Edit": "Company Edit",
+    "Company Delete": "Company Delete",
+    "Company List": "Company List",
+    "Back": "Back",
+    "Name": "Name",
+    "Email address": "Email address",
+    "Country": "Country",
+    "Select Country": "Select Country",
+    "Avatar": "Avatar",
+    "Password": "Password",
+    "Confirm Password": "Confirm Password",
+    "Save": "Save",
+    "Create": "Create",
+    "Company": "Company",
+    "Email": "Email",
+    "Action": "Action",
+    "No Data Found": "No Data Found",
+    "Search": "Search",
+    "Change Password": "Change Password"
+
 }
+
+
+
+

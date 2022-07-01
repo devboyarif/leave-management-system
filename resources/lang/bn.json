@@ -1,6 +1,1 @@
-{
-    "My Profile": "My Profile",
-    "Manage Users": "Manage Users",
-    "Logout": "Logout",
-    "Dashboard": "Dashboard"
-}
+{"Company Create":"কোম্পানি তৈরি করুন","Company Edit":"কোম্পানি সম্পাদনা করুন","Company Delete":"কোম্পানি মুছুন","Company List":"কোম্পানির তালিকা","Back":"পিছনে","Name":"নাম","Email address":"ইমেল ঠিকানা","Country":"দেশ","Select Country":"নির্বাচন করুন","Avatar":"অবতার","Password":"পাসওয়ার্ড","Confirm Password":"পাসওয়ার্ড নিশ্চিত করুন","Save":"সংরক্ষণ করুন","Create":"কোম্পানি","Company":"ইমেল","Email":"অ্যাকশন","Action":"কোনো ডেটা পাওয়া যায়নি","No Data Found":"অনুসন্ধান","Search":"পাসওয়ার্ড পরিবর্তন করুন","Change Password":"পাসওয়ার্ড পরিবর্তন করুন"}

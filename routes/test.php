@@ -33,6 +33,9 @@ Route::get('language/{language}', function ($language) {
 
 Route::get('/test', function () {
 
+    return auth()->user();
+
+
     if (!session()->has('company_theme')) {
         session(['company_theme' => auth()->user()->employee->company->theme]);
     }

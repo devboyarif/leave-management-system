@@ -1,15 +1,15 @@
 <template>
-    <Head title="Company List"/>
+    <Head :title="__('Company List')"/>
 
     <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <input v-model="search" type="text" placeholder="Search.." class="form-control w-50">
+                            <input v-model="search" type="text" :placeholder="__('Search')" class="form-control w-50">
                             <Link :href="route('companies.create')" class="btn btn-primary">
                                 <i class="fa-solid fa-plus"></i>
-                                Create
+                                {{ __('Create') }}
                             </Link>
                         </div>
                     </div>
@@ -17,9 +17,9 @@
                         <table class="table table-valign-middle">
                             <thead>
                                <tr>
-                                    <th>Company</th>
-                                    <th>Email</th>
-                                    <th>Action</th>
+                                    <th>{{ __('Company') }}</th>
+                                    <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,10 +32,10 @@
                                         </td>
                                         <td>{{ user.email }}</td>
                                         <td class="d-flex">
-                                            <Link :href="route('companies.edit',user.id)" v-tooltip="'Edit Company'" class="btn btn-sm  pl-0">
+                                            <Link :href="route('companies.edit',user.id)" v-tooltip="__('Company Edit')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </Link>
-                                            <button @click="deleteCompany(user.id)" v-tooltip="'Delete Company'" class="btn btn-sm">
+                                            <button @click="deleteCompany(user.id)" v-tooltip="__('Company Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -43,7 +43,7 @@
                                 </template>
                                 <tr v-else>
                                     <td colspan="5" class="text-center">
-                                        <h3>No Data Found</h3>
+                                        <h3>{{ __('No Data Found') }}</h3>
                                     </td>
                                 </tr>
                             </tbody>

@@ -1,6 +1,6 @@
 @php
 if (!session()->has('theme')) {
-    session(['theme' => auth()->user()->theme]);
+    session(['theme' => $theme]);
 }
 
 $theme = session('theme');
