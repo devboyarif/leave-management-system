@@ -33,6 +33,21 @@ Route::get('language/{language}', function ($language) {
 
 Route::get('/test', function () {
 
+    if (!session()->has('company_theme')) {
+        session(['company_theme' => auth()->user()->employee->company->theme]);
+    }
+
+    $company_theme = session('company_theme');
+    return $company_theme;
+
+
+    return auth()->user()->employee->company->theme;
+
+    session(['company_theme' => auth()->user()->employee->company->theme]);
+
+
+
+    return auth()->user()->company->theme;
     // app()->setLocale(config('app.locale'));
     // return app()->getLocale();
     $current_lang = session('current_lang');

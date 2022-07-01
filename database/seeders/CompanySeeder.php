@@ -25,9 +25,7 @@ class CompanySeeder extends Seeder
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png'
         ]);
-        $company = $user->company()->create([
-            'country_id' => $country->id,
-        ]);
+        $company = $user->company()->create(['country_id' => $country->id]);
         $holidays = getHolidays($country->code);
 
         for ($i = 0; $i < count($holidays); $i++) {
@@ -56,10 +54,7 @@ class CompanySeeder extends Seeder
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png'
         ]);
-        $company2 = $user2->company()->create([
-            'country_id' => $country2->id,
-        ]);
-
+        $company2 = $user2->company()->create(['country_id' => $country2->id]);
         $holidays2 = getHolidays('indian');
 
         for ($i = 0; $i < count($holidays2); $i++) {
@@ -88,10 +83,7 @@ class CompanySeeder extends Seeder
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png'
         ]);
-        $company3 = $user3->company()->create([
-            'country_id' => $country3->id,
-        ]);
-
+        $company3 = $user3->company()->create(['country_id' => $country3->id]);
         $holidays3 = getHolidays('usa');
 
         for ($i = 0; $i < count($holidays3); $i++) {
@@ -120,10 +112,7 @@ class CompanySeeder extends Seeder
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png'
         ]);
-        $company4 = $user4->company()->create([
-            'country_id' => $country4->id,
-        ]);
-
+        $company4 = $user4->company()->create(['country_id' => $country4->id]);
         $holidays4 = getHolidays('bd');
 
         for ($i = 0; $i < count($holidays4); $i++) {

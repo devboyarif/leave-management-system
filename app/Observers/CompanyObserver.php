@@ -19,6 +19,8 @@ class CompanyObserver
         User::roleAdmin()->get()->each(function ($user) {
             $user->notify(new NewCompanyJoined());
         });
+
+        $company->theme()->create();
     }
 
     /**

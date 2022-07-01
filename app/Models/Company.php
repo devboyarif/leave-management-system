@@ -45,4 +45,9 @@ class Company extends Model
     {
         return $this->hasMany(Employee::class, 'company_id');
     }
+
+    public function theme()
+    {
+        return $this->hasOne(CompanyTheme::class, 'company_id');
+    }
 }
