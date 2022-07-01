@@ -65,9 +65,18 @@ export default {
             this.darkMode = !this.darkMode;
 
             if (this.darkMode) {
-                document.body.classList.add("theme-dark");
+                document.body.classList.add("dark-mode");
+
+                document.querySelector("#navbar").classList.add("navbar-dark");
+                document
+                    .querySelector("#navbar")
+                    .classList.remove("navbar-light");
             } else {
-                document.body.classList.remove("theme-dark");
+                document.body.classList.remove("dark-mode");
+                document.querySelector("#navbar").classList.add("navbar-light");
+                document
+                    .querySelector("#navbar")
+                    .classList.remove("navbar-dark");
             }
 
             localStorage.setItem("toggleDarkMode", this.darkMode);
@@ -77,9 +86,9 @@ export default {
             // this.$store.commit("SET_DARK_MODE");
             // state.darkMode = !state.darkMode;
             // if (state.darkMode) {
-            //     document.body.classList.add("theme-dark");
+            //     document.body.classList.add("dark-mode");
             // } else {
-            //     document.body.classList.remove("theme-dark");
+            //     document.body.classList.remove("dark-mode");
             // }
             // localStorage.setItem("toggleDarkMode", state.darkMode);
             // darkMode: JSON.parse(localStorage.getItem('toggleDarkMode')) === true ? true : false,
@@ -87,9 +96,13 @@ export default {
     },
     mounted() {
         if (this.darkMode) {
-            document.body.classList.add("theme-dark");
+            document.body.classList.add("dark-mode");
+            document.querySelector("#navbar").classList.add("navbar-dark");
+            document.querySelector("#navbar").classList.remove("navbar-light");
         } else {
-            document.body.classList.remove("theme-dark");
+            document.body.classList.remove("dark-mode");
+            document.querySelector("#navbar").classList.add("navbar-dark");
+            document.querySelector("#navbar").classList.remove("navbar-light");
         }
     },
 };
