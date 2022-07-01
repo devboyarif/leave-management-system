@@ -22,8 +22,9 @@
                                         <th width="48%">
                                             <span class="d-flex justify-content-between">
                                                 <span>Translation Text</span>
-                                                <span onclick="AutoTransAll('1')" id="translate_all" class="btn bg-info btn-sm">
-                                                    Translate All
+                                                <span @click="translateAll" id="translate_all" class="btn bg-info btn-sm">
+                                                    <Loading v-if="allTranslating" message="Translating..."/>
+                                                    <span v-else>Translate All</span>
                                                 </span>
                                             </span>
                                         </th>
@@ -35,8 +36,9 @@
                                         <td>
                                             <span class="d-flex">
                                                 <input type="text" class="form-control" style="width:100%" v-model="translationsData[key]">
-                                                <button type="button" onclick="AutoTrans('dashboard', 'Dashboard', 'en')" class="btn btn-sm ml-1 bg-info">
-                                                    Translate
+                                                <button type="button" @click="translateIt(key)" class="btn btn-sm ml-1 bg-info">
+                                                    <!-- <Loading  v-if="singleTranslating" message="Translating..."/> -->
+                                                    <span >Translate</span>
                                                 </button>
                                             </span>
                                         </td>
@@ -68,6 +70,8 @@ export default {
         return {
             translationsData: this.translations,
             loading: false,
+            // singleTranslating: false,
+            allTranslating: false,
         };
     },
     methods: {
@@ -88,6 +92,54 @@ export default {
         replace(st, rep, repWith) {
             const result = st.split(rep).join(repWith);
             return result;
+        },
+        async translateIt(key) {
+            try {
+                // this.singleTranslating = true;
+                let response = await axios.get(route("languages.translate"), {
+                    params: {
+                        key: key,
+                        code: this.lang.code,
+                    },
+                });
+                this.translationsData[key] = response.data;
+                //  this.singleTranslating = true;
+            } catch (error) {
+                console.log(error);
+                this.singleTranslating = false;
+            }
+        },
+        async translateAll() {
+            this.allTranslating = true;
+            try {
+                let response = await axios.get(
+                    route("languages.translate.all"),
+                    {
+                        params: {
+                            id: this.lang.id,
+                        },
+                    }
+                );
+
+                // console.log(response.data);
+                // this.translationsData = response.data;
+
+                for (let response in response.data) {
+                    console.log(response);
+                    // this.translationsData[response] = response;
+                    // this.translationsData[key] = response;
+                }
+
+                // $.each(response.data, function (key, value) {
+                //     this.translationsData[key] = value;
+                //     // $("input[name=" + key + "]").val(value);
+                // });
+
+                this.allTranslating = false;
+            } catch (error) {
+                console.log(error);
+                this.allTranslating = false;
+            }
         },
     },
 };

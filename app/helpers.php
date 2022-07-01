@@ -5,6 +5,7 @@ use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 function uploadFileToPublic(string $path, $file)
 {
@@ -139,4 +140,15 @@ function translations($json)
         return [];
     }
     return json_decode(file_get_contents($json), true);
+}
+
+function translateIt(String $text, $code)
+{
+    return GoogleTranslate::trans($text, $code, 'en');
+
+
+
+    // $tr = new GoogleTranslate($lang);
+    // $afterTrans = $tr->translate($text);
+    // return $afterTrans;
 }

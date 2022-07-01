@@ -6,6 +6,7 @@ use App\Models\Language;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Http\Requests\Admin\LanguageCreateRequest;
 use App\Http\Requests\Admin\LanguageUpdateRequest;
 
@@ -121,5 +122,49 @@ class LanguageController extends Controller
         $lang = Language::find(request('id'));
         $lang->status = request('status');
         $lang->save();
+    }
+
+    public function singleTranslate(Request $request)
+    {
+        $code = $request->code;
+        $key = $request->key;
+
+        $translatedText = translateIt($key, $code);
+        return response()->json($translatedText);
+    }
+    public function allTranslate()
+    {
+        $language = Language::findOrFail(request('id'));
+
+        // return $language;
+
+        $tr = new GoogleTranslate($language->code);
+
+        $translations = json_decode(file_get_contents(base_path('resources/lang/' . $language->code . '.json')), true);
+        $stringArray = [];
+        foreach ($translations as $key => $value) {
+            array_push($stringArray, $value);
+        }
+
+        $translationString = implode(" ® ", $stringArray);
+        $translatedTexts = explode(" ® ", $tr->translate($translationString));
+
+        $newTranslatedTextArray = [];
+        $data = array_replace($translations, $translatedTexts);
+
+        $arrayKeys = array_keys($translations);
+        return [$arrayKeys, $translatedTexts];
+        foreach ($translations as $index => $item) {
+            $newTranslatedTextArray[$item] = $translatedTexts[$index];
+        }
+
+        return response()->json($newTranslatedTextArray);
+
+
+        // $code = $request->code;
+        // $key = $request->key;
+
+        // $translatedText = translateIt($key, $code);
+        // return response()->json($translatedText);
     }
 }

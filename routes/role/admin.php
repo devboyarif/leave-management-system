@@ -60,6 +60,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('/languages/translation/{lang}', 'translationEdit')->name('languages.translation.edit');
         Route::put('/languages/translation/{lang}', 'translationUpdate')->name('languages.translation.update');
         Route::put('/languages/status/{lang}', 'statusUpdate')->name('languages.status.update');
+        Route::get('/languages/translate/single', 'singleTranslate')->name('languages.translate');
+        Route::get('/languages/translate/all', 'allTranslate')->name('languages.translate.all');
     });
 
     // Profile & Settings
