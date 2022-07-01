@@ -27,7 +27,7 @@ class LanguageController extends Controller
 
     public function store(LanguageCreateRequest $request)
     {
-        Language::create([
+        $language = Language::create([
             'name' => $request->name,
             'code' => $request->code,
             'direction' => $request->direction,
@@ -39,7 +39,7 @@ class LanguageController extends Controller
         copy($baseFile, $fileName);
 
         session()->flash('success', 'Language added successfully.');
-        return back();
+        return redirect()->route('languages.translation.edit', $language->id);
     }
 
     public function update(LanguageUpdateRequest $request, Language $lang)
