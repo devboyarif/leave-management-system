@@ -59,6 +59,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::delete('/languages/{lang}', 'destroy')->name('languages.destroy');
         Route::get('/languages/translation/{lang}', 'translationEdit')->name('languages.translation.edit');
         Route::put('/languages/translation/{lang}', 'translationUpdate')->name('languages.translation.update');
+        Route::put('/languages/status/{lang}', 'statusUpdate')->name('languages.status.update');
     });
 
     // Profile & Settings

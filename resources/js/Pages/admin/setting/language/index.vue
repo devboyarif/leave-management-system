@@ -16,6 +16,7 @@
                                     <th>Name</th>
                                     <th>Code</th>
                                     <th>Direction</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -25,6 +26,12 @@
                                         <td>{{ language.name }}</td>
                                         <td>{{ language.code }}</td>
                                         <td>{{ language.direction }}</td>
+                                        <td>
+                                            <label class="switch ">
+                                                <input @change="languageStatusUpdate(language.id)" type="checkbox" class="success toggle-switch" :checked="language.status">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </td>
                                         <td class="d-flex">
                                             <Link :href="route('languages.translation.edit', language.id)" v-tooltip="'Translate Language'" class="btn btn-sm  pl-0">
                                                 <CogIcon/>
@@ -59,19 +66,19 @@
                     <div class="card-body">
                          <form @submit.prevent="saveData">
                             <div class="mb-3">
-                                <Label name="Name">
-                                    <Info text="Provide a language name e.g: English, Bangla"/>
-                                </Label>
-                                <input v-model="form.name" type="text" class="form-control"
-                                    :class="{'is-invalid':form.errors.name}" id="name" placeholder="Name">
+                                <Label name="Name"/>
+                                 <select class="form-control" :class="{'is-invalid':form.errors.name}" v-model="form.name">
+                                    <option value="" class="d-none">Select Language</option>
+                                    <option v-for="(langInfo,key) in langInfos" :key="key" :value="langInfo['name']">{{ langInfo['name'] }}</option>
+                                </select>
                                 <ErrorMessage :name="form.errors.name" />
                             </div>
                             <div class="mb-3">
-                                <Label name="Code">
-                                     <Info text="Provide language code e.g: en, bn"/>
-                                </Label>
-                                <input v-model="form.code" type="text" class="form-control"
-                                    :class="{'is-invalid':form.errors.code}" id="name" placeholder="Code">
+                                <Label name="Code"/>
+                                  <select class="form-control" :class="{'is-invalid':form.errors.code}" v-model="form.code">
+                                    <option value="" class="d-none">Select Language Code</option>
+                                    <option v-for="(langInfo,key) in langInfos" :key="key" :value="key">{{ key }}</option>
+                                </select>
                                 <ErrorMessage :name="form.errors.code" />
                             </div>
                             <div class="mb-3">
@@ -81,6 +88,13 @@
                                     <option value="rtl">RTL</option>
                                 </select>
                                 <ErrorMessage :name="form.errors.direction" />
+                            </div>
+                            <div class="mb-3">
+                                <Label name="Status" :required="false"/> <br>
+                                <label class="switch ">
+                                    <input @change="statusChange" v-model="form.status" type="checkbox" class="success toggle-switch" checked>
+                                    <span class="slider round"></span>
+                                </label>
                             </div>
                             <button :disabled="form.processing" type="submit" class="btn btn-primary">
                                 <Loading v-if="form.processing" message="Saving..."/>
@@ -105,16 +119,18 @@
 export default {
     props: {
         languages: Array,
+        langInfos: Array,
     },
     data() {
         return {
             isEditMode: false,
             selectedId: "",
-            // search: this.filters.search,
+            languageStatus: false,
             form: this.$inertia.form({
                 name: "",
                 code: "",
                 direction: "ltr",
+                status: true,
             }),
         };
     },
@@ -163,10 +179,71 @@ export default {
                 }
             });
         },
-        companyWiseTeam() {
-            this.filterForm.get(route("teams.index"));
+        languageStatusUpdate(id) {
+            this.$inertia.put(route("languages.status.update", id));
+        },
+        statusChange(event) {
+            this.form.status = event.target.checked;
         },
     },
 };
 </script>
 
+
+<style scoped>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 35px;
+        height: 19px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        display: none;
+    }
+
+    /* The slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 15px;
+        width: 15px;
+        left: 3px;
+        bottom: 2px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input.success:checked+.slider {
+        background-color: #28a745;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(15px);
+        -ms-transform: translateX(15px);
+        transform: translateX(15px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+</style>

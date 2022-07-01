@@ -15,8 +15,12 @@ class LanguageController extends Controller
     {
         $languages = Language::all();
 
+        $path = base_path('Resources/json/languages.json');
+        $langInfos = json_decode(file_get_contents($path), true);
+
         return inertia('admin/setting/language/index', [
             'languages' => $languages,
+            'langInfos' => $langInfos,
         ]);
     }
 
@@ -26,6 +30,7 @@ class LanguageController extends Controller
             'name' => $request->name,
             'code' => $request->code,
             'direction' => $request->direction,
+            'status' => $request->status ? 1 : 0,
         ]);
 
         $baseFile = base_path('resources/lang/en.json');
@@ -48,7 +53,8 @@ class LanguageController extends Controller
         $lang->update([
             'name' => $request->name,
             'code' => $request->code,
-            'direction' => $request->direction
+            'direction' => $request->direction,
+            'status' => $request->status ? 1 : 0
         ]);
 
         session()->flash('success', 'Language updated successfully.');
@@ -97,5 +103,23 @@ class LanguageController extends Controller
 
         session()->flash('success', 'Language translation updated successfully.');
         return back();
+    }
+
+    public function statusUpdate(Language $lang)
+    {
+        if ($lang->status) {
+            $lang->update(['status' => 0]);
+        } else {
+            $lang->update(['status' => 1]);
+        }
+
+        session()->flash('success', 'Language status updated successfully.');
+        return back();
+
+        return response()->json(['success' => 'Language status updated successfully.']);
+
+        $lang = Language::find(request('id'));
+        $lang->status = request('status');
+        $lang->save();
     }
 }

@@ -16,7 +16,7 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        $countries_list = json_decode(file_get_contents(base_path('public/country.json')), true);
+        $countries_list = json_decode(file_get_contents(base_path('resources/json/country.json')), true);
 
         for ($i = 0; $i < count($countries_list); $i++) {
             $country_data[] = [
