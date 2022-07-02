@@ -9,7 +9,7 @@
                             <input v-model="search" type="text" placeholder="Search.." class="form-control w-50">
                             <Link :href="route('employees.create')" class="btn btn-primary">
                                 <i class="fa-solid fa-plus"></i>
-                                {{ __('Create') }}
+                                {{ __('Employee Create') }}
                             </Link>
                         </div>
                     </div>

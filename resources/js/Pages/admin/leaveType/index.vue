@@ -8,7 +8,7 @@
                         <div class="d-flex justify-content-between">
                              <span>{{ __('Leave Type List') }}</span>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <select @change="companyWiseLeaveType" v-model="filterForm.user_id" class="form-control w-100">
                                        <option value="all">{{ __('All') }}</option>
                                        <option v-for="user in users" :key="user.id" :value="user.id">
@@ -17,11 +17,10 @@
                                    </select>
 
                                 </div>
-                                <div class="col-6 text-right">
-                                    <!-- <input v-model="search" type="text" placeholder="Search.." class="form-control w-50"> -->
+                                <div class="col-8 text-right">
                                         <Link :href="route('leaveTypes.create')" class="btn btn-primary">
                                             <i class="fa-solid fa-plus"></i>
-                                            {{ __('Create Leave Type') }}
+                                            {{ __('Leave Request Create') }}
                                         </Link>
 
                                 </div>

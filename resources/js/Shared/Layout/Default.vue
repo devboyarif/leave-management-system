@@ -11,12 +11,12 @@
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
-                    Locale: {{ $page.props.locale }} <br>
+                    <!-- Locale: {{ $page.props.locale }} <br> -->
                     <!-- En Languages: {{ $page.props.en_language }} <br>
                     De Languages: {{ $page.props.de_language }} <br> -->
-                    <span>{{ __('My Profile') }}</span>
+                    <!-- <span>{{ __('My Profile') }}</span> -->
 
-                    {{ $page.props.language }}
+                    <!-- {{ $page.props.language }} -->
 
                     <slot />
                 </div>
