@@ -37,11 +37,11 @@
                     <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">
                             <i class="fa-solid fa-right-from-bracket nav-icon"></i>
-                            <p>Logout</p>
+                            <p>{{ __('Logout') }}</p>
                         </Link>
                     </li>
                     <Link :href="route('employee.leave.request.create')" class="btn btn-danger text-light m-2 p-0" >
-                        <h6 class="m-2">Apply for Leave</h6>
+                        <h6 class="m-2">{{ __('Apply for Leave') }}</h6>
                     </Link>
                 </ul>
             </nav>

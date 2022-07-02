@@ -1,23 +1,23 @@
 <template>
 
-    <Head title="Company List" />
+    <Head :title="__('Holiday Request List')" />
 
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <span>Holiday Request List</span>
+                        <span>{{ __('Holiday Request List') }}</span>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-valign-middle">
                         <thead>
                             <tr>
-                                <th>Employee</th>
-                                <th>Holiday Title</th>
-                                <th>Date</th>
-                                <th>Action</th>
+                                <th>{{ __('Employee') }}</th>
+                                <th>{{ __('Holiday Title') }}</th>
+                                <th>{{ __('Date') }}</th>
+                                <th>{{ __('Action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,17 +34,19 @@
                                     <td v-if="holiday.start && holiday.end">
                                         {{ requestFor(holiday.start, holiday.end) }}
                                         (<span class="text-danger ml-1">
-                                            {{ holiday.days }} Days
+                                            {{ holiday.days }} {{ pluralize(holiday.days, __('Day')) }}
                                         </span>)
+
+                                        {{ holiday.days }} {{ pluralize(holiday.days, __('Day')) }}
                                     </td>
                                     <td>
-                                        <button @click="showDetails(holiday)" v-tooltip="'View holiday details'" class="btn btn-sm  pl-0">
+                                        <button @click="showDetails(holiday)" v-tooltip="__('View holiday details')" class="btn btn-sm  pl-0">
                                             <EyeIcon/>
                                         </button>
-                                        <button @click="acceptRequest(holiday.id)" v-tooltip="'Accept and add to official holiday list'" class="btn btn-sm  pl-0">
+                                        <button @click="acceptRequest(holiday.id)" v-tooltip="__('Accept and add to official holiday list')" class="btn btn-sm  pl-0">
                                             <CheckIcon/>
                                         </button>
-                                        <button @click="rejectRequest(holiday.id)" v-tooltip="'Reject and delete from holiday request list'" class="btn btn-sm  pl-0">
+                                        <button @click="rejectRequest(holiday.id)" v-tooltip="__('Reject and delete from holiday request list')" class="btn btn-sm  pl-0">
                                             <CrossIcon/>
                                         </button>
                                     </td>
@@ -52,7 +54,7 @@
                             </template>
                             <tr v-else>
                                 <td colspan="5" class="text-center">
-                                    <h6>No DataFound</h6>
+                                    <h6>{{ __('No Data Found') }}</h6>
                                 </td>
                             </tr>
                         </tbody>
@@ -75,7 +77,7 @@
                         <div class="modal-content" v-click-outside="()=> showModal = false">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    Request Holiday Details
+                                    {{ __('Request Holiday Details') }}
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" @click="showModal = false">&times;</span>
@@ -85,27 +87,27 @@
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td width="30%">Employee Name</td>
+                                            <td width="30%">{{ __('Employee Name') }}</td>
                                             <td width="70%"><a href="#">{{ form.employee_name }}</a></td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Email</td>
+                                            <td width="30%">{{ __('Email') }}</td>
                                             <td width="70%">{{ form.employee_email }}</td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Holiday Title</td>
+                                            <td width="30%">{{ __('Holiday Title') }}</td>
                                             <td width="70%">{{ form.title }}</td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Date</td>
+                                            <td width="30%">{{ __('Date') }}</td>
                                             <td width="70%">{{ requestFor(form.start, form.end) }}</td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Total Days</td>
+                                            <td width="30%">{{ __('Total Days') }}</td>
                                             <td width="70%">{{ form.days }} {{ pluralize(form.days, 'Day') }}</td>
                                         </tr>
                                         <tr>
-                                            <td width="50%">Note</td>
+                                            <td width="50%">{{ __('Note') }}</td>
                                             <td width="50%">{{ form.note }}</td>
                                         </tr>
                                     </tbody>
@@ -113,7 +115,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
-                                    @click="showModal = false">Close</button>
+                                    @click="showModal = false">{{ __('Close') }}</button>
                             </div>
                         </div>
                     </div>

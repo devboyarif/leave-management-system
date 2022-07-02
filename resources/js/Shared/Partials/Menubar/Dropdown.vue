@@ -3,7 +3,7 @@
         <a href="#" class="nav-link" :class="{'active':active}" @click="menuOpen = !menuOpen">
             <slot name="icon"/>
             <p>
-                {{ title }}
+                {{ __(title) }}
                 <IconChevronLeft classes="right" height="20" width="20" v-if="!menuOpen" />
                 <IconChevronUp classes="right" height="20" width="20" v-else />
             </p>
@@ -19,12 +19,12 @@
 
 <script>
 import { directive } from "vue3-click-away";
-import IconChevronUp from '../../Icons/ChevronUpIcon.vue'
-import IconChevronLeft from '../../Icons/ChevronLeftIcon.vue'
+import IconChevronUp from "../../Icons/ChevronUpIcon.vue";
+import IconChevronLeft from "../../Icons/ChevronLeftIcon.vue";
 
 export default {
-     directives: {
-        ClickAway: directive
+    directives: {
+        ClickAway: directive,
     },
     props: {
         title: {
@@ -34,22 +34,22 @@ export default {
         active: {
             type: Boolean,
             default: false,
-        }
+        },
     },
-    components:{
+    components: {
         IconChevronUp,
         IconChevronLeft,
     },
-    data(){
+    data() {
         return {
-            menuOpen:false
-        }
+            menuOpen: false,
+        };
     },
-    methods:{
-        away(){
+    methods: {
+        away() {
             this.menuOpen = false;
-        }
-    }
-}
+        },
+    },
+};
 </script>
 

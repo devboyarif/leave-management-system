@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Company List" />
+    <Head :title="__('Leave Request List')" />
 
     <div class="row justify-content-center">
     {{ pluralize(5, 'apple') }}
@@ -8,10 +8,10 @@
             <div class="card">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Leave Request List</h3>
+                        <h3 class="card-title">{{ __('Leave Request List') }}</h3>
                         <Link :href="route('company.leaveRequests.create')" class="btn btn-primary">
                             <i class="fa-solid fa-plus"></i>
-                            Create a new request
+                            {{ __('Create a new request') }}
                         </Link>
                     </div>
                 </div>
@@ -19,12 +19,12 @@
                     <table class="table table-valign-middle">
                         <thead>
                             <tr>
-                                <th>Employee</th>
-                                <th>Leave Type</th>
-                                <th>Team</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>{{ __('Employee') }}</th>
+                                <th>{{ __('Leave Type') }}</th>
+                                <th>{{ __('Team') }}</th>
+                                <th>{{ __('Date') }}</th>
+                                <th>{{ __('Status') }}</th>
+                                <th>{{ __('Action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,7 +63,7 @@
                             </template>
                             <tr v-else>
                                 <td colspan="20" class="text-center">
-                                    <h6>No Data Found</h6>
+                                    <h6>{{ __('No Data Found') }}</h6>
                                 </td>
                             </tr>
                         </tbody>

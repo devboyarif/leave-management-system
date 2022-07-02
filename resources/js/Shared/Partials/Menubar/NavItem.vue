@@ -3,7 +3,7 @@
          <Link :href="href" class="nav-link" :class="{'active':active}">
             <slot name="icon"/>
             <p>
-                {{ title }}
+                {{ __(title) }}
             </p>
             <slot name="badge"/>
         </Link>
@@ -17,14 +17,14 @@ export default {
             type: String,
             required: true,
         },
-        href:{
+        href: {
             type: String,
             required: true,
         },
         active: {
             type: Boolean,
-            default: false
-        }
-    }
-}
+            default: false,
+        },
+    },
+};
 </script>

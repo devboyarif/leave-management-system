@@ -1,22 +1,22 @@
 <template>
 
-    <Head title="Team List" />
+    <Head :title="__('Team List')" />
 
         <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="card-title">
-                            Team List
+                            {{ __('Team List') }}
                         </div>
                     </div>
                      <div class="card-body table-responsive p-0">
                         <table class="table table-valign-middle">
                             <thead>
                                <tr>
-                                    <th>Name</th>
-                                    <th>Employees</th>
-                                    <th>Action</th>
+                                    <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Employees') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,10 +36,10 @@
                                             <small v-else>{{ __('No Employee Found') }}</small>
                                         </td>
                                         <td class="d-flex">
-                                            <button @click="editTeam(team)" v-tooltip="'Delete Leave Type'" class="btn btn-sm  pl-0">
+                                            <button @click="editTeam(team)" v-tooltip="__('Leave Type Edit')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </button>
-                                            <button @click="deleteData(team.id)" v-tooltip="'Delete Leave Type'" class="btn btn-sm">
+                                            <button @click="deleteData(team.id)" v-tooltip="__('Leave Type Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -47,7 +47,7 @@
                                 </template>
                                 <tr v-else>
                                     <td colspan="5" class="text-center">
-                                        <h6>No DataFound</h6>
+                                        <h6>{{ __('No Data Found') }}</h6>
                                     </td>
                                 </tr>
                             </tbody>
@@ -61,20 +61,20 @@
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <span v-if="!isEditMode">Create Team</span>
-                            <span v-else>Edit Team</span>
+                            <span v-if="!isEditMode">{{ __('Team Create') }}</span>
+                            <span v-else>{{ __('Team Edit') }}</span>
                         </div>
                     </div>
                     <div class="card-body">
                          <form @submit.prevent="saveData">
                             <div class="mb-3">
-                                <Label name="Name"/>
+                                <Label :name="__('Name')"/>
                                 <input v-model="form.name" type="text" class="form-control"
                                     :class="{'is-invalid':form.errors.name}" id="name">
                                 <ErrorMessage :name="form.errors.name" />
                             </div>
                             <div class="mb-3" v-if="!isEditMode">
-                                <Label name="Invite Employee" :required="false"/>
+                                <Label :name="__('Invite Employee')" :required="false"/>
                                 <div class="row my-1" v-for="(email, index) in form.emails" :key="index">
                                     <div class="col-lg-10">
                                         <input v-model="form.emails[index]" type="email" class="form-control">
@@ -95,12 +95,12 @@
                                 <Loading v-if="form.processing"/>
                                 <span v-else>
                                     <i class="fa-solid fa-check mr-1"></i>
-                                    Save
+                                    {{ __('Save') }}
                                 </span>
                             </button>
                             <button v-if="isEditMode" @click="cancelEdit" type="button" class="btn btn-danger ml-2">
                                 <i class="fa-solid fa-times"></i>
-                                Cancel
+                                {{ __('Cancel') }}
                             </button>
                         </form>
                     </div>

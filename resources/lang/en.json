@@ -1,4 +1,41 @@
 {
+    "Sign up to create your company": "Sign up to create your company",
+    "Sign in to start your session": "Sign in to start your session",
+    "Sign up to join the company": "Sign up to join the company",
+    "Remember Me": "Remember Me",
+    "Sign In": "Sign In",
+    "Sign Up": "Sign Up",
+    "I forgot my password": "I forgot my password",
+    "Create company account": "Create company account",
+    "I agree to the": "I agree to the",
+    "terms & condition": "terms & condition",
+    "I already have a account": "I already have a account",
+
+
+    "Dashboard": "Dashboard",
+    "Total Income": "Total Income",
+    "Total Companies": "Total Companies",
+    "Total Teams": "Total Teams",
+    "Total Employees": "Total Employees",
+    "Yearly Earning": "Yearly Earning",
+    "Recent Registered Companies": "Recent Registered Companies",
+    "Expenses per Company (Most expenses companies)": "Expenses per Company (Most expenses companies)",
+    "Companies per Country (Most active countries)": "Companies per Country (Most active countries)",
+    "Total Leave Request": "Total Leave Request",
+    "Pending Request": "Pending Request",
+    "Total": "Total",
+    "Used": "Used",
+    "Remaining": "Remaining",
+
+
+    "Users": "Users",
+    "Admin": "Admin",
+    "Leave": "Admin",
+    "Language": "Language",
+    "Logout": "Logout",
+
+
+
     "Company": "Company",
     "Company Name": "Company Name",
     "Company Create": "Company Create",
@@ -13,26 +50,38 @@
     "Admin Delete": "Admin Delete",
 
     "Employee": "Employee",
-    "No Employee Found": "No employee found",
+    "Invite Employee": "Invite Employee",
+    "Instant Create": "Instant Create",
     "Employee List": "Employee List",
     "Employee Create": "Employee Create",
     "Employee Edit": "Employee Edit",
     "Employee Delete": "Employee Delete",
+    "No Employee Found": "No employee found",
+    "Select Employee": "Select Employee",
 
+    "Colleagues": "Colleagues",
+    "Teams": "Teams",
     "Team": "Team",
+    "Team Members": "Team Members",
     "Team List": "Team List",
     "Team Edit": "Team Edit",
     "Team Create": "Team Create",
     "Team Delete": "Team Delete",
     "Select Team": "Select Team",
 
+    "Send Request": "Send Request",
+    "Accept Request": "Accept Request",
+    "Reject Request": "Reject Request",
+    "Delete Request": "Delete Request",
     "Reason": "Reason",
     "Pending": "Pending",
     "Approve": "Approve",
     "Reject": "Reject",
     "Status": "Status",
     "Color": "Color",
+    "Apply for leave": "Apply for leave",
     "Options": "Options",
+    "Leave Request": "Leave Request",
     "Leave Request List": "Leave Request List",
     "Leave Request Create": "Leave Request Create",
     "Leave Request Edit": "Leave Request Edit",
@@ -41,7 +90,8 @@
     "Leave Type": "Leave Type",
     "Leave Type Edit": "Leave Type Edit",
     "Leave Type Delete": "Leave Type Delete",
-
+    "Leave Balance Day": "Leave Balance Day",
+    "Leave Request Details": "Leave Request Details",
 
 
     "Get Request": "Get Request",
@@ -52,6 +102,7 @@
     "Select Leave Type": "Select Leave Type",
 
 
+    "Calendar": "Calendar",
     "Calendar View": "Calendar View",
     "Official Holiday Calendar": "Official Holiday Calendar",
 
@@ -91,6 +142,7 @@
 
 
     "Title": "Title",
+    "Full Name": "Full Name",
     "Name": "Name",
     "Email": "Email",
     "Email address": "Email address",
@@ -124,7 +176,9 @@
     "Request Holiday Details": "Request Holiday Details",
     "Show all requested holidays": "Show all requested holidays",
     "Holiday Request List": "Holiday Request List",
+    "Holiday Request Create": "Holiday Request Create",
     "Requested Holidays": "Requested Holidays",
+    "Pending Leave Request": "Pending Leave Request",
     "Total Holidays": "Total Holidays",
     "Company Holidays": "Company Holidays",
     "Company Holidays List": "Company Holidays List",
@@ -135,6 +189,7 @@
     "Start Date": "Start Date",
     "End Date": "End Date",
     "Note": "Note"
+
 }
 
 

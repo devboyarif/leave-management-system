@@ -32,7 +32,7 @@
                             </template>
                         </NavLink>
                     </Dropdown>
-                    <NavLink title="Employees" :href="route('company.employees.index')" :active="$page.component == 'company/employees'">
+                    <NavLink title="Employee" :href="route('company.employees.index')" :active="$page.component == 'company/employees'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-user-group nav-icon"></i>
                         </template>
@@ -55,7 +55,7 @@
                      <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">
                            <i class="fa-solid fa-right-from-bracket nav-icon"></i>
-                            <p>Logout</p>
+                            <p>{{ __('Logout') }}</p>
                         </Link>
                     </li>
                 </ul>

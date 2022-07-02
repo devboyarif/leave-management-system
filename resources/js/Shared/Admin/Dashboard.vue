@@ -5,7 +5,7 @@
             <div class="info-box shadow-md">
                 <span class="info-box-icon bg-primary"><i class="fa-regular fa-money-bill-1"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Income</span>
+                    <span class="info-box-text">{{ __('Total Income') }}</span>
                     <span class="info-box-number">$99999999</span>
                 </div>
             </div>
@@ -15,7 +15,7 @@
                 <span class="info-box-icon bg-warning"><i class="fa-regular fa-building"></i></span>
                 <div class="info-box-content">
 
-                    <span class="info-box-text">Total Companies</span>
+                    <span class="info-box-text">{{ __('Total Companies') }}</span>
                     <span class="info-box-number">1</span>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="info-box shadow-md">
                 <span class="info-box-icon bg-info"><i class="fa-solid fa-people-group nav-icon"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Teams</span>
+                    <span class="info-box-text">{{ __('Total Teams') }}</span>
                     <span class="info-box-number">1</span>
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="info-box shadow-md">
                 <span class="info-box-icon bg-success"><i class="fa-solid fa-users"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Employees</span>
+                    <span class="info-box-text">{{ __('Total Employees') }}</span>
                     <span class="info-box-number">1</span>
                 </div>
             </div>
@@ -43,7 +43,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header border-0">
-                    <h3 class="card-title">Yearly Earning</h3>
+                    <h3 class="card-title">{{ __('Yearly Earning') }}</h3>
                 </div>
                 <div class="card-body">
                     <YearlyEarningChart/>
@@ -55,7 +55,7 @@
             <div class="col-lg-6">
                     <div class="card">
                     <div class="card-header border-0">
-                        <h3 class="card-title">Recent Registered Companies</h3>
+                        <h3 class="card-title">{{ __('Recent Registered Companies') }}</h3>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">
@@ -272,7 +272,7 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header border-0">
-                    <h3 class="card-title">Expenses per Company (Most expenses companies)</h3>
+                    <h3 class="card-title">{{ __('Expenses per Company (Most expenses companies)') }}</h3>
                 </div>
                 <div class="card-body d-flex justify-content-center">
                     <CompaniesExpenseChart/>
@@ -280,7 +280,7 @@
             </div>
             <div class="card">
                 <div class="card-header border-0">
-                    <h3 class="card-title">Companies per Country (Most active countries)</h3>
+                    <h3 class="card-title">{{ __('Companies per Country (Most active countries)') }}</h3>
                 </div>
                 <div class="card-body d-flex justify-content-center">
                     <CompaniesExpenseChart/>

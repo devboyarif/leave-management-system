@@ -1,25 +1,25 @@
 <template>
-    <Head title="Employee List"/>
+    <Head :title="__('Employee List')"/>
 
 <div class="row justify-content-center mt-4">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <span>Employee List</span>
+                        <span>{{ __('Employee List') }}</span>
                         <div v-click-outside="()=> showEmployeeDropdown = false">
                             <div class="btn-group" :class="{'show':showEmployeeDropdown}" role="group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle" @click="showEmployeeDropdown = !showEmployeeDropdown">
-                                Create Employee
+                                 {{ __('Employee Create') }}
                                 </button>
                                 <div class="dropdown-menu employee-add-dropdown" :class="{'show':showEmployeeDropdown}" x-placement="bottom-start">
                                     <a @click="showEmployeeInviteModal = true" class="dropdown-item" href="javascript:void(0)" v-tooltip="'Invite employee via email address'">
                                         <i class="fa-regular fa-paper-plane"></i>
-                                        Invite Employee
+                                        {{ __('Invite Employee') }}
                                     </a>
                                     <a @click="showEmployeeCreateModal = true" class="dropdown-item" href="#" v-tooltip="'Create employee instant from here'">
                                         <i class="fa-solid fa-plus"></i>
-                                        Instant Create
+                                        {{ __('Instant Create') }}
                                     </a>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                     <div class="d-flex justify-content-between">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a href="javascript:void(0)" @click="changeTab('all')" class="nav-link" :class="{'active': currentTab == 'all'}">All</a>
+                                <a href="javascript:void(0)" @click="changeTab('all')" class="nav-link" :class="{'active': currentTab == 'all'}">{{ __('All') }}</a>
                             </li>
                             <li class="nav-item" v-for="team in teams" :key="team.id">
                                 <a href="javascript:void(0)" @click="changeTab(team.slug)" class="nav-link" :class="{'active': currentTab == team.slug}">{{ team.name }}</a>
@@ -64,7 +64,7 @@
                                         </div>
                                     </div>
                                 </template>
-                                <h6 class="text-center m-auto" v-else>No employees found</h6>
+                                <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
                             </div>
                         </div>
                         <div class="tab-pane fade" :class="{'show active': currentTab == team.slug}" v-for="team in teams" :key="team.id">
@@ -91,7 +91,7 @@
                                 </template>
                                 <template v-else>
                                    <div class="d-flex justify-content-center text-center m-auto">
-                                        <h6>No employees found</h6>
+                                        <h6>{{ __('No Data Found') }}</h6>
                                    </div>
                                 </template>
                             </div>

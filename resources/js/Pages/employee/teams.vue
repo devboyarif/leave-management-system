@@ -1,19 +1,19 @@
 <template>
 
-    <Head title="Team Members" />
+    <Head :title="__('Team Members')" />
 
     <div class="row justify-content-center mt-4">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Colleagues</div>
+                    <div class="card-title">{{ __('Colleagues') }}</div>
                 </div>
             </div>
            <div class="card">
                 <div class="card-header">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                            <a href="javascript:void(0)" @click="changeTab('all')" class="nav-link" :class="{'active': currentTab == 'all'}">All</a>
+                            <a href="javascript:void(0)" @click="changeTab('all')" class="nav-link" :class="{'active': currentTab == 'all'}">{{ __('All') }}</a>
                         </li>
                         <li class="nav-item" v-for="team in teams" :key="team.id">
                             <a href="javascript:void(0)" @click="changeTab(team.slug)" class="nav-link" :class="{'active': currentTab == team.slug}">{{ team.name }}</a>

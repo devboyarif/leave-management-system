@@ -1,15 +1,15 @@
 <template>
 
-    <Head title="Leave Type Create" />
+    <Head :title="__('Leave Type Create')" />
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Leave Type Create</h3>
+                        <h3 class="card-title">{{ __('Leave Type Create') }}</h3>
                         <Link :href="route('company.leaveTypes.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
-                        Back
+                        {{ __('Back') }}
                         </Link>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                         <form @submit.prevent="createData">
                             <div class="mb-3 row">
                                 <div class="col-md-12">
-                                    <Label name="Type Name" />
+                                    <Label :name="__('Name')" />
                                     <input v-model="form.name" type="text" class="form-control"
                                         :class="{'is-invalid':form.errors.name}" id="name">
                                     <ErrorMessage :name="form.errors.name" />
@@ -26,13 +26,13 @@
                             </div>
                             <div class="mb-3 row">
                                 <div class="col-lg-6">
-                                    <Label name="Color" :required="false" />
+                                    <Label :name="__('Color')" :required="false" />
                                     <input v-model="form.color" class="form-control" type="color"
                                         :class="{'is-invalid':form.errors.color}" />
                                     <ErrorMessage :name="form.errors.color" />
                                 </div>
                                 <div class="col-lg-6">
-                                    <Label name="Leave Balance Day" :required="false"/>
+                                    <Label :name="__('Leave Balance Day')" :required="false"/>
                                     <input min="1" v-model="form.balance" class="form-control" type="number"
                                         :class="{'is-invalid':form.errors.balance}" />
                                     <ErrorMessage :name="form.errors.balance" />
@@ -40,7 +40,7 @@
                             </div>
                             <div class="mb-3 row">
                                 <div class="col-lg-6">
-                                    <Label name="Status" :required="false"/> <br>
+                                    <Label :name="__('Status')" :required="false"/> <br>
                                     <label class="switch ">
                                         <input @change="statusChange" v-model="form.status" type="checkbox" class="success toggle-switch" checked>
                                         <span class="slider round"></span>
@@ -50,7 +50,7 @@
                                     <div class="custom-control custom-checkbox">
                                         <input v-model="form.auto_approve" type="checkbox" class="custom-control-input"
                                             id="auto_approve">
-                                        <label class="custom-control-label" for="auto_approve">Allow auto approve</label>
+                                        <label class="custom-control-label" for="auto_approve">{{ __('Allow auto approve') }}</label>
                                     </div>
                                 </div>
 
@@ -59,7 +59,7 @@
                                 <Loading v-if="form.processing"/>
                                 <span v-else>
                                     <i class="fa-solid fa-check mr-1"></i>
-                                    Save
+                                    {{ __('Save') }}
                                 </span>
                             </button>
                         </form>

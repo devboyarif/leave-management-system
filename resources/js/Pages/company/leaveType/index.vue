@@ -1,15 +1,15 @@
 <template>
-    <Head title="Leave Type List"/>
+    <Head :title="__('Leave Type List')"/>
 
     <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <span>Leave Type List</span>
+                            <span>{{ __('Leave Type List') }}</span>
                             <Link :href="route('company.leaveTypes.create')" class="btn btn-primary">
                                 <i class="fa-solid fa-plus"></i>
-                                Create
+                                {{ __('Create') }}
                             </Link>
                         </div>
                     </div>
@@ -17,11 +17,11 @@
                         <table class="table table-valign-middle">
                             <thead>
                                <tr>
-                                     <th>Name</th>
-                                    <th>Color</th>
-                                    <th>Leave Balance</th>
-                                    <th>Options</th>
-                                    <th>Action</th>
+                                     <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Color') }}</th>
+                                    <th>{{ __('Leave Balance') }}</th>
+                                    <th>{{ __('Options') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,15 +32,15 @@
                                             {{ leave_type.color }}
                                         </td>
                                         <td>
-                                            {{ leave_type.balance }} days
+                                            {{ leave_type.balance }} {{ pluralize(leave_type.balance, 'Day') }}
                                         </td>
                                         <td>
                                             <span v-if="leave_type.auto_approve" class="badge badge-pill badge-info mx-1">
-                                                Allow auto approve
+                                               {{ __('Allow auto approve') }}
                                             </span>
                                             <span class="badge badge-pill mx-1" :class="leave_type.status ? 'badge-success':'badge-danger'">
-                                                <span v-if="leave_type.status">Active</span>
-                                                <span v-else>Inactive</span>
+                                                <span v-if="leave_type.status">{{ __('Active') }}</span>
+                                                <span v-else>{{ __('Inactive') }}</span>
                                             </span>
                                         </td>
                                         <td class="d-flex">
@@ -55,7 +55,7 @@
                                 </template>
                                 <tr v-else>
                                     <td colspan="5" class="text-center">
-                                        <h6>No DataFound</h6>
+                                        <h6>{{ __('No Data Found') }}</h6>
                                     </td>
                                 </tr>
                             </tbody>

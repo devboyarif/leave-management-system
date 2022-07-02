@@ -1,15 +1,15 @@
 <template>
 
-    <Head title="Leave Request Create" />
+    <Head :title="__('Leave Request Create')" />
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3>Leave Request Edit</h3>
+                        <h3>{{ __('Leave Request Edit') }}</h3>
                         <Link :href="route('employee.leave.request.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
-                        Leave Request List
+                        {{ __('Leave Request List') }}
                         </Link>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                                  <Label name="Leave Type" />
                                 <select v-model="form.leave_type_id" id="company" class="form-control"
                                     :class="{'is-invalid':form.errors.leave_type_id}">
-                                    <option value="" class="d-none">Select Leave Type</option>
+                                    <option value="" class="d-none">{{ __('Select Leave Type') }}</option>
                                     <option :value="leaveType.id" v-for="leaveType in leaveTypes" :key="leaveType.id">
                                         {{ leaveType.name }}
                                     </option>
@@ -31,13 +31,13 @@
                         </div>
                          <div class="mb-3 row">
                             <div class="col-md-6">
-                                <Label name="Start Date" />
+                                <Label :name="__('Start Date')" />
                                 <Datepicker v-model="form.start" :enableTimePicker="false"
                                     @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}"/>
                                 <ErrorMessage :name="form.errors.start"/>
                             </div>
                             <div class="col-md-6">
-                                <Label name="End Date" />
+                                <Label :name="__('End Date')" />
                                 <Datepicker v-model="form.end" :enableTimePicker="false"
                                     @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}"/>
                                 <ErrorMessage :name="form.errors.end"/>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="mb-3 row">
                             <div class="col-lg-12">
-                                <Label name="Reason" />
+                                <Label :name="__('Reason')" />
                                 <textarea class="form-control" v-model="form.reason" :class="{'is-invalid':form.errors.reason}" rows="5"></textarea>
                                 <ErrorMessage :name="form.errors.reason" />
                             </div>
@@ -54,7 +54,7 @@
                             <Loading v-if="form.processing" message="Sending..."/>
                             <span v-else>
                                 <i class="fa-regular fa-paper-plane"></i>
-                                Update Request
+                                {{ __('Save') }}
                             </span>
                         </button>
                     </form>

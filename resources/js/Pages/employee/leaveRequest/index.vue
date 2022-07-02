@@ -1,16 +1,16 @@
 <template>
 
-    <Head title="Leave Requests" />
+    <Head :title="__('Leave Requests')" />
 
     <div class="row justify-content-center" v-if="leaveRequests && leaveRequests.data.length">
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Leave Request List</h3>
+                        <h3 class="card-title">{{ __('Leave Request List') }}</h3>
                         <Link :href="route('employee.leave.request.create')" class="btn btn-primary">
                             <i class="fa-solid fa-plus"></i>
-                            Apply for leave
+                            {{ __('Apply for leave') }}
                         </Link>
                     </div>
                 </div>
@@ -18,10 +18,10 @@
                     <table class="table table-valign-middle">
                         <thead>
                             <tr>
-                                <th>Leave Type</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>{{ __('Leave Type') }}</th>
+                                <th>{{ __('Date') }}</th>
+                                <th>{{ __('Status') }}</th>
+                                <th>{{ __('Action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,7 +36,7 @@
                                         {{ startDate(leaveRequest.start_date) }} - {{ endDate(leaveRequest.end_date) }}
 
                                          (<span class="text-danger ml-1">
-                                        {{ leaveRequest.days }} Day
+                                        {{ leaveRequest.days }} {{ pluralize(leaveRequest.days, 'Day') }}
                                     </span>)
                                     </td>
                                     <td>
@@ -61,7 +61,7 @@
                             </template>
                             <tr v-else>
                                 <td colspan="5" class="text-center">
-                                    <h6>No DataFound</h6>
+                                    <h6>{{ __('No Data Found') }}</h6>
                                 </td>
                             </tr>
                         </tbody>
@@ -83,7 +83,7 @@
                         <div class="modal-content" v-click-outside="()=> showModal = false">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    Leave Request Details
+                                    {{ __('Leave Request Details') }}
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" @click="showModal = false">&times;</span>
@@ -93,24 +93,23 @@
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td width="30%">Type Name</td>
+                                            <td width="30%">{{ __('Name') }}</td>
                                             <td width="70%"><a href="#">
-                                                <!-- {{ form.type }} -->
                                                  <span :style="{ background: form.color, border: '2px solid '+form.color }" class="leave-type-color">
                                             {{ form.type }}
                                         </span>
                                             </a></td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Date</td>
+                                            <td width="30%">{{ __('Date') }}</td>
                                             <td width="70%">{{ requestFor(form.start, form.end) }}</td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Total Days</td>
+                                            <td width="30%">{{ __('Total Days') }}</td>
                                             <td width="70%">{{  form.days }} {{ pluralize(form.days, 'Day') }}</td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Status</td>
+                                            <td width="30%">{{ __('Status') }}</td>
                                             <td width="70%">
                                                 <span class="toCapitalFirst badge" :class="getBadgeType(form.status)">
                                                     {{ form.status }}
@@ -118,7 +117,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td width="50%">Reason</td>
+                                            <td width="50%">{{ __('Reason') }}</td>
                                             <td width="50%">{{ form.reason }}</td>
                                         </tr>
                                     </tbody>
@@ -126,7 +125,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
-                                    @click="showModal = false">Close</button>
+                                    @click="showModal = false">{{ __('Close') }}</button>
                             </div>
                         </div>
                     </div>

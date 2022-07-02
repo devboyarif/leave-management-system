@@ -6,7 +6,7 @@
             <div class="info-box shadow-sm">
                 <span class="info-box-icon bg-primary"><i class="fa-regular fa-calendar-minus"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Leave Request</span>
+                    <span class="info-box-text">{{ __('Total Leave Request') }}</span>
                     <span class="info-box-number">{{ summery.total_leaves }}</span>
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <span class="info-box-icon bg-warning"><i class="fa-regular fa-hourglass"></i></span>
                 <div class="info-box-content">
 
-                    <span class="info-box-text">Pending Request</span>
+                    <span class="info-box-text">{{ __('Pending Request') }}</span>
                     <span class="info-box-number">{{ summery.total_pending_leaves }}</span>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <div class="info-box shadow-sm">
                 <span class="info-box-icon bg-info"><i class="fa-solid fa-people-group nav-icon"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Teams</span>
+                    <span class="info-box-text">{{ __('Total Teams') }}</span>
                     <span class="info-box-number">{{ summery.total_teams }}</span>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="info-box shadow-sm">
                 <span class="info-box-icon bg-success"><i class="fa-solid fa-users"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Employees</span>
+                    <span class="info-box-text">{{ __('Total Employees') }}</span>
                     <span class="info-box-number">{{ summery.total_employees }}</span>
                 </div>
             </div>
@@ -44,7 +44,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header border-0">
-                    <h3 class="card-title">Calendar</h3>
+                    <h3 class="card-title">{{ __('Calendar') }}</h3>
                 </div>
                 <div class="card-body">
                     <FullCalendar :options="calendarOptions" />
@@ -65,7 +65,7 @@
                 <div class="card-header">
                     <h3 class="card-title"></h3>
                      <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Pending Leave Request</h3>
+                        <h3 class="card-title">{{ __('Pending Leave Request') }}</h3>
                         <Link v-tooltip="'Show all leave requests'" :href="route('employee.leave.request.index')" class="btn btn-primary btn-sm">
                             <i class="fa-regular fa-eye"></i>
                             Show all
@@ -76,10 +76,10 @@
                     <table class="table table-striped table-valign-middle">
                         <thead>
                             <tr>
-                                <th>Type</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>{{ __('Type') }}</th>
+                                <th>{{ __('Date') }}</th>
+                                <th>{{ __('Status') }}</th>
+                                <th>{{ __('Action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,13 +93,13 @@
                                         {{ leave_request.days }} {{ pluralize(leave_request.days, 'Day') }}
                                     </span>)</td>
                                 <td>
-                                    <span class="badge badge-warning">Pending</span>
+                                    <span class="badge badge-warning">{{ __('Pending') }}</span>
                                 </td>
                                 <td>
-                                    <Link :href="route('employee.leave.request.edit', leave_request.id)" v-tooltip="'Edit Request'" class="btn btn-sm">
+                                    <Link :href="route('employee.leave.request.edit', leave_request.id)" v-tooltip="__('Leave Request Edit')" class="btn btn-sm">
                                         <EditIcon/>
                                     </Link>
-                                    <button @click="deleteData(leave_request.id)" v-tooltip="'Delete Request'" class="btn btn-sm">
+                                    <button @click="deleteData(leave_request.id)" v-tooltip="__('Leave Request Delete')" class="btn btn-sm">
                                         <DeleteIcon/>
                                     </button>
                                 </td>
@@ -115,10 +115,10 @@
             <div class="card">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Leave Balance</h3>
+                        <h3 class="card-title">{{ __('Leave Balance') }}</h3>
                         <Link v-tooltip="'Apply for leave new request'" :href="route('employee.leave.request.create')" class="btn btn-danger btn-sm">
                             <i class="fa-regular fa-calendar-check"></i>
-                            Apply for Leave
+                            {{ __('Apply for Leave') }}
                         </Link>
                     </div>
                 </div>
@@ -127,13 +127,13 @@
                         <PieChart :title="leave_balance.title" :series="leavePercentage(leave_balance)"/>
                         <ul class="list-group list-group-horizontal my-2 d-flex justify-content-center">
                             <li class="list-group-item">
-                                Total - <span>{{ leave_balance.total_days }}</span>
+                                {{ __('Total') }} - <span>{{ leave_balance.total_days }}</span>
                             </li>
                             <li class="list-group-item">
-                                Used - <span>{{ leave_balance.used_days }}</span>
+                                {{ __('Used') }} - <span>{{ leave_balance.used_days }}</span>
                             </li>
                             <li class="list-group-item">
-                                Remaining - <span>{{ leave_balance.remaining_days }}</span>
+                                {{ __('Remaining') }} - <span>{{ leave_balance.remaining_days }}</span>
                             </li>
                         </ul>
                         <hr v-if="index+1 != leave_balances.length">
