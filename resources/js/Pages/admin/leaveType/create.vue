@@ -6,7 +6,7 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">{{ __('Leave Type Create') }}</h3>
+                        <h6 class="card-title">{{ __('Leave Type Create') }}</h6>
                         <Link :href="route('leaveTypes.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         {{ __('Back') }}
@@ -18,7 +18,7 @@
                         <form @submit.prevent="createData">
                             <div class="mb-3 row">
                                 <div class="col-md-6">
-                                    <Label name="__('Company')" />
+                                    <Label :name="__('Company')" />
                                     <select v-model="form.user_id" id="company" class="form-control"
                                         :class="{'is-invalid':form.errors.user_id}">
                                         <option value="" class="d-none">{{ __('Select Company') }}</option>
@@ -29,7 +29,7 @@
                                     <ErrorMessage :name="form.errors.user_id" />
                                 </div>
                                 <div class="col-md-6">
-                                    <Label name="__('Leave Type')" />
+                                    <Label :name="__('Leave Type')" />
                                     <input v-model="form.name" type="text" class="form-control"
                                         :class="{'is-invalid':form.errors.name}" id="name">
                                     <ErrorMessage :name="form.errors.name" />
@@ -38,13 +38,13 @@
 
                             <div class="mb-3 row">
                                 <div class="col-lg-6">
-                                    <Label name="__('Color')" :required="false" />
+                                    <Label :name="__('Color')" :required="false" />
                                     <input v-model="form.color" class="form-control" type="color"
                                         :class="{'is-invalid':form.errors.color}" />
                                     <ErrorMessage :name="form.errors.color" />
                                 </div>
                                 <div class="col-lg-6">
-                                    <Label name="__('Leave Balance')" :required="false"/>
+                                    <Label :name="__('Leave Balance')" :required="false"/>
                                     <input min="1" v-model="form.balance" class="form-control" type="number"
                                         :class="{'is-invalid':form.errors.balance}" />
                                     <ErrorMessage :name="form.errors.balance" />
@@ -52,7 +52,7 @@
                             </div>
                             <div class="mb-3 row">
                                 <div class="col-lg-6">
-                                    <Label name="__('Status')" :required="false"/> <br>
+                                    <Label :name="__('Status')" :required="false"/> <br>
                                     <label class="switch ">
                                         <input @change="statusChange" v-model="form.status" type="checkbox" class="success toggle-switch" checked>
                                         <span class="slider round"></span>

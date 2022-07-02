@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="{{ __('Leave Request Create') }}" />
+    <Head :title="__('Leave Request Create')" />
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
@@ -18,7 +18,7 @@
                      <form @submit.prevent="createData">
                         <div class="mb-3 row">
                             <div class="col-md-4">
-                                <Label name="__('Company')" />
+                                <Label :name="__('Company')" />
                                 <select @change="fetchCompanyWiseData" v-model="form.user_id" id="company" class="form-control"
                                     :class="{'is-invalid':form.errors.user_id}">
                                     <option value="" class="d-none">{{ __('Select Company') }}</option>
@@ -29,7 +29,7 @@
                                 <ErrorMessage :name="form.errors.user_id" />
                             </div>
                             <div class="col-md-4">
-                                 <Label name="__('Employee')" />
+                                 <Label :name="__('Employee')" />
                                 <select v-model="form.employee_id" id="company" class="form-control" :disabled="!form.user_id"
                                     :class="{'is-invalid':form.errors.employee_id}">
                                     <option value="" class="d-none">{{ __('Select Employee') }}</option>
