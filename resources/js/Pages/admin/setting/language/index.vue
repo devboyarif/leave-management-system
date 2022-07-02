@@ -1,23 +1,23 @@
 <template>
-    <Head title="Admin List"/>
+    <Head :title="__('Language List')"/>
 
     <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <span>Language List</span>
+                            <span>{{ __('Language List') }}</span>
                         </div>
                     </div>
                      <div class="card-body table-responsive p-0">
                         <table class="table table-valign-middle">
                             <thead>
                                <tr>
-                                    <th>Name</th>
-                                    <th>Code</th>
-                                    <th>Direction</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Code') }}</th>
+                                    <th>{{ __('Direction') }}</th>
+                                    <th>{{ __('Status') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,13 +33,13 @@
                                             </label>
                                         </td>
                                         <td class="d-flex">
-                                            <Link :href="route('languages.translation.edit', language.id)" v-tooltip="'Translate Language'" class="btn btn-sm  pl-0">
+                                            <Link :href="route('languages.translation.edit', language.id)" v-tooltip="__('Translate Language')" class="btn btn-sm  pl-0">
                                                 <CogIcon/>
                                             </Link>
-                                            <button @click="editLanguage(language)" v-tooltip="'Edit Language'" class="btn btn-sm ">
+                                            <button @click="editLanguage(language)" v-tooltip="__('Language Edit')" class="btn btn-sm ">
                                                 <EditIcon/>
                                             </button>
-                                            <button @click="deleteData(language.id)" v-tooltip="'Delete Language'" class="btn btn-sm">
+                                            <button @click="deleteData(language.id)" v-tooltip="__('Language Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -47,7 +47,7 @@
                                 </template>
                                 <tr v-else>
                                     <td colspan="5" class="text-center">
-                                        <h6>No DataFound</h6>
+                                        <h6>{{ __('No Data Found') }}</h6>
                                     </td>
                                 </tr>
                             </tbody>
@@ -59,38 +59,38 @@
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <span v-if="!isEditMode">Create Language</span>
-                            <span v-else>Edit Language</span>
+                            <span v-if="!isEditMode">{{ __('Language Create') }}</span>
+                            <span v-else>{{ __('Language Edit') }}</span>
                         </div>
                     </div>
                     <div class="card-body">
                          <form @submit.prevent="saveData">
                             <div class="mb-3">
-                                <Label name="Name"/>
+                                <Label :name="__('Name')"/>
                                  <select class="form-control" :class="{'is-invalid':form.errors.name}" v-model="form.name">
-                                    <option value="" class="d-none">Select Language</option>
+                                    <option value="" class="d-none">{{ __('Select Language') }}</option>
                                     <option v-for="(langInfo,key) in langInfos" :key="key" :value="langInfo['name']">{{ langInfo['name'] }}</option>
                                 </select>
                                 <ErrorMessage :name="form.errors.name" />
                             </div>
                             <div class="mb-3">
-                                <Label name="Code"/>
+                                <Label :name="__('Code')"/>
                                   <select class="form-control" :class="{'is-invalid':form.errors.code}" v-model="form.code">
-                                    <option value="" class="d-none">Select Language Code</option>
+                                    <option value="" class="d-none">{{ __('Select Language Code') }}</option>
                                     <option v-for="(langInfo,key) in langInfos" :key="key" :value="key">{{ key }}</option>
                                 </select>
                                 <ErrorMessage :name="form.errors.code" />
                             </div>
                             <div class="mb-3">
-                                <Label name="Direction"/>
+                                <Label :name="__('Direction')"/>
                                 <select class="form-control" :class="{'is-invalid':form.errors.direction}" v-model="form.direction">
-                                    <option value="ltr">LTR</option>
-                                    <option value="rtl">RTL</option>
+                                    <option value="ltr">{{ __('LTR') }}</option>
+                                    <option value="rtl">{{ __('RTL') }}</option>
                                 </select>
                                 <ErrorMessage :name="form.errors.direction" />
                             </div>
                             <div class="mb-3">
-                                <Label name="Status" :required="false"/> <br>
+                                <Label :name="__('Status')" :required="false"/> <br>
                                 <label class="switch ">
                                     <input @change="statusChange" v-model="form.status" type="checkbox" class="success toggle-switch" checked>
                                     <span class="slider round"></span>
@@ -100,12 +100,12 @@
                                 <Loading v-if="form.processing" message="Saving..."/>
                                 <span v-else>
                                     <i class="fa-solid fa-check mr-1"></i>
-                                    Save
+                                    {{ __('Save') }}
                                 </span>
                             </button>
                             <button v-if="isEditMode" @click="cancelEdit" type="button" class="btn btn-danger ml-2">
                                 <i class="fa-solid fa-times"></i>
-                                Cancel
+                                {{ __('Cancel') }}
                             </button>
                         </form>
                     </div>

@@ -1,1 +1,142 @@
-{"Company Create":"কোম্পানি তৈরি করুন","Company Edit":"কোম্পানি সম্পাদনা করুন","Company Delete":"কোম্পানি মুছুন","Company List":"কোম্পানির তালিকা","Back":"পিছনে","Name":"নাম","Email address":"ইমেল ঠিকানা","Country":"দেশ","Select Country":"নির্বাচন করুন","Avatar":"অবতার","Password":"পাসওয়ার্ড","Confirm Password":"পাসওয়ার্ড নিশ্চিত করুন","Save":"সংরক্ষণ করুন","Create":"কোম্পানি","Company":"ইমেল","Email":"অ্যাকশন","Action":"কোনো ডেটা পাওয়া যায়নি","No Data Found":"অনুসন্ধান","Search":"পাসওয়ার্ড পরিবর্তন করুন","Change Password":"পাসওয়ার্ড পরিবর্তন করুন"}
+{
+    "Company": "Company",
+    "Company Name": "Company Name",
+    "Company Create": "Company Create",
+    "Company Edit": "Company Edit",
+    "Company Delete": "Company Delete",
+    "Company List": "Company List",
+    "Select Company": "Select Company",
+
+    "Admin List": "Admin List",
+    "Admin Create": "Admin Create",
+    "Admin Edit": "Admin Edit",
+    "Admin Delete": "Admin Delete",
+
+    "Employee": "Employee",
+    "No Employee Found": "No employee found",
+    "Employee List": "Employee List",
+    "Employee Create": "Employee Create",
+    "Employee Edit": "Employee Edit",
+    "Employee Delete": "Employee Delete",
+
+    "Team": "Team",
+    "Team List": "Team List",
+    "Team Edit": "Team Edit",
+    "Team Delete": "Team Delete",
+    "Select Team": "Select Team",
+
+    "Reason": "Reason",
+    "Pending": "Pending",
+    "Approved": "Approved",
+    "Rejected": "Rejected",
+    "Status": "Status",
+    "Color": "Color",
+    "Options": "Options",
+    "Leave Request List": "Leave Request List",
+    "Leave Request Create": "Leave Request Create",
+    "Leave Request Edit": "Leave Request Edit",
+    "Create a new request": "Create a new request",
+    "Leave Type": "Leave Type",
+    "Create Leave Type": "Create Leave Type",
+    "Leave Type Edit": "Leave Type Edit",
+    "Leave Type Delete": "Leave Type Delete",
+    "Leave Type List": "Leave Type List",
+
+
+
+    "Get Request": "Get Request",
+    "Leave Balance": "Leave Balance",
+    "Leave Type Balance": "Leave Type Balance",
+    "Number of requested Days": "Number of requested Days",
+    "Allow auto approve": "Allow auto approve",
+    "Select Leave Type": "Select Leave Type",
+
+
+    "Calendar View": "Calendar View",
+    "Official Holiday Calendar": "Official Holiday Calendar",
+
+    "Language Create": "Language Create",
+    "Language List": "Language List",
+    "Language Edit": "Language Edit",
+    "Language Delete": "Language Delete",
+    "Select Language": "Select Language",
+    "Select Language Code": "Select Language Code",
+    "LTR": "LTR",
+    "RTL": "RTL",
+    "Code": "Code",
+    "Direction": "Direction",
+    "Translate Language": "Translate Language",
+    "Translation Text": "Translation Text",
+    "English Text": "English Text",
+    "Translate All": "Translate All",
+    "Translate": "Translate",
+    "Translating": "Translating...",
+
+
+
+    "Member Since": "Member Since",
+    "Profile Setting": "Profile Setting",
+    "Choose file": "Choose file",
+    "Update Profile": "Update Profile",
+    "Password": "Password",
+    "Confirm Password": "Confirm Password",
+    "Change Password": "Change Password",
+    "Update Password": "Update Password",
+
+
+    "Country": "Country",
+    "Select Country": "Select Country",
+
+
+
+
+    "Title": "Title",
+    "Name": "Name",
+    "Email": "Email",
+    "Email address": "Email address",
+    "Avatar": "Avatar",
+    "Change Avatar": "Change Avatar",
+    "Back": "Back",
+    "Close": "Close",
+    "Cancel": "Cancel",
+    "Save": "Save",
+    "Create": "Create",
+    "Action": "Action",
+    "No Data Found": "No Data Found",
+    "Search": "Search",
+    "Active": "Active",
+    "Inactive": "Inactive",
+    "All": "All",
+
+
+    "Holidays": "Holidays",
+    "Holiday Title": "Holiday Title",
+    "Add Holiday": "Add Holiday",
+    "Holiday Edit": "Holiday Edit",
+    "Holiday Delete": "Holiday Delete",
+    "Create Official Holiday": "Create Official Holiday",
+    "Edit Official Holiday": "Edit Official Holiday",
+    "View holiday details": "View holiday details",
+    "Official Holiday List": "Official Holiday List",
+    "Show all official holidays": "Show all official holidays",
+    "Accept and add to official holiday list": "Accept and add to official holiday list",
+    "Reject and delete from holiday request list": "Reject and delete from holiday request list",
+    "Request Holiday Details": "Request Holiday Details",
+    "Show all requested holidays": "Show all requested holidays",
+    "Holiday Request List": "Holiday Request List",
+    "Requested Holidays": "Requested Holidays",
+    "Total Holidays": "Total Holidays",
+    "Company Holidays": "Company Holidays",
+    "Company Holidays List": "Company Holidays List",
+    "Day": "Day",
+    "Days": "Days",
+    "Total Days": "Total Days",
+    "Date": "Date",
+    "Start Date": "Start Date",
+    "End Date": "End Date",
+    "Note": "Note"
+}
+
+
+
+

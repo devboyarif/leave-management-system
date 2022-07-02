@@ -1,15 +1,15 @@
 <template>
 
-    <Head title="Leave Request Create" />
+    <Head title="{{ __('Leave Request Create') }}" />
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Leave Request Create</h3>
+                        <h3 class="card-title">{{ __('Leave Request Create') }}</h3>
                         <Link :href="route('leaveTypes.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
-                        Back
+                        {{ __('Back') }}
                         </Link>
                     </div>
                 </div>
@@ -18,10 +18,10 @@
                      <form @submit.prevent="createData">
                         <div class="mb-3 row">
                             <div class="col-md-4">
-                                <Label name="Company" />
+                                <Label name="__('Company')" />
                                 <select @change="fetchCompanyWiseData" v-model="form.user_id" id="company" class="form-control"
                                     :class="{'is-invalid':form.errors.user_id}">
-                                    <option value="" class="d-none">Select Company</option>
+                                    <option value="" class="d-none">{{ __('Select Company') }}</option>
                                     <option :value="user.id" v-for="user in users" :key="user.id">
                                         {{ user.name }}
                                     </option>
@@ -29,10 +29,10 @@
                                 <ErrorMessage :name="form.errors.user_id" />
                             </div>
                             <div class="col-md-4">
-                                 <Label name="Employee" />
+                                 <Label name="__('Employee')" />
                                 <select v-model="form.employee_id" id="company" class="form-control" :disabled="!form.user_id"
                                     :class="{'is-invalid':form.errors.employee_id}">
-                                    <option value="" class="d-none">Select Employee</option>
+                                    <option value="" class="d-none">{{ __('Select Employee') }}</option>
                                     <option :value="employeesUser.id" v-for="employeesUser in employeesUsers" :key="employeesUser.id">
                                         {{ employeesUser.user.name }}
                                     </option>
@@ -40,61 +40,61 @@
                                 <ErrorMessage :name="form.errors.employee_id" />
                             </div>
                             <div class="col-md-4">
-                                 <Label name="Leave Type" />
+                                 <Label :name="__('Leave Type')" />
                                 <select @change="checkLeaveTypeBalance" v-model="form.leave_type_id" id="company" class="form-control" :disabled="!form.employee_id"
                                     :class="{'is-invalid':form.errors.leave_type_id}">
-                                    <option value="" class="d-none">Select Leave Type</option>
+                                    <option value="" class="d-none">{{ __('Select Leave Type') }}</option>
                                     <option :value="leaveType.id" v-for="leaveType in leaveTypes" :key="leaveType.id">
                                         {{ leaveType.name }}
                                     </option>
                                 </select>
                                 <ErrorMessage :name="form.errors.leave_type_id" />
                                  <template v-if="showLeaveTypeBalance">
-                                    <strong :class="!leaveTypeBalance.remaining_days ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">Leave Type Balance: {{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</strong>
+                                    <strong :class="!leaveTypeBalance.remaining_days ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Leave Type Balance') }}: {{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</strong>
                                 </template>
                             </div>
                         </div>
                          <div class="mb-3 row">
                             <div class="col-md-6">
-                                <Label name="Start Date" />
+                                <Label :name="__('Start Date')" />
                                 <Datepicker v-model="form.start" :enableTimePicker="false"
                                     @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}"/>
                                 <ErrorMessage :name="form.errors.start"/>
                             </div>
                             <div class="col-md-6">
-                                <Label name="End Date" />
+                                <Label :name="__('End Date')" />
                                 <Datepicker v-model="form.end" :enableTimePicker="false"
                                     @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}"/>
                                 <ErrorMessage :name="form.errors.end"/>
                             </div>
                             <template v-if="diffBetweenDays">
-                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">Number of requested Days: {{ diffBetweenDays }}</strong>
+                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of requested Days') }}: {{ diffBetweenDays }}</strong>
                             </template>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-lg-12">
-                                <Label name="Reason" :required="false" />
+                                <Label :name="__('Reason')" :required="false" />
                                 <textarea class="form-control" v-model="form.reason" :class="{'is-invalid':form.errors.reason}" rows="5"></textarea>
                                 <ErrorMessage :name="form.errors.reason" />
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-lg-6">
-                                <Label name="Status" :required="false"/> <br>
+                                <Label :name="__('Status')" :required="false"/> <br>
                                 <div class="form-check form-check-inline">
                                     <input v-model="form.status" class="form-check-input" type="radio" name="inlineRadioOptions"
                                         id="pending" value="pending">
-                                    <label class="form-check-label" for="pending">Pending</label>
+                                    <label class="form-check-label" for="pending">{{ __('Pending') }}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input v-model="form.status" class="form-check-input" type="radio" name="inlineRadioOptions"
                                         id="approved" value="approved">
-                                    <label class="form-check-label" for="approved">Approved</label>
+                                    <label class="form-check-label" for="approved">{{ __('Approve') }}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input v-model="form.status" class="form-check-input" type="radio" name="inlineRadioOptions"
                                         id="rejected" value="rejected">
-                                    <label class="form-check-label" for="rejected">Rejected</label>
+                                    <label class="form-check-label" for="rejected">{{ __('Reject') }}</label>
                                 </div>
                                 <ErrorMessage :name="form.errors.end" className="d-block text-danger"/>
                             </div>
@@ -103,7 +103,7 @@
                             <Loading v-if="form.processing"/>
                             <span v-else>
                                 <i class="fa-solid fa-check mr-1"></i>
-                                Save
+                                {{ __('Save') }}
                             </span>
                         </button>
                     </form>

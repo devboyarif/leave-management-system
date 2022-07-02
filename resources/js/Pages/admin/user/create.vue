@@ -1,14 +1,14 @@
 <template>
-    <Head title="User Create"/>
+    <Head :title="__('Admin Create')"/>
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Admin Create</h3>
+                        <h3 class="card-title">{{ __('Admin Create') }}</h3>
                         <Link :href="route('admins.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
-                        Back
+                        {{ __('Back') }}
                         </Link>
                     </div>
                 </div>
@@ -16,22 +16,22 @@
                    <div class="col-lg-6">
                      <form @submit.prevent="createData">
                         <div class="mb-3">
-                            <Label name="Name"/>
+                            <Label :name="__('Name')"/>
                             <input v-model="form.name" type="text" class="form-control" :class="{'is-invalid':form.errors.name}" id="name">
                             <ErrorMessage :name="form.errors.name"/>
                         </div>
                         <div class="mb-3">
-                            <Label name="Email address"/>
+                            <Label :name="__('Email address')"/>
                             <input v-model="form.email" type="email" class="form-control" :class="{'is-invalid':form.errors.email}" id="email">
                             <ErrorMessage :name="form.errors.email"/>
                         </div>
                         <div class="mb-3">
-                            <Label name="Password"/>
+                            <Label :name="__('Password')"/>
                             <input v-model="form.password" type="password" class="form-control" :class="{'is-invalid':form.errors.password}" id="password">
                             <ErrorMessage :name="form.errors.password"/>
                         </div>
                         <div class="mb-3">
-                            <Label name="Avatar" :required="false"/>
+                            <Label :name="__('Avatar')" :required="false"/>
                             <input accept="image/jpeg, image/jpg/ image/png" class="form-control border-0 p-0" type="file" @input="form.avatar = $event.target.files[0]" :class="{'is-invalid':form.errors.avatar}"/>
                             <ErrorMessage :name="form.errors.avatar"/>
                         </div>
@@ -39,7 +39,7 @@
                             <Loading v-if="form.processing"/>
                             <span v-else>
                                 <i class="fa-solid fa-check mr-1"></i>
-                                Save
+                                {{ __('Save') }}
                             </span>
                         </button>
                     </form>

@@ -1,5 +1,5 @@
 <template>
-    <Head title="Admin List"/>
+    <Head :title="__('Admin List')"/>
 
     <div class="row justify-content-center">
             <div class="col-12">
@@ -9,7 +9,7 @@
                             <input v-model="search" type="text" placeholder="Search.." class="form-control w-50">
                             <Link :href="route('admins.create')" class="btn btn-primary">
                                 <i class="fa-solid fa-plus"></i>
-                                Create
+                                {{ __('Admin Create') }}
                             </Link>
                         </div>
                     </div>
@@ -17,9 +17,9 @@
                         <table class="table table-valign-middle">
                             <thead>
                                 <tr>
-                                    <th>Admin</th>
-                                    <th>Email</th>
-                                    <th>Action</th>
+                                    <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,7 +43,7 @@
                                 </template>
                                 <tr v-else>
                                     <td colspan="5" class="text-center">
-                                        <h6>No DataFound</h6>
+                                        <h6>{{ __('No Data Found') }}</h6>
                                     </td>
                                 </tr>
                             </tbody>

@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Profile" />
+    <Head :title="__('Profile')" />
 
     <div class="container">
         <div class="main-body">
@@ -15,7 +15,7 @@
                                 <div class="mt-3">
                                     <h4>{{ user.name }}</h4>
                                     <p class="text-secondary mb-1">Admin</p>
-                                    <p class="text-secondary mb-1">Member Since: 1 july 2020</p>
+                                    <p class="text-secondary mb-1">{{ __('Member Since') }}: 1 july 2020</p>
                                 </div>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Name</h6>
+                                    <h6 class="mb-0">{{ __('Name') }}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                    {{ user.name }}
@@ -35,7 +35,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Email</h6>
+                                    <h6 class="mb-0">{{ __('Email') }}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{ user.email }}
@@ -67,33 +67,33 @@
                 <div class="col-sm-6 mb-3">
                     <div class="card h-100">
                         <div class="card-header">
-                            Profile Settings
+                            {{ __('Profile Setting') }}
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-center">
                                 <div class="col-sm-8">
                                     <form class="form-horizontal" autocomplete="off" @submit.prevent="profileUpdate">
                                         <div class="form-group">
-                                            <Label name="Name"/>
+                                            <Label :name="__('Name')"/>
                                             <input v-model="form.name" type="text" class="form-control" :class="{'is-invalid':form.errors.name}"
                                                 placeholder="Enter New Name">
                                             <ErrorMessage :name="form.errors.name"/>
                                         </div>
                                         <div class="form-group">
-                                            <Label name="Email"/>
+                                            <Label :name="__('Email')"/>
                                             <input v-model="form.email" type="email"
                                                 class="form-control " placeholder="Enter New Email" :class="{'is-invalid':form.errors.email}">
                                             <ErrorMessage :name="form.errors.email"/>
                                         </div>
                                         <div class="form-group">
-                                            <Label name="Change Image" forName="change_image" :required="false"/>
+                                            <Label :name="__('Change Avatar')" forName="change_image" :required="false"/>
                                             <div class="custom-file">
                                                 <input accept="image/jpeg, image/jpg/ image/png"
                                                     @input="form.avatar = $event.target.files[0]" autocomplete="image"
                                                     onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])"
                                                     type="file" class="custom-file-input" id="customFile">
                                                 <label class="custom-file-label" for="customFile">
-                                                    Choose file
+                                                    {{ __('Choose file') }}
                                                 </label>
                                             </div>
                                         </div>
@@ -103,7 +103,7 @@
                                                     <Loading v-if="form.processing"/>
                                                     <span v-else>
                                                         <i class="fa-solid fa-check mr-1"></i>
-                                                        Update Profile
+                                                        {{ __('Update Profile') }}
                                                     </span>
                                                 </button>
 
@@ -119,7 +119,7 @@
                 <div class="col-sm-6 mb-3">
                     <div class="card h-100">
                         <div class="card-header">
-                            Change Password
+                            {{ __('Change Password') }}
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-center">
@@ -153,7 +153,7 @@
                                                     <Loading v-if="passwordForm.processing"/>
                                                     <span v-else>
                                                         <i class="fa-solid fa-check mr-1"></i>
-                                                        Update Password
+                                                        {{ __('Update Password') }}
                                                     </span>
                                                 </button>
                                             </div>

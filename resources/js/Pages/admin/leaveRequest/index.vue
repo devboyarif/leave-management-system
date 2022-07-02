@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Company List" />
+    <Head :title="__('Company List')" />
 
     <div class="row justify-content-center">
         <div class="col-12 my-5">
@@ -9,7 +9,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-3 col-xl-3">
                             <select v-model="filterForm.user_id" class="form-control">
-                                <option value="all" class="d-none">Select Company</option>
+                                <option value="all" class="d-none">{{ __('Select Company') }}</option>
                                 <option v-for="user in users" :key="user.id" :value="user.id">
                                     {{ user.name }}
                                 </option>
@@ -17,7 +17,7 @@
                         </div>
                         <div class="col-md-2 col-xl-2">
                             <button @click="getCompanyWiseRequest" class="btn btn-primary btn-outline">
-                                Get Request
+                                {{ __('Get Request') }}
                             </button>
                         </div>
                     </div>
@@ -30,10 +30,10 @@
             <div class="card">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Leave Request List</h3>
+                        <h3 class="card-title">{{ __('Leave Request List') }}</h3>
                         <Link :href="route('leaveRequests.create')" class="btn btn-primary">
                             <i class="fa-solid fa-plus"></i>
-                            Create a new request
+                            {{ __('Create a new request') }}
                         </Link>
                     </div>
                 </div>
@@ -41,12 +41,12 @@
                     <table class="table table-valign-middle">
                         <thead>
                             <tr>
-                                <th>Employee</th>
-                                <th>Leave Type</th>
-                                <th>Team</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>{{ __('Employee') }}</th>
+                                <th>{{ __('Leave Type') }}</th>
+                                <th>{{ __('Team') }}</th>
+                                <th>{{ __('Date') }}</th>
+                                <th>{{ __('Status') }}</th>
+                                <th>{{ __('Action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,7 +57,6 @@
                                             class="img-circle img-size-32 mr-2">
                                         {{ leaveRequest.employee.user.name }}
                                         <template v-if="leaveRequest.company && leaveRequest.company.user">
-                                            (<small v-tooltip="'Company Name'">{{ leaveRequest.company.user.name }}</small>)
                                         </template>
                                     </td>
                                     <td>
@@ -72,8 +71,9 @@
                                         {{ startDate(leaveRequest.start) }} - {{ endDate(leaveRequest.end) }}
 
                                          (<span class="text-danger ml-1">
-                                        {{ leaveRequest.days }} Day
+                                        {{ leaveRequest.days }} {{ pluralize(leaveRequest.days, __('Day')) }}
                                     </span>)
+
                                     </td>
                                     <td>
                                         <span class="toCapitalFirst badge" :class="getBadgeType(leaveRequest.status)">
@@ -87,7 +87,7 @@
                             </template>
                             <tr v-else>
                                 <td colspan="5" class="text-center">
-                                    <h6>No DataFound</h6>
+                                    <h6>{{ __('No Data Found') }}</h6>
                                 </td>
                             </tr>
                         </tbody>
@@ -101,7 +101,7 @@
     </div>
     <div class="row justify-content-center" v-else>
         <div class="col-12 text-center mt-5 pt-5">
-            <h3>Please select a company</h3>
+            <h3>{{ __('No Data Found') }}</h3>
         </div>
     </div>
 </template>

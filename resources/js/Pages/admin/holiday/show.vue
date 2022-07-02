@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Company Holidays" />
+    <Head :title="__('Company Holidays')" />
 
     <div class="row justify-content-center">
         <div class="col-md-4 mt-3">
@@ -8,8 +8,8 @@
                 <div class="card-body">
                     <div class="text-center">
                         <h3>{{ user.name }}</h3>
-                        <h5>Country : {{ company.country.name }}</h5>
-                        <h6>Total Holidays : {{ holidays.length }}</h6>
+                        <h5>{{ __('Country') }} : {{ company.country.name }}</h5>
+                        <h6>{{ __('Total Holidays') }} : {{ holidays.length }}</h6>
                     </div>
                 </div>
             </div>
@@ -18,19 +18,19 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <span>Official Holiday List</span>
+                        <span>{{ __('Official Holiday List') }}</span>
                         <div>
                             <button @click="showCalendarModal = true" class="btn btn-info" type="button">
                                 <i class="fa-regular fa-calendar"></i>
-                                Calendar View
+                                {{ __('Calendar View') }}
                             </button>
                             <Link class="btn btn-warning ml-1" :href="route('holidays.index')">
                             <i class="fa-solid fa-arrow-left"></i>
-                            Company Holidays List
+                            {{ __('Company Holidays List') }}
                             </Link>
                             <button @click="showModal = true" class="btn btn-primary ml-1" type="button">
                                 <i class="fa-solid fa-plus"></i>
-                                Add Holiday
+                                {{ __('Add Holiday') }}
                             </button>
                         </div>
                     </div>
@@ -61,17 +61,17 @@
                                 </h6>
                             </div>
                             <div>
-                                <button @click="editData(holiday)" v-tooltip="'Edit Holiday'" class="btn btn-sm  pl-0">
+                                <button @click="editData(holiday)" v-tooltip="__('Holiday Edit')" class="btn btn-sm  pl-0">
                                     <EditIcon />
                                 </button>
-                                <button @click="deleteData(holiday.id)" v-tooltip="'Delete Holiday'" class="btn btn-sm">
+                                <button @click="deleteData(holiday.id)" v-tooltip="__('Holiday Delete')" class="btn btn-sm">
                                     <DeleteIcon />
                                 </button>
                             </div>
                         </div>
                         </template>
                         <div v-else class="col-12 text-center">
-                            <h5 class="text-center">No Holidays Found</h5>
+                            <h5 class="text-center">{{ __('No Data Found') }}</h5>
                         </div>
                     </div>
                 </div>
@@ -88,8 +88,8 @@
                         <div class="modal-content" v-click-outside="hideModalOutsideClick">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    <span v-if="!editMode">Create Official Holiday</span>
-                                    <span v-else>Edit Official Holiday</span>
+                                    <span v-if="!editMode">{{ __('Create Official Holiday') }}</span>
+                                    <span v-else>{{ __('Edit Official Holiday') }}</span>
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" @click="showModal = false">&times;</span>
@@ -99,7 +99,7 @@
                                 <div class="modal-body">
                                     <div class="mb-3 row">
                                         <div class="col-md-12">
-                                            <Label name="Title" />
+                                            <Label :name="__('Title')" />
                                             <input v-model="form.title" type="text" class="form-control"
                                                 :class="{'is-invalid':form.errors.title}" id="name">
                                             <ErrorMessage :name="form.errors.title" />
@@ -107,14 +107,14 @@
                                     </div>
                                     <div class="mb-3 row">
                                         <div class="col-md-6">
-                                            <Label name="Start Date" />
+                                            <Label :name="__('Start Date')" />
                                             <Datepicker v-model="form.start" :enableTimePicker="false"
                                                 @update:modelValue="handleStartDate"
                                                 :class="{'is-invalid':form.errors.start}" />
                                             <ErrorMessage :name="form.errors.start" />
                                         </div>
                                         <div class="col-md-6">
-                                            <Label name="End Date" />
+                                            <Label :name="__('End Date')" />
                                             <Datepicker v-model="form.end" :enableTimePicker="false"
                                                 @update:modelValue="handleEndDate"
                                                 :class="{'is-invalid':form.errors.end}" />
@@ -124,12 +124,12 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
-                                        @click="showModal = false">Close</button>
+                                        @click="showModal = false">{{ __('Close') }}</button>
                                     <button :disabled="form.processing" type="submit" class="btn btn-primary">
                                         <Loading v-if="form.processing" />
                                         <span v-else>
                                             <i class="fa-solid fa-check mr-1"></i>
-                                            Save
+                                            {{ __('Save') }}
                                         </span>
                                     </button>
                                 </div>
@@ -150,7 +150,7 @@
                         <div class="modal-content" v-click-outside="()=> showCalendarModal = false">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    Official Holiday Calendar
+                                    {{ __('Official Holiday Calendar') }}
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" @click="showCalendarModal = false">&times;</span>

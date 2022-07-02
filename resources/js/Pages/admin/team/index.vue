@@ -1,14 +1,14 @@
 <template>
-    <Head title="Admin List"/>
+    <Head :title="__('Team List')"/>
 
     <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <span>Team List</span>
+                            <span>{{ __('Team List') }}</span>
                             <select @change="companyWiseTeam" v-model="filterForm.user_id" class="form-control w-25">
-                                <option value="all">All</option>
+                                <option value="all">{{ __('All') }}</option>
                                 <option v-for="user in users" :key="user.id" :value="user.id">
                                     {{ user.name }}
                                 </option>
@@ -19,10 +19,10 @@
                         <table class="table table-valign-middle">
                             <thead>
                                <tr>
-                                    <th>Company</th>
-                                    <th>Name</th>
-                                    <th>Employees</th>
-                                    <th>Action</th>
+                                    <th>{{ __('Company') }}</th>
+                                    <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Employee') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,13 +40,13 @@
 
                                                 </li>
                                             </ul>
-                                            <small v-else>No employee found</small>
+                                            <small v-else>{{ __('No Employee Found') }}</small>
                                         </td>
                                         <td class="d-flex">
-                                            <button @click="editTeam(team)" v-tooltip="'Delete Leave Type'" class="btn btn-sm  pl-0">
+                                            <button @click="editTeam(team)" v-tooltip="__('Team Edit')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </button>
-                                            <button @click="deleteData(team.id)" v-tooltip="'Delete Leave Type'" class="btn btn-sm">
+                                            <button @click="deleteData(team.id)" v-tooltip="__('Team Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -54,7 +54,7 @@
                                 </template>
                                 <tr v-else>
                                     <td colspan="5" class="text-center">
-                                        <h6>No DataFound</h6>
+                                        <h6>{{ __('No Data Found') }}</h6>
                                     </td>
                                 </tr>
                             </tbody>
@@ -69,23 +69,23 @@
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <span v-if="!isEditMode">Create Team</span>
-                            <span v-else>Edit Team</span>
+                            <span v-if="!isEditMode">{{ __('Team Create') }}</span>
+                            <span v-else>{{ __('Team Edit') }}</span>
                         </div>
                     </div>
                     <div class="card-body">
                          <form @submit.prevent="saveData">
                             <div class="mb-3">
-                                <Label name="Name"/>
+                                <Label :name="__('Name')"/>
                                 <input v-model="form.name" type="text" class="form-control"
                                     :class="{'is-invalid':form.errors.name}" id="name">
                                 <ErrorMessage :name="form.errors.name" />
                             </div>
                             <div class="mb-3">
-                                <Label name="Company"/>
+                                <Label :name="__('Company')"/>
                                 <select v-model="form.user_id" id="company" class="form-control"
                                     :class="{'is-invalid':form.errors.user_id}">
-                                    <option value="" class="d-none">Select Company</option>
+                                    <option value="" class="d-none">{{ __('Select Company') }}</option>
                                     <option :value="user.id" v-for="user in users" :key="user.id">
                                         {{ user.name }}
                                     </option>
@@ -96,12 +96,12 @@
                                 <Loading v-if="form.processing"/>
                                 <span v-else>
                                     <i class="fa-solid fa-check mr-1"></i>
-                                    Save
+                                    {{ __('Save') }}
                                 </span>
                             </button>
                             <button v-if="isEditMode" @click="cancelEdit" type="button" class="btn btn-danger ml-2">
                                 <i class="fa-solid fa-times"></i>
-                                Cancel
+                                {{ __('Cancel') }}
                             </button>
                         </form>
                     </div>

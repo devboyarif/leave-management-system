@@ -33,7 +33,7 @@
 
                                                 </li>
                                             </ul>
-                                            <small v-else>No employee found</small>
+                                            <small v-else>{{ __('No Employee Found') }}</small>
                                         </td>
                                         <td class="d-flex">
                                             <button @click="editTeam(team)" v-tooltip="'Delete Leave Type'" class="btn btn-sm  pl-0">

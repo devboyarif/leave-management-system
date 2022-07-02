@@ -1,15 +1,15 @@
 <template>
-    <Head title="Admin List"/>
+    <Head :title="__('Translate Language')"/>
 
     <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title">Language List</h3>
+                            <h3 class="card-title">{{ __('Translate Language') }} <span class="badge badge-pill bg-primary">{{ translations.length }}</span></h3>
                             <Link :href="route('languages.index')" class="btn btn-primary">
                             <i class="fa-solid fa-arrow-left"></i>
-                                Back
+                                {{ __('Back') }}
                             </Link>
                         </div>
                     </div>
@@ -18,13 +18,13 @@
                             <table class="table table-striped table-bordered mt-0 pt-0" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th width="48%">English Text</th>
+                                        <th width="48%">{{ __('English Text') }}</th>
                                         <th width="48%">
                                             <span class="d-flex justify-content-between">
-                                                <span>Translation Text</span>
+                                                <span>{{ __('Translation Text') }}</span>
                                                 <span @click="translateAll" id="translate_all" class="btn bg-info btn-sm">
-                                                    <Loading v-if="allTranslating" message="Translating..."/>
-                                                    <span v-else>Translate All</span>
+                                                    <Loading v-if="allTranslating" :message="__('Translating')"/>
+                                                    <span v-else>{{ __('Translate All') }}</span>
                                                 </span>
                                             </span>
                                         </th>
@@ -38,7 +38,7 @@
                                                 <input type="text" class="form-control" style="width:100%" v-model="translationsData[key]">
                                                 <button type="button" @click="translateIt(key)" class="btn btn-sm ml-1 bg-info">
                                                     <!-- <Loading  v-if="singleTranslating" message="Translating..."/> -->
-                                                    <span >Translate</span>
+                                                    <span >{{ __('Translate') }}</span>
                                                 </button>
                                             </span>
                                         </td>
@@ -49,7 +49,7 @@
                                 <Loading v-if="loading" message="Saving..."/>
                                <span v-else>
                                 <i class="fa-solid fa-check"></i>
-                                Save
+                                {{ __('Save') }}
                                </span>
                             </button>
                         </form>
@@ -122,21 +122,33 @@ export default {
                     }
                 );
 
-                let response_keys = response.data[0];
-                let response_values = response.data[1];
+                this.translationsData = response.data;
 
-                for (let i = 0; i < response_keys.length; i++) {
-                    this.translationsData[response_keys[i]] = response_values[i]
-                        ? response_values[i]
-                        : response_keys[i];
+                // for (let i = 0; i < response.data; i++) {
+                //     this.translationsData[i] = response.data[i];
+                //     // this.translationsData[response_keys[i]] = response_values[i]
+                //     //     ? response_values[i]
+                //     //     : response_keys[i];
+                // }
 
-                    // console.log(response_keys[i], response_values[i]);
+                //   $.each(result.data, function(key, value) {
+                //         $('input[name=' + key + ']').val(value);
+                //     });
 
-                    // console.log(response_values[i] == null ? "nai" : "");
-                    // this.translationsData[response_keys[i]] =
-                    //     response_values[i];
-                    // this.translationsData[lang_keys[i]] = response_values[i];
-                }
+                //     setTimeout(() => {
+                //         $('#translate_all').text('Translate All');
+                //         $('.lang-btn').prop('disabled', false);
+                //         toastr.success('Translated Successfully', 'Success');
+                //     }, 1000);
+
+                // let response_keys = response.data[0];
+                // let response_values = response.data[1];
+
+                // for (let i = 0; i < response_keys.length; i++) {
+                //     this.translationsData[response_keys[i]] = response_values[i]
+                //         ? response_values[i]
+                //         : response_keys[i];
+                // }
 
                 this.allTranslating = false;
             } catch (error) {

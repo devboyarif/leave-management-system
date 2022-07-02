@@ -1,23 +1,23 @@
 <template>
 
-    <Head title="Company List" />
+    <Head :title="__('Company List')" />
 
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <span>Company List</span>
+                        <span>{{ __('Company List') }}</span>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-valign-middle">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Country</th>
-                                <th>Total Holidays</th>
-                                <th>Action</th>
+                                <th>{{ __('Name') }}</th>
+                                <th>{{ __('Country') }}</th>
+                                <th>{{ __('Total Holidays') }}</th>
+                                <th>{{ __('Action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,21 +31,21 @@
                                         {{ user.holidays_count }} {{ pluralize(user.holidays_count, 'Day') }}
                                     </td>
                                     <td>
-                                        <Link v-tooltip="'Show all official holidays'" :href="route('holidays.show',user.id)" class="btn btn-info">
+                                        <Link v-tooltip="__('Show all official holidays')" :href="route('holidays.show',user.id)" class="btn btn-info">
                                         <i class="fa-solid fa-eye"></i>
-                                        Holidays
+                                        {{ __('Holidays') }}
                                         </Link>
-                                        <Link v-tooltip="'Show all requested holidays'" class="btn btn-warning ml-1"
+                                        <Link v-tooltip="__('Show all requested holidays')" class="btn btn-warning ml-1"
                                             :href="route('request.holidays.index', user.company.id)">
                                             <i class="fa-solid fa-eye"></i>
-                                            Requested Holidays
+                                            {{ __('Requested Holidays') }}
                                         </Link>
                                     </td>
                                 </tr>
                             </template>
                              <tr v-else>
                                 <td colspan="5" class="text-center">
-                                    <h3>No Data Found</h3>
+                                    <h3>{{ __('No Data Found') }}</h3>
                                 </td>
                             </tr>
                         </tbody>

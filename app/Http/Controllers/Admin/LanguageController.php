@@ -133,27 +133,43 @@ class LanguageController extends Controller
     public function allTranslate()
     {
         $language = Language::findOrFail(request('id'));
+        $data = file_get_contents(base_path('resources/lang/' . $language->code . '.json'));
+        $translations = json_decode($data, true);
 
+        $afterTrans = [];
         $tr = new GoogleTranslate($language->code);
-
-        $translations = json_decode(file_get_contents(base_path('resources/lang/' . $language->code . '.json')), true);
-        $stringArray = [];
         foreach ($translations as $key => $value) {
-            array_push($stringArray, $value);
+
+            $autoTransValue = $tr->translate($value);
+            $afterTrans[$key] = $autoTransValue;
         }
 
-        $translationString = implode(" ® ", $stringArray);
-        $translatedTexts = explode(" ® ", $tr->translate($translationString));
+        return response()->json($afterTrans);
 
-        $newTranslatedTextArray = [];
-        $data = array_replace($translations, $translatedTexts);
 
-        $arrayKeys = array_keys($translations);
-        return [$arrayKeys, $translatedTexts];
-        foreach ($translations as $index => $item) {
-            $newTranslatedTextArray[$item] = $translatedTexts[$index];
-        }
+        // Two Array
+        // $language = Language::findOrFail(request('id'));
 
-        return response()->json($newTranslatedTextArray);
+        // $tr = new GoogleTranslate($language->code);
+
+        // $translations = json_decode(file_get_contents(base_path('resources/lang/' . $language->code . '.json')), true);
+        // $stringArray = [];
+        // foreach ($translations as $key => $value) {
+        //     array_push($stringArray, $value);
+        // }
+
+        // $translationString = implode(" _ ", $stringArray);
+        // $translatedTexts = explode(" _ ", $tr->translate($translationString));
+
+        // $newTranslatedTextArray = [];
+        // $data = array_replace($translations, $translatedTexts);
+
+        // $arrayKeys = array_keys($translations);
+        // return [$arrayKeys, $translatedTexts];
+        // foreach ($translations as $index => $item) {
+        //     $newTranslatedTextArray[$item] = $translatedTexts[$index];
+        // }
+
+        // return response()->json($newTranslatedTextArray);
     }
 }

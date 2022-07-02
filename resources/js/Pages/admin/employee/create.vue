@@ -1,14 +1,14 @@
 <template>
-    <Head title="Employee Create"/>
+    <Head :title="__('Employee Create')"/>
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Employee Create</h3>
+                        <h3 class="card-title">{{ __('Employee Create') }}</h3>
                         <Link :href="route('employees.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
-                        Back
+                        {{ __('Back') }}
                         </Link>
                     </div>
                 </div>
@@ -17,21 +17,21 @@
                         <form @submit.prevent="createData">
                         <div class="mb-3 row">
                            <div class="col-md-6">
-                                <Label name="Name"/>
+                                <Label :name="__('Name')"/>
                                 <input v-model="form.name" type="text" class="form-control" :class="{'is-invalid':form.errors.name}" id="name">
                                 <ErrorMessage :name="form.errors.name"/>
                             </div>
                            <div class="col-md-6">
-                                <Label name="Email address"/>
+                                <Label :name="__('Email address')"/>
                                 <input v-model="form.email" type="email" class="form-control" :class="{'is-invalid':form.errors.email}" id="email">
                                 <ErrorMessage :name="form.errors.email"/>
                            </div>
                         </div>
                          <div class="mb-3 row">
                              <div class="col-md-6">
-                                <Label name="Company"/>
+                                <Label :name="__('Company')"/>
                                 <select @change="loadTeams" class="form-control" v-model="form.user_id" :class="{'is-invalid':form.errors.user_id}">
-                                    <option value="" class="d-none">Select Company</option>
+                                    <option value="" class="d-none">{{ __('Select Company') }}</option>
                                     <option v-for="user in users" :key="user.id" :value="user.id">
                                         {{ user.name }}
                                     </option>
@@ -39,9 +39,9 @@
                                 <ErrorMessage :name="form.errors.user_id"/>
                             </div>
                             <div class="col-md-6">
-                                <Label name="Team"/>
+                                <Label :name="__('Team')"/>
                                 <select class="form-control" v-model="form.team_id" :class="{'is-invalid':form.errors.team_id}" :disabled="!teams.length">
-                                    <option value="" class="d-none">Select Team</option>
+                                    <option value="" class="d-none">{{ __('Select Team') }}</option>
                                     <option v-for="team in teams" :key="team.id" :value="team.id">
                                         {{ team.name }}
                                     </option>
@@ -51,20 +51,20 @@
                         </div>
                         <div class="mb-3 row">
                             <div class="col-lg-6">
-                                <Label name="Password"/>
+                                <Label :name="__('Password')"/>
                                 <input v-model="form.password" type="password" class="form-control"
                                     :class="{'is-invalid':form.errors.password}" id="password">
                                 <ErrorMessage :name="form.errors.password" />
                             </div>
                             <div class="col-lg-6">
-                                <Label name="Confirm Password"/>
+                                <Label :name="__('Confirm Password')"/>
                                 <input v-model="form.password_confirmation" type="password" class="form-control"
                                     :class="{'is-invalid':form.errors.password_confirmation}" id="password_confirmation">
                                 <ErrorMessage :name="form.errors.password_confirmation" />
                             </div>
                         </div>
                         <div class="mb-3">
-                            <Label name="Avatar" :required="false"/>
+                            <Label :name="__('Avatar')" :required="false"/>
                             <input accept="image/jpeg, image/jpg/ image/png" class="form-control border-0 p-0" type="file" @input="form.avatar = $event.target.files[0]" :class="{'is-invalid':form.errors.avatar}"/>
                             <ErrorMessage :name="form.errors.avatar"/>
                         </div>
@@ -72,7 +72,7 @@
                             <Loading v-if="form.processing"/>
                             <span v-else>
                                 <i class="fa-solid fa-check mr-1"></i>
-                                Save
+                                {{ __('Save') }}
                             </span>
                         </button>
                     </form>
