@@ -1,12 +1,12 @@
 <template>
 
-    <Head :title="__('Leave Request Create')" />
+    <Head :title="__('Create Leave Request')" />
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">{{ __('Leave Request Create') }}</h3>
+                        <h3 class="card-title">{{ __('Create Leave Request') }}</h3>
                         <Link :href="route('company.leaveTypes.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         {{ __('Back') }}

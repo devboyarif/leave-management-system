@@ -8,7 +8,7 @@
     <button v-if="leaveRequest.status == 'pending'" @click="editData(leaveRequest.id)" v-tooltip="__('Edit Request')" class="btn btn-sm">
         <EditIcon/>
     </button>
-    <button @click="deleteData()" v-tooltip="'Delete Request'" class="btn btn-sm">
+    <button @click="deleteData()" v-tooltip="__('Delete Request')" class="btn btn-sm">
         <DeleteIcon/>
     </button>
 </template>

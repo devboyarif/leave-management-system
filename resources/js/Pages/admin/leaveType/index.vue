@@ -20,7 +20,7 @@
                                 <div class="col-8 text-right">
                                         <Link :href="route('leaveTypes.create')" class="btn btn-primary">
                                             <i class="fa-solid fa-plus"></i>
-                                            {{ __('Leave Request Create') }}
+                                            {{ __('Create Leave Request') }}
                                         </Link>
 
                                 </div>
@@ -58,10 +58,10 @@
                                             </span>
                                         </td>
                                         <td class="d-flex">
-                                            <Link :href="route('leaveTypes.edit',leave_type.id)" v-tooltip="__('Leave Type Edit')" class="btn btn-sm  pl-0">
+                                            <Link :href="route('leaveTypes.edit',leave_type.id)" v-tooltip="__('Edit Leave Type')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </Link>
-                                            <button @click="deleteData(leave_type.id)" v-tooltip="__('Leave Type Delete')" class="btn btn-sm">
+                                            <button @click="deleteData(leave_type.id)" v-tooltip="__('Delete Leave Type')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>

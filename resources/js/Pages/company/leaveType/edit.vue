@@ -1,13 +1,13 @@
 <template>
 
-    <Head :contextmenu="__('Leave Type Edit')" />
+    <Head :contextmenu="__('Edit Leave Type')" />
 
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">{{ __('Leave Type Edit') }}</h3>
+                        <h3 class="card-title">{{ __('Edit Leave Type') }}</h3>
                         <Link :href="route('company.leaveTypes.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         {{ __('Back') }}

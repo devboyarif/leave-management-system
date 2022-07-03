@@ -1,12 +1,12 @@
 <template>
 
-    <Head :title="__('Leave Type Edit')" />
+    <Head :title="__('Edit Leave Type')" />
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h6 class="card-tile">{{ __('Leave Type Edit') }}</h6>
+                        <h6 class="card-tile">{{ __('Edit Leave Type') }}</h6>
                         <Link :href="route('leaveTypes.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         {{ __('Back') }}

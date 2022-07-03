@@ -3,13 +3,13 @@ $user = auth()->user();
 
 if ($user->role == 'company') {
     if (!session()->has('company_theme')) {
-        session(['company_theme' => auth()->user()->employee->company->theme]);
+        session(['company_theme' => auth()->user()->company->theme]);
     }
 
     $company_theme = session('company_theme');
 } else {
     if (!session()->has('company_theme')) {
-        session(['company_theme' => auth()->user()->company->theme]);
+        session(['company_theme' => auth()->user()->employee->company->theme]);
     }
 
     $company_theme = session('company_theme');

@@ -96,7 +96,7 @@
                                     <span class="badge badge-warning">{{ __('Pending') }}</span>
                                 </td>
                                 <td>
-                                    <Link :href="route('employee.leave.request.edit', leave_request.id)" v-tooltip="__('Leave Request Edit')" class="btn btn-sm">
+                                    <Link :href="route('employee.leave.request.edit', leave_request.id)" v-tooltip="__('Edit Leave Request')" class="btn btn-sm">
                                         <EditIcon/>
                                     </Link>
                                     <button @click="deleteData(leave_request.id)" v-tooltip="__('Leave Request Delete')" class="btn btn-sm">

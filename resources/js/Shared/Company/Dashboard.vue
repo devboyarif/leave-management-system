@@ -6,7 +6,7 @@
             <div class="info-box shadow-sm">
                 <span class="info-box-icon bg-primary"><i class="fa-regular fa-calendar-minus"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Expense</span>
+                    <span class="info-box-text">{{ _('Total Expense') }}</span>
                     <span class="info-box-number">$99999999</span>
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <span class="info-box-icon bg-warning"><i class="fa-regular fa-hourglass"></i></span>
                 <div class="info-box-content">
 
-                    <span class="info-box-text">Pending Request</span>
+                    <span class="info-box-text">{{ _('Pending Request') }}</span>
                     <span class="info-box-number">{{ summery.total_pending_leaves }}</span>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <div class="info-box shadow-sm">
                 <span class="info-box-icon bg-info"><i class="fa-solid fa-people-group nav-icon"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Teams</span>
+                    <span class="info-box-text">{{ _('Total Teams') }}</span>
                     <span class="info-box-number">{{ summery.total_teams }}</span>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="info-box shadow-sm">
                 <span class="info-box-icon bg-success"><i class="fa-solid fa-users"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Employees</span>
+                    <span class="info-box-text">{{ _('Total Employees') }}</span>
                     <span class="info-box-number">{{ summery.total_employees }}</span>
                 </div>
             </div>
@@ -44,7 +44,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header border-0">
-                    <h3 class="card-title">Calendar</h3>
+                    <h3 class="card-title">{{ __('Calendar') }}</h3>
                 </div>
                 <div class="card-body">
                     <FullCalendar :options="calendarOptions" />
@@ -64,7 +64,7 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header border-0">
-                    <h3 class="card-title">Pending Request</h3>
+                    <h3 class="card-title">{{ __('Pending Request') }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-wrap col-12">
@@ -108,13 +108,13 @@
                                 </div>
                             </div>
                         </template>
-                        <h6 class="text-center m-auto" v-else>No pending request found</h6>
+                        <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header border-0">
-                    <h3 class="card-title">Recent Approved Leaves</h3>
+                    <h3 class="card-title">{{ __('Recent Approved Leaves') }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-wrap col-12">
@@ -151,7 +151,7 @@
                             </div>
                         </div>
                         </template>
-                        <h6 class="text-center m-auto" v-else>No approved leaves found</h6>
+                        <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
                     </div>
                 </div>
             </div>

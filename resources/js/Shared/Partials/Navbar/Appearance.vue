@@ -82,6 +82,8 @@ export default {
         },
     },
     mounted() {
+        alert(this.darkMode);
+        // setTimeout(() => {
         if (this.darkMode) {
             document.body.classList.add("dark-mode");
             document.querySelector("#navbar").classList.add("navbar-dark");
@@ -91,6 +93,7 @@ export default {
             document.querySelector("#navbar").classList.add("navbar-dark");
             document.querySelector("#navbar").classList.remove("navbar-light");
         }
+        // }, 1000);
     },
 };
 </script>

@@ -36,10 +36,10 @@
                                             <small v-else>{{ __('No Employee Found') }}</small>
                                         </td>
                                         <td class="d-flex">
-                                            <button @click="editTeam(team)" v-tooltip="__('Leave Type Edit')" class="btn btn-sm  pl-0">
+                                            <button @click="editTeam(team)" v-tooltip="__('Edit Leave Type')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </button>
-                                            <button @click="deleteData(team.id)" v-tooltip="__('Leave Type Delete')" class="btn btn-sm">
+                                            <button @click="deleteData(team.id)" v-tooltip="__('Delete Leave Type')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>

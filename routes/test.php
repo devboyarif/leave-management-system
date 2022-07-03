@@ -32,6 +32,8 @@ Route::get('language/{language}', function ($language) {
 })->name('language');
 
 Route::get('/test', function () {
+    return auth()->user();
+
     $text = 'Hello World ? ?';
     $before = str_replace(' ', '_', $text);
     $after = str_replace('_', ' ', $text);
