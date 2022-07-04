@@ -69,7 +69,7 @@
                             <i class="fa-solid fa-language nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="Theme" :href="route('admin.themes.index')" :active="$page.url == '/admin/setting/theme'">
+                    <NavLink title="Theme" :href="route('admin.themes.index')" :active="$page.url == '/admin/setting/theme'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-language nav-icon"></i>
                         </template>

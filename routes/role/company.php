@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Company\TeamController;
-use App\Http\Controllers\Company\HolidayController;
-use App\Http\Controllers\Company\EmployeeController;
 use App\Http\Controllers\Company\InviteController;
+use App\Http\Controllers\Company\HolidayController;
+use App\Http\Controllers\Company\SettingController;
+use App\Http\Controllers\Company\EmployeeController;
 use App\Http\Controllers\Company\LeaveTypeController;
 use App\Http\Controllers\Company\LeaveRequestController;
 
@@ -30,6 +31,12 @@ Route::middleware('auth')->prefix('company')->name('company.')->group(function (
         Route::delete('/requested/holiday/reject/{holiday}', 'requestedHolidaysReject')->name('request.holidays.reject');
     });
     Route::resource('/holidays', HolidayController::class);
+
+    // Setting
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('/theme', 'theme')->name('theme.index');
+        Route::post('/theme/update', 'themeUpdate')->name('theme.update');
+    });
 });
 
 Route::controller(InviteController::class)->prefix('company')->name('company.')->group(function () {

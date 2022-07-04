@@ -9,7 +9,9 @@ class ThemeController extends Controller
 {
     public function adminTheme()
     {
-        return inertia('admin/setting/theme/adminTheme');
-        return 54656;
+        // return currentCompany();
+        // return $theme = currentCompany()->theme;
+
+        return inertia('admin/setting/theme/adminTheme', []);
     }
 }

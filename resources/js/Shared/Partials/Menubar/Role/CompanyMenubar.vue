@@ -52,6 +52,11 @@
                            <i class="fa-solid fa-h nav-icon"></i>
                         </template>
                     </NavLink>
+                     <NavLink title="Theme" :href="route('company.theme.index')" :active="$page.url == '/company/theme'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-language nav-icon"></i>
+                        </template>
+                    </NavLink>
                      <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">
                            <i class="fa-solid fa-right-from-bracket nav-icon"></i>
