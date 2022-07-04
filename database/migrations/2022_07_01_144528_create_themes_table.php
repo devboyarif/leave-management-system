@@ -15,6 +15,7 @@ class CreateThemesTable extends Migration
     {
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
+            // Admin colors
             $table->string('primary_color')->default('#3498db');
             $table->string('hover_color')->default('#91c0e0');
             $table->string('secondary_color')->default('#596275');
@@ -22,6 +23,12 @@ class CreateThemesTable extends Migration
             $table->string('info_color')->default('#17a2b8');
             $table->string('warning_color')->default('#eab308');
             $table->string('danger_color')->default('#eb4d4b');
+
+            // Website colors
+            $table->string('website_primary_color')->default('#17a2b8');
+            $table->string('website_heading_text_color')->default('#212b36');
+            $table->string('website_body_text_color')->default('#596275');
+            $table->string('website_secondary_color')->default('#ffffff');
             $table->timestamps();
         });
     }

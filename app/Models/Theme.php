@@ -17,5 +17,9 @@ class Theme extends Model
         'info_color',
         'warning_color',
         'danger_color',
+        'website_primary_color',
+        'website_secondary_color',
+        'website_heading_text_color',
+        'website_body_text_color',
     ];
 }

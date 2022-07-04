@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Theme;
 use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Support\Str;
@@ -145,10 +146,14 @@ function translations($json)
 function translateIt(String $text, $code)
 {
     return GoogleTranslate::trans($text, $code, 'en');
+}
 
+function getAdminTheme()
+{
+    if (!session()->has('theme')) {
+        $theme = Theme::first();
+        session(['theme' => $theme]);
+    }
 
-
-    // $tr = new GoogleTranslate($lang);
-    // $afterTrans = $tr->translate($text);
-    // return $afterTrans;
+    return session('theme');
 }

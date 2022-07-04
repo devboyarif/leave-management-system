@@ -35,4 +35,20 @@ class ThemeController extends Controller
         session()->flash('success', 'Theme updated successfully.');
         return redirect()->back();
     }
+
+    public function websiteThemeUpdate(Request $request)
+    {
+        $theme = Theme::first();
+
+        $theme->update([
+            "website_primary_color" => $request->website_primary_color ?? $theme->website_primary_color,
+            "website_secondary_color" => $request->website_secondary_color ?? $theme->website_secondary_color,
+            "website_heading_text_color" => $request->website_heading_text_color ?? $theme->website_heading_text_color,
+            "website_body_text_color" => $request->website_body_text_color ?? $theme->website_body_text_color,
+        ]);
+
+        session(['theme' => $theme]);
+        session()->flash('success', 'Theme updated successfully.');
+        return redirect()->back();
+    }
 }

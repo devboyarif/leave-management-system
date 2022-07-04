@@ -32,6 +32,7 @@ Route::get('language/{language}', function ($language) {
 })->name('language');
 
 Route::get('/test', function () {
+    return $theme = getAdminTheme();;
     // $user = auth()->user();
 
     // if ($user->role == 'company') {

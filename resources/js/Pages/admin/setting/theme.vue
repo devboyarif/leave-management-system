@@ -10,7 +10,7 @@
                         </div>
                     </div>
                      <div class="card-body">
-                        <form @submit.prevent="saveData">
+                        <form @submit.prevent="saveData('admin')">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -81,61 +81,41 @@
                         </div>
                     </div>
                      <div class="card-body">
-                        <form @submit.prevent="saveData">
+                        <form @submit.prevent="saveData('website')">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <Label :name="__('Primary Color')" />
-                                        <input v-model="form.primary_color" type="color" class="form-control"
+                                        <input v-model="websiteForm.website_primary_color" type="color" class="form-control"
                                             id="name">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                    <Label :name="__('Hover Color')" />
-                                    <input v-model="form.hover_color" type="color" class="form-control"
-                                        id="name">
-                                        </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
                                     <Label :name="__('Secondary Color')" />
-                                    <input v-model="form.secondary_color" type="color" class="form-control"
+                                    <input v-model="websiteForm.website_secondary_color" type="color" class="form-control"
                                         id="name">
                                         </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                    <Label :name="__('Success Color')" />
-                                    <input v-model="form.success_color" type="color" class="form-control"
-                                        id="name">
-                                        </div>
+                                        <Label :name="__('Body Text Color')" />
+                                        <input v-model="websiteForm.website_body_text_color" type="color" class="form-control"
+                                            id="name">
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                    <Label :name="__('Info Color')" />
-                                    <input v-model="form.info_color" type="color" class="form-control"
+                                    <Label :name="__('Body Heading Color')" />
+                                    <input v-model="websiteForm.website_heading_text_color" type="color" class="form-control"
                                         id="name">
                                         </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <Label :name="__('Warning Color')" />
-                                    <input v-model="form.warning_color" type="color" class="form-control"
-                                        id="name">
-                                        </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <Label :name="__('Danger Color')" />
-                                    <input v-model="form.danger_color" type="color" class="form-control"
-                                        id="name">
-                                        </div>
-                                </div>
+
                             </div>
                             <div class="row justify-content-center mt-5">
-                                 <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                                <Loading v-if="form.processing"/>
+                                 <button :disabled="websiteForm.processing" type="submit" class="btn btn-primary">
+                                <Loading v-if="websiteForm.processing"/>
                                 <span v-else>
                                     <i class="fa-solid fa-sync mr-1"></i>
                                     {{ __('Save') }}
@@ -166,15 +146,31 @@ export default {
                 warning_color: this.theme.warning_color,
                 danger_color: this.theme.danger_color,
             }),
+
+            websiteForm: this.$inertia.form({
+                website_primary_color: this.theme.website_primary_color,
+                website_secondary_color: this.theme.website_secondary_color,
+                website_heading_text_color:
+                    this.theme.website_heading_text_color,
+                website_body_text_color: this.theme.website_body_text_color,
+            }),
         };
     },
     methods: {
-        saveData() {
-            this.form.post(route("theme.admin.update"), {
-                onSuccess: () => {
-                    window.location.reload();
-                },
-            });
+        saveData(type) {
+            if (type == "admin") {
+                this.form.post(route("theme.admin.update"), {
+                    onSuccess: () => {
+                        window.location.reload();
+                    },
+                });
+            } else {
+                this.websiteForm.post(route("theme.website.update"), {
+                    onSuccess: () => {
+                        window.location.reload();
+                    },
+                });
+            }
         },
     },
 };

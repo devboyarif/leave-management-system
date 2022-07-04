@@ -27,7 +27,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-
-        view()->share('theme', Theme::first());
     }
 }

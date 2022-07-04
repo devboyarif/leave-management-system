@@ -1,10 +1,5 @@
 @php
-if (!session()->has('theme')) {
-    session(['theme' => $theme]);
-}
-
-$theme = session('theme');
-
+$theme = getAdminTheme();
 @endphp
 
 <style>
