@@ -7,8 +7,14 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <span>{{ __('Holiday Request List') }}</span>
+                        <h3 class="card-title">{{ __('Holiday Request List') }}</h3>
+                         <Link :href="route('company.holidays.index')" class="btn btn-primary">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            {{ __('Back') }}
+                        </Link>
                     </div>
+
+
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-valign-middle">
