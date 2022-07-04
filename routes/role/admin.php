@@ -67,7 +67,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Themes
     Route::controller(ThemeController::class)->group(function () {
-        Route::get('/admin/themes', 'adminTheme')->name('admin.themes.index');
+        Route::get('/setting/theme', 'theme')->name('theme');
+        Route::post('/setting/theme', 'adminThemeUpdate')->name('theme.admin.update');
         // Route::post('/languages', 'store')->name('languages.store');
         // Route::put('/languages/{lang}', 'update')->name('languages.update');
         // Route::delete('/languages/{lang}', 'destroy')->name('languages.destroy');

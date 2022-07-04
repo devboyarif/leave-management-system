@@ -9,7 +9,7 @@ $theme = session('theme');
 
 <style>
     :root {
-        --primary-color: #469498 !important;
+        --primary-color: {{ $theme->primary_color }} !important;
         --hover-color: {{ $theme->hover_color }} !important;
         --secondary-color: {{ $theme->secondary_color }} !important;
         --success-color: {{ $theme->success_color }} !important;
