@@ -32,7 +32,27 @@ Route::get('language/{language}', function ($language) {
 })->name('language');
 
 Route::get('/test', function () {
-    return auth()->user();
+    // $user = auth()->user();
+
+    // if ($user->role == 'company') {
+    //     if (!session()->has('company_theme')) {
+    //         session(['company_theme' => auth()->user()->company->theme]);
+    //     }
+
+    //     $company_theme = session('company_theme');
+    // } else {
+    //     if (!session()->has('company_theme')) {
+    //         session(['company_theme' => auth()->user()->employee->company->theme]);
+    //     }
+
+    //     $company_theme = session('company_theme');
+    // }
+
+    // return $company_theme;
+
+
+    // return session('')
+    // return auth()->user();
 
     $text = 'Hello World ? ?';
     $before = str_replace(' ', '_', $text);

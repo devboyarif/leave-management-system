@@ -67,31 +67,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-    a.dark-mode-btn {
-        border-radius: 50% !important;
-        background-color: transparent;
-        overflow: hidden;
-        height: 25px;
-        width: 25px;
-        box-sizing: border-box;
-        font-size: 20px;
-    }
-
-    a.dark-mode-btn svg{
-        color: #423f3f;
-        height: 20px;
-        width: 20px;
-    }
-
-    body.theme-dark a.dark-mode-btn{
-        background-color: transparent;
-    }
-
-    body.theme-dark a.dark-mode-btn svg{
-        color: white;
-        height: 30px;
-        width: 30px;
-    }
-</style>

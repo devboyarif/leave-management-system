@@ -18,12 +18,12 @@ if ($user->role == 'company') {
 
 <style>
     :root {
-        --primary-color: {{ $theme->primary_color }} !important;
-        --hover-color: {{ $theme->hover_color }} !important;
-        --secondary-color: {{ $theme->secondary_color }} !important;
-        --success-color: {{ $theme->success_color }} !important;
-        --info-color: {{ $theme->info_color }} !important;
-        --warning-color: {{ $theme->warning_color }} !important;
-        --danger-color: {{ $theme->danger_color }} !important;
+        --primary-color: {{ $company_theme->primary_color }} !important;
+        --hover-color: {{ $company_theme->hover_color }} !important;
+        --secondary-color: {{ $company_theme->secondary_color }} !important;
+        --success-color: {{ $company_theme->success_color }} !important;
+        --info-color: {{ $company_theme->info_color }} !important;
+        --warning-color: {{ $company_theme->warning_color }} !important;
+        --danger-color: {{ $company_theme->danger_color }} !important;
     }
 </style>

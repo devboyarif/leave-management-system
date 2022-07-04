@@ -55,6 +55,6 @@ export default {
                 document.body.classList.add("sidebar-collapse");
             }
         },
-    },
+    }
 };
 </script>

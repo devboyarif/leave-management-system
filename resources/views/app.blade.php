@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{{ asset('admin') }}/css/adminlte.css" />
     <link rel="stylesheet" href="{{ asset('kodebazar') }}/font-awesome/v6/css/all.min.css" />
     <link href="{{ mix('admin/css/app.css') }}" rel="stylesheet" />
-    <link href="{{ mix('admin/css/app.css') }}" rel="stylesheet" />
     @include('components.theme.app_theme')
     @routes
     <script src="{{ mix('admin/js/compiled/app.js') }}" defer></script>
