@@ -18,11 +18,12 @@ class CreateCompanyThemesTable extends Migration
             $table->id();
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
             $table->string('primary_color')->default('#3498db');
+            $table->string('hover_color')->default('#91c0e0');
             $table->string('secondary_color')->default('#596275');
             $table->string('success_color')->default('#2ecc71');
-            $table->string('danger_color')->default('#eb4d4b');
-            $table->string('info_color')->default('#00d9ff');
+            $table->string('info_color')->default('#17a2b8');
             $table->string('warning_color')->default('#eab308');
+            $table->string('danger_color')->default('#eb4d4b');
             $table->timestamps();
         });
     }

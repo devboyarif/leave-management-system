@@ -69,6 +69,11 @@
                             <i class="fa-solid fa-language nav-icon"></i>
                         </template>
                     </NavLink>
+                     <NavLink title="Theme" :href="route('admin.themes.index')" :active="$page.url == '/admin/setting/theme'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-language nav-icon"></i>
+                        </template>
+                    </NavLink>
                      <!-- <NavLink title="Setting" :href="route('holidays.index')" :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-gear nav-icon"></i>

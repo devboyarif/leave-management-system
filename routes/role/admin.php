@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\LeaveRequestController;
+use App\Http\Controllers\Admin\ThemeController;
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/about', function () {
@@ -62,6 +63,19 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::put('/languages/status/{lang}', 'statusUpdate')->name('languages.status.update');
         Route::get('/languages/translate/single', 'singleTranslate')->name('languages.translate');
         Route::get('/languages/translate/all', 'allTranslate')->name('languages.translate.all');
+    });
+
+    // Themes
+    Route::controller(ThemeController::class)->group(function () {
+        Route::get('/admin/themes', 'adminTheme')->name('admin.themes.index');
+        // Route::post('/languages', 'store')->name('languages.store');
+        // Route::put('/languages/{lang}', 'update')->name('languages.update');
+        // Route::delete('/languages/{lang}', 'destroy')->name('languages.destroy');
+        // Route::get('/languages/translation/{lang}', 'translationEdit')->name('languages.translation.edit');
+        // Route::put('/languages/translation/{lang}', 'translationUpdate')->name('languages.translation.update');
+        // Route::put('/languages/status/{lang}', 'statusUpdate')->name('languages.status.update');
+        // Route::get('/languages/translate/single', 'singleTranslate')->name('languages.translate');
+        // Route::get('/languages/translate/all', 'allTranslate')->name('languages.translate.all');
     });
 
     // Profile & Settings
