@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Models\Company;
 use App\Models\Employee;
+use App\Models\LeaveRequest;
 use App\Observers\CompanyObserver;
 use App\Observers\EmployeeObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use App\Observers\LeaveRequestObserver;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -33,5 +35,6 @@ class EventServiceProvider extends ServiceProvider
     {
         Employee::observe(EmployeeObserver::class);
         Company::observe(CompanyObserver::class);
+        LeaveRequest::observe(LeaveRequestObserver::class);
     }
 }
