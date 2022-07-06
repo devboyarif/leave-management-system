@@ -40,6 +40,9 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Toaster from "@meforma/vue-toaster";
 import vClickOutside from "click-outside-vue3"
+import dayjs from 'dayjs';
+import RelativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(RelativeTime);
 
 const app = createApp({
     render: () => h(InertiaApp, {
@@ -71,32 +74,17 @@ app.use(Toaster, {
 })
 
 app.use(InertiaPlugin)
+    .mixin(require('./base'))
     .mixin({
         methods: {
-            route: window.route,
-            toastSuccess(message = 'Action completed successfully') {
-                this.$toast.success(message);
+            formateDate(date, format = 'MMMM D, YYYY') {
+                return dayjs(date).format(format);
             },
-            toastError(message = 'Something went wrong') {
-                this.$toast.error(message);
+            timeFromNow(date) {
+                return dayjs(date).fromNow();
             },
-            toastWarning(message = 'Something went wrong') {
-                this.$toast.warning(message);
-            },
-            pluralize(val, word, plural = word + "s") {
-                const _pluralize = (num, word, plural = word + "s") => [1, -1].includes(Number(num)) ? word : plural;
-                if (typeof val === "object")
-                    return (num, word) => _pluralize(num, word, val[word]);
-                return _pluralize(val, word, plural);
-            }
-        },
-        computed: {
-            pageFlashes() {
-                return this.$page.props.flash
-            }
         }
     })
-    .mixin(require('./base'))
     .component('Head', Head)
     .component('Link', Link)
     .component('ErrorMessage', ErrorMessage)

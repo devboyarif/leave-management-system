@@ -1,18 +1,11 @@
 <?php
 
 use Carbon\Carbon;
-use App\Models\Demo;
-use App\Models\Company;
-use App\Models\Country;
 use App\Models\Holiday;
-use App\Models\Calendar;
-use App\Models\Employee;
-use App\Models\LeaveType;
-use Illuminate\Support\Arr;
-use App\Models\LeaveBalance;
-use App\Models\LeaveRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Notifications\Notification;
 
 Route::get('language/{language}', function ($language) {
     // return $language;
@@ -31,8 +24,13 @@ Route::get('language/{language}', function ($language) {
     return redirect()->back();
 })->name('language');
 
+
 Route::get('/test', function () {
-    return $theme = getAdminTheme();;
+    return DB::table('notifications')->latest()->get();
+    // return auth()->user();
+    return auth()->user()->unreadNotifications->take(5);
+    return auth()->user()->unreadNotifications->count();
+    return $theme = getAdminTheme();
     // $user = auth()->user();
 
     // if ($user->role == 'company') {

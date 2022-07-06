@@ -14,4 +14,11 @@ class GlobalController extends Controller
 
         return diffBetweenDays($start, $end);
     }
+
+    public function notifications()
+    {
+        return inertia('notifications', [
+            'notifications' => auth()->user()->notifications,
+        ]);
+    }
 }

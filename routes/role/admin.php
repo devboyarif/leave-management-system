@@ -90,4 +90,5 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
 Route::controller(GlobalController::class)->group(function () {
     Route::get('/diff/between/days', 'diffBetweenDays')->name('difference.between.days');
+    Route::get('/user/notifications', 'notifications')->name('notifications.index');
 });

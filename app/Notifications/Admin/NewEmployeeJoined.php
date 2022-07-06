@@ -55,7 +55,7 @@ class NewEmployeeJoined extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'New employee joined',
+            'message' => 'New member joined',
             'url' => url('/'),
         ];
     }

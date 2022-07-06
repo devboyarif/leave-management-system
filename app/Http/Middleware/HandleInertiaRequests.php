@@ -41,16 +41,24 @@ class HandleInertiaRequests extends Middleware
         if (auth()->check() && currentUser()->role == 'employee') {
             $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
         }
+
+        // Flash messages
         $data['flash'] = [
             'success' => session('success'),
             'error' => session('error'),
             'warning' => session('warning')
         ];
 
+        // Language
         $data['locale'] = session()->has('current_lang') ?  session('current_lang') : app()->getLocale();
         $data['languageList'] = Language::all(['id', 'code', 'name']);
         $data['language'] = translations(resource_path('lang/' . $data['locale'] . '.json'));
 
+        // Notifications
+        $data['notifications'] = auth()->check() ? auth()->user()->unreadNotifications->take(5) : [];
+        $data['unreadNotificationsCount'] = auth()->check() ? auth()->user()->unreadNotifications->count() : 0;
+
+        // auth()->user()->unreadNotifications->count()
         return array_merge(parent::share($request), $data);
     }
 }
