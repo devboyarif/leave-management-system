@@ -16,12 +16,6 @@ class CheckEmployeeProfile
      */
     public function handle(Request $request, Closure $next)
     {
-        // if (auth()->check() && !auth()->user()->role == 'employee') {
-        //     if (auth()->user()->isInvited && !auth()->user()->isProfileComplete) {
-        //         return redirect()->route('employee.setup-profile');
-        //     }
-        // }
-
         return $next($request);
     }
 }

@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Company Dashboard" />
+    <Head :title="__('Dashboard')" />
     <div class="row mt-3">
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box shadow-sm">

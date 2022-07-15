@@ -13,9 +13,6 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
-Route::get('/setup-profile', [EmployeeController::class, 'setupProfile'])->name('employee.setup-profile');
-
-//
 Route::controller(DashboardController::class)->middleware('auth')->group(function () {
     Route::get('/user/dashboard', 'dashboard')->name('dashboard');
     Route::get('/admin/dashboard', 'adminDashboard')->name('admin.dashboard');

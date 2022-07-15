@@ -26,7 +26,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            session()->flash('success', 'You have been successfully logged in!');
+            session()->flash('success', 'Logged in successfully!');
             return redirect()->intended('/user/dashboard');
         }
 
@@ -38,6 +38,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
+        session()->flash('success', 'Logged out successfully!');
         return redirect()->route('login');
     }
 }

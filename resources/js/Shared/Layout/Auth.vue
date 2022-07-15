@@ -15,7 +15,22 @@
 
 <script>
 export default {
-    components: {},
+    watch: {
+        pageFlashes: {
+            handler(flashes) {
+                if (flashes.success) {
+                    this.toastSuccess(flashes.success);
+                }
+                if (flashes.error) {
+                    this.toastError(flashes.error);
+                }
+                if (flashes.warning) {
+                    this.toastWarning(flashes.warning);
+                }
+            },
+            deep: true,
+        },
+    },
 };
 </script>
 

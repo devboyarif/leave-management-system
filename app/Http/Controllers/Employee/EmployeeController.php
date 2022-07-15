@@ -90,9 +90,4 @@ class EmployeeController extends Controller
             'employees' => $employees,
         ];
     }
-
-    public function setupProfile()
-    {
-        return inertia('employee/setup-profile');
-    }
 }

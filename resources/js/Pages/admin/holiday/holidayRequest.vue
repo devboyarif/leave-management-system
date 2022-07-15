@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="__('Company List')" />
+    <Head :title="__('Company List')" />
 
     <div class="row justify-content-center">
         <div class="col-md-4 mt-3">

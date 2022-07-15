@@ -24,7 +24,6 @@ import Menubar from "../Partials/Menubar/Menubar.vue";
 import Breadcrumb from "../Breadcrumb.vue";
 import LanguageSelector from "../Partials/Navbar/LanguageSelector.vue";
 
-//
 export default {
     components: {
         Navbar,
@@ -53,9 +52,9 @@ export default {
 
         let sidebarCollapse = localStorage.getItem("sidebarCollapse");
         if (sidebarCollapse === "true") {
-            document.body.classList.add("sidebar-collapse");
-        } else {
             document.body.classList.remove("sidebar-collapse");
+        } else {
+            document.body.classList.add("sidebar-collapse");
         }
     },
 };

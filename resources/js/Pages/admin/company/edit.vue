@@ -1,6 +1,6 @@
 <template>
 
-    <Head :class="__('Company Edit')" />
+    <Head :title="__('Company Edit')" />
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
