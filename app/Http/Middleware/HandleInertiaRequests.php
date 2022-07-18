@@ -58,7 +58,6 @@ class HandleInertiaRequests extends Middleware
         $data['notifications'] = auth()->check() ? auth()->user()->unreadNotifications->take(5) : [];
         $data['unreadNotificationsCount'] = auth()->check() ? auth()->user()->unreadNotifications->count() : 0;
 
-        // auth()->user()->unreadNotifications->count()
         return array_merge(parent::share($request), $data);
     }
 }

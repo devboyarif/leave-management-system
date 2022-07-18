@@ -84,4 +84,9 @@ trait HasCompany
             'total_employees' => $total_employees,
         ];
     }
+
+    public function companyDashboardSubscribedPlan()
+    {
+        return currentCompany()->subscription->load('plan');
+    }
 }

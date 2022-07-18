@@ -87,6 +87,11 @@ function addDays($date, $days, $format = 'Y-m-d')
     return $date->addDays($daysToAdd)->format($format);
 }
 
+function formatDateTime($date, $format = 'Y-m-d')
+{
+    return Carbon::createFromFormat($format, $date);
+}
+
 function changeCurrentYear($date, $format = 'Y-m-d')
 {
     return Carbon::parse($date)->year(now()->format('Y'))->format($format);

@@ -26,6 +26,7 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    return currentCompany()->subscription->load('plan');
     return DB::table('notifications')->latest()->get();
     // return auth()->user();
     return auth()->user()->unreadNotifications->take(5);

@@ -155,6 +155,35 @@
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-header border-0">
+                    <h3 class="card-title">{{ __('Current Subscription') }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap col-12">
+                        <table class="table">
+                            <tbody>
+                                <tr v-if="subscribed_plan.plan">
+                                    <th>{{ __('Plan') }}</th>
+                                    <td>{{ subscribed_plan.plan.name }}</td>
+                                </tr>
+                                <tr v-if="subscribed_plan.plan">
+                                    <th>{{ __('Interval') }}</th>
+                                    <td>{{ subscribed_plan.plan.interval }}</td>
+                                </tr>
+                                <tr v-if="subscribed_plan.plan && subscribed_plan.plan.interval != 'lifetime'">
+                                   <th>{{ __('Expiration Remaining') }}</th>
+                                    <td>{{ subscribed_plan.remaining_days }} {{ pluralize(subscribed_plan.remaining_days, 'Day') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <div class="row justify-content-between">
+                         <button class="btn btn-danger btn-sm" v-if="subscribed_plan.plan && subscribed_plan.plan.type != 'free'">{{ __('Cancel Plan') }}</button>
+                            <button class="btn btn-primary">{{ __('Upgrade Plan') }}</button>
+                       </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -167,7 +196,7 @@
                         <div class="modal-content" v-click-outside="()=> showModal = false">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    Leave Request Details
+                                    {{ __('Leave Request Details') }}
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" @click="showModal = false">&times;</span>
@@ -177,13 +206,13 @@
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td width="30%">Employee Name</td>
+                                            <td width="30%">{{ __('Employee') }}</td>
                                             <td width="70%">
                                                 {{ form.name }}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Type Name</td>
+                                            <td width="30%">{{ __('Leave Type') }}</td>
                                             <td width="70%"><a href="#">
                                                  <span :style="{ background: form.color, border: '2px solid '+form.color }" class="leave-type-color">
                                             {{ form.type }}
@@ -191,15 +220,15 @@
                                             </a></td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Date</td>
+                                            <td width="30%">{{ __('Date') }}</td>
                                             <td width="70%">{{ requestFor(form.start, form.end) }}</td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Total Days</td>
+                                            <td width="30%">{{ __('Total Days') }}</td>
                                             <td width="70%">{{ form.days }} {{ pluralize(form.days, 'Day') }}</td>
                                         </tr>
                                         <tr>
-                                            <td width="30%">Status</td>
+                                            <td width="30%">{{ __('Status') }}</td>
                                             <td width="70%">
                                                 <span class="toCapitalFirst badge" :class="getBadgeType(form.status)">
                                                     {{ form.status }}
@@ -207,7 +236,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td width="50%">Reason</td>
+                                            <td width="50%">{{ __('Reason') }}</td>
                                             <td width="50%">{{ form.reason }}</td>
                                         </tr>
                                     </tbody>
@@ -215,7 +244,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
-                                    @click="showModal = false">Close</button>
+                                    @click="showModal = false">{{ __('Close') }}</button>
                             </div>
                         </div>
                     </div>
@@ -253,6 +282,7 @@ export default {
             event_types: [],
             pending_requests: [],
             recent_approved_requests: [],
+            subscribed_plan: {},
             form: {
                 name: "",
                 type: "",
@@ -322,11 +352,11 @@ export default {
             this.pending_requests = response.data.pending_requests;
             this.recent_approved_requests =
                 response.data.recent_approved_requests;
+            this.subscribed_plan = response.data.subscribed_plan;
         },
     },
     async mounted() {
         await this.loadData();
-        console.log(this.event_types);
     },
 };
 </script>

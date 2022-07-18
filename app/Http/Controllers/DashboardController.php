@@ -112,12 +112,16 @@ class DashboardController extends Controller
         $pending_requests = $this->companyDashboardPendingLeave($all_leave_requests);
         $recent_approved_requests = $this->companyDashboardApprovedLeave($all_leave_requests);
 
+        // Current Subscribed Plan
+        $subscribed_plan = $this->companyDashboardSubscribedPlan($company);
+
         return [
             'summery' => $summery,
             'events' => Arr::collapse([$holidays, $leaveRequest]),
             'event_types' => Arr::collapse([$holiday, $leave_type_color]),
             'pending_requests' => $pending_requests,
             'recent_approved_requests' => $recent_approved_requests,
+            'subscribed_plan' => $subscribed_plan,
         ];
     }
 }

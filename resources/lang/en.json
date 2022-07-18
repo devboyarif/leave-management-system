@@ -144,6 +144,12 @@
 
     "Theme": "Theme",
     "See All Notifications": "See All Notifications",
+    "Current Subscription": "Current Subscription",
+    "Plan": "Plan",
+    "Interval": "Interval",
+    "Expiration Remaining": "Expiration Remaining",
+    "Cancel Plan": "Cancel Plan",
+    "Upgrade Plan": "Upgrade Plan",
 
 
 
@@ -164,7 +170,11 @@
 
 
 
-    
+
+
+
+
+
 
 
 
