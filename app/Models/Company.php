@@ -16,6 +16,18 @@ class Company extends Model
         'country_id'
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($company) {
+            $company->subscription()->create([
+                'plan_id'  => 1,
+            ]);
+            $company->subscriptionHistory()->create([
+                'plan_id'  => 1,
+            ]);
+        });
+    }
+
     public function teams()
     {
         return $this->hasMany(Team::class, 'company_id');
@@ -49,5 +61,15 @@ class Company extends Model
     public function theme()
     {
         return $this->hasOne(CompanyTheme::class, 'company_id');
+    }
+
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class, 'company_id');
+    }
+
+    public function subscriptionHistory()
+    {
+        return $this->hasMany(SubscriptionHistory::class, 'company_id');
     }
 }

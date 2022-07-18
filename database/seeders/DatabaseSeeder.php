@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Database\Seeders\FaqSeeder;
 use Illuminate\Database\Seeder;
+use Database\Seeders\PlanSeeder;
 use Database\Seeders\AdminSeeder;
 use Database\Seeders\CountrySeeder;
 use Database\Seeders\FeatureSeeder;
@@ -22,6 +23,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call([
+            // Plan Seeder
+            PlanSeeder::class,
+            // PlanFeatureSeeder::class,
+
             AdminSeeder::class,
             ThemeSeeder::class,
             CountrySeeder::class,
@@ -37,6 +42,7 @@ class DatabaseSeeder extends Seeder
             FeatureSeeder::class,
             TestimonialSeeder::class,
             LanguageSeeder::class,
+
         ]);
     }
 }
