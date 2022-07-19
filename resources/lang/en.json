@@ -147,6 +147,7 @@
     "See All Notifications": "See All Notifications",
     "Current Subscription": "Current Subscription",
     "Plan": "Plan",
+    "Pro": "Pro",
     "Interval": "Interval",
     "Expiration Remaining": "Expiration Remaining",
     "Cancel Plan": "Cancel Plan",
@@ -249,6 +250,9 @@
 
 
 
+    "Upgrade your plan to use this feature": "Upgrade your plan to use this feature",
+    "You have reached the maximum number of leave types": "You have reached the maximum number of leave types",
+    "You have reached the maximum number of teams": "You have reached the maximum number of teams",
     "You have reached the maximum number of employees": "You have reached the maximum number of employees"
 
 }

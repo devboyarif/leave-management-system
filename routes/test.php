@@ -26,10 +26,10 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    return currentCompany()->leaveTypes->count();
     return getCurrentSubscriptionFeatures()->is_limited_user;
 
 
-    return currentCompany()->employees->count();
 
     return $subscription = currentCompany()->subscription->load(['plan' => function ($query) {
         $query->with('planFeatures');

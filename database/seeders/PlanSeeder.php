@@ -58,7 +58,7 @@ class PlanSeeder extends Seeder
                     'is_limited_user' => 1,
                     'max_employees' => 10,
                     'max_teams' => 2,
-                    'dark_mode' => 0,
+                    'max_leave_types' => 2,
                     'custom_theme_look' => 0,
                 ]);
             } else {
@@ -66,7 +66,7 @@ class PlanSeeder extends Seeder
                     'is_limited_user' => 0,
                     'max_employees' => 10,
                     'max_teams' => 10,
-                    'dark_mode' => 1,
+                    'max_leave_types' => 10,
                     'custom_theme_look' => 1,
                 ]);
             }

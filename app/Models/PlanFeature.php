@@ -16,7 +16,7 @@ class PlanFeature extends Model
         'is_limited_user',
         'max_employees',
         'max_teams',
-        'dark_mode',
+        'max_leave_types',
         'custom_theme_look',
     ];
 }

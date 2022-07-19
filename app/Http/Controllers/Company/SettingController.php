@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Traits\HasSubscription;
+use App\Http\Controllers\Controller;
 
 class SettingController extends Controller
 {
+    use HasSubscription;
+
     public function theme()
     {
         $theme = currentCompany()->theme;
@@ -18,6 +21,12 @@ class SettingController extends Controller
 
     public function themeUpdate(Request $request)
     {
+        // Check if the user has permission to update theme
+        if ($this->checkCustomThemeAccess()) {
+            session()->flash('error', __("Upgrade your plan to use this feature"));
+            return back();
+        }
+
         $theme = currentCompany()->theme;
 
         $theme->update([

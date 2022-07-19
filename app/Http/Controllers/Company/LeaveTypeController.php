@@ -10,9 +10,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LeaveTypeSaveRequest;
 use App\Notifications\Employee\NewLeaveTypeAdded;
+use App\Traits\HasSubscription;
 
 class LeaveTypeController extends Controller
 {
+    use HasSubscription;
+
     public function index()
     {
         $leave_types = LeaveType::where('company_id', currentCompany()->id)->latest()->paginate(10);
@@ -29,6 +32,12 @@ class LeaveTypeController extends Controller
 
     public function store(Request $request)
     {
+        // Check if the user is limited to create employees
+        if ($this->checkLeaveTypeLimitation()) {
+            session()->flash('error', __("You have reached the maximum number of leave types"));
+            return back();
+        }
+
         $request->validate(['name' => 'required|string|max:255']);
 
         $company = currentCompany();

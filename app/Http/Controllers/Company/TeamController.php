@@ -7,12 +7,15 @@ use App\Models\Invite;
 use App\Models\Employee;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
 use App\Mail\Company\InviteSendMail;
 use Illuminate\Support\Facades\Mail;
 
 class TeamController extends Controller
 {
+    use HasSubscription;
+
     public function index()
     {
         $teams = Team::select('id', 'name', 'company_id')
@@ -28,6 +31,12 @@ class TeamController extends Controller
 
     public function store(Request $request)
     {
+        // Check if the user is limited to create employees
+        if ($this->checkTeamLimitation()) {
+            session()->flash('error', __('You have reached the maximum number of teams'));
+            return back();
+        }
+
         $company = currentCompany();
         $request->validate([
             'name' => 'required',

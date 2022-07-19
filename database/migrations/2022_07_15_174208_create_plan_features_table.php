@@ -20,7 +20,7 @@ class CreatePlanFeaturesTable extends Migration
             $table->boolean('is_limited_user')->default(true);
             $table->unsignedInteger('max_employees')->default(10);
             $table->unsignedInteger('max_teams')->default(2);
-            $table->boolean('dark_mode')->default(0);
+            $table->unsignedInteger('max_leave_types')->default(2);
             $table->boolean('custom_theme_look')->default(0);
             $table->timestamps();
         });

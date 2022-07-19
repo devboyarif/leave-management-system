@@ -95,75 +95,37 @@ export default {
                 warning_color: this.theme.warning_color,
                 danger_color: this.theme.danger_color,
             }),
+
+            role: this.$page.props.authenticatedUser.role,
+            subscription: this.$page.props.current_subscription,
         };
     },
     methods: {
-        saveData() {
-            this.form.post(route("company.theme.update"), {
-                onSuccess: () => {
-                    window.location.reload();
-                },
-            });
+        async saveData() {
+            if (
+                this.role == "company" &&
+                this.subscription.plan &&
+                this.subscription.plan.plan_features &&
+                this.subscription.plan.plan_features.custom_theme_look
+            ) {
+                this.form.post(route("company.theme.update"), {
+                    onSuccess: () => {
+                        window.location.reload();
+                    },
+                });
+            } else {
+                let response = await axios.get(
+                    route("get.translated.message"),
+                    {
+                        params: {
+                            message: "Upgrade your plan to use this feature",
+                        },
+                    }
+                );
+
+                this.$toast.error(response.data);
+            }
         },
     },
 };
 </script>
-
-<!--
-<style scoped>
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 35px;
-        height: 19px;
-    }
-
-    /* Hide default HTML checkbox */
-    .switch input {
-        display: none;
-    }
-
-    /* The slider */
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 15px;
-        width: 15px;
-        left: 3px;
-        bottom: 2px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    input.success:checked+.slider {
-        background-color: #28a745;
-    }
-
-    input:checked+.slider:before {
-        -webkit-transform: translateX(15px);
-        -ms-transform: translateX(15px);
-        transform: translateX(15px);
-    }
-
-    /* Rounded sliders */
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-</style> -->

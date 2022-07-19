@@ -21,4 +21,9 @@ class GlobalController extends Controller
             'notifications' => auth()->user()->notifications,
         ]);
     }
+
+    public function getTranslatedMessage(Request $request)
+    {
+        return __($request->message);
+    }
 }

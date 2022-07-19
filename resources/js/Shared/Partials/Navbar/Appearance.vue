@@ -22,7 +22,6 @@
                 <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z">
                 </path>
             </svg>
-
         </a>
     </li>
 </template>
@@ -43,12 +42,16 @@ export default {
 
             if (this.darkMode) {
                 document.body.classList.add("dark-mode");
-                document.querySelector("#navbar").classList.add("navbar-dark")
-                document.querySelector("#navbar").classList.remove("navbar-light")
+                document.querySelector("#navbar").classList.add("navbar-dark");
+                document
+                    .querySelector("#navbar")
+                    .classList.remove("navbar-light");
             } else {
                 document.body.classList.remove("dark-mode");
-                document.querySelector("#navbar").classList.add("navbar-light")
-                document.querySelector("#navbar").classList.remove("navbar-dark")
+                document.querySelector("#navbar").classList.add("navbar-light");
+                document
+                    .querySelector("#navbar")
+                    .classList.remove("navbar-dark");
             }
 
             localStorage.setItem("toggleDarkMode", this.darkMode);
@@ -56,13 +59,13 @@ export default {
     },
     mounted() {
         if (this.darkMode) {
-            document.querySelector("#navbar").classList.add("navbar-dark")
-            document.querySelector("#navbar").classList.remove("navbar-light")
+            document.querySelector("#navbar").classList.add("navbar-dark");
+            document.querySelector("#navbar").classList.remove("navbar-light");
             document.body.classList.add("dark-mode");
         } else {
             document.body.classList.remove("dark-mode");
-            document.querySelector("#navbar").classList.add("navbar-light")
-            document.querySelector("#navbar").classList.remove("navbar-dark")
+            document.querySelector("#navbar").classList.add("navbar-light");
+            document.querySelector("#navbar").classList.remove("navbar-dark");
         }
     },
 };

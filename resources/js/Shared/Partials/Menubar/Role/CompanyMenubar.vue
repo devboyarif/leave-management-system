@@ -25,6 +25,9 @@
                             <template v-slot:icon>
                                 <i class="far fa-circle nav-icon"></i>
                             </template>
+                             <template v-slot:badge v-if="!hasAccessLeaveType">
+                            <span class="right badge badge-danger">{{ __('Pro') }}</span>
+                        </template>
                         </NavLink>
                         <NavLink title="Leave Request" :href="route('company.leaveRequests.index')" :active="$page.component == 'company/leaveRequest/index' || $page.component == 'company/leaveRequest/create' || $page.component == 'company/leaveRequest/edit'">
                             <template v-slot:icon>
@@ -56,6 +59,9 @@
                         <template v-slot:icon>
                             <i class="fa-solid fa-language nav-icon"></i>
                         </template>
+                        <template v-slot:badge v-if="!hasAccessCustomThemeLook">
+                            <span class="right badge badge-danger">{{ __('Pro') }}</span>
+                        </template>
                     </NavLink>
                      <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">
@@ -81,7 +87,24 @@ export default {
     data() {
         return {
             role: this.$page.props.authenticatedUser.role,
+            subscription: this.$page.props.current_subscription,
         };
+    },
+    computed: {
+        hasAccessCustomThemeLook() {
+            return (
+                this.subscription.plan &&
+                this.subscription.plan.plan_features &&
+                this.subscription.plan.plan_features.custom_theme_look
+            );
+        },
+        hasAccessLeaveType() {
+            return (
+                this.subscription.plan &&
+                this.subscription.plan.plan_features &&
+                this.subscription.plan.plan_features.max_leave_types
+            );
+        },
     },
     methods: {
         dropdownActive(pageComponent) {
