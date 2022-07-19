@@ -26,7 +26,40 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
-    return currentCompany()->subscription->load('plan');
+    return getCurrentSubscriptionFeatures()->is_limited_user;
+
+
+    return currentCompany()->employees->count();
+
+    return $subscription = currentCompany()->subscription->load(['plan' => function ($query) {
+        $query->with('planFeatures');
+    }]);
+
+    $expired_plan = formatDateTime($subscription->expired_date)->isFuture() ? false : true;
+
+    return $expired_plan;
+    return $current_subscription = $subscription;
+    $current_plan = $subscription->plan;
+    $current_plan_features = $subscription->plan->planFeatures;
+
+    return [
+        'current_subscription' => $current_subscription,
+        'current_plan' => $current_plan,
+        'current_plan_features' => $current_plan_features,
+    ];
+
+
+    // $current_subscription = currentCompany()->subscription;
+    // $current_plan = $current_subscription->plan;
+    // $current_plan_features = $current_plan->planFeatures;
+
+    // return [
+    //     'current_subscription' => $current_subscription,
+    //     'current_plan' => $current_plan,
+    //     'current_plan_features' => $current_plan_features,
+    // ];
+
+
     return DB::table('notifications')->latest()->get();
     // return auth()->user();
     return auth()->user()->unreadNotifications->take(5);

@@ -11,6 +11,10 @@
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
+                    <div class="alert alert-danger my-3" role="alert" v-if="role == 'company' && $page.props.current_subscription && $page.props.current_subscription.plan_expired">
+                        Plan is expired. Please upgrade your plan.
+                    </div>
+
                     <slot />
                 </div>
             </div>
@@ -30,6 +34,11 @@ export default {
         Menubar,
         Breadcrumb,
         LanguageSelector,
+    },
+    data() {
+        return {
+            role: this.$page.props.authenticatedUser.role,
+        };
     },
     watch: {
         pageFlashes: {

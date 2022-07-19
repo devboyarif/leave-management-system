@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Invite;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
 use App\Mail\Company\InviteSendMail;
 use Illuminate\Support\Facades\Auth;
@@ -13,8 +14,16 @@ use Illuminate\Support\Facades\Mail;
 
 class InviteController extends Controller
 {
+    use HasSubscription;
+
     public function sendInvite(Request $request)
     {
+        // Check if the user is limited to create employees
+        if ($this->checkEmployeesLimitation()) {
+            session()->flash('error', __('You have reached the maximum number of employees'));
+            return back();
+        }
+
         $request->validate([
             'email' => 'required|email',
             'team_id' => 'required|exists:teams,id',
@@ -40,7 +49,8 @@ class InviteController extends Controller
         return back();
     }
 
-    public function acceptInvite($token){
+    public function acceptInvite($token)
+    {
         $invite = Invite::whereToken(request('token'))->firstOrFail();
 
         if ($invite->status == Invite::STATUS_ACCEPTED) {
@@ -53,7 +63,8 @@ class InviteController extends Controller
         ]);
     }
 
-    public function storeEmployee(Request $request){
+    public function storeEmployee(Request $request)
+    {
         $request->validate([
             'name' => 'required|string',
             'password' => 'required|confirmed|min:8',

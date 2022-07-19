@@ -60,6 +60,7 @@
     "Employee Delete": "Employee Delete",
     "No Employee Found": "No employee found",
     "Select Employee": "Select Employee",
+    "Invite": "Invite",
 
     "Colleagues": "Colleagues",
     "Teams": "Teams",
@@ -244,7 +245,11 @@
     "Date": "Date",
     "Start Date": "Start Date",
     "End Date": "End Date",
-    "Note": "Note"
+    "Note": "Note",
+
+
+
+    "You have reached the maximum number of employees": "You have reached the maximum number of employees"
 
 }
 

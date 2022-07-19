@@ -9,9 +9,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeUpdateRequest;
 use App\Http\Requests\Company\EmployeeCreateRequest;
+use App\Traits\HasSubscription;
 
 class EmployeeController extends Controller
 {
+    use HasSubscription;
+
     public function index()
     {
         $teams = Team::where('company_id', currentCompany()->id)->get(['id', 'name', 'slug']);
@@ -25,6 +28,12 @@ class EmployeeController extends Controller
 
     public function store(EmployeeCreateRequest $request)
     {
+        // Check if the user is limited to create employees
+        if ($this->checkEmployeesLimitation()) {
+            session()->flash('error', __('You have reached the maximum number of employees'));
+            return back();
+        }
+
         $data = $request->all();
         $data['role'] = User::ROLE_EMPLOYEE;
         $data['password'] = bcrypt($data['password']);

@@ -58,6 +58,16 @@ class HandleInertiaRequests extends Middleware
         $data['notifications'] = auth()->check() ? auth()->user()->unreadNotifications->take(5) : [];
         $data['unreadNotificationsCount'] = auth()->check() ? auth()->user()->unreadNotifications->count() : 0;
 
+        // Subscription
+        if (auth()->check() && auth()->user()->role == 'company') {
+            // session()->forget('current_subscription');
+            if (!session()->has('current_subscription')) {
+                storeCompanyCurrentSubscription();
+            }
+
+            $data['current_subscription'] = session('current_subscription');
+        }
+
         return array_merge(parent::share($request), $data);
     }
 }

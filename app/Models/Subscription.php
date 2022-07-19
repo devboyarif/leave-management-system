@@ -10,11 +10,16 @@ class Subscription extends Model
 {
     use HasFactory;
 
-    protected $appends = ['remaining_days'];
+    protected $appends = ['remaining_days', 'plan_expired'];
 
     public function getRemainingDaysAttribute()
     {
         return formatDateTime($this->expired_date)->diffInDays(formatDateTime(now()->format('Y-m-d')));
+    }
+
+    public function getPlanExpiredAttribute()
+    {
+        return formatDateTime($this->expired_date)->isFuture() ? false : true;
     }
 
     public function plan()

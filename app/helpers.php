@@ -162,3 +162,33 @@ function getAdminTheme()
 
     return session('theme');
 }
+
+function storeCompanyCurrentSubscription()
+{
+    session()->forget('current_subscription');
+
+    if (auth()->check() && auth()->user()->role == 'company') {
+        $subscription = currentCompany()->subscription->load(['plan' => function ($query) {
+            $query->with('planFeatures');
+        }]) ?? [];
+
+        session(['current_subscription' => $subscription]);
+    }
+}
+
+function getCurrentSubscription()
+{
+    // session()->forget('current_subscription');
+    if (auth()->check() && auth()->user()->role == 'company') {
+        if (!session()->has('current_subscription')) {
+            storeCompanyCurrentSubscription();
+        }
+
+        return session('current_subscription');
+    }
+}
+
+function getCurrentSubscriptionFeatures()
+{
+    return getCurrentSubscription()->plan->planFeatures ?? [];
+}

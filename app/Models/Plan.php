@@ -27,6 +27,6 @@ class Plan extends Model
 
     public function planFeatures()
     {
-        return $this->hasMany(PlanFeature::class, 'plan_id');
+        return $this->hasOne(PlanFeature::class, 'plan_id');
     }
 }
