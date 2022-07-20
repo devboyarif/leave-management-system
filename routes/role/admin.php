@@ -1,16 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ThemeController;
+use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\EmployeeController;
-use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\LeaveRequestController;
-use App\Http\Controllers\Admin\ThemeController;
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/about', function () {
@@ -37,6 +38,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Teams
     Route::resource('/teams', TeamController::class);
+
+    // Plans
+    Route::resource('/plans', PlanController::class);
 
     // Leave Types & Request
     Route::resource('/leaveTypes', LeaveTypeController::class);

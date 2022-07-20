@@ -44,6 +44,11 @@
                            <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
                     </NavLink>
+                    <NavLink title="Plan" :href="route('plans.index')" :active="$page.url == '/admin/teams'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-credit-card nav-icon"></i>
+                        </template>
+                    </NavLink>
                      <Dropdown title="Leave" :active="leaveDropdownActive($page.component)">
                         <template v-slot:icon>
                             <i class="fa-solid fa-plane-departure nav-icon"></i>
