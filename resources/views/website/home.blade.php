@@ -137,9 +137,14 @@
                             <div class="pricing-header text-center">
                                 <h5 class="sub-title">{{ $plan->name }}</h5>
                                 <span class="price">${{ $plan->price }}</span>
-                                <small>/employee/month</small>
+                                @if ($plan->interval == 'custom_date')
+                                    <small>/{{ $plan->custom_interval_days }} {{ __('Days') }}</small>
+                                @else
+                                    <small>/{{ $plan->interval }}</small>
+                                @endif
                             </div>
                             <div class="pricing-list">
+
                                 <ul>
                                     <li>
                                         <i
@@ -168,7 +173,12 @@
                                 </ul>
                             </div>
                             <div class="pricing-btn rounded-buttons text-center">
-                                <a class="btn primary-btn rounded-full price-btn" href="javascript:void(0)">
+                                {{-- @if (auth()->check() && auth()->user()->role == 'admin')
+
+                                @endif --}}
+
+                                <a class="btn primary-btn rounded-full price-btn {{ !auth()->check() ? 'login_required' : '' }} {{ auth()->check() && auth()->user()->role == 'admin' ? 'not_acceptable' : '' }}"
+                                    href="javascript:void(0)">
                                     GET STARTED
                                 </a>
                             </div>

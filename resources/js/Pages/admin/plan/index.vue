@@ -15,12 +15,16 @@
         <div class="col-md-6 col-lg-4 col-xl-3 mb-3 col-12" v-for="plan in plans" :key="plan.id">
             <div class="card h-100 shadow-sm">
                 <div class="card-header text-center py-4">
-                    <h4><b>{{ plan.name }}</b> <small> /{{ plan.interval }}</small></h4>
+                    <h4>
+                        <b>{{ plan.name }}</b>
+                        <small v-if="plan.interval != 'custom_date'"> /{{ plan.interval }}</small>
+                        <small v-else> /{{ plan.custom_interval_days }} {{ __('Days') }}</small>
+                        <!-- custom_interval_days -->
+                    </h4>
                     <div class="badge badge-info" v-if="plan.recommended">{{ __('Recommended') }}</div>
                     <h1 class="text-dark">
                         ${{ plan.price }}
                     </h1>
-                        <small v-if="plan.price">/{{ __('per employee') }}</small>
                 </div>
                 <div class="card-body" v-if="plan.plan_features">
                    <Feature name="Unlimited Employees" :checked="!plan.plan_features.is_limited_user"/>

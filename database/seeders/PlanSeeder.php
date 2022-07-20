@@ -26,7 +26,7 @@ class PlanSeeder extends Seeder
             [
                 'name' => 'Standard',
                 'type' => 'paid',
-                'price' => '1',
+                'price' => 50,
                 'order' => 2,
                 'status' => true,
                 'interval' => 'monthly',
@@ -34,7 +34,7 @@ class PlanSeeder extends Seeder
             [
                 'name' => 'Premium',
                 'type' => 'paid',
-                'price' => '1',
+                'price' => 80,
                 'order' => 3,
                 'status' => true,
                 'recommended' => true,
@@ -43,7 +43,7 @@ class PlanSeeder extends Seeder
             [
                 'name' => 'Custom',
                 'type' => 'paid',
-                'price' => '1',
+                'price' => 20,
                 'order' => 4,
                 'status' => true,
                 'interval' => 'custom_date',
@@ -63,13 +63,23 @@ class PlanSeeder extends Seeder
                     'custom_theme_look' => 0,
                 ]);
             } else {
-                $plan->planFeatures()->create([
-                    'is_limited_user' => 0,
-                    'max_employees' => 10,
-                    'max_teams' => 10,
-                    'max_leave_types' => 10,
-                    'custom_theme_look' => 1,
-                ]);
+                if ($plan->interval == 'custom_date') {
+                    $plan->planFeatures()->create([
+                        'is_limited_user' => 0,
+                        'max_employees' => 50,
+                        'max_teams' => 10,
+                        'max_leave_types' => 10,
+                        'custom_theme_look' => 1,
+                    ]);
+                } else {
+                    $plan->planFeatures()->create([
+                        'is_limited_user' => 1,
+                        'max_employees' => 50,
+                        'max_teams' => 10,
+                        'max_leave_types' => 10,
+                        'custom_theme_look' => 1,
+                    ]);
+                }
             }
         }
     }

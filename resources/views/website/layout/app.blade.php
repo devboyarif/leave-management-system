@@ -8,7 +8,7 @@
     <title>Home | {{ config('app.name') }}</title>
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="{{ asset('website') }}/images/favicon.svg" type="image/svg" />
-
+    @routes
     <!-- ===== All Tags ===== -->
     @include('website.layout.partials.meta')
 
