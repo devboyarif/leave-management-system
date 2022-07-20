@@ -131,338 +131,57 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-7 col-sm-9">
-                    <div class="pricing-style-one">
-                        <div class="pricing-header text-center">
-                            <h5 class="sub-title">Basic</h5>
-                            <span class="price">$199</span>
-                            <h5 class="year">Per year</h5>
-                        </div>
-                        <div class="pricing-list">
-                            <ul>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Carefully crafted
-                                    components
-                                </li>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Amazing page
-                                    examples
-                                </li>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Super friendly
-                                    support team
-                                </li>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Awesome Support
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn rounded-buttons text-center">
-                            <a class="btn primary-btn rounded-full" href="javascript:void(0)">
-                                GET STARTED
-                            </a>
-                        </div>
-                        <div class="bottom-shape">
-                            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 112.35">
-                                <defs>
-                                    <style>
-                                        .color-1 {
-                                            fill: #2bdbdc;
-                                            isolation: isolate;
-                                        }
+                @foreach ($plans as $plan)
+                    <div class="col-lg-3 col-md-7 col-sm-9">
+                        <div class="pricing-style-one">
+                            <div class="pricing-header text-center">
+                                <h5 class="sub-title">{{ $plan->name }}</h5>
+                                <span class="price">${{ $plan->price }}</span>
+                                <small>/employee/month</small>
+                            </div>
+                            <div class="pricing-list">
+                                <ul>
+                                    <li>
+                                        <i
+                                            class="lni {{ !$plan->planFeatures->is_limited_user ? 'lni-checkmark-circle text-success' : 'lni-cross-circle text-danger' }}"></i>
+                                        Unlimited Employees
 
-                                        .cls-1 {
-                                            opacity: 0.1;
-                                        }
-
-                                        .cls-2 {
-                                            opacity: 0.2;
-                                        }
-
-                                        .cls-3 {
-                                            opacity: 0.4;
-                                        }
-
-                                        .cls-4 {
-                                            opacity: 0.6;
-                                        }
-                                    </style>
-                                </defs>
-                                <title>bottom-part1</title>
-                                <g>
-                                    <g data-name="Group 747">
-                                        <path data-name="Path 294" class="cls-1 color-1"
-                                            d="M0,24.21c120-55.74,214.32,2.57,267,0S349.18,7.4,349.18,7.4V82.35H0Z"
-                                            transform="translate(0 0)" />
-                                        <path data-name="Path 297" class="cls-2 color-1"
-                                            d="M350,34.21c-120-55.74-214.32,2.57-267,0S.82,17.4.82,17.4V92.35H350Z"
-                                            transform="translate(0 0)" />
-                                        <path data-name="Path 296" class="cls-3 color-1"
-                                            d="M0,44.21c120-55.74,214.32,2.57,267,0S349.18,27.4,349.18,27.4v74.95H0Z"
-                                            transform="translate(0 0)" />
-                                        <path data-name="Path 295" class="cls-4 color-1"
-                                            d="M349.17,54.21c-120-55.74-214.32,2.57-267,0S0,37.4,0,37.4v74.95H349.17Z"
-                                            transform="translate(0 0)" />
-                                    </g>
-                                </g>
-                            </svg>
+                                    </li>
+                                    <li>
+                                        <i class="lni lni-checkmark-circle text-success"></i>
+                                        Max Employees -
+                                        <b>{{ $plan->planFeatures->is_limited_user ? $plan->planFeatures->max_employees : '∞' }}</b>
+                                    </li>
+                                    <li>
+                                        <i class="lni lni-checkmark-circle text-success"></i>
+                                        Max Teams - <b>{{ $plan->planFeatures->max_teams }}</b>
+                                    </li>
+                                    <li>
+                                        <i class="lni lni-checkmark-circle text-success"></i>
+                                        Max Leave Types - <b>{{ $plan->planFeatures->max_leave_types }}</b>
+                                    </li>
+                                    <li>
+                                        <i
+                                            class="lni {{ $plan->planFeatures->custom_theme_look ? 'lni-checkmark-circle text-success' : 'lni-cross-circle text-danger' }}"></i>
+                                        Custom Theme Look
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pricing-btn rounded-buttons text-center">
+                                <a class="btn primary-btn rounded-full price-btn" href="javascript:void(0)">
+                                    GET STARTED
+                                </a>
+                            </div>
                         </div>
+                        <!-- single pricing -->
                     </div>
-                    <!-- single pricing -->
-                </div>
-                <div class="col-lg-4 col-md-7 col-sm-9">
-                    <div class="pricing-style-one">
-                        <div class="pricing-header text-center">
-                            <h5 class="sub-title">Pro</h5>
-                            <span class="price">$399</span>
-                            <h5 class="year">Per year</h5>
-                        </div>
-                        <div class="pricing-list">
-                            <ul>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Carefully crafted
-                                    components
-                                </li>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Amazing page
-                                    examples
-                                </li>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Super friendly
-                                    support team
-                                </li>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Awesome Support
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn rounded-buttons text-center">
-                            <a class="btn primary-btn rounded-full" href="javascript:void(0)">
-                                GET STARTED
-                            </a>
-                        </div>
-                        <div class="bottom-shape">
-                            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 112.35">
-                                <defs>
-                                    <style>
-                                        .color-1 {
-                                            fill: #2bdbdc;
-                                            isolation: isolate;
-                                        }
-
-                                        .cls-1 {
-                                            opacity: 0.1;
-                                        }
-
-                                        .cls-2 {
-                                            opacity: 0.2;
-                                        }
-
-                                        .cls-3 {
-                                            opacity: 0.4;
-                                        }
-
-                                        .cls-4 {
-                                            opacity: 0.6;
-                                        }
-                                    </style>
-                                </defs>
-                                <title>bottom-part1</title>
-                                <g>
-                                    <g data-name="Group 747">
-                                        <path data-name="Path 294" class="cls-1 color-1"
-                                            d="M0,24.21c120-55.74,214.32,2.57,267,0S349.18,7.4,349.18,7.4V82.35H0Z"
-                                            transform="translate(0 0)" />
-                                        <path data-name="Path 297" class="cls-2 color-1"
-                                            d="M350,34.21c-120-55.74-214.32,2.57-267,0S.82,17.4.82,17.4V92.35H350Z"
-                                            transform="translate(0 0)" />
-                                        <path data-name="Path 296" class="cls-3 color-1"
-                                            d="M0,44.21c120-55.74,214.32,2.57,267,0S349.18,27.4,349.18,27.4v74.95H0Z"
-                                            transform="translate(0 0)" />
-                                        <path data-name="Path 295" class="cls-4 color-1"
-                                            d="M349.17,54.21c-120-55.74-214.32,2.57-267,0S0,37.4,0,37.4v74.95H349.17Z"
-                                            transform="translate(0 0)" />
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- single pricing -->
-                </div>
-                <div class="col-lg-4 col-md-7 col-sm-9">
-                    <div class="pricing-style-one">
-                        <div class="pricing-header text-center">
-                            <h5 class="sub-title">Enterprise</h5>
-                            <span class="price">$699</span>
-                            <h5 class="year">Per year</h5>
-                        </div>
-                        <div class="pricing-list">
-                            <ul>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Carefully crafted
-                                    components
-                                </li>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Amazing page
-                                    examples
-                                </li>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Super friendly
-                                    support team
-                                </li>
-                                <li>
-                                    <i class="lni lni-checkmark-circle"></i> Awesome Support
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn rounded-buttons text-center">
-                            <a class="btn primary-btn rounded-full" href="javascript:void(0)">
-                                GET STARTED
-                            </a>
-                        </div>
-                        <div class="bottom-shape">
-                            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 112.35">
-                                <defs>
-                                    <style>
-                                        .color-1 {
-                                            fill: #2bdbdc;
-                                            isolation: isolate;
-                                        }
-
-                                        .cls-1 {
-                                            opacity: 0.1;
-                                        }
-
-                                        .cls-2 {
-                                            opacity: 0.2;
-                                        }
-
-                                        .cls-3 {
-                                            opacity: 0.4;
-                                        }
-
-                                        .cls-4 {
-                                            opacity: 0.6;
-                                        }
-                                    </style>
-                                </defs>
-                                <title>bottom-part1</title>
-                                <g>
-                                    <g data-name="Group 747">
-                                        <path data-name="Path 294" class="cls-1 color-1"
-                                            d="M0,24.21c120-55.74,214.32,2.57,267,0S349.18,7.4,349.18,7.4V82.35H0Z"
-                                            transform="translate(0 0)" />
-                                        <path data-name="Path 297" class="cls-2 color-1"
-                                            d="M350,34.21c-120-55.74-214.32,2.57-267,0S.82,17.4.82,17.4V92.35H350Z"
-                                            transform="translate(0 0)" />
-                                        <path data-name="Path 296" class="cls-3 color-1"
-                                            d="M0,44.21c120-55.74,214.32,2.57,267,0S349.18,27.4,349.18,27.4v74.95H0Z"
-                                            transform="translate(0 0)" />
-                                        <path data-name="Path 295" class="cls-4 color-1"
-                                            d="M349.17,54.21c-120-55.74-214.32,2.57-267,0S0,37.4,0,37.4v74.95H349.17Z"
-                                            transform="translate(0 0)" />
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- single pricing -->
-                </div>
+                @endforeach
             </div>
             <!-- row -->
         </div>
         <!-- container -->
     </section>
     <!--====== PRICING STYLE ONE ENDS ======-->
-    <section id="pricing" class="ud-pricing">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ud-section-title mx-auto text-center">
-                        <span>Pricing</span>
-                        <h2>Our Pricing Plans</h2>
-                        <p>
-                            There are many variations of passages of Lorem Ipsum available
-                            but the majority have suffered alteration in some form.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-0 align-items-center justify-content-center">
-                <div class="col-lg-4 col-md-6 col-sm-10">
-                    <div class="ud-single-pricing first-item wow fadeInUp" data-wow-delay=".15s">
-                        <div class="ud-pricing-header">
-                            <h3>STARTING FROM</h3>
-                            <h4>$ 19.99/mo</h4>
-                        </div>
-                        <div class="ud-pricing-body">
-                            <ul>
-                                <li>5 User</li>
-                                <li>All UI components</li>
-                                <li>Lifetime access</li>
-                                <li>Free updates</li>
-                                <li>Use on 1 (one) project</li>
-                                <li>4 Months support</li>
-                            </ul>
-                        </div>
-                        <div class="ud-pricing-footer">
-                            <a href="javascript:void(0)" class="ud-main-btn ud-border-btn">
-                                Purchase Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-10">
-                    <div class="ud-single-pricing active wow fadeInUp" data-wow-delay=".1s">
-                        <span class="ud-popular-tag">POPULAR</span>
-                        <div class="ud-pricing-header">
-                            <h3>STARTING FROM</h3>
-                            <h4>$ 30.99/mo</h4>
-                        </div>
-                        <div class="ud-pricing-body">
-                            <ul>
-                                <li>5 User</li>
-                                <li>All UI components</li>
-                                <li>Lifetime access</li>
-                                <li>Free updates</li>
-                                <li>Use on 1 (one) project</li>
-                                <li>4 Months support</li>
-                            </ul>
-                        </div>
-                        <div class="ud-pricing-footer">
-                            <a href="javascript:void(0)" class="ud-main-btn ud-white-btn">
-                                Purchase Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-10">
-                    <div class="ud-single-pricing last-item wow fadeInUp" data-wow-delay=".15s">
-                        <div class="ud-pricing-header">
-                            <h3>STARTING FROM</h3>
-                            <h4>$ 70.99/mo</h4>
-                        </div>
-                        <div class="ud-pricing-body">
-                            <ul>
-                                <li>5 User</li>
-                                <li>All UI components</li>
-                                <li>Lifetime access</li>
-                                <li>Free updates</li>
-                                <li>Use on 1 (one) project</li>
-                                <li>4 Months support</li>
-                            </ul>
-                        </div>
-                        <div class="ud-pricing-footer">
-                            <a href="javascript:void(0)" class="ud-main-btn ud-border-btn">
-                                Purchase Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <!-- ====== Pricing End ====== -->
 
     <!-- ====== FAQ Start ====== -->
@@ -544,25 +263,45 @@
 @endsection
 
 @section('custom-links')
+    @php
+    $theme = getAdminTheme();
+    @endphp
+
     <style>
-        /* ===== Buttons Css ===== */
+        .price-btn {
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+        }
+
+        .btn.rounded-full {
+            border-radius: 50px;
+        }
+
         .pricing-style-one .primary-btn {
-            background: var(--primary);
-            color: var(--white);
-            box-shadow: var(--shadow-2);
+            background: {{ $theme->website_primary_color }};
+            color: #fff;
+            box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04),
+                0px 2px 4px rgba(96, 97, 112, 0.16);
         }
 
         .pricing-style-one .active.primary-btn,
         .pricing-style-one .primary-btn:hover,
         .pricing-style-one .primary-btn:focus {
-            background: var(--primary-dark);
-            color: var(--white);
-            box-shadow: var(--shadow-4);
+            background: {{ $theme->website_primary_color }};
+            color: #fff;
+            box-shadow: 0px 2px 4px rgba(40, 41, 61, 0.04), ;
         }
 
         .pricing-style-one .deactive.primary-btn {
-            background: var(--gray-4);
-            color: var(--dark-3);
+            background: #e0e0e0;
+            color: #6d6d6d;
             pointer-events: none;
         }
 
@@ -572,13 +311,13 @@
         }
 
         .pricing-style-one {
-            box-shadow: var(--shadow-4);
+            box-shadow: 0px 8px 16px rgba(96, 97, 112, 0.16);
             padding: 45px 30px;
             border-radius: 8px;
             position: relative;
             z-index: 1;
             overflow: hidden;
-            background-color: var(--white);
+            background-color: #fff;
             margin-top: 50px;
         }
 
@@ -591,11 +330,11 @@
 
         .pricing-style-one .sub-title {
             font-size: 16px;
-            color: var(--black);
+            color: #1d1d1d;
             position: relative;
             padding: 6px 20px;
             display: inline-block;
-            border: 2px solid var(--primary);
+            border: 2px solid {{ $theme->website_primary_color }};
             border-radius: 30px;
         }
 
@@ -605,7 +344,7 @@
             font-weight: 600;
             line-height: 80px;
             margin-top: 25px;
-            color: var(--black);
+            color: #1d1d1d;
         }
 
         @media (max-width: 767px) {
@@ -623,7 +362,7 @@
         }
 
         .pricing-style-one .year {
-            color: var(--dark-3);
+            color: #6d6d6d;
             margin-top: 3px;
         }
 
@@ -632,12 +371,12 @@
         }
 
         .pricing-style-one .pricing-list li {
-            color: var(--dark-3);
+            color: #6d6d6d;
             margin-top: 16px;
         }
 
         .pricing-style-one .pricing-list li i {
-            color: var(--primary);
+            color: {{ $theme->website_primary_color }};
             margin-right: 8px;
         }
 

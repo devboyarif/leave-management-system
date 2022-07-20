@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Website;
 
 use App\Models\Faq;
+use App\Models\Plan;
 use App\Models\Post;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Feature;
 use App\Models\Testimonial;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class WebsiteController extends Controller
 {
@@ -16,8 +17,9 @@ class WebsiteController extends Controller
         $faqs = Faq::all();
         $features = Feature::all();
         $testimonials = Testimonial::all();
+        $plans = Plan::with('planFeatures')->whereStatus(1)->get();
 
-        return view('website.home', compact('faqs', 'features', 'testimonials'));
+        return view('website.home', compact('faqs', 'features', 'testimonials', 'plans'));
     }
 
     public function about()

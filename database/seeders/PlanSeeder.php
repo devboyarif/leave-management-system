@@ -37,6 +37,7 @@ class PlanSeeder extends Seeder
                 'price' => '1',
                 'order' => 3,
                 'status' => true,
+                'recommended' => true,
                 'interval' => 'yearly',
             ],
             [

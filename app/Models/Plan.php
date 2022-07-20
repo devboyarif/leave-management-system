@@ -17,6 +17,7 @@ class Plan extends Model
         'price',
         'status',
         'order',
+        'recommended',
     ];
 
     public function setNameAttribute($name)

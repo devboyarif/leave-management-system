@@ -87,4 +87,13 @@ class PlanController extends Controller
     {
         //
     }
+
+    public function setRecommended(Plan $plan)
+    {
+        Plan::where('recommended', 1)->update(['recommended' => 0]);
+        $plan->update(['recommended' => 1]);
+
+        session()->flash('success', 'Plan has been set as recommended.');
+        return back();
+    }
 }

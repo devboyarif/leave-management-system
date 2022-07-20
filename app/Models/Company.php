@@ -21,7 +21,7 @@ class Company extends Model
         static::created(function ($company) {
             $company->subscription()->create([
                 'plan_id'  => 1,
-                'expires_date' => now()->addMonth(),
+                'expired_date' => now()->addMonth(),
             ]);
             $company->subscriptionHistory()->create([
                 'plan_id'  => 1,

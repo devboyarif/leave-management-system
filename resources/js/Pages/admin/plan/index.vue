@@ -1,12 +1,22 @@
 <template>
 
     <Head :title="__('Plan')" />
+    <div class="row align-items-end justify-content-center">
+        <!-- Set Recommended Plan -->
+        <SetRecommended :plans="plans"/>
+
+        <div class="col-md-4 d-flex mb-3 justify-content-end">
+            <a href="" class="btn btn-primary d-inline-block">
+                <i class="fas fa-plus"></i>&nbsp; {{ __('Create plan') }}
+            </a>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4 col-xl-3 mb-3 col-12" v-for="plan in plans" :key="plan.id">
             <div class="card h-100 shadow-sm">
                 <div class="card-header text-center py-4">
                     <h4><b>{{ plan.name }}</b> <small> /{{ plan.interval }}</small></h4>
-                    <div class="badge badge-info">{{ __('Recommended') }}</div>
+                    <div class="badge badge-info" v-if="plan.recommended">{{ __('Recommended') }}</div>
                     <h1 class="text-dark">
                         ${{ plan.price }}
                     </h1>
@@ -14,9 +24,9 @@
                 </div>
                 <div class="card-body" v-if="plan.plan_features">
                    <Feature name="Unlimited Employees" :checked="!plan.plan_features.is_limited_user"/>
-                   <Feature name="Max Number of employees" :checked="true" :value="plan.plan_features.is_limited_user ? plan.plan_features.max_employees : '∞'"/>
-                   <Feature name="Max Number of Teams" :checked="true" :value="plan.plan_features.max_teams"/>
-                   <Feature name="Max Number of Leave Types" :checked="true" :value="plan.plan_features.max_leave_types"/>
+                   <Feature name="Max Employees" :checked="true" :value="plan.plan_features.is_limited_user ? plan.plan_features.max_employees : '∞'"/>
+                   <Feature name="Max Teams" :checked="true" :value="plan.plan_features.max_teams"/>
+                   <Feature name="Max Leave Types" :checked="true" :value="plan.plan_features.max_leave_types"/>
                    <Feature name="Custom Theme Look" :checked="plan.plan_features.custom_theme_look"/>
                 </div>
                 <div class="card-footer">
@@ -38,10 +48,12 @@
 
 <script>
 import Feature from "../../../Shared/Admin/Plan/Feature.vue";
+import SetRecommended from "../../../Shared/Admin/Plan/SetRecommended.vue";
 
 export default {
     components: {
         Feature,
+        SetRecommended,
     },
     props: {
         plans: {
