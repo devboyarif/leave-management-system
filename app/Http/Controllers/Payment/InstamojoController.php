@@ -3,18 +3,26 @@
 namespace App\Http\Controllers\Payment;
 
 use Instamojo\Instamojo;
-use Illuminate\Http\Request;
 use App\Traits\PaymentAble;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class InstamojoController extends Controller
 {
     use PaymentAble;
 
-    public function pay(Request $request)
+    public function pay()
     {
-        session(['plan_id' => $request->plan_id]);
-        session(['payment_provider' => 'instamojo']);
+        $plan = session('plan');
+        $converted_amount = currencyConversion($plan->price);
+        $amount = currencyConversion($plan->price, null, 'INR', 1);
+
+        session(['order_payment' => [
+            'payment_provider' => 'instamojo',
+            'amount' =>  $amount,
+            'currency_symbol' => '₹',
+            'usd_amount' =>  $converted_amount,
+        ]]);
 
         $ch = curl_init();
 
@@ -26,20 +34,20 @@ class InstamojoController extends Controller
             $ch,
             CURLOPT_HTTPHEADER,
             array(
-                "X-Api-Key:" . config('zakirsoft.im_key'),
-                "X-Auth-Token:" . config('zakirsoft.im_secret')
+                "X-Api-Key:" . config('kodebazar.im_key'),
+                "X-Auth-Token:" . config('kodebazar.im_secret')
             )
         );
         $payload = array(
-            'purpose' => "Payment for the job you bought",
-            'amount' => $request->amount,
+            'purpose' => "Payment for the plan: " . $plan->name,
+            'amount' => $amount,
             'phone' => "9888888888",
-            'buyer_name' => auth('user')->user()->name,
+            'buyer_name' => auth()->user()->name,
             'redirect_url' => route('instamojo.success'),
             'send_email' => true,
             'webhook' => 'http://www.example.com/webhook/',
             'send_sms' => true,
-            'email' => auth('user')->user()->email,
+            'email' => auth()->user()->email,
             'allow_repeated_payments' => false
         );
         curl_setopt($ch, CURLOPT_POST, true);
@@ -48,29 +56,6 @@ class InstamojoController extends Controller
         curl_close($ch);
         $response = json_decode($response);
         return redirect($response->payment_request->longurl);
-
-        $api = new Instamojo(
-            config('zakirsoft.im_key'),
-            config('zakirsoft.im_secret'),
-            config('zakirsoft.im_url')
-        );
-
-        try {
-            $response = $api->paymentRequestCreate(array(
-                "purpose" => "Payment for the product you bought",
-                "amount" => $request->amount,
-                "buyer_name" => auth('user')->user()->name,
-                "send_email" => true,
-                "email" => auth('user')->user()->name,
-                "phone" => "123456789",
-                "redirect_url" => route('instamojo.success')
-            ));
-
-            header('Location: ' . $response['longurl']);
-            exit();
-        } catch (\Exception $e) {
-            print('Error: ' . $e->getMessage());
-        }
     }
 
     public function success(Request $request)
@@ -87,8 +72,8 @@ class InstamojoController extends Controller
             $ch,
             CURLOPT_HTTPHEADER,
             array(
-                "X-Api-Key:" . config('zakirsoft.im_key'),
-                "X-Auth-Token:" . config('zakirsoft.im_secret')
+                "X-Api-Key:" . config('kodebazar.im_key'),
+                "X-Auth-Token:" . config('kodebazar.im_secret')
             )
         );
 
@@ -104,8 +89,8 @@ class InstamojoController extends Controller
 
         if ($data->success == true) {
             if ($data->payment->status == 'Credit') {
+                session(['transaction_id' => $request->get('payment_id') ?? null]);
 
-                // Here Your Database Insert Login
                 $this->orderPlacing();
             } else {
                 session()->flash('error', 'Payment was failed, , Try Again!!');

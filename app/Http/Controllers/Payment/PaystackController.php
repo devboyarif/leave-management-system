@@ -19,32 +19,28 @@ class PaystackController extends Controller
      */
     public function redirectToGateway(Request $request)
     {
-        session(['plan_id' => $request->plan_id]);
-        session(['payment_provider' => 'paystack']);
+        $plan = session('plan');
+        $converted_amount = currencyConversion($plan->price);
+        $amount = currencyConversion($plan->price, null, 'ZAR');
 
-        $request->validate([
-            'plan_id' => 'required',
-            'amount' => 'required',
-        ]);
+        session(['order_payment' => [
+            'payment_provider' => 'paystack',
+            'amount' => $amount,
+            'currency_symbol' => '₦',
+            'usd_amount' =>  $converted_amount,
+        ]]);
 
-        $secret_key = config('zakirsoft.paystack_key');
+        $secret_key = config('kodebazar.paystack_key');
         $curl = curl_init();
         $callback_url = route('paystack.success'); // url to go to after payment
-        $amount = (int) Currency::convert()
-            ->from(config('jobpilot.currency'))
-            ->to('ZAR')
-            ->amount($request->amount)
-            ->round(2)
-            ->get() * 100;
-        // $amount = $request->amount * 100 * 16;
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.paystack.co/transaction/initialize",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode([
-                'amount' => $amount,
-                'email' => auth('user')->user()->email,
+                'amount' => $amount * 100,
+                'email' => auth()->user()->email,
                 'callback_url' => $callback_url,
             ]),
             CURLOPT_HTTPHEADER => [
@@ -61,7 +57,6 @@ class PaystackController extends Controller
         }
 
         $tranx = json_decode($response, true);
-        session(['paystack_request' => $request->all()]);
         if (!$tranx['status']) {
             return redirect()->back()->with("error", $tranx['message']);
         }
@@ -74,9 +69,9 @@ class PaystackController extends Controller
      */
     public function successPaystack(Request $request)
     {
-        $paystack_request = session('paystack_request');
-
         if ($request['trxref'] === $request['reference']) {
+            session(['transaction_id' => $request['reference'] ?? null]);
+
             $this->orderPlacing();
         }
 

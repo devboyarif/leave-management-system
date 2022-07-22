@@ -91,8 +91,8 @@
                                 alt="">
                         </div>
                         <div class="card-body">
-                            <a href="javascript:;" onclick="payWithPaystack()" class="ud-main-btn ud-white-btn">Pay via
-                                Paystack</a>
+                            <button id="paystack_btn" type="button" class="ud-main-btn ud-white-btn">Pay
+                                via Paystack</button>
                         </div>
                     </div>
                 </div>
@@ -104,8 +104,8 @@
                                 alt="">
                         </div>
                         <div class="card-body">
-                            <a href="https://demo.websolutionus.com/docpoint/doctor/pay-with-instamojo/basic"
-                                class="ud-main-btn ud-white-btn">Pay via Instamojo</a>
+                            <button id="instamojo_btn" type="button" class="ud-main-btn ud-white-btn">Pay
+                                via Instamojo</button>
                         </div>
                     </div>
                 </div>
@@ -166,15 +166,13 @@
     {{-- Paypal Form --}}
     <form action="{{ route('paypal.post') }}" method="POST" class="d-none" id="paypal-form">
         @csrf
-        <input type="hidden" name="amount" value="{{ $plan->price }}">
-        <input type="hidden" name="plan_id" value="{{ $plan->id }}">
+
     </form>
 
     {{-- Stripe Form --}}
     <form action="{{ route('stripe.post') }}" method="POST" class="d-none">
         @csrf
-        <input type="hidden" name="amount" value="{{ $plan->price }}">
-        <input type="hidden" name="plan_id" value="{{ $plan->id }}">
+
 
         <script id="stripe_script" src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{{ config('kodebazar.stripe_key') }}" data-amount="{{ session('stripe_amount') }}"
@@ -185,9 +183,6 @@
     {{-- Razorpay Form --}}
     <form action="{{ route('razorpay.post') }}" method="POST" class="d-none">
         @csrf
-        <input type="hidden" name="amount" value="{{ $plan->price }}">
-        <input type="hidden" name="plan_id" value="{{ $plan->id }}">
-
         <script id="razor_script" src="https://checkout.razorpay.com/v1/checkout.js"
             data-key="{{ config('kodebazar.razorpay_key') }}" data-amount="{{ session('razor_amount') }}"
             data-buttontext="Pay with Razorpay" data-name="{{ config('app.name') }}" data-description="Money pay with razorpay"
@@ -198,29 +193,21 @@
     {{-- paystack_btn Form --}}
     <form action="{{ route('paystack.post') }}" method="POST" class="d-none" id="paystack-form">
         @csrf
-        <input type="hidden" name="amount" value="{{ $plan->price }}">
-        <input type="hidden" name="plan_id" value="{{ $plan->id }}">
     </form>
 
     {{-- flutterwave Form --}}
     <form action="{{ route('flutterwave.pay') }}" method="POST" class="d-none" id="flutter-form">
         @csrf
-        <input type="hidden" name="amount" value="{{ $plan->price }}">
-        <input type="hidden" name="plan_id" value="{{ $plan->id }}">
     </form>
 
     {{-- mollie Form --}}
     <form action="{{ route('mollie.payment') }}" method="POST" class="d-none" id="mollie-form">
         @csrf
-        <input type="hidden" name="amount" value="{{ $plan->price }}">
-        <input type="hidden" name="plan_id" value="{{ $plan->id }}">
     </form>
 
     {{-- instamojo Form --}}
     <form action="{{ route('instamojo.pay') }}" method="POST" class="d-none" id="instamojo-form">
         @csrf
-        <input type="hidden" name="amount" value="{{ $plan->price }}">
-        <input type="hidden" name="plan_id" value="{{ $plan->id }}">
     </form>
 
     {{-- SSL Form --}}

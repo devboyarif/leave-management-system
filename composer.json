@@ -10,6 +10,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4",
         "inertiajs/inertia-laravel": "^0.4.5",
+        "instamojo/instamojo-php": "^1.0",
         "kingflamez/laravelrave": "^4.2",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
