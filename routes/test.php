@@ -27,6 +27,9 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    $amount = currencyConversion(50, null, 'EUR');
+    return $decimal_amount =  number_format((float)$amount, 2, '.', '');
+
     return Currency::convert()
         ->from('USD')
         ->to('NGN')

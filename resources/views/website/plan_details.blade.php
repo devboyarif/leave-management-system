@@ -26,8 +26,7 @@
                                 src="https://logowik.com/content/uploads/images/897_paypal.jpg" alt="">
                         </div>
                         <div class="card-body">
-                            <button id="paypal_btn" type="button" data-toggle="modal" data-target="#stripeId"
-                                class="ud-main-btn ud-white-btn">Pay via Paypal</button>
+                            <button id="paypal_btn" type="button" class="ud-main-btn ud-white-btn">Pay via Paypal</button>
                         </div>
                     </div>
                 </div>
@@ -39,8 +38,7 @@
                                 alt="">
                         </div>
                         <div class="card-body">
-                            <button id="stripe_btn" type="button" data-toggle="modal" data-target="#stripeId"
-                                class="ud-main-btn ud-white-btn">Pay
+                            <button id="stripe_btn" type="button" class="ud-main-btn ud-white-btn">Pay
                                 via Stripe</button>
                         </div>
                     </div>
@@ -53,8 +51,7 @@
                                 alt="">
                         </div>
                         <div class="card-body">
-                            <button id="razorpay_btn" type="button" data-toggle="modal" data-target="#stripeId"
-                                class="ud-main-btn ud-white-btn">Pay
+                            <button id="razorpay_btn" type="button" class="ud-main-btn ud-white-btn">Pay
                                 via Razorpay</button>
 
                         </div>
@@ -68,8 +65,7 @@
                                 alt="">
                         </div>
                         <div class="card-body border-0">
-                            <button id="flutter_btn" type="button" data-toggle="modal" data-target="#stripeId"
-                                class="ud-main-btn ud-white-btn">Pay
+                            <button id="flutter_btn" type="button" class="ud-main-btn ud-white-btn">Pay
                                 via Flutterwave</button>
                         </div>
                     </div>
@@ -82,8 +78,8 @@
                                 alt="">
                         </div>
                         <div class="card-body">
-                            <a href="https://demo.websolutionus.com/docpoint/doctor/pay-with-mollie/basic"
-                                class="ud-main-btn ud-white-btn">Pay via Mollie</a>
+                            <button id="mollie_btn" type="button" class="ud-main-btn ud-white-btn">Pay
+                                via Mollie</button>
                         </div>
                     </div>
                 </div>
