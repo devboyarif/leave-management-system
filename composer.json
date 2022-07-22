@@ -13,6 +13,7 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "srmklive/paypal": "^3.0",
         "staudenmeir/belongs-to-through": "^2.5",
         "stichoza/google-translate-php": "^4.1",
         "stripe/stripe-php": "^8.11",

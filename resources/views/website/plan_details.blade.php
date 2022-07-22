@@ -26,8 +26,8 @@
                                 src="https://logowik.com/content/uploads/images/897_paypal.jpg" alt="">
                         </div>
                         <div class="card-body">
-                            <a href="https://demo.websolutionus.com/docpoint/doctor/pay-with-paypal/basic"
-                                class="ud-main-btn ud-white-btn">Pay via Paypal</a>
+                            <button id="paypal_btn" type="button" data-toggle="modal" data-target="#stripeId"
+                                class="ud-main-btn ud-white-btn">Pay via Paypal</button>
                         </div>
                     </div>
                 </div>

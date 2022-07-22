@@ -39,34 +39,5 @@ class StripeController extends Controller
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
-
-        // return $charge;
-
-        // Australian Dollar, AUD
-        // Brazilian Real, BRL
-        // British Pound, GBP
-        // Bulgarian Lev, BGN
-        // Canadian Dollar, CAD
-        // Czech Koruna, CZK
-        // Danish Krone, DKK
-        // Euro, EUR
-        // Hong Kong Dollar, HKD
-        // Hungarian Forint, HUF
-        // Israeli New Sheqel, ILS
-        // Japanese Yen, JPY
-        // Malaysian Ringgit, MYR
-        // Mexican Peso, MXN
-        // New Taiwan Dollar, TWD
-        // New Zealand Dollar, NZD
-        // Norwegian Krone, NOK
-        // Philippine Peso, PHP
-        // Polish Złoty, PLN
-        // Romania Leu, RON
-        // Russian Ruble, RUB
-        // Singapore Dollar, SGD
-        // Swedish Krona, SEK
-        // Swiss Franc, CHF
-        // Thai Baht, THB
-        // United States Dollar, USD
     }
 }
