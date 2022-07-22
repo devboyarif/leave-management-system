@@ -53,8 +53,9 @@
                                 alt="">
                         </div>
                         <div class="card-body">
-                            <a href="javascript:;" onclick="makePayment()" class="ud-main-btn ud-white-btn">Pay via
-                                Razorpay</a>
+                            <button id="razorpay_btn" type="button" data-toggle="modal" data-target="#stripeId"
+                                class="ud-main-btn ud-white-btn">Pay
+                                via Razorpay</button>
                         </div>
                     </div>
                 </div>
@@ -190,10 +191,10 @@
         <input type="hidden" name="plan_id" value="{{ $plan->id }}">
 
         <script id="razor_script" src="https://checkout.razorpay.com/v1/checkout.js"
-            data-key="{{ config('kodebazar.razorpay_key') }}" data-amount="{{ str_replace(',', '', $plan->price * 100) }}"
+            data-key="{{ config('kodebazar.razorpay_key') }}" data-amount="{{ session('razor_amount') }}"
             data-buttontext="Pay with Razorpay" data-name="{{ config('app.name') }}" data-description="Money pay with razorpay"
             data-prefill.name="{{ auth()->user()->name }}" data-prefill.email="{{ auth()->user()->email }}"
-            data-theme.color="#2980b9" data-currency="USD"></script>
+            data-theme.color="#2980b9" data-currency="INR"></script>
     </form>
 
     {{-- paystack_btn Form --}}

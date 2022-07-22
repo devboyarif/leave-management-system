@@ -27,6 +27,7 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    return currencyConversion(50, null, 'INR', 1);
     return currentCompany()->subscription->load('plan');
     return now()->addMonth()->format('Y-m-d');
     return currentCompany()->subscription;
@@ -47,7 +48,6 @@ Route::get('/test', function () {
     //     ->to('BDT')
     //     ->get();
 
-    return currencyConversion(50);
 
 
 

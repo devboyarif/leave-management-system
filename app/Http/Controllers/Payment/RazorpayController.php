@@ -15,17 +15,26 @@ class RazorpayController extends Controller
 
     public function payment(Request $request)
     {
-        session(['plan_id' => $request->plan_id]);
-        session(['payment_provider' => 'razorpay']);
+        $plan = session('plan');
+        $converted_amount = currencyConversion($plan->price);
+
+        session(['order_payment' => [
+            'payment_provider' => 'razorpay',
+            'amount' =>  $converted_amount,
+            'currency_symbol' => '$',
+            'usd_amount' =>  $converted_amount,
+        ]]);
 
         $input = $request->all();
-        $api = new Api(config('zakirsoft.razorpay_key'), config('zakirsoft.razorpay_secret'));
+        $api = new Api(config('kodebazar.razorpay_key'), config('kodebazar.razorpay_secret'));
 
         $payment = $api->payment->fetch($input['razorpay_payment_id']);
 
         if (count($input)  && !empty($input['razorpay_payment_id'])) {
             try {
                 $payment->capture(array('amount' => $payment['amount']));
+
+                session(['transaction_id' => $input['razorpay_payment_id'] ?? null]);
                 $this->orderPlacing();
             } catch (\Exception $e) {
                 return $e->getMessage();
