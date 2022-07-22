@@ -71,4 +71,13 @@ class WebsiteController extends Controller
     {
         return view('website.contact');
     }
+
+    public function planDetails(Plan $plan)
+    {
+        // session data storing
+        session(['stripe_razor_amount' => currencyConversion($plan->price) * 100]);
+        session(['plan' => $plan]);
+
+        return view('website.plan_details', compact('plan'));
+    }
 }

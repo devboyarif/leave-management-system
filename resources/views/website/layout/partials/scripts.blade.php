@@ -76,3 +76,5 @@
         })
     });
 </script>
+
+@yield('custom-scripts')

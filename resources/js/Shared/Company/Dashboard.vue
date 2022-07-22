@@ -168,12 +168,21 @@
                                     <td>{{ subscribed_plan.plan.name }}</td>
                                 </tr>
                                 <tr v-if="subscribed_plan.plan">
-                                    <th>{{ __('Interval') }}</th>
-                                    <td>{{ subscribed_plan.plan.interval }}</td>
+                                    <th>{{ __('Subscription Type') }}</th>
+                                    <td>
+                                        <span v-if="subscribed_plan.plan.interval == 'custom_date'">
+                                        {{ subscribed_plan.plan.custom_interval_days }} {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
+                                        </span>
+                                        <span v-else>{{ subscribed_plan.plan.interval }}</span>
+                                    </td>
                                 </tr>
                                 <tr v-if="subscribed_plan.plan && subscribed_plan.plan.interval != 'lifetime'">
                                    <th>{{ __('Expiration Remaining') }}</th>
-                                    <td>{{ subscribed_plan.remaining_days }} {{ pluralize(subscribed_plan.remaining_days, 'Day') }}</td>
+                                    <td>{{ subscribed_plan.remaining_days }}
+                                    <span v-if="subscribed_plan.remaining_days != 'Lifetime'">
+                                        {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
+                                    </span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

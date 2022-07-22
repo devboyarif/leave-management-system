@@ -14,12 +14,20 @@ class Subscription extends Model
 
     public function getRemainingDaysAttribute()
     {
-        return formatDateTime($this->expired_date)->diffInDays(formatDateTime(now()->format('Y-m-d')));
+        if ($this->subscription_type == 'lifetime') {
+            return 'Lifetime';
+        } else {
+            return formatDateTime($this->expired_date)->diffInDays(formatDateTime(now()->format('Y-m-d')));
+        }
     }
 
     public function getPlanExpiredAttribute()
     {
-        return formatDateTime($this->expired_date)->isFuture() ? false : true;
+        if ($this->subscription_type == 'lifetime') {
+            return false;
+        } else {
+            return formatDateTime($this->expired_date)->isFuture() ? false : true;
+        }
     }
 
     public function plan()

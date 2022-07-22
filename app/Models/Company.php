@@ -22,6 +22,7 @@ class Company extends Model
             $company->subscription()->create([
                 'plan_id'  => 1,
                 'expired_date' => now()->addMonth(),
+                'subscription_type' => 'monthly'
             ]);
             $company->subscriptionHistory()->create([
                 'plan_id'  => 1,

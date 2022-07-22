@@ -58,5 +58,10 @@ class NewEmployeeJoined extends Notification
             'message' => 'New member joined',
             'url' => url('/'),
         ];
+
+        return [
+            'title' => ucfirst($this->user->name) . ' has purchased the ' . ucfirst($this->plan->label) . ' plan!',
+            'url' => route('order.show', $this->order->id)
+        ];
     }
 }

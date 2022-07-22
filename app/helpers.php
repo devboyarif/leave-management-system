@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use App\Models\Theme;
+use AmrShawky\Currency;
 use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Support\Str;
@@ -191,4 +192,24 @@ function getCurrentSubscription()
 function getCurrentSubscriptionFeatures()
 {
     return getCurrentSubscription()->plan->planFeatures ?? [];
+}
+
+function currencyConversion($amount, $from = null, $to = null, $round = 2)
+{
+    $from = $from ?? config('kodebazar.currency');
+    $to = $to ?? 'USD';
+
+    return Currency::convert()
+        ->from($from)
+        ->to($to)
+        ->amount($amount)
+        ->round($round)
+        ->get();
+}
+
+function checkMailConfig()
+{
+    $status = config('mail.mailers.smtp.transport') && config('mail.mailers.smtp.host') && config('mail.mailers.smtp.port') && config('mail.mailers.smtp.username') && config('mail.mailers.smtp.password') && config('mail.mailers.smtp.encryption') && config('mail.from.address') && config('mail.from.name');
+
+    return $status ? 1 : 0;
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use AmrShawky\Currency;
 use App\Models\Holiday;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -26,7 +27,48 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
-    return currentCompany()->leaveTypes->count();
+    return currentCompany()->subscription->load('plan');
+    return now()->addMonth()->format('Y-m-d');
+    return currentCompany()->subscription;
+    session(['order_payment' => [
+        'payment_provider' => 'stripe',
+        'amount' =>  50,
+        'currency_symbol' => '$',
+        'usd_amount' =>  50,
+    ]]);
+
+    return session('order_payment')['amount'];
+
+
+
+    return $plan = session('plan');
+    // return Currency::convert()
+    //     ->from('USD')
+    //     ->to('BDT')
+    //     ->get();
+
+    return currencyConversion(50);
+
+
+
+    return $amount = (int) Currency::convert()
+        ->from(config('kodebazar.currency'))
+        ->to('USD')
+        ->amount(50)
+        ->round(2)
+        ->get() * 100;
+
+
+
+    return Currency::rates()
+        ->latest()
+        ->get();
+
+
+
+
+    return session('current_subscription');
+    return currentCompany()->subscription;
     return getCurrentSubscriptionFeatures()->is_limited_user;
 
 

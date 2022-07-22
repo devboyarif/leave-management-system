@@ -11,14 +11,18 @@ class PlanPurchase extends Notification
 {
     use Queueable;
 
+    public $admin_name, $company_name, $plan_name;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($admin_name, $company_name, $plan_name)
     {
-        //
+        $this->admin_name = $admin_name;
+        $this->company_name = $company_name;
+        $this->plan_name = $plan_name;
     }
 
     /**
@@ -29,7 +33,7 @@ class PlanPurchase extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -41,9 +45,11 @@ class PlanPurchase extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject(ucfirst($this->company_name) . ' has subscribed the ' . ucfirst($this->plan_name) . ' plan!')
+            ->greeting('Hello, ' . $this->admin_name)
+            ->line(ucfirst($this->company_name) . ' has subscribed the ' . ucfirst($this->plan_name) . ' Plan!')
+            ->line('Regards,')
+            ->salutation(config('app.name'));
     }
 
     /**
@@ -55,7 +61,8 @@ class PlanPurchase extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'message' => ucfirst($this->company_name) . ' has purchased the ' . ucfirst($this->plan_name) . ' plan!',
+            'url' => url('/'),
         ];
     }
 }

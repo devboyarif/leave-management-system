@@ -60,7 +60,7 @@ class HandleInertiaRequests extends Middleware
 
         // Subscription
         if (auth()->check() && auth()->user()->role == 'company') {
-            // session()->forget('current_subscription');
+            session()->forget('current_subscription');
             if (!session()->has('current_subscription')) {
                 storeCompanyCurrentSubscription();
             }

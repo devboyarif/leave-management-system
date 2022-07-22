@@ -173,14 +173,23 @@
                                 </ul>
                             </div>
                             <div class="pricing-btn rounded-buttons text-center">
-                                {{-- @if (auth()->check() && auth()->user()->role == 'admin')
+                                @if (auth()->check() && auth()->user()->role == 'company')
+                                    <a class="btn primary-btn rounded-full price-btn"
+                                        href="{{ $plan->id == session('current_subscription')->plan_id ? 'javascript:void(0)' : route('website.plan.details', $plan->slug) }}">
+                                        @if ($plan->id == session('current_subscription')->plan_id)
+                                            Current Plan
+                                        @else
+                                            Subscribe Now
+                                        @endif
+                                    </a>
+                                @else
+                                    <a class="btn primary-btn rounded-full price-btn {{ !auth()->check() ? 'login_required' : '' }} {{ auth()->check() && auth()->user()->role == 'admin' ? 'not_acceptable' : '' }}"
+                                        href="javascript:void(0)">
+                                        GET STARTED
+                                    </a>
+                                @endif
 
-                                @endif --}}
-
-                                <a class="btn primary-btn rounded-full price-btn {{ !auth()->check() ? 'login_required' : '' }} {{ auth()->check() && auth()->user()->role == 'admin' ? 'not_acceptable' : '' }}"
-                                    href="javascript:void(0)">
-                                    GET STARTED
-                                </a>
+                                {{-- session('current_subscription') --}}
                             </div>
                         </div>
                         <!-- single pricing -->
