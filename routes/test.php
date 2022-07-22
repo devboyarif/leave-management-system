@@ -27,26 +27,13 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
-    return currencyConversion(50, null, 'INR', 1);
+    return Currency::convert()
+        ->from('USD')
+        ->to('NGN')
+        ->get();
+    return currencyConversion(50, null, 'NGN');
     return currentCompany()->subscription->load('plan');
-    return now()->addMonth()->format('Y-m-d');
-    return currentCompany()->subscription;
-    session(['order_payment' => [
-        'payment_provider' => 'stripe',
-        'amount' =>  50,
-        'currency_symbol' => '$',
-        'usd_amount' =>  50,
-    ]]);
 
-    return session('order_payment')['amount'];
-
-
-
-    return $plan = session('plan');
-    // return Currency::convert()
-    //     ->from('USD')
-    //     ->to('BDT')
-    //     ->get();
 
 
 

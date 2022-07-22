@@ -56,6 +56,7 @@
                             <button id="razorpay_btn" type="button" data-toggle="modal" data-target="#stripeId"
                                 class="ud-main-btn ud-white-btn">Pay
                                 via Razorpay</button>
+
                         </div>
                     </div>
                 </div>
@@ -67,8 +68,9 @@
                                 alt="">
                         </div>
                         <div class="card-body border-0">
-                            <a href="javascript:;" onclick="makePayment()" class="ud-main-btn ud-white-btn">Pay via
-                                Flutterwave</a>
+                            <button id="flutter_btn" type="button" data-toggle="modal" data-target="#stripeId"
+                                class="ud-main-btn ud-white-btn">Pay
+                                via Flutterwave</button>
                         </div>
                     </div>
                 </div>
@@ -179,7 +181,7 @@
         <input type="hidden" name="plan_id" value="{{ $plan->id }}">
 
         <script id="stripe_script" src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="{{ config('kodebazar.stripe_key') }}" data-amount="{{ session('stripe_razor_amount') }}"
+            data-key="{{ config('kodebazar.stripe_key') }}" data-amount="{{ session('stripe_amount') }}"
             data-name="{{ config('app.name') }}" data-description="Money pay with stripe"
             data-locale="{{ app()->getLocale() == 'en' ? 'en' : app()->getLocale() }}" data-currency="USD"></script>
     </form>

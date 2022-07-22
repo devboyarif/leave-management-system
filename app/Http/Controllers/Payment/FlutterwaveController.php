@@ -17,8 +17,16 @@ class FlutterwaveController extends Controller
      */
     public function initialize(Request $request)
     {
-        session(['plan_id' => $request->plan_id]);
-        session(['payment_provider' => 'flutterwave']);
+        $plan = session('plan');
+        $converted_amount = currencyConversion($plan->price);
+        $amount = currencyConversion($plan->price, null, 'NGN', 1);
+
+        session(['order_payment' => [
+            'payment_provider' => 'flutterwave',
+            'amount' => $amount,
+            'currency_symbol' => '₦',
+            'usd_amount' =>  $converted_amount,
+        ]]);
 
         //This generates a payment reference
         $reference = Flutterwave::generateReference();
@@ -26,19 +34,19 @@ class FlutterwaveController extends Controller
         // Enter the details of the payment
         $data = [
             'payment_options' => 'card,banktransfer',
-            'amount' => $request->amount,
-            'email' => auth('user')->user()->email,
+            'amount' => $amount,
+            'email' => auth()->user()->email,
             'tx_ref' => $reference,
-            'currency' => config('zakirsoft.currency') ?? 'NGN',
+            'currency' => 'NGN',
             'redirect_url' => route('flutterwave.callback'),
             'customer' => [
-                'email' => auth('user')->user()->email,
+                'email' => auth()->user()->email,
                 "phone_number" => '123456789',
-                "name" => auth('user')->user()->name,
+                "name" => auth()->user()->name,
             ],
 
             "customizations" => [
-                "title" => "payment for the job services",
+                "title" => "payment for the subscription",
                 "description" => date('Y-m-d H:i:s'),
             ]
         ];
@@ -68,6 +76,7 @@ class FlutterwaveController extends Controller
             $transactionID = Flutterwave::getTransactionIDFromCallback();
             $data = Flutterwave::verifyTransaction($transactionID);
 
+            session(['transaction_id' => $transactionID ?? null]);
             $this->orderPlacing();
         } elseif ($status ==  'cancelled') {
             return back()->with('error', 'Payment was cancelled');
@@ -76,14 +85,5 @@ class FlutterwaveController extends Controller
             return back()->with('error', 'Payment was cancelled');
             //Put desired action/code after transaction has failed here
         }
-        // Get the transaction from your DB using the transaction reference (txref)
-        // Check if you have previously given value for the transaction. If you have, redirect to your successpage else, continue
-        // Confirm that the currency on your db transaction is equal to the returned currency
-        // Confirm that the db transaction amount is equal to the returned amount
-        // Update the db transaction record (including parameters that didn't exist before the transaction is completed. for audit purpose)
-        // Give value for the transaction
-        // Update the transaction to note that you have given value for the transaction
-        // You can also redirect to your success page from here
-
     }
 }

@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+        KingFlamez\Rave\RaveServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -229,7 +230,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Rave' => KingFlamez\Rave\Facades\Rave::class,
     ],
 
 ];

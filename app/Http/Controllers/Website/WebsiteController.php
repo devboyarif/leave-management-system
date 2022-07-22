@@ -75,7 +75,8 @@ class WebsiteController extends Controller
     public function planDetails(Plan $plan)
     {
         // session data storing
-        session(['stripe_razor_amount' => currencyConversion($plan->price) * 100]);
+        session(['plan' => $plan]);
+        session(['stripe_amount' => currencyConversion($plan->price) * 100]);
         session(['razor_amount' => currencyConversion(50, null, 'INR', 1) * 100]);
 
         return view('website.plan_details', compact('plan'));
