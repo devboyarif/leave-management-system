@@ -78,9 +78,9 @@
                                     <a class="btn primary-btn rounded-full price-btn"
                                         href="{{ $plan->id == session('current_subscription')->plan_id ? 'javascript:void(0)' : route('website.plan.details', $plan->slug) }}">
                                         @if ($plan->id == session('current_subscription')->plan_id)
-                                            Current Plan
+                                            {{ __('Current Plan') }}
                                         @else
-                                            Subscribe Now
+                                            {{ __('Select Plan') }}
                                         @endif
                                     </a>
                                 @else

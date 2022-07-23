@@ -63,6 +63,11 @@
                             <span class="right badge badge-danger">{{ __('Pro') }}</span>
                         </template>
                     </NavLink>
+                    <NavLink title="Pricing Plan" :href="route('company.plan')" :active="$page.component == 'company/plan'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-user-group nav-icon"></i>
+                        </template>
+                    </NavLink>
                      <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">
                            <i class="fa-solid fa-right-from-bracket nav-icon"></i>

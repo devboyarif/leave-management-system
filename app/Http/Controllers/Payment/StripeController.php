@@ -27,7 +27,7 @@ class StripeController extends Controller
         try {
             Stripe::setApiKey(config('kodebazar.stripe_secret'));
             $charge = Charge::create([
-                "amount" => session('stripe_razor_amount'),
+                "amount" => session('stripe_amount'),
                 "currency" => 'USD',
                 "source" => $request->stripeToken,
                 "description" => "Payment for " . $plan->name . " plan" . " in " . config('app.name'),

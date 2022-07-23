@@ -73,6 +73,6 @@ trait PaymentAble
         session()->forget('plan');
         session()->forget('order_payment');
         session()->forget('transaction_id');
-        session()->forget('stripe_razor_amount');
+        session()->forget('stripe_amount');
     }
 }

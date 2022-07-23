@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Company\CompanyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Company\TeamController;
 use App\Http\Controllers\Company\InviteController;
@@ -13,6 +14,9 @@ Route::middleware('auth')->prefix('company')->name('company.')->group(function (
     // Employee routes
     Route::resource('/employees', EmployeeController::class);
     Route::post('/employees/invite', [EmployeeController::class, 'inviteEmployee'])->name('employees.invite');
+
+    // Pricing Plan
+    Route::get('/pricing/plan', [CompanyController::class, 'plan'])->name('plan');
 
     // Team routes
     Route::get('/teams/employees', [TeamController::class, 'teamEmployees'])->name('teams.employees');
