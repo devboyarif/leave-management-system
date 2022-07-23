@@ -20,7 +20,7 @@ class CreateSubscriptionsTable extends Migration
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Plan::class)->constrained()->cascadeOnDelete();
             $table->date('expired_date')->nullable();
-            $table->enum('subscription_type', ['monthly', 'yearly', 'custom_date', 'lifetime'])->nullable();
+            $table->enum('subscription_type', ['monthly', 'yearly', 'custom_days', 'lifetime'])->nullable();
             $table->timestamps();
         });
     }

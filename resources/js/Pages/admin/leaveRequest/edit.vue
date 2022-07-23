@@ -154,9 +154,6 @@ export default {
         updateData() {
             this.form.put(route("leaveRequests.update", this.leaveRequest.id));
         },
-        statusChange(event) {
-            this.form.status = event.target.checked;
-        },
         async fetchCompanyWiseData() {
             this.leaveTypes = [];
             this.employeesUsers = [];

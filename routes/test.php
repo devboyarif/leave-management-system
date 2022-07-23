@@ -59,7 +59,7 @@ Route::get('/test', function () {
 
     return session('current_subscription');
     return currentCompany()->subscription;
-    return getCurrentSubscriptionFeatures()->is_limited_user;
+    return getCurrentSubscriptionFeatures()->is_limited_employee;
 
 
 

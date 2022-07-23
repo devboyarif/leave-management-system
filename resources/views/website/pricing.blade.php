@@ -38,7 +38,7 @@
                             <div class="pricing-header text-center">
                                 <h5 class="sub-title">{{ $plan->name }}</h5>
                                 <span class="price">${{ $plan->price }}</span>
-                                @if ($plan->interval == 'custom_date')
+                                @if ($plan->interval == 'custom_days')
                                     <small>/{{ $plan->custom_interval_days }} {{ __('Days') }}</small>
                                 @else
                                     <small>/{{ $plan->interval }}</small>
@@ -49,14 +49,14 @@
                                 <ul>
                                     <li>
                                         <i
-                                            class="lni {{ !$plan->planFeatures->is_limited_user ? 'lni-checkmark-circle text-success' : 'lni-cross-circle text-danger' }}"></i>
+                                            class="lni {{ !$plan->planFeatures->is_limited_employee ? 'lni-checkmark-circle text-success' : 'lni-cross-circle text-danger' }}"></i>
                                         Unlimited Employees
 
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>
                                         Max Employees -
-                                        <b>{{ $plan->planFeatures->is_limited_user ? $plan->planFeatures->max_employees : '∞' }}</b>
+                                        <b>{{ $plan->planFeatures->is_limited_employee ? $plan->planFeatures->max_employees : '∞' }}</b>
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>

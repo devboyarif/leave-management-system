@@ -21,8 +21,7 @@ class CreatePlansTable extends Migration
             $table->float('price');
             $table->boolean('status')->default(true);
             $table->boolean('recommended')->default(false);
-            $table->integer('order')->default(0);
-            $table->enum('interval', ['monthly', 'yearly', 'custom_date', 'lifetime'])->nullable();
+            $table->enum('interval', ['monthly', 'yearly', 'custom_days', 'lifetime'])->nullable();
             $table->unsignedBigInteger('custom_interval_days')->nullable();
             $table->timestamps();
         });

@@ -8,7 +8,7 @@
                 <div class="card-header text-center py-4">
                     <h4>
                         <b>{{ plan.name }}</b>
-                        <small v-if="plan.interval != 'custom_date'"> /{{ plan.interval }}</small>
+                        <small v-if="plan.interval != 'custom_days'"> /{{ plan.interval }}</small>
                         <small v-else> /{{ plan.custom_interval_days }} {{ __('Days') }}</small>
                     </h4>
                     <div class="badge badge-info" v-if="plan.recommended">{{ __('Recommended') }}</div>
@@ -17,8 +17,8 @@
                     </h1>
                 </div>
                 <div class="card-body" v-if="plan.plan_features">
-                   <Feature name="Unlimited Employees" :checked="!plan.plan_features.is_limited_user"/>
-                   <Feature name="Max Employees" :checked="true" :value="plan.plan_features.is_limited_user ? plan.plan_features.max_employees : '∞'"/>
+                   <Feature name="Unlimited Employees" :checked="!plan.plan_features.is_limited_employee"/>
+                   <Feature name="Max Employees" :checked="true" :value="plan.plan_features.is_limited_employee ? plan.plan_features.max_employees : '∞'"/>
                    <Feature name="Max Teams" :checked="true" :value="plan.plan_features.max_teams"/>
                    <Feature name="Max Leave Types" :checked="true" :value="plan.plan_features.max_leave_types"/>
                    <Feature name="Custom Theme Look" :checked="plan.plan_features.custom_theme_look"/>

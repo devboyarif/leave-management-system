@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Plan;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PlanCreateRequest;
 
 class PlanController extends Controller
 {
@@ -29,18 +30,37 @@ class PlanController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('admin/plan/create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  PlanCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PlanCreateRequest $request)
     {
-        //
+        // Plan Create
+        $data['name'] = $request->name;
+        $data['type'] = $request->type;
+        $data['price'] = $request->price;
+        $data['status'] = $request->status ? 1 : 0;
+        $data['interval'] = $request->interval;
+        $data['custom_interval_days'] = $request->interval == 'custom_days' ? $request->custom_interval_days : null;
+        $plan = Plan::create($data);
+
+        // Plan Features Create
+        $plan->planFeatures()->create([
+            'is_limited_employee' => $request->is_limited_employee ? 1 : 0,
+            'max_employees' => $request->is_limited_employee ? $request->max_employees : 1,
+            'max_teams' => $request->max_teams ? $request->max_teams : 1,
+            'max_leave_types' => $request->max_leave_types ? $request->max_leave_types : 1,
+            'custom_theme_look' => $request->custom_theme_look ? 1 : 0,
+        ]);
+
+        session()->flash('success', 'Plan created successfully!');
+        return back();
     }
 
     /**

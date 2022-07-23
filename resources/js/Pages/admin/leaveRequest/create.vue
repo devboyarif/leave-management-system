@@ -153,9 +153,6 @@ export default {
         createData() {
             this.form.post(route("leaveRequests.store"));
         },
-        statusChange(event) {
-            this.form.status = event.target.checked;
-        },
         async fetchCompanyWiseData() {
             this.leaveTypes = [];
             this.employeesUsers = [];

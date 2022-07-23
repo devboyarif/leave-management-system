@@ -17,7 +17,7 @@ class CreatePlanFeaturesTable extends Migration
         Schema::create('plan_features', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Plan::class)->constrained()->cascadeOnDelete();
-            $table->boolean('is_limited_user')->default(true);
+            $table->boolean('is_limited_employee')->default(1);
             $table->unsignedInteger('max_employees')->default(10);
             $table->unsignedInteger('max_teams')->default(2);
             $table->unsignedInteger('max_leave_types')->default(2);

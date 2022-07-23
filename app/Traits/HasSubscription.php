@@ -8,7 +8,7 @@ trait HasSubscription
     {
         $features = getCurrentSubscriptionFeatures();
 
-        if ($features->is_limited_user) {
+        if ($features->is_limited_employee) {
             $total_employees =  currentCompany()->employees->count();
 
             if ($total_employees >= $features->max_employees) {

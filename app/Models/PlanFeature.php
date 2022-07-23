@@ -13,7 +13,7 @@ class PlanFeature extends Model
 
     protected $fillable = [
         'plan_id',
-        'is_limited_user',
+        'is_limited_employee',
         'max_employees',
         'max_teams',
         'max_leave_types',

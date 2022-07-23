@@ -28,7 +28,7 @@ trait PaymentAble
             $expired_date = now()->addMonth()->format('Y-m-d');
         } elseif ($plan->interval == 'yearly') {
             $expired_date = now()->addYear()->format('Y-m-d');
-        } elseif ($plan->interval == 'custom_date') {
+        } elseif ($plan->interval == 'custom_days') {
             $expired_date = now()->addDays($plan->custom_interval_days)->format('Y-m-d');
         } else {
             $expired_date = '';

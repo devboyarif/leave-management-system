@@ -15,8 +15,8 @@ class Plan extends Model
         'slug',
         'type',
         'price',
+        'interval',
         'status',
-        'order',
         'recommended',
     ];
 

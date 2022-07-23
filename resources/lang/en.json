@@ -163,7 +163,16 @@
     "Select Plan": "Select Plan",
     "Subscription Type": "Subscription Type",
     "Pricing Plan": "Pricing Plan",
-
+    "Plan Type": "Plan Type",
+    "Monthly": "Monthly",
+    "Yearly": "Yearly",
+    "Custom Days": "Custom Days",
+    "Lifetime": "Lifetime",
+    "Free": "Free",
+    "Paid": "Paid",
+    "Number of Days": "Number of Days",
+    "Plan Features": "Plan Features",
+    "Employee Adding Type": "Employee Adding Type",
 
 
 

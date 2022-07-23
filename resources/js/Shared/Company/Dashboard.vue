@@ -170,7 +170,7 @@
                                 <tr v-if="subscribed_plan.plan">
                                     <th>{{ __('Subscription Type') }}</th>
                                     <td>
-                                        <span v-if="subscribed_plan.plan.interval == 'custom_date'">
+                                        <span v-if="subscribed_plan.plan.interval == 'custom_days'">
                                         {{ subscribed_plan.plan.custom_interval_days }} {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
                                         </span>
                                         <span v-else>{{ subscribed_plan.plan.interval }}</span>

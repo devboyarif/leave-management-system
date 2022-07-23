@@ -19,7 +19,6 @@ class PlanSeeder extends Seeder
                 'name' => 'Free',
                 'type' => 'free',
                 'price' => '0',
-                'order' => 1,
                 'status' => true,
                 'interval' => 'lifetime',
             ],
@@ -27,7 +26,6 @@ class PlanSeeder extends Seeder
                 'name' => 'Standard',
                 'type' => 'paid',
                 'price' => 50,
-                'order' => 2,
                 'status' => true,
                 'interval' => 'monthly',
             ],
@@ -35,7 +33,6 @@ class PlanSeeder extends Seeder
                 'name' => 'Premium',
                 'type' => 'paid',
                 'price' => 80,
-                'order' => 3,
                 'status' => true,
                 'recommended' => true,
                 'interval' => 'yearly',
@@ -44,9 +41,8 @@ class PlanSeeder extends Seeder
                 'name' => 'Custom',
                 'type' => 'paid',
                 'price' => 20,
-                'order' => 4,
                 'status' => true,
-                'interval' => 'custom_date',
+                'interval' => 'custom_days',
                 'custom_interval_days' => '15',
             ],
         ];
@@ -56,16 +52,16 @@ class PlanSeeder extends Seeder
 
             if ($plan->type == 'free') {
                 $plan->planFeatures()->create([
-                    'is_limited_user' => 1,
+                    'is_limited_employee' => 1,
                     'max_employees' => 10,
                     'max_teams' => 2,
                     'max_leave_types' => 2,
                     'custom_theme_look' => 0,
                 ]);
             } else {
-                if ($plan->interval == 'custom_date') {
+                if ($plan->interval == 'custom_days') {
                     $plan->planFeatures()->create([
-                        'is_limited_user' => 0,
+                        'is_limited_employee' => 0,
                         'max_employees' => 50,
                         'max_teams' => 10,
                         'max_leave_types' => 10,
@@ -73,7 +69,7 @@ class PlanSeeder extends Seeder
                     ]);
                 } else {
                     $plan->planFeatures()->create([
-                        'is_limited_user' => 1,
+                        'is_limited_employee' => 1,
                         'max_employees' => 50,
                         'max_teams' => 10,
                         'max_leave_types' => 10,
