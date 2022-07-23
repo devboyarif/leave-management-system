@@ -36,10 +36,10 @@
                 </div>
                 <div class="card-footer">
                     <div class=" d-flex justify-content-between">
-                        <a href="" class="btn btn-primary">
-                            <i class="fas fa-edit"></i>
+                        <Link :href="route('plans.edit', plan.id)" class="btn btn-primary">
+                             <i class="fas fa-edit"></i>
                             {{ __('Edit') }}
-                        </a>
+                        </Link>
                         <button type="submit" class="btn btn-danger w-100-p" v-if="plan.type != 'free'">
                             <i class="fas fa-trash"></i>
                             {{ __('Delete') }}
