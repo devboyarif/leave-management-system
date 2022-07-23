@@ -283,7 +283,7 @@
 
 @section('custom-links')
     @php
-    $theme = getAdminTheme();
+    $website_theme = getAdminTheme();
     @endphp
 
     <style>
@@ -304,7 +304,7 @@
         }
 
         .pricing-style-one .primary-btn {
-            background: {{ $theme->website_primary_color }};
+            background: {{ $website_theme->website_primary_color }};
             color: #fff;
             box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04),
                 0px 2px 4px rgba(96, 97, 112, 0.16);
@@ -313,7 +313,7 @@
         .pricing-style-one .active.primary-btn,
         .pricing-style-one .primary-btn:hover,
         .pricing-style-one .primary-btn:focus {
-            background: {{ $theme->website_primary_color }};
+            background: {{ $website_theme->website_primary_color }};
             color: #fff;
             box-shadow: 0px 2px 4px rgba(40, 41, 61, 0.04), ;
         }
@@ -353,7 +353,7 @@
             position: relative;
             padding: 6px 20px;
             display: inline-block;
-            border: 2px solid {{ $theme->website_primary_color }};
+            border: 2px solid {{ $website_theme->website_primary_color }};
             border-radius: 30px;
         }
 
@@ -395,7 +395,7 @@
         }
 
         .pricing-style-one .pricing-list li i {
-            color: {{ $theme->website_primary_color }};
+            color: {{ $website_theme->website_primary_color }};
             margin-right: 8px;
         }
 

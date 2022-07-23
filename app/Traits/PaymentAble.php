@@ -15,7 +15,7 @@ use App\Notifications\Admin\PlanPurchase;
 
 trait PaymentAble
 {
-    public function orderPlacing($redirect = true)
+    public function orderPlacing($redirect = true, $order_id = null)
     {
         $plan = session('plan');
         $company_subscription = currentCompany()->subscription;
@@ -39,7 +39,7 @@ trait PaymentAble
 
         // create the order
         Order::create([
-            'order_id' => uniqid(),
+            'order_id' => $order_id ?? uniqid(),
             'transaction_id' => $transaction_id,
             'plan_id' => $plan->id,
             'company_id' => currentCompany()->id,
@@ -51,29 +51,20 @@ trait PaymentAble
             'payment_provider' => $order_amount['payment_provider'],
         ]);
 
-
         storeCompanyCurrentSubscription();
         $this->forgetSessions();
+
+        if (checkMailConfig()) {
+            $admins = User::roleAdmin()->get();
+            foreach ($admins as $admin) {
+                Notification::send($admin, new PlanPurchase($admin->name, $plan->name, auth()->user()->name));
+            }
+        }
 
         if ($redirect) {
             session()->flash('success', 'Plan purchased successfully.');
             return redirect()->route('website.home')->send();
             // return redirect()->route('company.plan')->send();
-        }
-
-        if (checkMailConfig()) {
-            $admins = User::roleAdmin()->get();
-            foreach ($admins as $admin) {
-                Notification::send($admin, new PlanPurchase($admin->name, $plan->name, auth('user')->user()->name));
-            }
-        }
-
-        session()->forget('plan_id');
-        session()->forget('payment_provider');
-
-        if ($redirect) {
-            session()->flash('success', 'Plan purchased successfully.');
-            return redirect()->route('company.plan')->send();
         }
     }
 

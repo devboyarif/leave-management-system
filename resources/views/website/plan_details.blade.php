@@ -22,8 +22,8 @@
                 <div class="col-12 col-md-4 col-lg-3 p-3">
                     <div class="card text-center">
                         <div class="card-header">
-                            <img class="card-img payment-card-image"
-                                src="https://logowik.com/content/uploads/images/897_paypal.jpg" alt="">
+                            <img class="card-img payment-card-image" src="{{ asset('website/images/payment/paypal.jpg') }}"
+                                alt="">
                         </div>
                         <div class="card-body">
                             <button id="paypal_btn" type="button" class="ud-main-btn ud-white-btn">Pay via Paypal</button>
@@ -33,8 +33,7 @@
                 <div class="col-12 col-md-4 col-lg-3 p-3">
                     <div class="card text-center">
                         <div class="card-header">
-                            <img class="card-img payment-card-image"
-                                src="https://demo.websolutionus.com/docpoint/uploads/website-images/stripe-2022-03-27-03-00-08-1300.png"
+                            <img class="card-img payment-card-image" src="{{ asset('website/images/payment/stripe.png') }}"
                                 alt="">
                         </div>
                         <div class="card-body">
@@ -47,8 +46,7 @@
                     <div class="card text-center">
                         <div class="card-header">
                             <img class="card-img payment-card-image"
-                                src="https://demo.websolutionus.com/docpoint/uploads/website-images/razorpay-2022-05-11-08-35-46-3554.png"
-                                alt="">
+                                src="{{ asset('website/images/payment/razorpay.png') }}" alt="">
                         </div>
                         <div class="card-body">
                             <button id="razorpay_btn" type="button" class="ud-main-btn ud-white-btn">Pay
@@ -61,8 +59,7 @@
                     <div class="card text-center">
                         <div class="card-header">
                             <img class="card-img payment-card-image"
-                                src="https://i.pinimg.com/originals/52/47/5c/52475c55421dbc2cd5e0312032b54495.png"
-                                alt="">
+                                src="{{ asset('website/images/payment/flutterwave.png') }}" alt="">
                         </div>
                         <div class="card-body border-0">
                             <button id="flutter_btn" type="button" class="ud-main-btn ud-white-btn">Pay
@@ -73,8 +70,7 @@
                 <div class="col-12 col-md-4 col-lg-3 p-3">
                     <div class="card text-center">
                         <div class="card-header">
-                            <img class="card-img payment-card-image"
-                                src="https://demo.websolutionus.com/docpoint/uploads/website-images/mollie-2022-05-11-08-37-29-7747.png"
+                            <img class="card-img payment-card-image" src="{{ asset('website/images/payment/mollie.png') }}"
                                 alt="">
                         </div>
                         <div class="card-body">
@@ -87,8 +83,7 @@
                     <div class="card text-center">
                         <div class="card-header">
                             <img class="card-img payment-card-image"
-                                src="https://demo.websolutionus.com/docpoint/uploads/website-images/paystack-2022-05-11-08-37-01-5856.png"
-                                alt="">
+                                src="{{ asset('website/images/payment/paystack.png') }}" alt="">
                         </div>
                         <div class="card-body">
                             <button id="paystack_btn" type="button" class="ud-main-btn ud-white-btn">Pay
@@ -100,8 +95,7 @@
                     <div class="card text-center">
                         <div class="card-header">
                             <img class="card-img payment-card-image"
-                                src="https://demo.websolutionus.com/docpoint/uploads/website-images/instamojo-2022-05-11-08-38-16-6902.png"
-                                alt="">
+                                src="{{ asset('website/images/payment/instamojo.png') }}" alt="">
                         </div>
                         <div class="card-body">
                             <button id="instamojo_btn" type="button" class="ud-main-btn ud-white-btn">Pay
@@ -112,38 +106,13 @@
                 <div class="col-12 col-md-4 col-lg-3 p-3">
                     <div class="card text-center">
                         <div class="card-header">
-                            <img class="card-img payment-card-image" src="https://mizuno.id/images/veritrans.png"
-                                alt="">
+                            <img class="card-img payment-card-image"
+                                src="{{ asset('website/images/payment/midtrans.png') }}" alt="">
 
                         </div>
                         <div class="card-body">
-                            <a href="https://demo.websolutionus.com/docpoint/doctor/pay-with-instamojo/basic"
-                                class="ud-main-btn ud-white-btn">Pay via Midtrans</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 col-lg-3 p-3">
-                    <div class="card text-center">
-                        <div class="card-header">
-                            <img class="card-img payment-card-image"
-                                src="https://avatars.githubusercontent.com/u/19384040?s=280&v=4" alt="">
-                        </div>
-                        <div class="card-body">
-                            <a href="https://demo.websolutionus.com/docpoint/doctor/pay-with-instamojo/basic"
-                                class="ud-main-btn ud-white-btn">Pay via SSlcommerz</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 col-lg-3 p-3">
-                    <div class="card text-center">
-                        <div class="card-header">
-                            <img class="card-img payment-card-image"
-                                src="https://demo.websolutionus.com/docpoint/uploads/website-images/bank-2022-05-11-08-43-31-1711.jpg"
-                                alt="">
-                        </div>
-                        <div class="card-body">
-                            <a href="javascript:;" data-toggle="modal" data-target="#bankPayment"
-                                class="ud-main-btn ud-white-btn">Pay via Bank</a>
+                            <button id="midtrans_btn" type="button" class="ud-main-btn ud-white-btn">Pay
+                                via Midtrans</button>
                         </div>
                     </div>
                 </div>
@@ -223,6 +192,13 @@
 @endsection
 
 @section('custom-scripts')
+    @if (config('kodebazar.midtrans_active') &&
+        config('kodebazar.midtrans_id') &&
+        config('kodebazar.midtrans_key') &&
+        config('kodebazar.midtrans_secret'))
+        <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('kodebazar.midtrans_key') }}">
+        </script>
+    @endif
     <script>
         // Paypal
         $('#paypal_btn').on('click', function(e) {
@@ -266,7 +242,7 @@
             $('#instamojo-form').submit();
         });
 
-        // Instamojo
+        // ssl commerz
         $('#ssl_btn').on('click', function(e) {
             e.preventDefault();
             $('#sslczPayBtn').click();
@@ -297,6 +273,41 @@
             window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload",
                 loader);
         })(window, document);
+
+        // Midtrans
+        if (
+            '{{ config('kodebazar.midtrans_active') && config('kodebazar.midtrans_id') && config('kodebazar.midtrans_key') && config('kodebazar.midtrans_secret') }}'
+        ) {
+
+            const payButton = document.querySelector('#midtrans_btn');
+            payButton.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                snap.pay('{{ $mid_token }}', {
+                    onSuccess: function(result) {
+                        $.ajax({
+                            type: "post",
+                            url: "{{ route('midtrans.success') }}",
+                            data: {
+                                '_token': '{{ csrf_token() }}',
+                                'transaction_id': result.transaction_id,
+                                'order_id': result.order_id,
+                            },
+                            success: function(response) {
+                                console.log(response)
+                                window.location.href = response.redirect_url;
+                            }
+                        });
+                    },
+                    onPending: function(result) {
+                        alert('Transaction is in pending state');
+                    },
+                    onError: function(result) {
+                        alert('Transaction is failed. Try again.');
+                    }
+                });
+            });
+        }
     </script>
 @endsection
 

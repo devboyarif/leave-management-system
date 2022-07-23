@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Website;
 use App\Models\Faq;
 use App\Models\Plan;
 use App\Models\Post;
+use AmrShawky\Currency;
 use App\Models\Feature;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Midtrans\CreateSnapTokenService;
 
 class WebsiteController extends Controller
 {
@@ -32,7 +34,9 @@ class WebsiteController extends Controller
     public function pricing()
     {
         $faqs = Faq::all();
-        return view('website.pricing', compact('faqs'));
+        $plans = Plan::with('planFeatures')->whereStatus(1)->get();
+
+        return view('website.pricing', compact('faqs', 'plans'));
     }
 
     public function blog()
@@ -79,6 +83,24 @@ class WebsiteController extends Controller
         session(['stripe_amount' => currencyConversion($plan->price) * 100]);
         session(['razor_amount' => currencyConversion(50, null, 'INR', 1) * 100]);
 
-        return view('website.plan_details', compact('plan'));
+        // midtrans snap token
+        if (config('kodebazar.midtrans_active') && config('kodebazar.midtrans_id') && config('kodebazar.midtrans_key') && config('kodebazar.midtrans_secret')) {
+            $midtrans_amount = round(currencyConversion($plan->price, null, 'IDR', 1));
+            $order_id = uniqid();
+
+            session(['midtrans_amount' => $midtrans_amount]);
+            session(['midtrans_order_id' => $order_id]);
+
+            $order['order_no'] = $order_id;
+            $order['total_price'] = $midtrans_amount;
+
+            $midtrans = new CreateSnapTokenService($order);
+            $snapToken = $midtrans->getSnapToken();
+        }
+
+        return view('website.plan_details', [
+            'plan' => $plan,
+            'mid_token' => $snapToken ?? null,
+        ]);
     }
 }

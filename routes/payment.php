@@ -62,6 +62,7 @@ Route::get('mollie-success', [MollieController::class, 'paymentSuccess'])->name(
 
 // Midtrans
 Route::post('/midtrans/success', [MidtransController::class, 'success'])->name('midtrans.success');
+Route::get('/midtrans/transaction/update', [MidtransController::class, 'transactionUpdate'])->name('midtrans.transaction.update');
 
 // Manual Payment
 Route::controller(ManualPaymentController::class)->group(function () {
