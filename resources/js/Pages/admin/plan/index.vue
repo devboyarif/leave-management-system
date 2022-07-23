@@ -36,11 +36,11 @@
                 </div>
                 <div class="card-footer">
                     <div class=" d-flex justify-content-between">
-                        <Link :href="route('plans.edit', plan.id)" class="btn btn-primary">
+                        <Link :href="route('plans.edit', plan.id)" class="btn btn-primary"  v-tooltip="__('Edit')">
                              <i class="fas fa-edit"></i>
                             {{ __('Edit') }}
                         </Link>
-                        <button type="submit" class="btn btn-danger w-100-p" v-if="plan.type != 'free'">
+                        <button @click="deleteData(plan.id)" v-tooltip="__('Delete')" class="btn btn-danger w-100-p" v-if="plan.type != 'free'">
                             <i class="fas fa-trash"></i>
                             {{ __('Delete') }}
                         </button>
@@ -66,73 +66,22 @@ export default {
             required: true,
         },
     },
-    // components: {
-    //     Datepicker,
-    // },
-    // data() {
-    //     return {
-    //         form: this.$inertia.form({
-    //             user_id: "",
-    //             leave_type_id: "",
-    //             employee_id: "",
-    //             start: "",
-    //             end: "",
-    //             reason: "",
-    //             status: "pending",
-    //         }),
-    //         leaveTypes: [],
-    //         employeesUsers: [],
-    //         leaveTypeBalance: {},
-    //         showLeaveTypeBalance: false,
-    //         diffBetweenDays: 0,
-    //     };
-    // },
-    // methods: {
-    //     createData() {
-    //         this.form.post(route("leaveRequests.store"));
-    //     },
-    //     statusChange(event) {
-    //         this.form.status = event.target.checked;
-    //     },
-    //     async fetchCompanyWiseData() {
-    //         this.leaveTypes = [];
-    //         this.employeesUsers = [];
-    //         let leaveTypesData = await axios.get(
-    //             route("companies.leaveTypes", this.form.user_id)
-    //         );
-    //         let employeesUsersData = await axios.get(
-    //             route("companies.employees", this.form.user_id)
-    //         );
-    //         this.leaveTypes = leaveTypesData.data.leaveTypes;
-    //         this.employeesUsers = employeesUsersData.data.employeesUsers;
-    //     },
-    //     handleStartDate(startDate) {
-    //         const formatTime = dayjs(startDate).format("YYYY-MM-DD");
-    //         this.form.start = formatTime;
-    //     },
-    //     handleEndDate(endDate) {
-    //         const formatTime = dayjs(endDate).format("YYYY-MM-DD");
-    //         this.form.end = formatTime;
-    //     },
-    //     async checkLeaveTypeBalance() {
-    //         console.log(this.form.employee_id);
-    //         console.log(this.form.leave_type_id);
-    //         let response = await axios.get(
-    //             route("companies.employee.leave.type.balance"),
-    //             {
-    //                 params: {
-    //                     employee_id: this.form.employee_id,
-    //                     leave_type_id: this.form.leave_type_id,
-    //                 },
-    //             }
-    //         );
-    //         this.leaveTypeBalance = response.data;
-    //         this.showLeaveTypeBalance = true;
-    //     },
-    // },
+    methods: {
+        deleteData(id) {
+            this.$swal({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.delete(route("plans.destroy", id));
+                }
+            });
+        },
+    },
 };
 </script>
-
-<style scoped>
-
-</style>

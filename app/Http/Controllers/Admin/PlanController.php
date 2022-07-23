@@ -125,9 +125,11 @@ class PlanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Plan $plan)
     {
-        //
+        $plan->delete();
+        session()->flash('success', 'Plan deleted successfully!');
+        return back();
     }
 
     public function setRecommended(Plan $plan)
