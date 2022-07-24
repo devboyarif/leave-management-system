@@ -179,7 +179,7 @@
                                         @if ($plan->id == session('current_subscription')->plan_id)
                                             Current Plan
                                         @else
-                                            Subscribe Now
+                                            {{ __('Select Plan') }}
                                         @endif
                                     </a>
                                 @else

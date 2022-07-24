@@ -18,7 +18,7 @@ class CreatePlansTable extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->enum('type', ['free', 'paid'])->default('free');
-            $table->float('price');
+            $table->unsignedBigInteger('price')->default(0);
             $table->boolean('status')->default(true);
             $table->boolean('recommended')->default(false);
             $table->enum('interval', ['monthly', 'yearly', 'custom_days', 'lifetime'])->nullable();

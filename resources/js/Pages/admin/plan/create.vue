@@ -33,8 +33,8 @@
                         <div class="mb-3 row">
                             <div class="col-lg-6">
                                 <Label :name="__('Price')"/>
-                                <input v-model="form.price" type="number" class="form-control"
-                                    :class="{'is-invalid':form.errors.price}" step="0.01">
+                                <input v-model="form.price" type="text" class="form-control"
+                                    :class="{'is-invalid':form.errors.price}">
                                 <ErrorMessage :name="form.errors.price" />
                             </div>
                              <div class="col-md-6">

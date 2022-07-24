@@ -65,7 +65,7 @@
                     </NavLink>
                     <NavLink title="Pricing Plan" :href="route('company.plan')" :active="$page.component == 'company/plan'">
                         <template v-slot:icon>
-                            <i class="fa-solid fa-user-group nav-icon"></i>
+                            <i class="fa-solid fa-money-bill nav-icon"></i>
                         </template>
                     </NavLink>
                      <li class="nav-item">

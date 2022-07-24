@@ -2,7 +2,7 @@
 
     <Head :title="__('Pricing Plan')" />
 
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center pt-5">
         <div class="col-md-6 col-lg-4 col-xl-3 mb-3 col-12" v-for="plan in plans" :key="plan.id">
             <div class="card h-100 shadow-sm">
                 <div class="card-header text-center py-4">
