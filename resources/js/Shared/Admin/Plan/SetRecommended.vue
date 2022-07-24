@@ -1,6 +1,20 @@
 <template>
     <div class="col-md-8">
         <div class="d-flex align-items-center my-3">
+            <div class="form-row align-items-end mr-3">
+                <div class="col-auto">
+                    <label for="" class="mr-sm-2">{{ __('Set Default Plan') }}</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="default_plan_id">
+                        <option v-for="plan in plans" :key="plan.id" :value="plan.id">
+                            {{ plan.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button @click="setDefaultPlan" type="button" class="btn btn-primary "
+                        style="margin-top:30px">{{ __('Save') }}</button>
+                </div>
+            </div>
             <div class="form-row align-items-end">
                 <div class="col-auto">
                     <label for="" class="mr-sm-2">{{ __('Set Recommended Plan') }}</label>
@@ -31,6 +45,7 @@ export default {
     data() {
         return {
             plan_id: "",
+            default_plan_id: 1,
         };
     },
     methods: {
@@ -38,10 +53,27 @@ export default {
             this.$inertia.put(
                 route("plans.set.recommended.plan", this.plan_id)
             );
-            // this.form.post(route("leaveRequests.store"))
-            // console.log(this.plan_id);
-            // this.$store.dispatch("setRecommendedPlan", this.plan_id);
         },
+        setDefaultPlan() {
+            this.$inertia.put(
+                route("plans.set.default.plan", this.default_plan_id)
+            );
+        },
+    },
+    mounted() {
+        // set recommended plan
+        this.plans.find((plan) => {
+            if (plan.recommended) {
+                this.plan_id = plan.id;
+            }
+        });
+
+        // set default plan
+        this.plans.find((plan) => {
+            if (plan.default) {
+                this.default_plan_id = plan.id;
+            }
+        });
     },
 };
 </script>

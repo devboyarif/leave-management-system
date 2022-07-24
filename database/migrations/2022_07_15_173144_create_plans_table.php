@@ -20,9 +20,10 @@ class CreatePlansTable extends Migration
             $table->enum('type', ['free', 'paid'])->default('free');
             $table->unsignedBigInteger('price')->default(0);
             $table->boolean('status')->default(true);
-            $table->boolean('recommended')->default(false);
             $table->enum('interval', ['monthly', 'yearly', 'custom_days', 'lifetime'])->nullable();
             $table->unsignedBigInteger('custom_interval_days')->nullable();
+            $table->boolean('recommended')->default(false);
+            $table->boolean('default')->default(false);
             $table->timestamps();
         });
     }

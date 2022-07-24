@@ -20,9 +20,16 @@
                         <b>{{ plan.name }}</b>
                         <small v-if="plan.interval != 'custom_days'"> /{{ plan.interval }}</small>
                         <small v-else> /{{ plan.custom_interval_days }} {{ __('Days') }}</small>
-                        <!-- custom_interval_days -->
                     </h4>
-                    <div class="badge badge-info" v-if="plan.recommended">{{ __('Recommended') }}</div>
+                    <template v-if="plan.recommended">
+                    <div class="badge badge-info">{{ __('Recommended') }}</div><br>
+
+                    </template>
+                    <template v-if="plan.default">
+                    <div class="badge badge-info">{{ __('Recommended') }}</div><br>
+                    <div class="badge badge-success">{{ __('Default') }}</div>
+
+                    </template>
                     <h1 class="text-dark">
                         ${{ plan.price }}
                     </h1>
@@ -40,7 +47,7 @@
                              <i class="fas fa-edit"></i>
                             {{ __('Edit') }}
                         </Link>
-                        <button @click="deleteData(plan.id)" v-tooltip="__('Delete')" class="btn btn-danger w-100-p" v-if="plan.type != 'free'">
+                        <button @click="deleteData(plan.id)" v-tooltip="__('Delete')" class="btn btn-danger w-100-p" v-if="!plan.default">
                             <i class="fas fa-trash"></i>
                             {{ __('Delete') }}
                         </button>

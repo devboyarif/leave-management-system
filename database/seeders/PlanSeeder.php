@@ -21,6 +21,7 @@ class PlanSeeder extends Seeder
                 'price' => '0',
                 'status' => true,
                 'interval' => 'lifetime',
+                'default' => true,
             ],
             [
                 'name' => 'Standard',

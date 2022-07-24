@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PlanCreateRequest;
 use App\Http\Requests\Admin\PlanUpdateRequest;
+use App\Models\Subscription;
 
 class PlanController extends Controller
 {
@@ -127,6 +128,20 @@ class PlanController extends Controller
      */
     public function destroy(Plan $plan)
     {
+        // Default Plan Check
+        if ($plan->default) {
+            session()->flash('error', 'Default plan cannot be deleted!');
+            return back();
+        }
+
+        // Subscription Check
+        $subscriptions = Subscription::all()->pluck('plan_id')->toArray();
+        if (in_array($plan->id, $subscriptions)) {
+            session()->flash('error', 'Plan is in use and cannot be deleted!');
+            return back();
+        }
+
+        // Plan Delete
         $plan->delete();
         session()->flash('success', 'Plan deleted successfully!');
         return back();
@@ -138,6 +153,15 @@ class PlanController extends Controller
         $plan->update(['recommended' => 1]);
 
         session()->flash('success', 'Plan has been set as recommended.');
+        return back();
+    }
+
+    public function setDefault(Plan $plan)
+    {
+        Plan::where('default', 1)->update(['default' => 0]);
+        $plan->update(['default' => 1]);
+
+        session()->flash('success', 'Plan has been set as default.');
         return back();
     }
 }

@@ -42,6 +42,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     // Plans
     Route::resource('/plans', PlanController::class);
     Route::put('/plans/set-recommended-plan/{plan}', [PlanController::class, 'setRecommended'])->name('plans.set.recommended.plan');
+    Route::put('/plans/set-default-plan/{plan}', [PlanController::class, 'setDefault'])->name('plans.set.default.plan');
 
     // Leave Types & Request
     Route::resource('/leaveTypes', LeaveTypeController::class);

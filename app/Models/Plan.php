@@ -18,6 +18,7 @@ class Plan extends Model
         'interval',
         'status',
         'recommended',
+        'default',
     ];
 
     public function setNameAttribute($name)
