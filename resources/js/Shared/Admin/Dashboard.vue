@@ -55,7 +55,7 @@
                     <h3 class="card-title">{{ __('Yearly Earning') }}</h3>
                 </div>
                 <div class="card-body">
-                    <YearlyEarningChart/>
+                    <YearlyEarningChart :data="yearly_earnings"/>
                 </div>
             </div>
 
@@ -283,17 +283,34 @@
                 <div class="card-body d-flex justify-content-center">
                     <CompaniesExpenseChart :data="expense_per_company"/>
                 </div>
+                <div class="card-body" v-if="expense_per_company && expense_per_company.companies_amount">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" v-for="data in expense_per_company.companies_amount" :key="data.id" >
+                             {{ data.name }}
+                            <span class="badge badge-primary badge-pill">
+                               {{ summary.currency_symbol }} {{ data.amount }}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="card">
                 <div class="card-header border-0">
                     <h3 class="card-title">{{ __('Companies per Country (Most active countries)') }}</h3>
                 </div>
                 <div class="card-body d-flex justify-content-center">
-                    <CompaniesExpenseChart/>
+                    <CountriesCompanyChart :data="companies_per_country"/>
+                </div>
+                <div class="card-body" v-if="companies_per_country && companies_per_country.companies_per_country">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" v-for="data in companies_per_country.companies_per_country" :key="data.id" >
+                             {{ data.name }}
+                            <span class="badge badge-primary badge-pill">{{ data.companies_count }} {{ __('Companies') }}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <!-- /.col-md-6 -->
     </div>
 </template>
 
@@ -321,40 +338,17 @@ export default {
             },
 
             expense_per_company: {},
-
-            // series: [80, 20],
-            // chartOptions: {
-            //     chart: {
-            //         width: 380,
-            //         type: "pie",
-            //     },
-            //     colors: ["#2A8737", "#F23D4E"],
-            //     labels: ["Present", "Absent"],
-            //     responsive: [
-            //         {
-            //             breakpoint: 480,
-            //             options: {
-            //                 chart: {
-            //                     width: 200,
-            //                 },
-            //                 legend: {
-            //                     position: "bottom",
-            //                 },
-            //             },
-            //         },
-            //     ],
-            // },
+            companies_per_country: {},
+            yearly_earnings: {},
         };
     },
     async mounted() {
         let response = await axios.get(route("admin.dashboard"));
         this.summary = response.data.summary;
-        // setTimeout(() => {
-            this.expense_per_company = response.data.expense_per_company;
-            // this.expense_per_company = response.data.expense_per_company;
-            console.log(response.data.expense_per_company)
-            console.log(123)
-        // }, 1000);
+        this.expense_per_company = response.data.expense_per_company;
+        this.companies_per_country = response.data.companies_per_country;
+        this.yearly_earnings = response.data.yearly_earnings;
+        console.log(response.data.companies_per_country)
     },
 };
 </script>

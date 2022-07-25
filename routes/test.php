@@ -5,6 +5,7 @@ use App\Models\Team;
 use App\Models\Order;
 use AmrShawky\Currency;
 use App\Models\Company;
+use App\Models\Country;
 use App\Models\Holiday;
 use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
@@ -31,32 +32,41 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
-    $expense_per_company = Company::select('id','user_id')
-        ->with('user:id,name')
-        ->withSum('orders as expense_amount','usd_amount')->latest('expense_amount')
-        ->get()
-        ->transform(fn($item) => [
-            'id' => $item->id,
-            'name' => $item->user->name,
-            'usd_amount' => $item->expense_amount,
-            'amount' => currencyConversion($item->expense_amount, 'USD', config('kodebazar.currency')),
-        ]);
-
-    $amount = $expense_per_company->pluck('amount')->toArray();
-    $company = $expense_per_company->pluck('name')->toArray();
-
-    return [
-        'amount' => $amount,
-        'company' => $company,
-    ];
 
 
-    $popular_countries = DB::table('jobs')
-            ->select('country', DB::raw('count(*) as total'))
-            ->orderBy('total', 'desc')
-            ->groupBy('country')
-            ->limit(10)
-            ->get();
+    $months = Order::select(
+        \DB::raw('MIN(created_at) AS created_at'),
+        \DB::raw('sum(usd_amount) as `amount`'),
+        \DB::raw("DATE_FORMAT(created_at,'%M') as month")
+    )
+        ->where("created_at", ">", \Carbon\Carbon::now()->startOfYear())
+        ->orderBy('created_at')
+        ->groupBy('month')
+        ->get();
+
+    $amountArray = [];
+    $monthArray = [];
+
+    foreach ($months as $value) {
+        array_push($amountArray, currencyConversion($value->amount, 'USD', config('kodebazar.currency')));
+        array_push($monthArray, $value->month);
+    }
+
+    return ['amount' => $amountArray, 'months' => $monthArray];
+
+
+    // private function formatEarnings(object $data)
+    // {
+    //     $amountArray = [];
+    //     $monthArray = [];
+
+    //     foreach ($data as $value) {
+    //         array_push($amountArray, $value->amount);
+    //         array_push($monthArray, $value->month);
+    //     }
+
+    //     return ['amount' => $amountArray, 'months' => $monthArray];
+    // }
 
 
 

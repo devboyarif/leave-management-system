@@ -1,5 +1,5 @@
 <template>
-    <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+    <apexchart type="bar" height="350" :options="chartOptions" :series="series"/>
 </template>
 
 <script>
@@ -7,6 +7,12 @@ import VueApexCharts from "vue3-apexcharts";
 export default {
     components: {
         apexchart: VueApexCharts,
+    },
+     props:{
+        data: {
+            type: Object,
+            required: true,
+        },
     },
     data() {
         return {
@@ -49,23 +55,27 @@ export default {
                         "Oct",
                     ],
                 },
-                yaxis: {
-                    title: {
-                        text: "$ (thousands)",
-                    },
-                },
                 fill: {
                     opacity: 1,
                 },
                 tooltip: {
                     y: {
                         formatter: function (val) {
-                            return "$ " + val + " thousands";
+                            return val ;
                         },
                     },
                 },
             },
         };
     },
+    watch: {
+        data: {
+            handler() {
+                this.series[0].data = this.data.amount;
+                this.chartOptions.xaxis.categories = this.data.months;
+            },
+            deep: true,
+        },
+    }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-
+    <apexchart type="pie" width="380" :options="chartOptions" :series="series"/>
 </template>
 
 
@@ -9,64 +9,47 @@ export default {
     components: {
         apexchart: VueApexCharts,
     },
+    props:{
+        data: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
-            series: [
-                {
-                    name: "Income",
-                    data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-                },
-            ],
+            series: [1, 0, 0, 0, 0],
             chartOptions: {
                 chart: {
-                    type: "bar",
-                    height: 350,
+                    width: 380,
+                    type: "pie",
                 },
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        columnWidth: "55%",
-                        endingShape: "rounded",
-                    },
-                },
-                dataLabels: {
-                    enabled: false,
-                },
-                stroke: {
-                    show: true,
-                    width: 2,
-                    colors: ["transparent"],
-                },
-                xaxis: {
-                    categories: [
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "May",
-                        "Jun",
-                        "Jul",
-                        "Aug",
-                        "Sep",
-                        "Oct",
-                    ],
-                },
-                yaxis: {
-                    title: {
-                        text: "$ (thousands)",
-                    },
-                },
-                fill: {
-                    opacity: 1,
-                },
-                tooltip: {
-                    y: {
-                        formatter: function (val) {
-                            return "$ " + val + " thousands";
+                labels: [],
+                responsive: [
+                    {
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200,
+                            },
+                            legend: {
+                                position: "bottom",
+                            },
                         },
                     },
-                },
+                ],
             },
         };
     },
+    watch: {
+        data: {
+            handler() {
+                this.series = this.data.percentage;
+                for (let i = 0; i < this.data.countries.length; i++) {
+                    this.chartOptions.labels.push(this.data.countries[i]);
+                }
+            },
+            deep: true,
+        },
+    }
 };
 </script>

@@ -28,9 +28,17 @@ class DashboardController extends Controller
         // Expenses per company
         $expense_per_company = $this->adminExpensePerCompany();
 
+        // Expenses per country
+        $companies_per_country = $this->adminCompaniesPerCountry();
+
+        // Yearly earnings
+        $yearly_earnings = $this->adminYearlyEarnings();
+
         return [
             'summary' => $Summary,
             'expense_per_company' => $expense_per_company,
+            'companies_per_country' => $companies_per_country,
+            'yearly_earnings' => $yearly_earnings,
         ];
     }
 
