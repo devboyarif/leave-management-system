@@ -64,97 +64,32 @@
                     <div class="card">
                     <div class="card-header border-0">
                         <h3 class="card-title">{{ __('Recent Registered Companies') }}</h3>
+                          <div class="card-tools">
+                                 <Link :href="route('companies.index')" class="btn btn-primary btn-sm">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                    {{ __('View All') }}
+                                </Link>
+                            </div>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">
                             <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Sales</th>
-                                    <th>More</th>
+                                    <th>{{ __('Company') }}</th>
+                                    <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Country') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr v-for="company in recent_companies" :key="company.id">
                                     <td>
-                                        <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
+                                        <img :src="company.avatar" alt="Product 1"
                                             class="img-circle img-size-32 mr-2">
-                                        Some Product
+                                        {{ company.name }}
                                     </td>
-                                    <td>$13 USD</td>
+                                    <td>{{ company.email }}</td>
                                     <td>
-                                        <small class="text-success mr-1">
-                                            <i class="fas fa-arrow-up"></i>
-                                            12%
-                                        </small>
-                                        12,000 Sold
-                                    </td>
-                                    <td>
-                                        <a href="#" class="text-muted">
-                                            <i class="fas fa-search"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                            class="img-circle img-size-32 mr-2">
-                                        Another Product
-                                    </td>
-                                    <td>$29 USD</td>
-                                    <td>
-                                        <small class="text-warning mr-1">
-                                            <i class="fas fa-arrow-down"></i>
-                                            0.5%
-                                        </small>
-                                        123,234 Sold
-                                    </td>
-                                    <td>
-                                        <a href="#" class="text-muted">
-                                            <i class="fas fa-search"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                            class="img-circle img-size-32 mr-2">
-                                        Amazing Product
-                                    </td>
-                                    <td>$1,230 USD</td>
-                                    <td>
-                                        <small class="text-danger mr-1">
-                                            <i class="fas fa-arrow-down"></i>
-                                            3%
-                                        </small>
-                                        198 Sold
-                                    </td>
-                                    <td>
-                                        <a href="#" class="text-muted">
-                                            <i class="fas fa-search"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                            class="img-circle img-size-32 mr-2">
-                                        Perfect Item
-                                        <span class="badge bg-danger">NEW</span>
-                                    </td>
-                                    <td>$199 USD</td>
-                                    <td>
-                                        <small class="text-success mr-1">
-                                            <i class="fas fa-arrow-up"></i>
-                                            63%
-                                        </small>
-                                        87 Sold
-                                    </td>
-                                    <td>
-                                        <a href="#" class="text-muted">
-                                            <i class="fas fa-search"></i>
-                                        </a>
+                                        {{ company.country }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -165,107 +100,32 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header border-0">
-                            <h3 class="card-title">Products</h3>
+                            <h3 class="card-title">{{ __('Recent Orders') }}</h3>
                             <div class="card-tools">
-                                <a href="#" class="btn btn-tool btn-sm">
-                                    <i class="fas fa-download"></i>
-                                </a>
-                                <a href="#" class="btn btn-tool btn-sm">
-                                    <i class="fas fa-bars"></i>
-                                </a>
+                                 <Link :href="route('orders.index')" class="btn btn-primary btn-sm">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                    {{ __('View All') }}
+                                </Link>
                             </div>
                         </div>
                         <div class="card-body table-responsive p-0">
                             <table class="table table-striped table-valign-middle">
                                 <thead>
                                     <tr>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Sales</th>
-                                        <th>More</th>
+                                        <th>{{ __('Order ID') }}</th>
+                                        <th>{{ __('Company') }}</th>
+                                        <th>{{ __('Plan') }}</th>
+                                        <th>{{ __('Amount') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr v-for="order in recent_orders" :key="order.id">
                                         <td>
-                                            <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                                class="img-circle img-size-32 mr-2">
-                                            Some Product
+                                           #{{ order.id }}
                                         </td>
-                                        <td>$13 USD</td>
-                                        <td>
-                                            <small class="text-success mr-1">
-                                                <i class="fas fa-arrow-up"></i>
-                                                12%
-                                            </small>
-                                            12,000 Sold
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-muted">
-                                                <i class="fas fa-search"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                                class="img-circle img-size-32 mr-2">
-                                            Another Product
-                                        </td>
-                                        <td>$29 USD</td>
-                                        <td>
-                                            <small class="text-warning mr-1">
-                                                <i class="fas fa-arrow-down"></i>
-                                                0.5%
-                                            </small>
-                                            123,234 Sold
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-muted">
-                                                <i class="fas fa-search"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                                class="img-circle img-size-32 mr-2">
-                                            Amazing Product
-                                        </td>
-                                        <td>$1,230 USD</td>
-                                        <td>
-                                            <small class="text-danger mr-1">
-                                                <i class="fas fa-arrow-down"></i>
-                                                3%
-                                            </small>
-                                            198 Sold
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-muted">
-                                                <i class="fas fa-search"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="https://adminlte.io/themes/v3/dist/img/default-150x150.png" alt="Product 1"
-                                                class="img-circle img-size-32 mr-2">
-                                            Perfect Item
-                                            <span class="badge bg-danger">NEW</span>
-                                        </td>
-                                        <td>$199 USD</td>
-                                        <td>
-                                            <small class="text-success mr-1">
-                                                <i class="fas fa-arrow-up"></i>
-                                                63%
-                                            </small>
-                                            87 Sold
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-muted">
-                                                <i class="fas fa-search"></i>
-                                            </a>
-                                        </td>
+                                        <td>{{ order.company_name }}</td>
+                                        <td>{{ order.plan }}</td>
+                                        <td>{{ order.amount }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -329,6 +189,7 @@ export default {
     },
     data() {
         return {
+            // Summary
             summary: {
                 total_income: 0,
                 total_companies: 0,
@@ -337,9 +198,14 @@ export default {
                 currency_symbol: '$',
             },
 
+            // Chart
             expense_per_company: {},
             companies_per_country: {},
             yearly_earnings: {},
+
+            // Table
+            recent_companies: [],
+            recent_orders : [],
         };
     },
     async mounted() {
@@ -348,7 +214,9 @@ export default {
         this.expense_per_company = response.data.expense_per_company;
         this.companies_per_country = response.data.companies_per_country;
         this.yearly_earnings = response.data.yearly_earnings;
-        console.log(response.data.companies_per_country)
+        this.recent_companies = response.data.recent_companies;
+        this.recent_orders = response.data.recent_orders;
+        // console.log(response.data.companies_per_country)
     },
 };
 </script>

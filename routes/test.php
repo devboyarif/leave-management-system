@@ -32,27 +32,31 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+   return $orders = Order::select('id','order_id','amount','currency_symbol','plan_id','company_id')
+   ->with('company.user:id,name','plan:id,name')
+   ->latest()
+   ->limit(5)
+   ->get()
+   ->transform(fn($order) => [
+    'id' => $order->id,
+    'order_id' => $order->order_id,
+    'company_name' => $order->company->user->name,
+    'amount' => $order->currency_symbol.' '.$order->amount,
+    'plan' => $order->plan->name,
+]);
 
 
-    $months = Order::select(
-        \DB::raw('MIN(created_at) AS created_at'),
-        \DB::raw('sum(usd_amount) as `amount`'),
-        \DB::raw("DATE_FORMAT(created_at,'%M') as month")
-    )
-        ->where("created_at", ">", \Carbon\Carbon::now()->startOfYear())
-        ->orderBy('created_at')
-        ->groupBy('month')
-        ->get();
-
-    $amountArray = [];
-    $monthArray = [];
-
-    foreach ($months as $value) {
-        array_push($amountArray, currencyConversion($value->amount, 'USD', config('kodebazar.currency')));
-        array_push($monthArray, $value->month);
-    }
-
-    return ['amount' => $amountArray, 'months' => $monthArray];
+    return $companies = Company::select('id','user_id','country_id')
+    ->with('user:id,name,email,avatar','country:id,name')
+    ->latest()
+    ->limit(5)
+    ->get()->transform(fn($company) => [
+        'id' => $company->id,
+        'name' => $company->user->name,
+        'email' => $company->user->email,
+        'avatar' => $company->user->avatar,
+        'country' => $company->country->name,
+    ]);
 
 
     // private function formatEarnings(object $data)

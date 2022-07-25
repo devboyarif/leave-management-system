@@ -34,11 +34,19 @@ class DashboardController extends Controller
         // Yearly earnings
         $yearly_earnings = $this->adminYearlyEarnings();
 
+        // Recent joined companies
+        $recent_companies = $this->adminRecentCompanies();
+
+        // Recent purchase orders
+        $recent_orders = $this->adminRecentOrders();
+
         return [
             'summary' => $Summary,
             'expense_per_company' => $expense_per_company,
             'companies_per_country' => $companies_per_country,
             'yearly_earnings' => $yearly_earnings,
+            'recent_companies' => $recent_companies,
+            'recent_orders' => $recent_orders,
         ];
     }
 

@@ -92,4 +92,35 @@ trait HasAdmin
 
         return ['amount' => $amountArray, 'months' => $monthArray];
     }
+
+    public function adminRecentCompanies()
+    {
+        return Company::select('id','user_id','country_id')
+        ->with('user:id,name,email,avatar','country:id,name')
+        ->latest()
+        ->limit(5)
+        ->get()->transform(fn($company) => [
+            'id' => $company->id,
+            'name' => $company->user->name,
+            'email' => $company->user->email,
+            'avatar' => $company->user->avatar,
+            'country' => $company->country->name,
+        ]);
+    }
+
+    public function adminRecentOrders()
+    {
+        return Order::select('id','order_id','amount','currency_symbol','plan_id','company_id')
+        ->with('company.user:id,name','plan:id,name')
+        ->latest()
+        ->limit(5)
+        ->get()
+        ->transform(fn($order) => [
+            'id' => $order->id,
+            'order_id' => $order->order_id,
+            'company_name' => $order->company->user->name,
+            'amount' => $order->currency_symbol.' '.$order->amount,
+            'plan' => $order->plan->name,
+        ]);
+    }
 }
