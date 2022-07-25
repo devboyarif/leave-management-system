@@ -74,7 +74,7 @@
             <div class="modal-mask">
                 <div class="modal-wrapper">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content" v-click-outside="hideModalOutsideClick">
+                        <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">
                                     <span v-if="!editMode">{{ __('Create Official Holiday') }}</span>
@@ -262,13 +262,6 @@ export default {
         handleEndDate(endDate) {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
             this.form.end = formatTime;
-        },
-        hideModalOutsideClick() {
-            if (this.form.processing) {
-                return;
-            } else {
-                this.showModal = false;
-            }
         },
     },
 };
