@@ -25,8 +25,12 @@ class DashboardController extends Controller
         // Summary
         $Summary = $this->adminDashboardSummary();
 
+        // Expenses per company
+        $expense_per_company = $this->adminExpensePerCompany();
+
         return [
-            'Summary' => $Summary,
+            'summary' => $Summary,
+            'expense_per_company' => $expense_per_company,
         ];
     }
 

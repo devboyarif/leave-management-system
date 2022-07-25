@@ -1,6 +1,6 @@
 <template>
     <Head :title="__('Dashboard')"/>
-        <div class="row mt-3">
+    <div class="row mt-3">
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box shadow-md">
                 <span class="info-box-icon bg-primary"><i class="fa-regular fa-money-bill-1"></i></span>
@@ -58,10 +58,9 @@
                     <YearlyEarningChart/>
                 </div>
             </div>
-            <!-- /.card -->
 
-           <div class="row">
-            <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-6">
                     <div class="card">
                     <div class="card-header border-0">
                         <h3 class="card-title">{{ __('Recent Registered Companies') }}</h3>
@@ -273,9 +272,7 @@
                         </div>
                     </div>
                 </div>
-
-           </div>
-            <!-- /.card -->
+            </div>
         </div>
         <!-- /.col-md-6 -->
         <div class="col-lg-4">
@@ -284,7 +281,7 @@
                     <h3 class="card-title">{{ __('Expenses per Company (Most expenses companies)') }}</h3>
                 </div>
                 <div class="card-body d-flex justify-content-center">
-                    <CompaniesExpenseChart/>
+                    <CompaniesExpenseChart :data="expense_per_company"/>
                 </div>
             </div>
             <div class="card">
@@ -322,6 +319,9 @@ export default {
                 total_employees: 0,
                 currency_symbol: '$',
             },
+
+            expense_per_company: {},
+
             // series: [80, 20],
             // chartOptions: {
             //     chart: {
@@ -349,7 +349,12 @@ export default {
     async mounted() {
         let response = await axios.get(route("admin.dashboard"));
         this.summary = response.data.summary;
-        console.log(response.data.summary)
+        // setTimeout(() => {
+            this.expense_per_company = response.data.expense_per_company;
+            // this.expense_per_company = response.data.expense_per_company;
+            console.log(response.data.expense_per_company)
+            console.log(123)
+        // }, 1000);
     },
 };
 </script>

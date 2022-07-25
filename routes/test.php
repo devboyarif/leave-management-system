@@ -31,17 +31,35 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
-    $total_income = currencyConversion(Order::sum('usd_amount'), 'USD', config('kodebazar.currency'));
-    $total_companies = Company::count();
-    $total_teams = Team::count();
-    $total_employees = Employee::count();
+    $expense_per_company = Company::select('id','user_id')
+        ->with('user:id,name')
+        ->withSum('orders as expense_amount','usd_amount')->latest('expense_amount')
+        ->get()
+        ->transform(fn($item) => [
+            'id' => $item->id,
+            'name' => $item->user->name,
+            'usd_amount' => $item->expense_amount,
+            'amount' => currencyConversion($item->expense_amount, 'USD', config('kodebazar.currency')),
+        ]);
+
+    $amount = $expense_per_company->pluck('amount')->toArray();
+    $company = $expense_per_company->pluck('name')->toArray();
 
     return [
-        'total_income' => $total_income,
-        'total_companies' => $total_companies,
-        'total_teams' => $total_teams,
-        'total_employees' => $total_employees,
+        'amount' => $amount,
+        'company' => $company,
     ];
+
+
+    $popular_countries = DB::table('jobs')
+            ->select('country', DB::raw('count(*) as total'))
+            ->orderBy('total', 'desc')
+            ->groupBy('country')
+            ->limit(10)
+            ->get();
+
+
+
 
 
 

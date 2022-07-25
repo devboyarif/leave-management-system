@@ -16,7 +16,10 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 // Roles dashboard routes
 Route::controller(DashboardController::class)->middleware('auth')->group(function () {
     Route::get('/user/dashboard', 'dashboard')->name('dashboard');
-    Route::get('/admin/dashboard', 'adminDashboard')->name('admin.dashboard');
     Route::get('/employee/dashboard', 'employeeDashboard')->name('employee.dashboard');
     Route::get('/company/dashboard', 'companyDashboard')->name('company.dashboard');
+
+    // Admin routes
+    Route::get('/admin/dashboard', 'adminDashboard')->name('admin.dashboard');
+    // Route::get('/admin/dashboard/', 'adminDashboard')->name('admin.dashboard');
 });

@@ -74,4 +74,9 @@ class Company extends Model
     {
         return $this->hasMany(SubscriptionHistory::class, 'company_id');
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'company_id');
+    }
 }

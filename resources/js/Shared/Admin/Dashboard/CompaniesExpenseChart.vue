@@ -1,5 +1,5 @@
 <template>
-    <apexchart type="pie" width="380" :options="chartOptions" :series="series"></apexchart>
+    <apexchart type="pie" width="380" :options="chartOptions" :series="series"/>
 </template>
 
 
@@ -9,15 +9,21 @@ export default {
     components: {
         apexchart: VueApexCharts,
     },
+    props:{
+        data: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
-            series: [44, 55, 13, 43, 22],
+            series: [1, 0, 0, 0, 0],
             chartOptions: {
                 chart: {
                     width: 380,
                     type: "pie",
                 },
-                labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+                labels: [],
                 responsive: [
                     {
                         breakpoint: 480,
@@ -34,5 +40,16 @@ export default {
             },
         };
     },
+    watch: {
+        data: {
+            handler() {
+                this.series = this.data.amounts;
+                for (let i = 0; i < this.data.amounts.length; i++) {
+                    this.chartOptions.labels.push(this.data.companies[i]);
+                }
+            },
+            deep: true,
+        },
+    }
 };
 </script>
