@@ -16,6 +16,7 @@ Route::middleware('auth')->prefix('company')->name('company.')->group(function (
     Route::post('/employees/invite', [EmployeeController::class, 'inviteEmployee'])->name('employees.invite');
 
     // Pricing Plan
+    Route::get('/orders', [CompanyController::class, 'orders'])->name('orders.index');
     Route::get('/pricing/plan', [CompanyController::class, 'plan'])->name('plan');
 
     // Team routes

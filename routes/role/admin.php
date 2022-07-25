@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\LeaveRequestController;
+use App\Http\Controllers\Admin\OrderController;
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/about', function () {
@@ -43,6 +44,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('/plans', PlanController::class);
     Route::put('/plans/set-recommended-plan/{plan}', [PlanController::class, 'setRecommended'])->name('plans.set.recommended.plan');
     Route::put('/plans/set-default-plan/{plan}', [PlanController::class, 'setDefault'])->name('plans.set.default.plan');
+
+    // Order
+    Route::get('/admin/orders', [OrderController::class, 'orders'])->name('orders.index');
 
     // Leave Types & Request
     Route::resource('/leaveTypes', LeaveTypeController::class);

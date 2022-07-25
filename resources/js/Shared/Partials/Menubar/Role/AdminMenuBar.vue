@@ -49,6 +49,11 @@
                             <i class="fa-solid fa-credit-card nav-icon"></i>
                         </template>
                     </NavLink>
+                     <NavLink title="Orders" :href="route('orders.index')" :active="$page.url == '/admin/orders'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-chart-pie nav-icon"></i>
+                        </template>
+                    </NavLink>
                      <Dropdown title="Leave" :active="leaveDropdownActive($page.component)">
                         <template v-slot:icon>
                             <i class="fa-solid fa-plane-departure nav-icon"></i>

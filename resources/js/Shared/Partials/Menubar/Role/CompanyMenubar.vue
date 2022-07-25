@@ -68,6 +68,11 @@
                             <i class="fa-solid fa-money-bill nav-icon"></i>
                         </template>
                     </NavLink>
+                    <NavLink title="Orders" :href="route('company.orders.index')" :active="$page.url == '/company/orders'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-chart-pie nav-icon"></i>
+                        </template>
+                    </NavLink>
                      <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">
                            <i class="fa-solid fa-right-from-bracket nav-icon"></i>
