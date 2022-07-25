@@ -13,6 +13,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
+// Roles dashboard routes
 Route::controller(DashboardController::class)->middleware('auth')->group(function () {
     Route::get('/user/dashboard', 'dashboard')->name('dashboard');
     Route::get('/admin/dashboard', 'adminDashboard')->name('admin.dashboard');

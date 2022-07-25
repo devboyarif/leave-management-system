@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Holiday;
+use App\Traits\HasAdmin;
 use App\Models\LeaveType;
 use App\Traits\HasCompany;
 use App\Traits\HasEmployee;
@@ -12,7 +13,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    use HasEmployee, HasCompany;
+    use HasAdmin, HasEmployee, HasCompany;
 
     public function dashboard()
     {
@@ -21,30 +22,11 @@ class DashboardController extends Controller
 
     public function adminDashboard()
     {
-        $holidays = Holiday::get()
-            ->transform(function ($holiday) {
-                return [
-                    'title' => $holiday->title,
-                    'start' => $holiday->start,
-                    'end' => $holiday->end,
-                    'color' => $holiday->color,
-                ];
-            });
-
-        $leaveRequest = LeaveRequest::with('leaveType', 'employee.user')
-            ->where('status', 'approved')
-            ->get()
-            ->transform(function ($leaveRequest) {
-                return [
-                    'title' => $leaveRequest->employee->user->name,
-                    'end' => $leaveRequest->end,
-                    'start' => $leaveRequest->start,
-                    'color' => $leaveRequest->leaveType->color,
-                ];
-            });
+        // Summary
+        $Summary = $this->adminDashboardSummary();
 
         return [
-            'events' => Arr::collapse([$holidays, $leaveRequest]),
+            'Summary' => $Summary,
         ];
     }
 
@@ -75,8 +57,8 @@ class DashboardController extends Controller
         // Leave Balance
         $leave_balances = $this->employeeDashboardLeaveBalance($employee);
 
-        // Summery
-        $summery = $this->employeeDashboardSummery($employee, $all_leave_requests);
+        // Summary
+        $summary = $this->employeeDashboardSummary($employee, $all_leave_requests);
 
         // Pending Leave Request
         $pending_leave_requests = $this->employeeDashboardPendingLeave($all_leave_requests);
@@ -85,7 +67,7 @@ class DashboardController extends Controller
             'events' => Arr::collapse([$holidays, $leaveRequest]),
             'event_types' => Arr::collapse([$holiday, $leave_type_color]),
             'leave_balances' => $leave_balances,
-            'summery' => $summery,
+            'summary' => $summary,
             'pending_leave_requests' => $pending_leave_requests,
         ];
     }
@@ -95,8 +77,8 @@ class DashboardController extends Controller
         $company = currentCompany();
         $all_leave_requests = LeaveRequest::where('company_id', $company->id)->with('leaveType', 'employee.user')->latest()->get();
 
-        // Summery
-        $summery = $this->companyDashboardSummery($company, $all_leave_requests);
+        // Summary
+        $summary = $this->companyDashboardSummary($company, $all_leave_requests);
 
         // Holidays
         $holidays = $this->companyDashboardHolidays($company);
@@ -116,7 +98,7 @@ class DashboardController extends Controller
         $subscribed_plan = $this->companyDashboardSubscribedPlan($company);
 
         return [
-            'summery' => $summery,
+            'summary' => $summary,
             'events' => Arr::collapse([$holidays, $leaveRequest]),
             'event_types' => Arr::collapse([$holiday, $leave_type_color]),
             'pending_requests' => $pending_requests,

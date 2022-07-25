@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 trait HasEmployee
 {
-    function employeeDashboardSummery($employee,  $all_leave_requests)
+    function employeeDashboardSummary($employee,  $all_leave_requests)
     {
         $company = $employee->company;
         $total_leave_request =  $all_leave_requests->where('status', 'approved')->count();

@@ -70,7 +70,7 @@ trait HasCompany
             })->take(5);
     }
 
-    public function companyDashboardSummery($company, $all_leave_requests)
+    public function companyDashboardSummary($company, $all_leave_requests)
     {
         // $total_leave_request =  $all_leave_requests->where('status', 'approved')->count();
         $pending_leave_request =  $all_leave_requests->where('status', 'pending')->count();

@@ -17,7 +17,7 @@
                 <div class="info-box-content">
 
                     <span class="info-box-text">{{ __('Pending Request') }}</span>
-                    <span class="info-box-number">{{ summery.total_pending_leaves }}</span>
+                    <span class="info-box-number">{{ summary.total_pending_leaves }}</span>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <span class="info-box-icon bg-info"><i class="fa-solid fa-people-group nav-icon"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('Total Teams') }}</span>
-                    <span class="info-box-number">{{ summery.total_teams }}</span>
+                    <span class="info-box-number">{{ summary.total_teams }}</span>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 <span class="info-box-icon bg-success"><i class="fa-solid fa-users"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('Total Employees') }}</span>
-                    <span class="info-box-number">{{ summery.total_employees }}</span>
+                    <span class="info-box-number">{{ summary.total_employees }}</span>
                 </div>
             </div>
         </div>
@@ -287,7 +287,7 @@ export default {
                 initialView: "dayGridMonth",
                 events: [],
             },
-            summery: {},
+            summary: {},
             event_types: [],
             pending_requests: [],
             recent_approved_requests: [],
@@ -355,7 +355,7 @@ export default {
         },
         async loadData() {
             let response = await axios.get(route("company.dashboard"));
-            this.summery = response.data.summery;
+            this.summary = response.data.summary;
             this.calendarOptions.events = response.data.events;
             this.event_types = response.data.event_types;
             this.pending_requests = response.data.pending_requests;

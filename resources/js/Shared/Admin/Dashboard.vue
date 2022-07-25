@@ -6,7 +6,10 @@
                 <span class="info-box-icon bg-primary"><i class="fa-regular fa-money-bill-1"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('Total Income') }}</span>
-                    <span class="info-box-number">$99999999</span>
+                    <span class="info-box-number">
+                        <b>{{ summary.currency_symbol }}</b>
+                        {{ summary.total_income }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -16,7 +19,9 @@
                 <div class="info-box-content">
 
                     <span class="info-box-text">{{ __('Total Companies') }}</span>
-                    <span class="info-box-number">1</span>
+                    <span class="info-box-number">
+                        {{ summary.total_companies }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -25,7 +30,9 @@
                 <span class="info-box-icon bg-info"><i class="fa-solid fa-people-group nav-icon"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('Total Teams') }}</span>
-                    <span class="info-box-number">1</span>
+                    <span class="info-box-number">
+                        {{ summary.total_teams }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -34,7 +41,9 @@
                 <span class="info-box-icon bg-success"><i class="fa-solid fa-users"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('Total Employees') }}</span>
-                    <span class="info-box-number">1</span>
+                    <span class="info-box-number">
+                        {{ summary.total_employees }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -306,6 +315,13 @@ export default {
     },
     data() {
         return {
+            summary: {
+                total_income: 0,
+                total_companies: 0,
+                total_teams: 0,
+                total_employees: 0,
+                currency_symbol: '$',
+            },
             // series: [80, 20],
             // chartOptions: {
             //     chart: {
@@ -331,8 +347,9 @@ export default {
         };
     },
     async mounted() {
-        // let response = await axios.get(route("admin.dashboard"));
-        // this.calendarOptions.events = response.data.events;
+        let response = await axios.get(route("admin.dashboard"));
+        this.summary = response.data.summary;
+        console.log(response.data.summary)
     },
 };
 </script>

@@ -1,8 +1,12 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Team;
+use App\Models\Order;
 use AmrShawky\Currency;
+use App\Models\Company;
 use App\Models\Holiday;
+use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +31,31 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    $total_income = currencyConversion(Order::sum('usd_amount'), 'USD', config('kodebazar.currency'));
+    $total_companies = Company::count();
+    $total_teams = Team::count();
+    $total_employees = Employee::count();
+
+    return [
+        'total_income' => $total_income,
+        'total_companies' => $total_companies,
+        'total_teams' => $total_teams,
+        'total_employees' => $total_employees,
+    ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $amount = currencyConversion(50, null, 'EUR');
     return $decimal_amount =  number_format((float)$amount, 2, '.', '');
 
