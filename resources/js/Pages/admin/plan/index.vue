@@ -26,7 +26,6 @@
 
                     </template>
                     <template v-if="plan.default">
-                    <div class="badge badge-info">{{ __('Recommended') }}</div><br>
                     <div class="badge badge-success">{{ __('Default') }}</div>
 
                     </template>
