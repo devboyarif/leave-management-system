@@ -9,8 +9,6 @@
                     <span class="info-box-number">
                         <b>{{ summary.currency_symbol }}</b>
                         {{ summary.total_income }}
-
-                        <Loading :messageShow="false"/>
                     </span>
                 </div>
             </div>
@@ -56,61 +54,62 @@
                 <div class="card-header border-0">
                     <h3 class="card-title">{{ __('Yearly Earning') }}</h3>
                 </div>
-                <div class="card-body">
-                    <YearlyEarningChart :data="yearly_earnings"/>
-                </div>
+                <YearlyEarningChart :data="yearly_earnings"/>
             </div>
 
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
-                    <div class="card-header border-0">
-                        <h3 class="card-title">{{ __('Recent Registered Companies') }}</h3>
-                          <div class="card-tools">
-                                 <Link :href="route('companies.index')" class="btn btn-primary btn-sm">
+                        <div class="card-header border-0">
+                            <h3 class="card-title">{{ __('Recent Registered Companies') }}</h3>
+                            <div class="card-tools" v-if="!loading">
+                                <Link :href="route('companies.index')" class="btn btn-primary btn-sm">
                                     <i class="fa-solid fa-arrow-left"></i>
                                     {{ __('View All') }}
                                 </Link>
                             </div>
-                    </div>
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-striped table-valign-middle">
-                            <thead>
-                                <tr>
-                                    <th>{{ __('Company') }}</th>
-                                    <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Country') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="company in recent_companies" :key="company.id">
-                                    <td>
-                                        <img :src="company.avatar" alt="Product 1"
-                                            class="img-circle img-size-32 mr-2">
-                                        {{ company.name }}
-                                    </td>
-                                    <td>{{ company.email }}</td>
-                                    <td>
-                                        {{ company.country }}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </div>
+                        <div class="card-body table-responsive p-0" v-if="!loading">
+                            <table class="table table-striped table-valign-middle">
+                                <thead>
+                                    <tr>
+                                        <th>{{ __('Company') }}</th>
+                                        <th>{{ __('Email') }}</th>
+                                        <th>{{ __('Country') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="company in recent_companies" :key="company.id">
+                                        <td>
+                                            <img :src="company.avatar" alt="Product 1"
+                                                class="img-circle img-size-32 mr-2">
+                                            {{ company.name }}
+                                        </td>
+                                        <td>{{ company.email }}</td>
+                                        <td>
+                                            {{ company.country }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-body mx-auto" v-else>
+                            <Loading :messageShow="false" size="fa-2x" />
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header border-0">
                             <h3 class="card-title">{{ __('Recent Orders') }}</h3>
-                            <div class="card-tools">
+                            <div class="card-tools" v-if="!loading">
                                  <Link :href="route('orders.index')" class="btn btn-primary btn-sm">
                                     <i class="fa-solid fa-arrow-left"></i>
                                     {{ __('View All') }}
                                 </Link>
                             </div>
                         </div>
-                        <div class="card-body table-responsive p-0">
+                        <div class="card-body table-responsive p-0" v-if="!loading">
                             <table class="table table-striped table-valign-middle">
                                 <thead>
                                     <tr>
@@ -132,46 +131,20 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="card-body mx-auto" v-else>
+                            <Loading :messageShow="false" size="fa-2x" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /.col-md-6 -->
         <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header border-0">
-                    <h3 class="card-title">{{ __('Expenses per Company (Most expenses companies)') }}</h3>
-                </div>
-                <div class="card-body d-flex justify-content-center">
-                    <CompaniesExpenseChart :data="expense_per_company"/>
-                </div>
-                <div class="card-body" v-if="expense_per_company && expense_per_company.companies_amount">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center" v-for="data in expense_per_company.companies_amount" :key="data.id" >
-                             {{ data.name }}
-                            <span class="badge badge-primary badge-pill">
-                               {{ summary.currency_symbol }} {{ data.amount }}
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header border-0">
-                    <h3 class="card-title">{{ __('Companies per Country (Most active countries)') }}</h3>
-                </div>
-                <div class="card-body d-flex justify-content-center">
-                    <CountriesCompanyChart :data="companies_per_country"/>
-                </div>
-                <div class="card-body" v-if="companies_per_country && companies_per_country.companies_per_country">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center" v-for="data in companies_per_country.companies_per_country" :key="data.id" >
-                             {{ data.name }}
-                            <span class="badge badge-primary badge-pill">{{ data.companies_count }} {{ __('Companies') }}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <!-- Expenses per companies  -->
+            <CompaniesExpenseChart :data="expense_per_company"/>
+
+            <!-- Companies per countries  -->
+            <CountriesCompanyChart :data="companies_per_country"/>
         </div>
     </div>
 </template>
@@ -208,6 +181,8 @@ export default {
             // Table
             recent_companies: [],
             recent_orders : [],
+
+            loading: true,
         };
     },
     async mounted() {
@@ -218,7 +193,7 @@ export default {
         this.yearly_earnings = response.data.yearly_earnings;
         this.recent_companies = response.data.recent_companies;
         this.recent_orders = response.data.recent_orders;
-        // console.log(response.data.companies_per_country)
+        this.loading = false;
     },
 };
 </script>

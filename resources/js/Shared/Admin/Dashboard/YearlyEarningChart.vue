@@ -1,5 +1,10 @@
 <template>
-    <apexchart type="bar" height="350" :options="chartOptions" :series="series"/>
+    <div class="card-body" v-if="!loading">
+        <apexchart type="bar" height="350" :options="chartOptions" :series="series"/>
+    </div>
+    <div class="card-body mx-auto" v-else>
+        <Loading :messageShow="false" size="fa-2x" />
+    </div>
 </template>
 
 <script>
@@ -16,6 +21,7 @@ export default {
     },
     data() {
         return {
+            loading: true,
             series: [
                 {
                     name: "Income",
@@ -73,6 +79,7 @@ export default {
             handler() {
                 this.series[0].data = this.data.amount;
                 this.chartOptions.xaxis.categories = this.data.months;
+                this.loading = false;
             },
             deep: true,
         },

@@ -8,10 +8,10 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('admin') }}/css/adminlte.css" />
     <link rel="stylesheet" href="{{ asset('kodebazar') }}/font-awesome/v6/css/all.min.css" />
-    <link href="{{ asset('admin/css/app.css') }}" rel="stylesheet" />
+    <link href="{{ mix('admin/css/app.css') }}" rel="stylesheet" />
     @include('components.theme.app_theme')
     @routes
-    <script src="{{ asset('admin/js/compiled/app.js') }}" defer></script>
+    <script src="{{ mix('admin/js/compiled/app.js') }}" defer></script>
 </head>
 
 <body>

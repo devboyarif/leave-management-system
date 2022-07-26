@@ -21,9 +21,9 @@ module.exports = {
         },
         currencyPosition(amount){
             if(this.$page.props.current_currency_symbol_position == 'left'){
-                return amount + this.$page.props.current_currency_symbol;
+                return amount +' '+ this.$page.props.current_currency_symbol;
             }else{
-                return this.$page.props.current_currency_symbol + amount;
+                return this.$page.props.current_currency_symbol + ' '+amount;
             }
         },
         pluralize(val, word, plural = word + "s") {

@@ -1,5 +1,5 @@
 <template>
-    <i class="fa-solid fa-spinner fa-spin mr-1"></i>
+    <i class="fa-solid fa-spinner fa-spin mr-1" :class="size"></i>
     <span v-if="messageShow">{{ message }}</span>
 </template>
 
@@ -14,7 +14,10 @@ export default {
             type: Boolean,
             default: true,
         },
-        size
+        size: {
+            type: String,
+            default: "fa-1x",
+        },
     },
 };
 </script>
