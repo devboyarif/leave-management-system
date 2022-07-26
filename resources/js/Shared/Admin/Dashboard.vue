@@ -9,6 +9,8 @@
                     <span class="info-box-number">
                         <b>{{ summary.currency_symbol }}</b>
                         {{ summary.total_income }}
+
+                        <Loading :messageShow="false"/>
                     </span>
                 </div>
             </div>
