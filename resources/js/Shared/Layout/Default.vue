@@ -65,9 +65,9 @@ export default {
 
         let sidebarCollapse = localStorage.getItem("sidebarCollapse");
         if (sidebarCollapse === "true") {
-            document.body.classList.remove("sidebar-collapse");
-        } else {
             document.body.classList.add("sidebar-collapse");
+        } else {
+            document.body.classList.remove("sidebar-collapse");
         }
     },
 };
