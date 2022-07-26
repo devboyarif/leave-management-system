@@ -1,7 +1,7 @@
 <template>
 
     <Head :title="__('Dashboard')" />
-    <div class="row mt-3">
+    <div class="row pt-3">
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box shadow-sm">
                 <span class="info-box-icon bg-primary"><i class="fa-regular fa-calendar-minus"></i></span>
