@@ -10,7 +10,7 @@ use App\Http\Controllers\Company\EmployeeController;
 use App\Http\Controllers\Company\LeaveTypeController;
 use App\Http\Controllers\Company\LeaveRequestController;
 
-Route::middleware('auth')->prefix('company')->name('company.')->group(function () {
+Route::middleware(['auth','check.company.role'])->prefix('company')->name('company.')->group(function () {
     // Employee routes
     Route::resource('/employees', EmployeeController::class);
     Route::post('/employees/invite', [EmployeeController::class, 'inviteEmployee'])->name('employees.invite');

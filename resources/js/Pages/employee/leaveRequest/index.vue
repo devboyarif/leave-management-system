@@ -209,6 +209,9 @@ export default {
             this.showModal = true;
         },
     },
+    mounted(){
+        this.checkPagePermission('employee')
+    }
 };
 </script>
 

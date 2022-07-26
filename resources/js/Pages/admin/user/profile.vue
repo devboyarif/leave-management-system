@@ -203,9 +203,6 @@ export default {
                 onSuccess: () => this.passwordForm.reset(),
             });
         },
-    },
-     mounted(){
-        this.checkPagePermission('admin')
     }
 };
 </script>

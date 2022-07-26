@@ -181,6 +181,9 @@ export default {
             this.form.emails.splice(index, 1);
         },
     },
+     mounted(){
+        this.checkPagePermission('company')
+    }
 };
 </script>
 

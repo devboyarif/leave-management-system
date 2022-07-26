@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckEmployeeProfile
+class CheckEmployeeRole
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,6 @@ class CheckEmployeeProfile
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && currentUserRole() != 'employee') {
-            return inertia('errors/403');
-        }
-
         return $next($request);
     }
 }

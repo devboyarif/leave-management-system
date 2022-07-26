@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\LeaveRequestController;
 use App\Http\Controllers\Admin\OrderController;
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth','check.admin.role'])->prefix('admin')->group(function () {
     Route::get('/about', function () {
         return inertia('about');
     })->name('about');
@@ -90,12 +90,13 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         // Route::get('/languages/translate/all', 'allTranslate')->name('languages.translate.all');
     });
 
-    // Profile & Settings
-    Route::controller(UserController::class)->group(function () {
-        Route::get('/profile', 'profile')->name('user.profile');
-        Route::post('/profile/update', 'profileUpdate')->name('user.profile.update');
-        Route::post('/password/update', 'passwordUpdate')->name('user.password.update');
-    });
+});
+
+// Profile & Settings
+Route::controller(UserController::class)->middleware('auth')->group(function () {
+    Route::get('/profile', 'profile')->name('user.profile');
+    Route::post('/profile/update', 'profileUpdate')->name('user.profile.update');
+    Route::post('/password/update', 'passwordUpdate')->name('user.password.update');
 });
 
 Route::controller(GlobalController::class)->group(function () {
