@@ -7,7 +7,7 @@
                 <span class="info-box-icon bg-primary"><i class="fa-regular fa-calendar-minus"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('Total Expense') }}</span>
-                    <span class="info-box-number">$99999999</span>
+                    <span class="info-box-number">{{ currencyPosition(summary.total_expense) }}</span>
                 </div>
             </div>
         </div>
@@ -362,7 +362,7 @@ export default {
             this.recent_approved_requests =
                 response.data.recent_approved_requests;
             this.subscribed_plan = response.data.subscribed_plan;
-        },
+        }
     },
     async mounted() {
         await this.loadData();

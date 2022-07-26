@@ -19,6 +19,13 @@ module.exports = {
         toastWarning(message = 'Something went wrong') {
             this.$toast.warning(message);
         },
+        currencyPosition(amount){
+            if(this.$page.props.current_currency_symbol_position == 'left'){
+                return amount + this.$page.props.current_currency_symbol;
+            }else{
+                return this.$page.props.current_currency_symbol + amount;
+            }
+        },
         pluralize(val, word, plural = word + "s") {
             const _pluralize = (num, word, plural = word + "s") => [1, -1].includes(Number(num)) ? word : plural;
             if (typeof val === "object")

@@ -68,6 +68,11 @@ class HandleInertiaRequests extends Middleware
             $data['current_subscription'] = session('current_subscription');
         }
 
+        // Env variables
+        $data['current_currency'] = config('kodebazar.currency');
+        $data['current_currency_symbol'] = config('kodebazar.currency_symbol');
+        $data['currency_symbol_position'] = config('kodebazar.currency_symbol_position');
+
         return array_merge(parent::share($request), $data);
     }
 }

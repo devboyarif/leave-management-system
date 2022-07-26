@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Holiday;
+use App\Models\Order;
 
 trait HasCompany
 {
@@ -72,13 +73,13 @@ trait HasCompany
 
     public function companyDashboardSummary($company, $all_leave_requests)
     {
-        // $total_leave_request =  $all_leave_requests->where('status', 'approved')->count();
+        $total_expense =  currencyConversion(Order::where('company_id', currentCompany()->id)->sum('usd_amount'), 'USD', currentCompany()->currency);
         $pending_leave_request =  $all_leave_requests->where('status', 'pending')->count();
         $total_teams = $company->teams->count();
         $total_employees = $company->employees->count();
 
         return [
-            // 'total_leaves' => $total_leave_request,
+            'total_expense' => $total_expense,
             'total_pending_leaves' => $pending_leave_request,
             'total_teams' => $total_teams,
             'total_employees' => $total_employees,

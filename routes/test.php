@@ -32,6 +32,8 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    return $total_expense =  Order::where('company_id', currentCompany()->id)->sum('usd_amount');
+
    return $orders = Order::select('id','order_id','amount','currency_symbol','plan_id','company_id')
    ->with('company.user:id,name','plan:id,name')
    ->latest()
