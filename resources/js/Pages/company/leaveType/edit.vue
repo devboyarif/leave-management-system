@@ -101,6 +101,9 @@ export default {
             this.form.status = event.target.checked;
         },
     },
+     mounted(){
+        this.checkPagePermission('company')
+    }
 };
 </script>
 

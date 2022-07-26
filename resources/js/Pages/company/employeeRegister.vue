@@ -77,16 +77,14 @@ export default {
             }),
         };
     },
-    // computed: {
-    //     disabledButton() {
-    //         return this.form.email && this.form.password;
-    //     },
-    // },
     methods: {
         createData() {
             console.log(this.form);
             this.form.post(route("company.store.employee"));
         },
     },
+     mounted(){
+        this.checkPagePermission('company')
+    }
 };
 </script>

@@ -178,8 +178,11 @@ export default {
         editData(employee) {
             this.employee = employee;
             this.showEmployeeEditModal = true;
-        },
+        }
     },
+    mounted(){
+        this.checkPagePermission('company')
+    }
 };
 </script>
 

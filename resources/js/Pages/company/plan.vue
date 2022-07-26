@@ -65,5 +65,8 @@ export default {
             subscription: this.$page.props.current_subscription,
         };
     },
+     mounted(){
+        this.checkPagePermission('company')
+    }
 };
 </script>

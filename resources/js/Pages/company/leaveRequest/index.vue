@@ -114,6 +114,9 @@ export default {
             return dayjs(date).format("DD MMM, YYYY");
         },
     },
+     mounted(){
+        this.checkPagePermission('company')
+    }
 };
 </script>
 

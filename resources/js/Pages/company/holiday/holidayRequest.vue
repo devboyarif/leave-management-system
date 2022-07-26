@@ -201,5 +201,8 @@ export default {
             });
         },
     },
+     mounted(){
+        this.checkPagePermission('company')
+    }
 };
 </script>

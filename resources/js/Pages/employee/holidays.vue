@@ -216,5 +216,8 @@ export default {
             }
         },
     },
+    mounted(){
+        this.checkPagePermission('employee')
+    }
 };
 </script>

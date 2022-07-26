@@ -86,6 +86,9 @@ export default {
             this.employees = response.data.employees;
         },
     },
+    mounted(){
+        this.checkPagePermission('employee')
+    }
 };
 </script>
 

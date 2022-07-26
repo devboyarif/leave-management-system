@@ -186,6 +186,9 @@ export default {
             this.showModal = true;
         },
     },
+     mounted(){
+        this.checkPagePermission('company')
+    }
 };
 </script>
 

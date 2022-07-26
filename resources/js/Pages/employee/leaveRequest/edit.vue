@@ -129,6 +129,9 @@ export default {
             this.form.end = formatTime;
         },
     },
+    mounted(){
+        this.checkPagePermission('employee')
+    }
 };
 </script>
 
