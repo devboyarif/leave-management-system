@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EmployeeSaveRequest;
 use App\Http\Requests\EmployeeCreateRequest;
 use App\Http\Requests\EmployeeUpdateRequest;
 
 class EmployeeController extends Controller
 {
+    use HasSubscription;
+
     /**
      * Display a listing of the resource.
      *
@@ -62,6 +63,14 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeCreateRequest $request)
     {
+       $company = getCompany($request->user_id);
+
+        // Check if the user is limited to create employees
+        if ($this->checkEmployeesLimitation($company)) {
+            session()->flash('error', __('You have reached the maximum number of employees'));
+            return back();
+        }
+
         $data = $request->all();
         $data['role'] = User::ROLE_EMPLOYEE;
         $data['password'] = bcrypt($data['password']);
@@ -78,7 +87,7 @@ class EmployeeController extends Controller
 
         $user->employee()->create([
             'user_id' => $user->id,
-            'company_id' => $request->user_id,
+            'company_id' => $company->id,
             'team_id' => $request->team_id,
         ]);
 

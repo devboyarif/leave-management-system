@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Company;
-use Illuminate\Http\Request;
+use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeamSaveRequest;
-use App\Http\Requests\TeamCreateRequest;
-use App\Http\Requests\TeamUpdateRequest;
 
 class TeamController extends Controller
 {
+    use HasSubscription;
+
     public function index()
     {
         $team_query = Team::query();
@@ -35,6 +35,12 @@ class TeamController extends Controller
     public function store(TeamSaveRequest $request)
     {
         $company = Company::where('user_id', $request->user_id)->firstOrFail();
+
+         // Check if the user is limited to create employees
+         if ($this->checkTeamLimitation($company)) {
+            session()->flash('error', __('You have reached the maximum number of teams'));
+            return back();
+        }
 
         $company->teams()->create([
             'name' => $request->name,

@@ -9,9 +9,12 @@ use App\Models\LeaveBalance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LeaveTypeSaveRequest;
+use App\Traits\HasSubscription;
 
 class LeaveTypeController extends Controller
 {
+    use HasSubscription;
+
     public function index()
     {
         $leave_query = LeaveType::query();
@@ -41,6 +44,12 @@ class LeaveTypeController extends Controller
     public function store(LeaveTypeSaveRequest $request)
     {
         $company = Company::where('user_id', $request->user_id)->firstOrFail();
+
+        // Check if the user is limited to create employees
+        if ($this->checkLeaveTypeLimitation($company)) {
+            session()->flash('error', __("You have reached the maximum number of leave types"));
+            return back();
+        }
 
         $company->leaveTypes()->create([
             'name' => $request->name,
