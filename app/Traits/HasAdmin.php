@@ -23,7 +23,6 @@ trait HasAdmin
             'total_companies' => $total_companies,
             'total_teams' => $total_teams,
             'total_employees' => $total_employees,
-            'currency_symbol' => config('kodebazar.currency_symbol'),
         ];
     }
 

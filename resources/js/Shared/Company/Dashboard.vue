@@ -46,17 +46,22 @@
                 <div class="card-header border-0">
                     <h3 class="card-title">{{ __('Calendar') }}</h3>
                 </div>
-                <div class="card-body">
-                    <FullCalendar :options="calendarOptions" />
-                </div>
-                <div class="card-footer row justify-content-between">
-                    <span v-for="(event_type,index) in event_types" :key="index">
-                        <span class="mr-2 event-size" :style="{
-                                backgroundColor: event_type.color,
-                                border: '2px solid '+ event_type.color
-                            }"></span>
-                        {{ event_type.name }}
-                    </span>
+                <template v-if="!loading">
+                    <div class="card-body">
+                        <FullCalendar :options="calendarOptions" />
+                    </div>
+                    <div class="card-footer row justify-content-between">
+                        <span v-for="(event_type,index) in event_types" :key="index">
+                            <span class="mr-2 event-size" :style="{
+                                    backgroundColor: event_type.color,
+                                    border: '2px solid '+ event_type.color
+                                }"></span>
+                            {{ event_type.name }}
+                        </span>
+                    </div>
+                </template>
+                <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
                 </div>
             </div>
         </div>
@@ -66,9 +71,8 @@
                 <div class="card-header border-0">
                     <h3 class="card-title">{{ __('Pending Request') }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" v-if="!loading">
                     <div class="d-flex flex-wrap col-12">
-
                         <template v-if="pending_requests && pending_requests.length">
                             <div v-for="request in pending_requests" :key="request.id"
                                 class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
@@ -111,12 +115,15 @@
                         <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
                     </div>
                 </div>
+                <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
+                </div>
             </div>
             <div class="card">
                 <div class="card-header border-0">
                     <h3 class="card-title">{{ __('Recent Approved Leaves') }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" v-if="!loading">
                     <div class="d-flex flex-wrap col-12">
                         <template v-if="recent_approved_requests && recent_approved_requests.length">
                         <div v-for="request in recent_approved_requests" :key="request.id"
@@ -154,12 +161,15 @@
                         <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
                     </div>
                 </div>
+                <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
+                </div>
             </div>
             <div class="card">
                 <div class="card-header border-0">
                     <h3 class="card-title">{{ __('Current Subscribed') }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" v-if="!loading">
                     <div class="d-flex flex-wrap col-12">
                         <table class="table">
                             <tbody>
@@ -191,6 +201,9 @@
                          <button class="btn btn-danger btn-sm" v-if="subscribed_plan.plan && subscribed_plan.plan.type != 'free'">{{ __('Cancel Plan') }}</button>
                             <button class="btn btn-primary">{{ __('Upgrade Plan') }}</button>
                        </div>
+                </div>
+                <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
                 </div>
             </div>
         </div>
@@ -303,6 +316,7 @@ export default {
                 reason: "",
             },
             showModal: false,
+            loading: true,
         };
     },
     methods: {
@@ -362,6 +376,7 @@ export default {
             this.recent_approved_requests =
                 response.data.recent_approved_requests;
             this.subscribed_plan = response.data.subscribed_plan;
+            this.loading = false;
         }
     },
     async mounted() {

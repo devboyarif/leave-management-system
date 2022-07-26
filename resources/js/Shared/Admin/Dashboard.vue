@@ -7,8 +7,7 @@
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('Total Income') }}</span>
                     <span class="info-box-number">
-                        <b>{{ summary.currency_symbol }}</b>
-                        {{ summary.total_income }}
+                        {{ currencyPosition(summary.total_income) }}
                     </span>
                 </div>
             </div>
@@ -170,7 +169,6 @@ export default {
                 total_companies: 0,
                 total_teams: 0,
                 total_employees: 0,
-                currency_symbol: '$',
             },
 
             // Chart
