@@ -40,9 +40,12 @@
                             <p>{{ __('Logout') }}</p>
                         </Link>
                     </li>
-                    <Link :href="route('employee.leave.request.create')" class="btn btn-danger text-light m-2 p-0" >
-                        <h6 class="m-2">{{ __('Apply for Leave') }}</h6>
-                    </Link>
+                    <NavLink title="Apply for Leave" :href="route('employee.leave.request.create')"
+                        class="mt-4 bg-danger">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-person-walking-luggage nav-icon"></i>
+                        </template>
+                    </NavLink>
                 </ul>
             </nav>
         </div>
