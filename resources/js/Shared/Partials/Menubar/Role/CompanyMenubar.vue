@@ -54,7 +54,7 @@
                     </NavLink>
 
                     <!-- Subscription Part  -->
-                    <li class="nav-header">{{ __('Subscription Manage') }}</li>
+                    <li class="nav-header">{{ __('Subscription') }}</li>
                     <NavLink title="Pricing Plan" :href="route('company.plan')" :active="$page.component == 'company/plan'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-money-bill nav-icon"></i>

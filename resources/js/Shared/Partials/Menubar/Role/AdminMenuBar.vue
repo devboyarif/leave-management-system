@@ -62,7 +62,7 @@
                     </NavLink>
 
                     <!-- Subscription Part  -->
-                    <li class="nav-header">{{ __('Subscription') }}</li>
+                    <li class="nav-header">{{ __('Subscription Manage') }}</li>
                      <NavLink title="Plan" :href="route('plans.index')" :active="$page.component == 'admin/plan/index' || $page.component == 'admin/plan/create' || $page.component == 'admin/plan/edit'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-credit-card nav-icon"></i>
