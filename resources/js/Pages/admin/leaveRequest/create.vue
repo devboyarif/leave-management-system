@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">{{ __('Create Leave Request') }}</h3>
-                        <Link :href="route('leaveTypes.index')" class="btn btn-primary">
+                        <Link :href="route('leaveRequests.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         {{ __('Back') }}
                         </Link>

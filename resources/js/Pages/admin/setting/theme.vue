@@ -132,6 +132,7 @@
 
 <script>
 export default {
+    layout: 'Setting',
     props: {
         theme: Object,
     },

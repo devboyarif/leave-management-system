@@ -62,6 +62,7 @@
 
 <script>
 export default {
+    layout: 'Setting',
     props: {
         lang: Array,
         translations: Array,

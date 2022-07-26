@@ -117,6 +117,7 @@
 
 <script>
 export default {
+    layout: 'Setting',
     props: {
         languages: Array,
         langInfos: Array,

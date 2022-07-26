@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\CompanyController;
@@ -11,8 +12,8 @@ use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LeaveTypeController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\LeaveRequestController;
-use App\Http\Controllers\Admin\OrderController;
 
 Route::middleware(['auth','check.admin.role'])->prefix('admin')->group(function () {
     Route::get('/about', function () {
@@ -64,15 +65,15 @@ Route::middleware(['auth','check.admin.role'])->prefix('admin')->group(function 
 
     // Languages
     Route::controller(LanguageController::class)->group(function () {
-        Route::get('/languages', 'index')->name('languages.index');
-        Route::post('/languages', 'store')->name('languages.store');
-        Route::put('/languages/{lang}', 'update')->name('languages.update');
-        Route::delete('/languages/{lang}', 'destroy')->name('languages.destroy');
-        Route::get('/languages/translation/{lang}', 'translationEdit')->name('languages.translation.edit');
-        Route::put('/languages/translation/{lang}', 'translationUpdate')->name('languages.translation.update');
-        Route::put('/languages/status/{lang}', 'statusUpdate')->name('languages.status.update');
-        Route::get('/languages/translate/single', 'singleTranslate')->name('languages.translate');
-        Route::get('/languages/translate/all', 'allTranslate')->name('languages.translate.all');
+        Route::get('/setting/languages', 'index')->name('languages.index');
+        Route::post('/setting/languages', 'store')->name('languages.store');
+        Route::put('/setting/languages/{lang}', 'update')->name('languages.update');
+        Route::delete('/setting/languages/{lang}', 'destroy')->name('languages.destroy');
+        Route::get('/setting/languages/translation/{lang}', 'translationEdit')->name('languages.translation.edit');
+        Route::put('/setting/languages/translation/{lang}', 'translationUpdate')->name('languages.translation.update');
+        Route::put('/setting/languages/status/{lang}', 'statusUpdate')->name('languages.status.update');
+        Route::get('/setting/languages/translate/single', 'singleTranslate')->name('languages.translate');
+        Route::get('/setting/languages/translate/all', 'allTranslate')->name('languages.translate.all');
     });
 
     // Themes
@@ -80,14 +81,10 @@ Route::middleware(['auth','check.admin.role'])->prefix('admin')->group(function 
         Route::get('/setting/theme', 'theme')->name('theme');
         Route::post('/setting/theme', 'adminThemeUpdate')->name('theme.admin.update');
         Route::post('/setting/website/theme', 'websiteThemeUpdate')->name('theme.website.update');
-        // Route::post('/languages', 'store')->name('languages.store');
-        // Route::put('/languages/{lang}', 'update')->name('languages.update');
-        // Route::delete('/languages/{lang}', 'destroy')->name('languages.destroy');
-        // Route::get('/languages/translation/{lang}', 'translationEdit')->name('languages.translation.edit');
-        // Route::put('/languages/translation/{lang}', 'translationUpdate')->name('languages.translation.update');
-        // Route::put('/languages/status/{lang}', 'statusUpdate')->name('languages.status.update');
-        // Route::get('/languages/translate/single', 'singleTranslate')->name('languages.translate');
-        // Route::get('/languages/translate/all', 'allTranslate')->name('languages.translate.all');
+    });
+
+    Route::controller(SettingController::class)->prefix('settings')->group(function(){
+        Route::get('/general', 'general')->name('settings.general');
     });
 
 });

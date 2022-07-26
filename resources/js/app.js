@@ -22,6 +22,7 @@ const data = JSON.parse(el.dataset.page);
 // Made components available globally
 import Layout from "./Shared/Layout/Default.vue";
 import AuthLayout from "./Shared/Layout/Auth.vue";
+import SettingLayout from "./Shared/Layout/Setting.vue";
 import ErrorMessage from "./Shared/Forms/ErrorMessage.vue";
 import Info from "./Shared/Forms/Info.vue";
 import Label from "./Shared/Forms/Label.vue";
@@ -55,6 +56,8 @@ const app = createApp({
             } else if (page.layout === 'Auth') {
                 page.layout = AuthLayout;
 
+            }else if (page.layout === 'Setting') {
+                page.layout = SettingLayout;
             }
 
             console.log(page.layout);
