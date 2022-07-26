@@ -46,17 +46,22 @@
                 <div class="card-header border-0">
                     <h3 class="card-title">{{ __('Calendar') }}</h3>
                 </div>
-                <div class="card-body">
-                    <FullCalendar :options="calendarOptions" />
-                </div>
-                <div class="card-footer row justify-content-between">
-                    <span v-for="(event_type,index) in event_types" :key="index">
-                        <span class="mr-2 event-size" :style="{
-                            backgroundColor: event_type.color,
-                            border: '2px solid '+ event_type.color
-                        }"></span>
-                        {{ event_type.name }}
-                    </span>
+               <template v-if="!loading">
+                    <div class="card-body">
+                        <FullCalendar :options="calendarOptions" />
+                    </div>
+                    <div class="card-footer row justify-content-between">
+                        <span v-for="(event_type,index) in event_types" :key="index">
+                            <span class="mr-2 event-size" :style="{
+                                backgroundColor: event_type.color,
+                                border: '2px solid '+ event_type.color
+                            }"></span>
+                            {{ event_type.name }}
+                        </span>
+                    </div>
+               </template>
+                <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
                 </div>
             </div>
             <!-- /.card -->
@@ -72,7 +77,7 @@
                         </Link>
                     </div>
                 </div>
-                <div class="card-body table-responsive p-0">
+                <div class="card-body table-responsive p-0" v-if="!loading">
                     <table class="table table-striped table-valign-middle">
                         <thead>
                             <tr>
@@ -107,6 +112,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
+                </div>
             </div>
         </div>
 
@@ -122,7 +130,7 @@
                         </Link>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" v-if="!loading">
                     <div v-for="(leave_balance, index) in leave_balances" :key="index">
                         <PieChart :title="leave_balance.title" :series="leavePercentage(leave_balance)"/>
                         <ul class="list-group list-group-horizontal my-2 d-flex justify-content-center">
@@ -138,6 +146,9 @@
                         </ul>
                         <hr v-if="index+1 != leave_balances.length">
                     </div>
+                </div>
+                 <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
                 </div>
             </div>
         </div>
@@ -169,6 +180,7 @@ export default {
             leave_balances: [],
             summary: {},
             pending_leave_requests: [],
+            loading: true,
         };
     },
     methods: {
@@ -204,6 +216,7 @@ export default {
             this.leave_balances = response.data.leave_balances;
             this.summary = response.data.summary;
             this.pending_leave_requests = response.data.pending_leave_requests;
+            this.loading = false;
         },
     },
     async mounted() {
