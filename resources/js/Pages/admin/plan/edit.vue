@@ -199,6 +199,9 @@ export default {
             this.form.custom_theme_lookup = event.target.checked;
         },
     },
+     mounted(){
+        this.checkPagePermission('admin')
+    }
 };
 </script>
 

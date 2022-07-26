@@ -31,6 +31,12 @@ module.exports = {
             if (typeof val === "object")
                 return (num, word) => _pluralize(num, word, val[word]);
             return _pluralize(val, word, plural);
+        },
+        checkPagePermission(role) {
+            if (this.$page.props.authenticatedUser.role != role) {
+                // this.$router.push('/');
+                this.$inertia.get(route("error.403"))
+            }
         }
     },
     computed: {

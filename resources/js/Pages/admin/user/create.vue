@@ -67,5 +67,8 @@ export default {
             this.form.post(route("admins.store"));
         },
     },
+     mounted(){
+        this.checkPagePermission('admin')
+    }
 };
 </script>

@@ -106,5 +106,8 @@ export default {
             this.form.post(route("companies.update", this.user.id));
         },
     },
+     mounted(){
+        this.checkPagePermission('admin')
+    }
 };
 </script>

@@ -129,5 +129,8 @@ export default {
             this.teams = response.data.teams;
         },
     },
+     mounted(){
+        this.checkPagePermission('admin')
+    }
 };
 </script>

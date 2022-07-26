@@ -178,6 +178,9 @@ export default {
             this.form.end = formatTime;
         },
     },
+     mounted(){
+        this.checkPagePermission('admin')
+    }
 };
 </script>
 

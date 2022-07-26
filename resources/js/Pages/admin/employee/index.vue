@@ -106,6 +106,9 @@ export default {
             );
         }, 500),
     },
+     mounted(){
+        this.checkPagePermission('admin')
+    }
 };
 </script>
 

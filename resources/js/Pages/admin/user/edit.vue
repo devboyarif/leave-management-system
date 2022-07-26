@@ -74,5 +74,8 @@ export default {
             this.form.post(route("admins.update", this.user.id));
         },
     },
+     mounted(){
+        this.checkPagePermission('admin')
+    }
 };
 </script>

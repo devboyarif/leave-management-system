@@ -187,6 +187,9 @@ export default {
             this.filterForm.get(route("teams.index"));
         },
     },
+     mounted(){
+        this.checkPagePermission('admin')
+    }
     // watch: {
     //     search: debounce((value) => {
     //         Inertia.get(

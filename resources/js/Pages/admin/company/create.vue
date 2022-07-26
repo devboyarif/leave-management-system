@@ -105,5 +105,8 @@ export default {
             this.form.post(route("companies.store"));
         },
     },
+    mounted(){
+        this.checkPagePermission('admin')
+    }
 };
 </script>

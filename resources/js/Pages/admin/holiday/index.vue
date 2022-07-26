@@ -75,22 +75,8 @@ export default {
         Inertia,
         Pagination,
     },
-    data() {
-        return {
-            //
-        };
-    },
-    watch: {
-        // search: debounce((value) => {
-        //     Inertia.get(
-        //         "users",
-        //         { search: value },
-        //         {
-        //             preserveState: true,
-        //             replace: true,
-        //         }
-        //     );
-        // }, 500),
-    },
+     mounted(){
+        this.checkPagePermission('admin')
+    }
 };
 </script>

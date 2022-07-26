@@ -26,4 +26,9 @@ class GlobalController extends Controller
     {
         return __($request->message);
     }
+
+    public function error403()
+    {
+        return inertia('errors/403');
+    }
 }

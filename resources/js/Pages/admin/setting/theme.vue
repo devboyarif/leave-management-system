@@ -173,6 +173,9 @@ export default {
             }
         },
     },
+     mounted(){
+        this.checkPagePermission('admin')
+    }
 };
 </script>
 
