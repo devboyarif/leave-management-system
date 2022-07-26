@@ -17,25 +17,10 @@
                            <i class="fa-solid fa-gauge-high nav-icon"></i>
                         </template>
                     </NavLink>
-                     <Dropdown title="Leave" :active="dropdownActive($page.component)">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-plane-departure nav-icon"></i>
-                        </template>
-                        <NavLink title="Leave Type" :href="route('company.leaveTypes.index')" :active="$page.component == 'company/leaveType/index' || $page.component == 'company/leaveType/create' || $page.component == 'company/leaveType/edit'">
-                            <template v-slot:icon>
-                                <i class="far fa-circle nav-icon"></i>
-                            </template>
-                             <template v-slot:badge v-if="!hasAccessLeaveType">
-                            <span class="right badge badge-danger">{{ __('Pro') }}</span>
-                        </template>
-                        </NavLink>
-                        <NavLink title="Leave Request" :href="route('company.leaveRequests.index')" :active="$page.component == 'company/leaveRequest/index' || $page.component == 'company/leaveRequest/create' || $page.component == 'company/leaveRequest/edit'">
-                            <template v-slot:icon>
-                                <i class="far fa-circle nav-icon"></i>
-                            </template>
-                        </NavLink>
-                    </Dropdown>
-                    <NavLink title="Employee" :href="route('company.employees.index')" :active="$page.component == 'company/employees'">
+
+                    <!-- Users Manage  -->
+                    <li class="nav-header">{{ __('User Manage') }}</li>
+                     <NavLink title="Employee" :href="route('company.employees.index')" :active="$page.component == 'company/employees'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-user-group nav-icon"></i>
                         </template>
@@ -45,24 +30,31 @@
                           <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Reports" :href="route('holidays.index')" :active="$page.url == '/admin/holidays' || $page.url == '/admin/holidays/*'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-chart-pie nav-icon"></i>
-                        </template>
-                    </NavLink>
+
+                    <!-- Leave Manage  -->
+                    <li class="nav-header">{{ __('Leave Manage') }}</li>
+                    <NavLink title="Leave Type" :href="route('company.leaveTypes.index')" :active="$page.component == 'company/leaveType/index' || $page.component == 'company/leaveType/create' || $page.component == 'company/leaveType/edit'">
+                            <template v-slot:icon>
+                                <i class="fa-solid fa-list nav-icon"></i>
+                            </template>
+                             <template v-slot:badge v-if="!hasAccessLeaveType">
+                                <span class="right badge badge-danger">{{ __('Pro') }}</span>
+                            </template>
+                        </NavLink>
+                        <NavLink title="Leave Request" :href="route('company.leaveRequests.index')" :active="$page.component == 'company/leaveRequest/index' || $page.component == 'company/leaveRequest/create' || $page.component == 'company/leaveRequest/edit'">
+                            <template v-slot:icon>
+                                <i class="fa-solid fa-file-pen nav-icon"></i>
+                            </template>
+                        </NavLink>
+
                     <NavLink title="Holidays" :href="route('company.holidays.index')" :active="$page.url == '/company/holidays' || $page.url == '/company/holidays/*'">
                         <template v-slot:icon>
                            <i class="fa-solid fa-h nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="Theme" :href="route('company.theme.index')" :active="$page.url == '/company/theme'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-language nav-icon"></i>
-                        </template>
-                        <template v-slot:badge v-if="!hasAccessCustomThemeLook">
-                            <span class="right badge badge-danger">{{ __('Pro') }}</span>
-                        </template>
-                    </NavLink>
+
+                    <!-- Subscription Part  -->
+                    <li class="nav-header">{{ __('Subscription Manage') }}</li>
                     <NavLink title="Pricing Plan" :href="route('company.plan')" :active="$page.component == 'company/plan'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-money-bill nav-icon"></i>
@@ -71,6 +63,17 @@
                     <NavLink title="Orders" :href="route('company.orders.index')" :active="$page.url == '/company/orders'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-chart-pie nav-icon"></i>
+                        </template>
+                    </NavLink>
+
+                    <!-- Settings Part  -->
+                    <li class="nav-header">{{ __('Settings') }}</li>
+                     <NavLink title="Theme" :href="route('company.theme.index')" :active="$page.url == '/company/theme'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-language nav-icon"></i>
+                        </template>
+                        <template v-slot:badge v-if="!hasAccessCustomThemeLook">
+                            <span class="right badge badge-danger">{{ __('Pro') }}</span>
                         </template>
                     </NavLink>
                      <li class="nav-item">
@@ -130,3 +133,13 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.nav-sidebar>.nav-header {
+    margin-left: 0.6rem;
+    margin-top: 10px;
+    color: #ffffff;
+    opacity: 1;
+    padding-bottom: 2px;
+}
+</style>

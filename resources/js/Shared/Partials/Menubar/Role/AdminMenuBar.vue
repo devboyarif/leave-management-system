@@ -43,7 +43,7 @@
                         </template>
                     </NavLink>
 
-                    <!-- Users Manage  -->
+                    <!-- Leave Manage  -->
                     <li class="nav-header">{{ __('Leave Manage') }}</li>
                      <NavLink title="Leave Type" :href="route('leaveTypes.index')" :active="$page.component == 'admin/leaveType/index' || $page.component == 'admin/leaveType/create' || $page.component == 'admin/leaveType/edit'">
                         <template v-slot:icon>
