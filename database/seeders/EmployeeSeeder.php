@@ -34,6 +34,7 @@ class EmployeeSeeder extends Seeder
             'user_id' => $user->id,
             'company_id' => $company->id,
             'team_id' => $team->id,
+            'phone' => '+8801681729831',
         ]);
 
         $leave_types = LeaveType::where('company_id', $company->id)->get();
@@ -59,6 +60,7 @@ class EmployeeSeeder extends Seeder
             'user_id' => $user2->id,
             'company_id' => 4,
             'team_id' => $team2->id,
+            'phone' => '+8801681729831',
         ]);
 
         $leave_types2 = LeaveType::where('company_id', 4)->get();

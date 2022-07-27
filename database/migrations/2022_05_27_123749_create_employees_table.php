@@ -21,6 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Team::class)->constrained()->cascadeOnDelete();
+            $table->string('phone')->nullable();
             $table->timestamps();
         });
     }

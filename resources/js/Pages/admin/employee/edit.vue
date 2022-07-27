@@ -30,13 +30,13 @@
                          <div class="mb-3 row">
                              <div class="col-md-6">
                                 <Label :name="__('Company')"/>
-                                <select @change="loadTeams" class="form-control" v-model="form.user_id" :class="{'is-invalid':form.errors.user_id}">
+                                <select @change="loadTeams" class="form-control" v-model="form.company_id" :class="{'is-invalid':form.errors.company_id}">
                                     <option value="" class="d-none">{{ __('Select Company') }}</option>
-                                    <option v-for="user in users" :key="user.id" :value="user.id">
-                                        {{ user.name }}
+                                    <option v-for="company in companies" :key="company.id" :value="company.id">
+                                        {{ company.user.name }}
                                     </option>
                                 </select>
-                                <ErrorMessage :name="form.errors.user_id"/>
+                                <ErrorMessage :name="form.errors.company_id"/>
                             </div>
                             <div class="col-md-6">
                                 <Label :name="__('Team')"/>
@@ -56,6 +56,12 @@
                                     :class="{'is-invalid':form.errors.password}" id="password">
                                 <ErrorMessage :name="form.errors.password" />
                             </div>
+                             <div class="col-lg-6">
+                                <Label :name="__('Phone Number')"/>
+                                <vue-tel-input v-model="form.phone" mode="international"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <div class="col-lg-6">
                                  <Label :name="__('Change Avatar')" :required="false"/>
                                 <input accept="image/jpeg, image/jpg/ image/png" class="form-control border-0 p-0" type="file" @input="form.avatar = $event.target.files[0]" :class="{'is-invalid':form.errors.avatar}"/>
@@ -79,10 +85,12 @@
 
 <script>
 import { Inertia } from "@inertiajs/inertia";
+import { VueTelInput } from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 
 export default {
     props: {
-        users: {
+        companies: {
             type: Array,
             required: true,
         },
@@ -101,6 +109,7 @@ export default {
     },
     components: {
         Inertia,
+        VueTelInput
     },
     data() {
         return {
@@ -109,8 +118,9 @@ export default {
                 email: this.user.email,
                 password: null,
                 avatar: null,
-                user_id: this.employee.company_id,
+                company_id: this.employee.company_id,
                 team_id: this.employee.team_id,
+                phone: this.employee.phone,
                 _method: "PUT",
             }),
             companies: this.companies,
@@ -119,12 +129,12 @@ export default {
     },
     methods: {
         updateData() {
-            this.form.post(route("employees.update", this.user.id));
+            this.form.post(route("employees.update", this.employee.id));
         },
         async loadTeams() {
             this.teams = [];
             let response = await axios.get(
-                route("companies.teams", this.form.user_id)
+                route("companies.teams", this.form.company_id)
             );
             this.teams = response.data.teams;
         },

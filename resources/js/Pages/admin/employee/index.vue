@@ -19,6 +19,7 @@
                                <tr>
                                     <th>{{ __('Employee') }}</th>
                                     <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Phone Number') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
@@ -31,6 +32,7 @@
                                             {{ user.name }}
                                         </td>
                                         <td>{{ user.email }}</td>
+                                        <td>{{ user.phone ? user.phone: '-' }}</td>
                                         <td class="d-flex">
                                             <Link :href="route('employees.edit',user.id)" v-tooltip="__('Employee Edit')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>

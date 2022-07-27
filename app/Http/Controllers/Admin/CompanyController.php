@@ -162,9 +162,8 @@ class CompanyController extends Controller
         return back();
     }
 
-    public function companiesTeams(User $user)
+    public function companiesTeams(Company $company)
     {
-        $company = Company::where('user_id', $user->id)->firstOrFail();
         $teams = $company->teams;
 
         return response()->json([

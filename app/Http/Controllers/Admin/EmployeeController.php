@@ -7,6 +7,8 @@ use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeCreateRequest;
 use App\Http\Requests\EmployeeUpdateRequest;
+use App\Models\Company;
+use App\Models\Employee;
 
 class EmployeeController extends Controller
 {
@@ -24,7 +26,7 @@ class EmployeeController extends Controller
                 $query->where('name', 'Like', "%{$search}%");
             })
             ->roleEmployee()
-            ->with('employee')
+            ->with('employee:id,phone')
             ->latest()
             ->paginate(10)
             ->withQueryString()
@@ -33,6 +35,7 @@ class EmployeeController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'avatar' => $user->avatar,
+                'phone' => $user->employee->phone ?? '',
             ]);
 
         return inertia('admin/employee/index', [
@@ -48,10 +51,10 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $users = User::roleCompany()->get();
+        $companies = Company::with('user:id,name')->get();
 
         return inertia('admin/employee/create', [
-            'users' => $users,
+            'companies' => $companies,
         ]);
     }
 
@@ -63,7 +66,7 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeCreateRequest $request)
     {
-       $company = getCompany($request->user_id);
+       $company = Company::findOrFail($request->company_id);
 
         // Check if the user is limited to create employees
         if ($this->checkEmployeesLimitation($company)) {
@@ -89,10 +92,12 @@ class EmployeeController extends Controller
             'user_id' => $user->id,
             'company_id' => $company->id,
             'team_id' => $request->team_id,
+            'phone' => $request->phone ?? '',
         ]);
 
         session()->flash('success', 'Employee created successfully!');
-        return back();
+        return redirect_to('employees.index');
+
     }
 
     /**
@@ -116,13 +121,13 @@ class EmployeeController extends Controller
     {
         $user = $employee;
         $employee = $user->employee;
-        $users = User::roleCompany()->get();
+        $companies = Company::with('user:id,name')->get();
         $teams = $employee->company->teams;
 
         return inertia('admin/employee/edit', [
             'user' => $user,
             'employee' => $employee,
-            'users' => $users,
+            'companies' => $companies,
             'teams' => $teams,
         ]);
     }
@@ -134,11 +139,9 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeeUpdateRequest $request, User $employee)
+    public function update(EmployeeUpdateRequest $request, Employee $employee)
     {
-        $user = $employee;
-
-        $data = $request->all();
+        $data = $request->except(['phone', 'company_id', 'team_id','_method']);
         $data['role'] = User::ROLE_EMPLOYEE;
         if ($request->password) {
             $data['password'] = bcrypt($data['password']);
@@ -152,12 +155,12 @@ class EmployeeController extends Controller
             $data['avatar'] = $url;
         }
 
-        $user->update($data);
+        $employee->user()->update($data);
 
-        $user->employee()->update([
-            'user_id' => $user->id,
-            'company_id' => $request->user_id,
+        $employee->update([
+            'company_id' => $request->company_id,
             'team_id' => $request->team_id,
+            'phone' => $request->phone ?? '',
         ]);
 
         session()->flash('success', 'Employee updated successfully!');

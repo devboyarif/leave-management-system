@@ -27,7 +27,7 @@ class EmployeeCreateRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
-            'user_id' => 'required|integer',
+            'company_id' => 'required|integer',
             'team_id' => 'required|integer',
         ];
     }
@@ -35,7 +35,7 @@ class EmployeeCreateRequest extends FormRequest
     public function message()
     {
         return [
-            'user_id' => 'The company field is required.',
+            'company_id' => 'The company field is required.',
             'team_id' => 'The team field is required.',
         ];
     }

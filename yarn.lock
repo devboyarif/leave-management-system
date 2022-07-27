@@ -3559,6 +3559,11 @@ laravel-mix@^6.0.6:
     webpackbar "^5.0.0-3"
     yargs "^17.2.1"
 
+libphonenumber-js@^1.10.7:
+  version "1.10.10"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.10.tgz#59b2618a3a098108d2df8997539105aabae46b21"
+  integrity sha512-JzYUapWcHkUe5n6OFqxJtHfCfuU0juqkqc9P+hrfzgmJODaREYLUgceiNAmIGx5j3Gjp7KVxi3koFo7OJFSTxg==
+
 lilconfig@^2.0.3, lilconfig@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.5.tgz#19e57fd06ccc3848fd1891655b5a447092225b25"
@@ -5386,6 +5391,13 @@ vue-sweetalert2@^5.0.5:
   integrity sha512-Q7+TjQxNwGruT2jfPaSKMz18HHWs81r4umEwlrrtOf/QL5Iwl1T+tUaNkcvKB7Rf9rYftubt7NnOMjfDMnDH3A==
   dependencies:
     sweetalert2 "11.x"
+
+vue-tel-input@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/vue-tel-input/-/vue-tel-input-6.0.3.tgz#f3fb96f1bee71e841dbd2f7eeb488bdc8cb77238"
+  integrity sha512-rl2vlKfkFu77LzTv7XgYLAd1RO1ayhtOcgURUe1R2SVeAJSzwuqMRDBwS8L6tCvTr/QF/gD3S1GleLHMjx2Cfw==
+  dependencies:
+    libphonenumber-js "^1.10.7"
 
 vue3-apexcharts@^1.4.1:
   version "1.4.1"

@@ -30,13 +30,13 @@
                          <div class="mb-3 row">
                              <div class="col-md-6">
                                 <Label :name="__('Company')"/>
-                                <select @change="loadTeams" class="form-control" v-model="form.user_id" :class="{'is-invalid':form.errors.user_id}">
+                                <select @change="loadTeams" class="form-control" v-model="form.company_id" :class="{'is-invalid':form.errors.company_id}">
                                     <option value="" class="d-none">{{ __('Select Company') }}</option>
-                                    <option v-for="user in users" :key="user.id" :value="user.id">
-                                        {{ user.name }}
+                                    <option v-for="company in companies" :key="company.id" :value="company.id">
+                                        {{ company.user.name }}
                                     </option>
                                 </select>
-                                <ErrorMessage :name="form.errors.user_id"/>
+                                <ErrorMessage :name="form.errors.company_id"/>
                             </div>
                             <div class="col-md-6">
                                 <Label :name="__('Team')"/>
@@ -63,17 +63,20 @@
                                 <ErrorMessage :name="form.errors.password_confirmation" />
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <Label :name="__('Avatar')" :required="false"/>
-                            <input accept="image/jpeg, image/jpg/ image/png" class="form-control border-0 p-0" type="file" @input="form.avatar = $event.target.files[0]" :class="{'is-invalid':form.errors.avatar}"/>
-                            <ErrorMessage :name="form.errors.avatar"/>
+                        <div class="mb-3 row">
+                            <div class="col-lg-6">
+                                <Label :name="__('Phone Number')"/>
+                                <vue-tel-input v-model="form.phone" mode="international"/>
+                            </div>
+                            <div class="col-lg-6">
+                                <Label :name="__('Avatar')" :required="false"/>
+                                <input accept="image/jpeg, image/jpg/ image/png" class="form-control border-0 p-0" type="file" @input="form.avatar = $event.target.files[0]" :class="{'is-invalid':form.errors.avatar}"/>
+                                <ErrorMessage :name="form.errors.avatar"/>
+                            </div>
                         </div>
-                        <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                            <Loading v-if="form.processing"/>
-                            <span v-else>
-                                <i class="fa-solid fa-check mr-1"></i>
-                                {{ __('Save') }}
-                            </span>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-check mr-1"></i>
+                            {{ __('Save') }}
                         </button>
                     </form>
                     </div>
@@ -85,16 +88,19 @@
 
 <script>
 import { Inertia } from "@inertiajs/inertia";
+import { VueTelInput } from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 
 export default {
     props: {
-        users: {
+        companies: {
             type: Array,
             required: true,
         },
     },
     components: {
         Inertia,
+        VueTelInput,
     },
     data() {
         return {
@@ -104,8 +110,9 @@ export default {
                 password: null,
                 password_confirmation: null,
                 avatar: null,
-                user_id: "",
+                company_id: "",
                 team_id: "",
+                phone: null,
             }),
 
             teams: [],
@@ -114,12 +121,14 @@ export default {
     methods: {
         createData() {
             this.form.post(route("employees.store"), {
-                onSuccess: () => this.form.reset(),
+               onSuccess: () => {
+                    this.form.reset()
+                },
             });
         },
         async loadTeams() {
             let response = await axios.get(
-                route("companies.teams", this.form.user_id)
+                route("companies.teams", this.form.company_id)
             );
             this.teams = response.data.teams;
         },
