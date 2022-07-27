@@ -54,15 +54,14 @@ class EmployeeSeeder extends Seeder
             'role' => 'employee',
         ]);
 
-        $company2 = Company::inRandomOrder()->first();
         $team2 = $company->teams->first();
         $employee = Employee::create([
             'user_id' => $user2->id,
-            'company_id' => $company2->id,
+            'company_id' => 4,
             'team_id' => $team2->id,
         ]);
 
-        $leave_types2 = LeaveType::where('company_id', $company2->id)->get();
+        $leave_types2 = LeaveType::where('company_id', 4)->get();
         foreach ($leave_types2 as $leave_type) {
             LeaveBalance::create([
                 'employee_id' => $employee->id,

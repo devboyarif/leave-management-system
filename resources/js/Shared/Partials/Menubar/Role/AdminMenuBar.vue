@@ -74,6 +74,8 @@
                         </template>
                     </NavLink>
 
+                    <!-- Settings Part  -->
+                    <li class="nav-header">{{ __('Settings') }}</li>
                     <NavLink title="Settings" :href="route('settings.general')" class="mt-3">
                         <template v-slot:icon>
                             <i class="fa-solid fa-gear nav-icon"></i>

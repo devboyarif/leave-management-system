@@ -29,7 +29,11 @@ class PendingLeaveRequest extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        if (checkMailConfig()) {
+            return ['database','mail'];
+        }else{
+            return ['database'];
+        }
     }
 
     /**
@@ -41,8 +45,8 @@ class PendingLeaveRequest extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
+            ->line('Your leave request has been submitted. Please wait for approval')
+            ->action('View Request', route('employee.leave.request.index'))
             ->line('Thank you for using our application!');
     }
 
