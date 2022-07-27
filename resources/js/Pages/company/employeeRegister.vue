@@ -34,6 +34,9 @@
                 </div>
                 <ErrorMessage :name="form.errors.password_confirmation" />
             </div>
+            <div class="input-group mb-3">
+                  <vue-tel-input v-model="form.phone" mode="international"/>
+            </div>
             <div class="row">
                 <div class="col-8">
                     <div class="icheck-primary">
@@ -57,6 +60,9 @@
 </template>
 
 <script>
+import { VueTelInput } from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
+
 export default {
     layout: "Auth",
     props: {
@@ -66,6 +72,9 @@ export default {
         },
         errors: Object,
     },
+     components: {
+        VueTelInput,
+    },
     data() {
         return {
             form: this.$inertia.form({
@@ -73,6 +82,7 @@ export default {
                 password: null,
                 password_confirmation: null,
                 terms_confirmed: null,
+                phone: null,
                 token: this.token,
             }),
         };

@@ -18,7 +18,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $teams = Team::where('company_id', currentCompany()->id)->get(['id', 'name', 'slug']);
-        $employees = Employee::with('user:id,name,email,avatar', 'team:id,name')->where('company_id', currentCompany()->id)->get();
+       $employees = Employee::with('user:id,name,email,avatar', 'team:id,name')->where('company_id', currentCompany()->id)->get();
 
         return inertia('company/employees', [
             'teams' => $teams,
@@ -28,6 +28,7 @@ class EmployeeController extends Controller
 
     public function store(EmployeeCreateRequest $request)
     {
+        return $request;
         // Check if the user is limited to create employees
         if ($this->checkEmployeesLimitation()) {
             session()->flash('error', __('You have reached the maximum number of employees'));
@@ -52,6 +53,7 @@ class EmployeeController extends Controller
             'user_id' => $user->id,
             'company_id' => currentCompany()->id,
             'team_id' => $request->team_id,
+            'phone' => $request->phone ?? '',
         ]);
 
         session()->flash('success', 'Employee created successfully!');
@@ -92,6 +94,7 @@ class EmployeeController extends Controller
             'user_id' => $user->id,
             'company_id' => currentCompany()->id,
             'team_id' => $request->team_id,
+            'phone' => $request->phone ?? '',
         ]);
 
         session()->flash('success', 'Employee updated successfully!');

@@ -57,6 +57,10 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
+                                        <div class="col-lg-6">
+                                            <Label :name="__('Phone Number')"/>
+                                            <vue-tel-input v-model="form.phone" mode="international"/>
+                                        </div>
                                         <div class="col-md-6">
                                             <Label name="Avatar" :required="false" />
                                             <input accept="image/jpeg, image/jpg/ image/png"
@@ -89,6 +93,9 @@
 </template>
 
 <script>
+import { VueTelInput } from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
+
 export default {
     props: {
         show: {
@@ -100,6 +107,9 @@ export default {
             default: () => [],
         },
     },
+    components: {
+        VueTelInput,
+    },
     data() {
         return {
             form: this.$inertia.form({
@@ -109,6 +119,7 @@ export default {
                 password_confirmation: null,
                 avatar: null,
                 team_id: "",
+                phone: null,
             }),
 
             teams: this.teams,

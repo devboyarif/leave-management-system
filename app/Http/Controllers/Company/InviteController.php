@@ -92,6 +92,7 @@ class InviteController extends Controller
         $user->employee()->create([
             'company_id' => $invite->company_id,
             'team_id' => $invite->team_id,
+            'phone' => $invite->phone ?? '',
         ]);
 
         // mark as accepted the invite
