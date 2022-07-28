@@ -19,12 +19,12 @@
                             <i class="fa-solid fa-gear nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Language" :href="route('languages.index')" :active="$page.url == '/admin/setting/languages' || $page.component == 'admin/setting/language/translation'">
+                    <NavLink title="Language" :href="route('languages.index')" :active="$page.component == 'admin/setting/language/index' || $page.component == 'admin/setting/language/translation'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-language nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="Currency" :href="route('settings.general')" :active="$page.url == '/admin/setting/currency'">
+                     <NavLink title="Currency" :href="route('settings.currency')" :active="$page.component == 'admin/setting/general'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-dollar-sign nav-icon"></i>
                         </template>
@@ -34,22 +34,22 @@
                             <i class="fa-solid fa-language nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="SEO" :href="route('settings.general')" :active="$page.url == '/admin/setting/seo'">
+                     <NavLink title="SEO" :href="route('settings.seo')" :active="$page.component == 'admin/setting/general'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-magnifying-glass nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="Website" :href="route('settings.general')" :active="$page.url == '/admin/setting/website'">
+                     <NavLink title="Website CMS" :href="route('settings.cms')" :active="$page.component == 'admin/setting/general'">
                         <template v-slot:icon>
-                            <i class="fa-solid fa-gear nav-icon"></i>
+                            <i class="fa-solid fa-file-pen nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="SMTP" :href="route('settings.general')" :active="$page.url == '/admin/setting/smtp'">
+                     <NavLink title="SMTP" :href="route('settings.smtp')" :active="$page.component == 'admin/setting/general'">
                         <template v-slot:icon>
                             <i class="fa-regular fa-envelope nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="Payment Gateway" :href="route('settings.general')" :active="$page.url == '/admin/setting/payment'">
+                     <NavLink title="Payment Gateway" :href="route('settings.payment')" :active="$page.component == 'admin/setting/payment'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-credit-card nav-icon"></i>
                         </template>

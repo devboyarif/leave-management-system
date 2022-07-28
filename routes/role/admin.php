@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\TeamController;
@@ -10,12 +11,14 @@ use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\LeaveRequestController;
+use App\Http\Controllers\Admin\TestimonialController;
 
-Route::middleware(['auth','check.admin.role'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function () {
     Route::get('/about', function () {
         return inertia('about');
     })->name('about');
@@ -23,6 +26,10 @@ Route::middleware(['auth','check.admin.role'])->prefix('admin')->group(function 
     Route::get('/contact', function () {
         return inertia('contact');
     })->name('contact');
+
+    // =========================================================================
+    // ===================Users Routes========================================
+    // ========================================================================
 
     // Admins
     Route::resource('/admins', UserController::class);
@@ -41,10 +48,16 @@ Route::middleware(['auth','check.admin.role'])->prefix('admin')->group(function 
     // Teams
     Route::resource('/teams', TeamController::class);
 
+    // =========================================================================
+    // ===================Leave and Subscription Routes========================
+    // ========================================================================
+
     // Plans
     Route::resource('/plans', PlanController::class);
-    Route::put('/plans/set-recommended-plan/{plan}', [PlanController::class, 'setRecommended'])->name('plans.set.recommended.plan');
-    Route::put('/plans/set-default-plan/{plan}', [PlanController::class, 'setDefault'])->name('plans.set.default.plan');
+    Route::controller(PlanController::class)->group(function () {
+        Route::put('/plans/set-recommended-plan/{plan}', 'setRecommended')->name('plans.set.recommended.plan');
+        Route::put('/plans/set-default-plan/{plan}', 'setDefault')->name('plans.set.default.plan');
+    });
 
     // Order
     Route::get('/admin/orders', [OrderController::class, 'orders'])->name('orders.index');
@@ -63,7 +76,19 @@ Route::middleware(['auth','check.admin.role'])->prefix('admin')->group(function 
         Route::delete('/requested/holiday/reject/{holiday}', 'requestedHolidaysReject')->name('request.holidays.reject');
     });
 
-    // Languages
+
+    // =========================================================================
+    // ===================Others Routes========================================
+    // ========================================================================
+    Route::resource('/posts', BlogController::class);
+    Route::resource('/faqs', FaqController::class);
+    Route::resource('/testimonials', TestimonialController::class);
+
+    // =========================================================================
+    // ===================Setting Routes========================================
+    // ========================================================================
+
+    // Languages Routes
     Route::controller(LanguageController::class)->group(function () {
         Route::get('/setting/languages', 'index')->name('languages.index');
         Route::post('/setting/languages', 'store')->name('languages.store');
@@ -76,17 +101,22 @@ Route::middleware(['auth','check.admin.role'])->prefix('admin')->group(function 
         Route::get('/setting/languages/translate/all', 'allTranslate')->name('languages.translate.all');
     });
 
-    // Themes
+    // Themes Routes
     Route::controller(ThemeController::class)->group(function () {
         Route::get('/setting/theme', 'theme')->name('theme');
         Route::post('/setting/theme', 'adminThemeUpdate')->name('theme.admin.update');
         Route::post('/setting/website/theme', 'websiteThemeUpdate')->name('theme.website.update');
     });
 
-    Route::controller(SettingController::class)->prefix('settings')->group(function(){
+    // Configurations & Settings
+    Route::controller(SettingController::class)->prefix('settings')->group(function () {
         Route::get('/general', 'general')->name('settings.general');
+        Route::get('/cms', 'cms')->name('settings.cms');
+        Route::get('/currency', 'currency')->name('settings.currency');
+        Route::get('/payment', 'payment')->name('settings.payment');
+        Route::get('/seo', 'seo')->name('settings.seo');
+        Route::get('/smtp', 'smtp')->name('settings.smtp');
     });
-
 });
 
 // Profile & Settings

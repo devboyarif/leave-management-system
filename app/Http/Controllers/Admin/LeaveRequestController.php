@@ -30,10 +30,6 @@ class LeaveRequestController extends Controller
 
         $users = User::roleCompany()->get();
 
-        // return [
-        //     'users' => $users,
-        //     'leaveRequests' => $leave_requests,
-        // ];
         return inertia('admin/leaveRequest/index', [
             'users' => $users,
             'leaveRequests' => $leave_requests,
