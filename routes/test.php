@@ -1,17 +1,10 @@
 <?php
 
 use Carbon\Carbon;
-use App\Models\Team;
-use App\Models\Order;
-use AmrShawky\Currency;
-use App\Models\Company;
-use App\Models\Country;
 use App\Models\Holiday;
-use App\Models\Employee;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Notifications\Notification;
+use Twilio\Rest\Client;
 
 Route::get('language/{language}', function ($language) {
     // return $language;
@@ -32,7 +25,31 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
-    return inertia('test/sms');
+    // return env("TWILIO_SID");
+    // return inertia('test/sms');
+
+    // --------Twilio SMS----------
+    $receiverNumber = "+8801681729831";
+    $message = "This is testing from ileave.test";
+
+    try {
+        $account_sid = "ACa33f135544a5481b26fc567c9d3bfec9";
+        $auth_token = "56285f9c55ec06fc71b3a5092bd1b1d1";
+        $twilio_number = "+19707158867";
+
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create($receiverNumber, [
+            'from' => $twilio_number,
+            'body' => $message
+        ]);
+
+        dd('SMS Sent Successfully.');
+    } catch (Exception $e) {
+        dd("Error: " . $e->getMessage());
+    }
+
+
+    // --------Nexmo SMS----------
     // $basic  = new \Nexmo\Client\Credentials\Basic('b1f8cebd', 'gn3znoS8Y3wF4MYQ');
     // $client = new \Nexmo\Client($basic);
 
@@ -45,8 +62,8 @@ Route::get('/test', function () {
     dd('SMS message has been delivered.');
 
 
-//     NEXMO_KEY=b1f8cebd
-// NEXMO_SECRET=gn3znoS8Y3wF4MYQ
+    //     NEXMO_KEY=b1f8cebd
+    // NEXMO_SECRET=gn3znoS8Y3wF4MYQ
 })->name('test');
 
 Route::get('/test2', function () {
