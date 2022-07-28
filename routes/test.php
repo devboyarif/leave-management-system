@@ -50,20 +50,16 @@ Route::get('/test', function () {
 
 
     // --------Nexmo SMS----------
-    // $basic  = new \Nexmo\Client\Credentials\Basic('b1f8cebd', 'gn3znoS8Y3wF4MYQ');
-    // $client = new \Nexmo\Client($basic);
+    $basic  = new \Nexmo\Client\Credentials\Basic('b1f8cebd', 'gn3znoS8Y3wF4MYQ');
+    $client = new \Nexmo\Client($basic);
 
-    // $message = $client->message()->send([
-    //     'to' => '+8801681729831',
-    //     'from' => 'John Doe',
-    //     'text' => 'A simple hello message sent from Vonage SMS API'
-    // ]);
+    $message = $client->message()->send([
+        'to' => '+8801681729831',
+        'from' => 'John Doe',
+        'text' => 'A simple hello message sent from Vonage SMS API'
+    ]);
 
     dd('SMS message has been delivered.');
-
-
-    //     NEXMO_KEY=b1f8cebd
-    // NEXMO_SECRET=gn3znoS8Y3wF4MYQ
 })->name('test');
 
 Route::get('/test2', function () {

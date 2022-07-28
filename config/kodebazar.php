@@ -11,6 +11,7 @@ return [
     'currency_symbol_position' => env('APP_CURRENCY_SYMBOL_POSITION'),
     'maintenance_disable_url' => env('APP_MAINTENCE_MODE_DISABLE_URL'),
 
+    // Payment Provider
     'stripe_key' => env('STRIPE_KEY'),
     'stripe_secret' => env('STRIPE_SECRET'),
     'stripe_active' => env('STRIPE_ACTIVE'),
@@ -48,4 +49,12 @@ return [
     'mollie_key' => env('MOLLIE_KEY'),
     'mollie_active' => env('MOLLIE_ACTIVE'),
 
+    // SMS Provider
+    'twilio_secret' => env('TWILIO_SID'),
+    'twilio_token' => env('TWILIO_TOKEN'),
+    'twilio_from' => env('TWILIO_FROM'),
+
+    'nexmo_key' => env('NEXMO_KEY'),
+    'nexmo_secret' => env('NEXMO_SECRET'),
+    'nexmo_from_name' => env('NEXMO_FROM_NAME'),
 ];

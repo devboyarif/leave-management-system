@@ -1,5 +1,6 @@
 <?php
 
+use Nexmo\Client as NexmoClient;
 use Carbon\Carbon;
 use App\Models\Theme;
 use AmrShawky\Currency;
@@ -7,6 +8,8 @@ use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Vonage\Client\Credentials\Basic;
+use Twilio\Rest\Client as TwilioClient;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 function uploadFileToPublic(string $path, $file)
@@ -212,4 +215,36 @@ function checkMailConfig()
     $status = config('mail.mailers.smtp.transport') && config('mail.mailers.smtp.host') && config('mail.mailers.smtp.port') && config('mail.mailers.smtp.username') && config('mail.mailers.smtp.password') && config('mail.mailers.smtp.encryption') && config('mail.from.address') && config('mail.from.name');
 
     return $status ? 1 : 0;
+}
+
+function sendSms($provider, $to, $message)
+{
+    if ($provider == 'nexmo') {
+        try {
+            $basic  = new Basic(config('kodebazar.nexmo_key'), config('kodebazar.nexmo_secret'));
+            $client = new NexmoClient($basic);
+
+            $message = $client->message()->send([
+                'to' => $to,
+                'from' => config('kodebazar.nexmo_from_name'),
+                'text' => $message
+            ]);
+        } catch (Exception $e) {
+            dd("Error: " . $e->getMessage());
+        }
+    } else if ($provider == 'twilio') {
+        try {
+            $account_sid = config('kodebazar.twilio_secret');
+            $auth_token = config('kodebazar.twilio_token');
+            $twilio_number = config('kodebazar.twilio_from');
+
+            $client = new TwilioClient($account_sid, $auth_token);
+            $client->messages->create($to, [
+                'from' => $twilio_number,
+                'body' => $message
+            ]);
+        } catch (Exception $e) {
+            dd("Error: " . $e->getMessage());
+        }
+    }
 }
