@@ -19,11 +19,6 @@
             @foreach ($testimonials as $testimonial)
                 <div class="col-lg-4 col-md-6">
                     <div class="ud-single-testimonial wow fadeInUp" data-wow-delay=".1s">
-                        <div class="ud-testimonial-ratings">
-                            @for ($i = 0; $i < $testimonial->stars; $i++)
-                                <i class="lni lni-star-filled"></i>
-                            @endfor
-                        </div>
                         <div class="ud-testimonial-content">
                             <p>
                                 {{ $testimonial->description }}

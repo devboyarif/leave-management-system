@@ -20,7 +20,7 @@
         </div>
    </div>
 
-      <!-- Create or Edit Holiday Modal  -->
+      <!-- Create or Edit Faq Modal  -->
     <div v-if="showModal">
         <transition name="fade">
             <div class="modal-mask">

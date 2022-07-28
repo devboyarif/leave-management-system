@@ -14,7 +14,6 @@ class Testimonial extends Model
         'position',
         'avatar',
         'description',
-        'stars',
     ];
 
     public function getAvatarAttribute($avatar)

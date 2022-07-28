@@ -18,7 +18,6 @@ class TestimonialFactory extends Factory
             'position' => $this->faker->jobTitle,
             'avatar' => $this->faker->imageUrl(100, 100),
             'description' => $this->faker->text,
-            'stars' => $this->faker->numberBetween(1, 5),
         ];
     }
 }
