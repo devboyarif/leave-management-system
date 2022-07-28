@@ -21,8 +21,11 @@ class LeaveRequestObserver
             $leaveRequest->employee->user->notify(new PendingLeaveRequest($leaveRequest));
         } elseif ($leaveRequest->status == 'approved') {
             $leaveRequest->employee->user->notify(new ApprovedLeaveRequest($leaveRequest));
+
+            setting('default_sms');
         } elseif ($leaveRequest->status == 'rejected') {
             $leaveRequest->employee->user->notify(new RejectedLeaveRequest($leaveRequest));
+            setting('default_sms');
         }
     }
 

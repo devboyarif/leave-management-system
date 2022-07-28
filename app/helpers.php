@@ -1,12 +1,13 @@
 <?php
 
-use Nexmo\Client as NexmoClient;
 use Carbon\Carbon;
 use App\Models\Theme;
 use AmrShawky\Currency;
 use App\Models\Company;
+use App\Models\Setting;
 use App\Models\Employee;
 use Illuminate\Support\Str;
+use Nexmo\Client as NexmoClient;
 use Illuminate\Support\Facades\Http;
 use Vonage\Client\Credentials\Basic;
 use Twilio\Rest\Client as TwilioClient;
@@ -215,6 +216,27 @@ function checkMailConfig()
     $status = config('mail.mailers.smtp.transport') && config('mail.mailers.smtp.host') && config('mail.mailers.smtp.port') && config('mail.mailers.smtp.username') && config('mail.mailers.smtp.password') && config('mail.mailers.smtp.encryption') && config('mail.from.address') && config('mail.from.name');
 
     return $status ? 1 : 0;
+}
+
+function setting($fields = null, $append = false)
+{
+    if ($fields) {
+        $type = gettype($fields);
+
+        if ($type == 'string') {
+            $data = $append ? Setting::first($fields) : Setting::value($fields);
+        } elseif ($type == 'array') {
+            $data = Setting::first($fields);
+        }
+    } else {
+        $data = Setting::first();
+    }
+
+    if ($append) {
+        $data = $data->makeHidden(['logo_image_url', 'logo_image2_url', 'favicon_image_url']);
+    }
+
+    return $data;
 }
 
 function sendSms($provider, $to, $message)

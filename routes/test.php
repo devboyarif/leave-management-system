@@ -25,6 +25,8 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+
+    return setting('default_sms');
     // return env("TWILIO_SID");
     // return inertia('test/sms');
 

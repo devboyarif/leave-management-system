@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
             TestimonialSeeder::class,
             LanguageSeeder::class,
             OrderSeeder::class,
-
+            SettingSeeder::class,
         ]);
     }
 }
