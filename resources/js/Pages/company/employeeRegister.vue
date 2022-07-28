@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import { VueTelInput } from 'vue-tel-input';
-import 'vue-tel-input/dist/vue-tel-input.css';
+import { VueTelInput } from "vue-tel-input";
+import "vue-tel-input/dist/vue-tel-input.css";
 
 export default {
     layout: "Auth",
@@ -72,7 +72,7 @@ export default {
         },
         errors: Object,
     },
-     components: {
+    components: {
         VueTelInput,
     },
     data() {
@@ -93,8 +93,5 @@ export default {
             this.form.post(route("company.store.employee"));
         },
     },
-     mounted(){
-        this.checkPagePermission('company')
-    }
 };
 </script>
