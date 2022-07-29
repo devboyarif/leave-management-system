@@ -22,7 +22,6 @@ return [
 
     'paystack_key' => env('PAYSTACK_PUBLIC_KEY'),
     'paystack_secret' => env('PAYSTACK_SECRET_KEY'),
-    'paystack_payment_url' => env('PAYSTACK_PAYMENT_URL'),
     'paystack_merchant' => env('MERCHANT_EMAIL'),
     'paystack_active' => env('PAYSTACK_ACTIVE'),
 
@@ -38,7 +37,6 @@ return [
 
     'im_key' => env('IM_API_KEY'),
     'im_secret' => env('IM_AUTH_TOKEN'),
-    'im_url' => env('IM_URL'),
     'im_active' => env('IM_ACTIVE'),
 
     'midtrans_id' => env('MIDTRANS_MERCHAT_ID'),

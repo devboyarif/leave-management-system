@@ -7,9 +7,12 @@ use App\Models\Company;
 use App\Models\Setting;
 use App\Models\Employee;
 use Illuminate\Support\Str;
+use msztorc\LaravelEnv\Env;
 use Nexmo\Client as NexmoClient;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 use Vonage\Client\Credentials\Basic;
+use Illuminate\Support\Facades\Artisan;
 use Twilio\Rest\Client as TwilioClient;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
@@ -268,5 +271,24 @@ function sendSms($provider, $to, $message)
         } catch (Exception $e) {
             dd("Error: " . $e->getMessage());
         }
+    }
+}
+
+function setEnv($key, $value)
+{
+    if ($key && $value) {
+        $env = new Env();
+        $env->setValue($key, $value);
+    }
+
+    if (file_exists(App::getCachedConfigPath())) {
+        Artisan::call("config:cache");
+    }
+}
+
+function checkSetEnv($key, $value)
+{
+    if ((env($key) != $value)) {
+        setEnv($key, $value);
     }
 }

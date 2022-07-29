@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "58e6e62b497c7b37938e181859f92ec1",
+    "content-hash": "8159737ce0a82ebb65c1e8a4b7a659ed",
     "packages": [
         {
             "name": "amrshawky/currency",
@@ -2722,6 +2722,75 @@
                 }
             ],
             "time": "2022-05-10T09:36:00+00:00"
+        },
+        {
+            "name": "msztorc/laravel-env",
+            "version": "1.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/msztorc/laravel-env.git",
+                "reference": "82ff832a73db1c22daeaecf3970e9d8e4b5cab5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/msztorc/laravel-env/zipball/82ff832a73db1c22daeaecf3970e9d8e4b5cab5a",
+                "reference": "82ff832a73db1c22daeaecf3970e9d8e4b5cab5a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
+                "php": "^7.3|^7.4|^8.0|^8.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2 || ^3",
+                "orchestra/testbench": "^4.0|^5.0|^6.0||^7.0",
+                "phpunit/phpunit": "^8.0 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "msztorc\\LaravelEnv\\LaravelEnvServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelEnv": "msztorc\\LaravelEnv\\LaravelEnvFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "msztorc\\LaravelEnv\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miroslaw Sztorc",
+                    "email": "miroslaw@sztorc.com",
+                    "homepage": "https://sztorc.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel env helper commands",
+            "homepage": "https://github.com/msztorc/laravel-env",
+            "keywords": [
+                "artisan",
+                "command",
+                "env",
+                "environment",
+                "laravel",
+                "laravel-env",
+                "variables"
+            ],
+            "support": {
+                "issues": "https://github.com/msztorc/laravel-env/issues",
+                "source": "https://github.com/msztorc/laravel-env/tree/1.2.5"
+            },
+            "time": "2022-02-13T09:21:23+00:00"
         },
         {
             "name": "nesbot/carbon",

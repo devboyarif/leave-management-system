@@ -2,137 +2,137 @@
     <Head :title="__('Theme')"/>
 
     <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                            <span>{{ __('Admin Theme') }}</span>
-                        </div>
-                    </div>
-                     <div class="card-body">
-                        <form @submit.prevent="saveData('admin')">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <Label :name="__('Primary Color')" />
-                                        <input v-model="form.primary_color" type="color" class="form-control"
-                                            id="name">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <Label :name="__('Hover Color')" />
-                                    <input v-model="form.hover_color" type="color" class="form-control"
-                                        id="name">
-                                        </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <Label :name="__('Secondary Color')" />
-                                    <input v-model="form.secondary_color" type="color" class="form-control"
-                                        id="name">
-                                        </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <Label :name="__('Success Color')" />
-                                    <input v-model="form.success_color" type="color" class="form-control"
-                                        id="name">
-                                        </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <Label :name="__('Info Color')" />
-                                    <input v-model="form.info_color" type="color" class="form-control"
-                                        id="name">
-                                        </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <Label :name="__('Warning Color')" />
-                                    <input v-model="form.warning_color" type="color" class="form-control"
-                                        id="name">
-                                        </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <Label :name="__('Danger Color')" />
-                                    <input v-model="form.danger_color" type="color" class="form-control"
-                                        id="name">
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center mt-5">
-                                 <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                                <Loading v-if="form.processing"/>
-                                <span v-else>
-                                    <i class="fa-solid fa-sync mr-1"></i>
-                                    {{ __('Save') }}
-                                </span>
-                            </button>
-                            </div>
-                        </form>
+        <div class="col-12">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <span>{{ __('Admin Theme') }}</span>
                     </div>
                 </div>
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                            <span>{{ __('Website Theme') }}</span>
+                    <div class="card-body">
+                    <form @submit.prevent="saveData('admin')">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <Label :name="__('Primary Color')" />
+                                    <input v-model="form.primary_color" type="color" class="form-control"
+                                        id="name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                <Label :name="__('Hover Color')" />
+                                <input v-model="form.hover_color" type="color" class="form-control"
+                                    id="name">
+                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                <Label :name="__('Secondary Color')" />
+                                <input v-model="form.secondary_color" type="color" class="form-control"
+                                    id="name">
+                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                <Label :name="__('Success Color')" />
+                                <input v-model="form.success_color" type="color" class="form-control"
+                                    id="name">
+                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                <Label :name="__('Info Color')" />
+                                <input v-model="form.info_color" type="color" class="form-control"
+                                    id="name">
+                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                <Label :name="__('Warning Color')" />
+                                <input v-model="form.warning_color" type="color" class="form-control"
+                                    id="name">
+                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                <Label :name="__('Danger Color')" />
+                                <input v-model="form.danger_color" type="color" class="form-control"
+                                    id="name">
+                                    </div>
+                            </div>
                         </div>
+                        <div class="row justify-content-center mt-5">
+                                <button :disabled="form.processing" type="submit" class="btn btn-primary">
+                            <Loading v-if="form.processing"/>
+                            <span v-else>
+                                <i class="fa-solid fa-sync mr-1"></i>
+                                {{ __('Save') }}
+                            </span>
+                        </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <span>{{ __('Website Theme') }}</span>
                     </div>
-                     <div class="card-body">
-                        <form @submit.prevent="saveData('website')">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <Label :name="__('Primary Color')" />
-                                        <input v-model="websiteForm.website_primary_color" type="color" class="form-control"
-                                            id="name">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <Label :name="__('Secondary Color')" />
-                                    <input v-model="websiteForm.website_secondary_color" type="color" class="form-control"
+                </div>
+                    <div class="card-body">
+                    <form @submit.prevent="saveData('website')">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <Label :name="__('Primary Color')" />
+                                    <input v-model="websiteForm.website_primary_color" type="color" class="form-control"
                                         id="name">
-                                        </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <Label :name="__('Body Text Color')" />
-                                        <input v-model="websiteForm.website_body_text_color" type="color" class="form-control"
-                                            id="name">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                <Label :name="__('Secondary Color')" />
+                                <input v-model="websiteForm.website_secondary_color" type="color" class="form-control"
+                                    id="name">
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <Label :name="__('Body Heading Color')" />
-                                    <input v-model="websiteForm.website_heading_text_color" type="color" class="form-control"
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <Label :name="__('Body Text Color')" />
+                                    <input v-model="websiteForm.website_body_text_color" type="color" class="form-control"
                                         id="name">
-                                        </div>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                <Label :name="__('Body Heading Color')" />
+                                <input v-model="websiteForm.website_heading_text_color" type="color" class="form-control"
+                                    id="name">
+                                    </div>
+                            </div>
 
-                            </div>
-                            <div class="row justify-content-center mt-5">
-                                 <button :disabled="websiteForm.processing" type="submit" class="btn btn-primary">
-                                <Loading v-if="websiteForm.processing"/>
-                                <span v-else>
-                                    <i class="fa-solid fa-sync mr-1"></i>
-                                    {{ __('Save') }}
-                                </span>
-                            </button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="row justify-content-center mt-5">
+                                <button :disabled="websiteForm.processing" type="submit" class="btn btn-primary">
+                            <Loading v-if="websiteForm.processing"/>
+                            <span v-else>
+                                <i class="fa-solid fa-sync mr-1"></i>
+                                {{ __('Save') }}
+                            </span>
+                        </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 
 <script>
 export default {
-    layout: 'Setting',
+    layout: "Setting",
     props: {
         theme: Object,
     },
@@ -174,9 +174,9 @@ export default {
             }
         },
     },
-     mounted(){
-        this.checkPagePermission('admin')
-    }
+    mounted() {
+        this.checkPagePermission("admin");
+    },
 };
 </script>
 

@@ -25,6 +25,28 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    return [
+        'paypal_sandbox_client_id' => config('paypal.sandbox.client_id'),
+        'paypal_sandbox_client_secret' => config('paypal.sandbox.client_secret'),
+        'paypal_live_client_id' => config('paypal.live.client_id'),
+        'paypal_live_client_secret' => config('paypal.live.client_secret'),
+        'paypal_active' => config('paypal.active'),
+        'paypal_mode' => config('paypal.mode'),
+    ];
+
+    // 'active'    => env('PAYPAL_ACTIVE', false), // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
+    // 'mode'    => env('PAYPAL_MODE', 'sandbox'), // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
+    // 'sandbox' => [
+    //     'client_id'         => env('PAYPAL_SANDBOX_CLIENT_ID', ''),
+    //     'client_secret'     => env('PAYPAL_SANDBOX_CLIENT_SECRET', ''),
+    //     'app_id'            => 'APP-80W284485P519543T',
+    // ],
+    // 'live' => [
+    //     'client_id'         => env('PAYPAL_LIVE_CLIENT_ID', ''),
+    //     'client_secret'     => env('PAYPAL_LIVE_CLIENT_SECRET', ''),
+    //     'app_id'            => env('PAYPAL_LIVE_APP_ID', ''),
+    // ],
+
 
     return setting('default_sms');
     // return env("TWILIO_SID");

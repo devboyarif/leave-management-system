@@ -113,7 +113,12 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
         Route::get('/general', 'general')->name('settings.general');
         Route::get('/cms', 'cms')->name('settings.cms');
         Route::get('/currency', 'currency')->name('settings.currency');
+
+        // Payment Routes
         Route::get('/payment', 'payment')->name('settings.payment');
+        Route::get('/payment/data', 'paymentData')->name('settings.payment.data');
+        Route::put('/payment/update', 'paymentDataUpdate')->name('settings.payment.update');
+
         Route::get('/seo', 'seo')->name('settings.seo');
         Route::get('/smtp', 'smtp')->name('settings.smtp');
     });

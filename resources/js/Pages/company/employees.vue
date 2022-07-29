@@ -1,5 +1,5 @@
 <template>
-    <Head :title="__('Employee List')"/>
+<Head :title="__('Employee List')"/>
 
 <div class="row justify-content-center mt-4">
     <div class="col-12">
@@ -137,7 +137,7 @@ export default {
         Inertia,
         InviteEmployeeModal,
         CreateEmployeeModal,
-        EditEmployeeModal
+        EditEmployeeModal,
     },
     data() {
         return {
@@ -153,7 +153,6 @@ export default {
     methods: {
         async changeTab(tab) {
             this.currentTab = tab;
-            this.currentActiveTeam = tab;
             let response = await axios.get(
                 route("company.teams.employees", {
                     team: tab,
@@ -184,11 +183,11 @@ export default {
         editData(employee) {
             this.employee = employee;
             this.showEmployeeEditModal = true;
-        }
+        },
     },
-    mounted(){
-        this.checkPagePermission('company')
-    }
+    mounted() {
+        this.checkPagePermission("company");
+    },
 };
 </script>
 

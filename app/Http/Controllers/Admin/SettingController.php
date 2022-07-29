@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Traits\SettingAble;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SettingController extends Controller
 {
+    use SettingAble;
+
     public function general()
     {
         return inertia('admin/setting/general');
@@ -25,6 +28,24 @@ class SettingController extends Controller
     public function payment()
     {
         return inertia('admin/setting/payment');
+    }
+
+    public function paymentData(Request $request)
+    {
+        return $this->getPaymentData($request->provider);
+    }
+
+    public function paymentDataUpdate(Request $request)
+    {
+        $update = $this->updatePaymentData($request);
+
+        if ($update) {
+            session()->flash('success', 'Payment data updated successfully');
+            return back();
+        } else {
+            session()->flash('error', 'Something went wrong');
+            return back();
+        }
     }
 
     public function seo()
