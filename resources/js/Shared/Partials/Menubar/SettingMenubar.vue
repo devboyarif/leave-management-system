@@ -24,7 +24,7 @@
                             <i class="fa-solid fa-language nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="Currency" :href="route('settings.currency')" :active="$page.component == 'admin/setting/general'">
+                     <NavLink title="Currency" :href="route('settings.currency')" :active="$page.component == 'admin/setting/currency'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-dollar-sign nav-icon"></i>
                         </template>
@@ -34,17 +34,17 @@
                             <i class="fa-solid fa-language nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="SEO" :href="route('settings.seo')" :active="$page.component == 'admin/setting/general'">
+                     <NavLink title="SEO" :href="route('settings.seo')" :active="$page.component == 'admin/setting/seo'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-magnifying-glass nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="Website CMS" :href="route('settings.cms')" :active="$page.component == 'admin/setting/general'">
+                     <NavLink title="Website CMS" :href="route('settings.cms')" :active="$page.component == 'admin/setting/cms'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-file-pen nav-icon"></i>
                         </template>
                     </NavLink>
-                     <NavLink title="SMTP" :href="route('settings.smtp')" :active="$page.component == 'admin/setting/general'">
+                     <NavLink title="SMTP" :href="route('settings.smtp')" :active="$page.component == 'admin/setting/smtp'">
                         <template v-slot:icon>
                             <i class="fa-regular fa-envelope nav-icon"></i>
                         </template>

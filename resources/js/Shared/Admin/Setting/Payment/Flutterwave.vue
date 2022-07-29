@@ -18,7 +18,7 @@
                     <ErrorMessage :name="form.errors.flw_secret_hash" />
                 </div>
                  <div class="form-group">
-                    <Label :name="__('Stripe Status')" />
+                    <Label :name="__('Flutterwave Status')" />
                     <div>
                          <label class="switch ">
                         <input @change="statusChange" v-model="form.flw_active" type="checkbox" class="success toggle-switch" :checked="form.flw_active">

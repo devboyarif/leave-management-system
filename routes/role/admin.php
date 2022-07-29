@@ -120,7 +120,11 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
         Route::put('/payment/update', 'paymentDataUpdate')->name('settings.payment.update');
 
         Route::get('/seo', 'seo')->name('settings.seo');
+
+        // SMTP Routes
         Route::get('/smtp', 'smtp')->name('settings.smtp');
+        Route::put('/smtp/update', 'smtpUpdate')->name('settings.smtp.update');
+        Route::post('/send/test-email', 'testEmailSend')->name('settings.send.test.email');
     });
 });
 

@@ -4,6 +4,9 @@
      <div class="row justify-content-center pt-5">
         <div class="col-12">
             <div class="card">
+                 <div class="card-header">
+                    <h3 class="card-title line-height-36">{{ __('Payment Settings') }}</h3>
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-3">
