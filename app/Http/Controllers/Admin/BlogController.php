@@ -15,7 +15,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::latest()->paginate(10);
 
         return inertia('admin/others/blog/index', [
             'posts' => $posts,
@@ -29,7 +29,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('admin/others/blog/create');
     }
 
     /**

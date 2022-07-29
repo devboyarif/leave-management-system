@@ -82,19 +82,20 @@
                         </template>
                     </NavLink>
 
+
                     <!-- Settings Part  -->
                     <li class="nav-header">{{ __('Others') }}</li>
-                    <NavLink title="Blog" :href="route('posts.index')">
+                    <NavLink title="Blog" :href="route('posts.index')" :active="$page.component == 'admin/others/blog/index' || $page.component == 'admin/others/blog/create' || $page.component == 'admin/others/blog/edit'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-blog nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Testimonial" :href="route('testimonials.index')">
+                    <NavLink title="Testimonial" :href="route('testimonials.index')" :active="$page.component == 'admin/others/testimonial'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-star nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Faq" :href="route('faqs.index')">
+                    <NavLink title="Faq" :href="route('faqs.index')" :active="$page.component == ' admin/others/faq'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-question nav-icon"></i>
                         </template>
