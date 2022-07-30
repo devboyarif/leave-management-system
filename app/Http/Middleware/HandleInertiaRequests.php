@@ -37,42 +37,47 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
-        $data['authenticatedUser'] = currentUser();
-        if (auth()->check() && currentUser()->role == 'employee') {
-            $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
-        }
+        // if (!app()->runningInConsole()) {
+            // Schema::hasTable('mytable');
 
-        // Flash messages
-        $data['flash'] = [
-            'success' => session('success'),
-            'error' => session('error'),
-            'warning' => session('warning')
-        ];
-
-        // Language
-        $data['locale'] = session()->has('current_lang') ?  session('current_lang') : app()->getLocale();
-        $data['languageList'] = Language::all(['id', 'code', 'name']);
-        $data['language'] = translations(resource_path('lang/' . $data['locale'] . '.json'));
-
-        // Notifications
-        $data['notifications'] = auth()->check() ? auth()->user()->unreadNotifications->take(5) : [];
-        $data['unreadNotificationsCount'] = auth()->check() ? auth()->user()->unreadNotifications->count() : 0;
-
-        // Subscription
-        if (auth()->check() && auth()->user()->role == 'company') {
-            session()->forget('current_subscription');
-            if (!session()->has('current_subscription')) {
-                storeCompanyCurrentSubscription();
+        if (env('APP_MODE') == 'live') {
+            $data['authenticatedUser'] = auth()->check() ? currentUser():'';
+            if (auth()->check() && currentUser()->role == 'employee') {
+                $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
             }
 
-            $data['current_subscription'] = session('current_subscription');
+            // Language
+            $data['locale'] = session()->has('current_lang') ?  session('current_lang') : app()->getLocale();
+            // $data['languageList'] = Language::all(['id', 'code', 'name']);
+            $data['language'] = translations(resource_path('lang/' . $data['locale'] . '.json'));
+
+            // Notifications
+            $data['notifications'] = auth()->check() ? auth()->user()->unreadNotifications->take(5) : [];
+            $data['unreadNotificationsCount'] = auth()->check() ? auth()->user()->unreadNotifications->count() : 0;
+
+            // Subscription
+            if (auth()->check() && auth()->user()->role == 'company') {
+                session()->forget('current_subscription');
+                if (!session()->has('current_subscription')) {
+                    storeCompanyCurrentSubscription();
+                }
+
+                $data['current_subscription'] = session('current_subscription');
+            }
+
+            // Env variables
+            $data['current_currency'] = config('kodebazar.currency');
+            $data['current_currency_symbol'] = config('kodebazar.currency_symbol');
+            $data['currency_symbol_position'] = config('kodebazar.currency_symbol_position');
+
+             // Flash messages
+             $data['flash'] = [
+                'success' => session('success'),
+                'error' => session('error'),
+                'warning' => session('warning')
+            ];
+
+            return array_merge(parent::share($request), $data);
         }
-
-        // Env variables
-        $data['current_currency'] = config('kodebazar.currency');
-        $data['current_currency_symbol'] = config('kodebazar.currency_symbol');
-        $data['currency_symbol_position'] = config('kodebazar.currency_symbol_position');
-
-        return array_merge(parent::share($request), $data);
     }
 }
