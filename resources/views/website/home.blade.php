@@ -101,7 +101,7 @@
                     <div class="section-title text-center">
                         <h2 class="mb-3 fw-bold">{{ $cms->pricing_plan_title }}</h2>
                         <p class="text-lg">
-                            {{ $cms->pricing_plan_subtitle }}
+                            {{ $cms->pricing_plan_description }}
                         </p>
                     </div>
                 </div>

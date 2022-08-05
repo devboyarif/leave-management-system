@@ -13,12 +13,6 @@ class Setting extends Model
 
     protected $appends = ['app_name'];
 
-//     app_dark_logo
-// app_light_logo
-// app_favicon
-// $table->string('app_dark_logo')->default('admin/img/leaving-dark.png');
-// $table->string('app_light_logo')->default('admin/img/leaving-light.png');
-// $table->string('app_favicon')->default('admin/img/favicon.png');
     public function getAppNameAttribute()
     {
         return config('app.name', 'Leaving');

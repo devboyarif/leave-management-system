@@ -114,8 +114,11 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     Route::controller(SettingController::class)->prefix('settings')->group(function () {
         Route::get('/general', 'general')->name('settings.general');
         Route::post('/general/setting/update', 'generalSettingUpdate')->name('settings.general.update');
-        Route::get('/cms', 'cms')->name('settings.cms');
         Route::get('/currency', 'currency')->name('settings.currency');
+
+        // cms routes
+        Route::get('/cms', 'cms')->name('settings.cms');
+        Route::put('/cms/update', 'cmsUpdate')->name('settings.cms.update');
 
         // Payment Routes
         Route::get('/payment', 'payment')->name('settings.payment');

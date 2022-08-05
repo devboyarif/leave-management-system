@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Cms;
 use App\Models\Seo;
 use App\Models\Setting;
 
@@ -271,5 +272,58 @@ trait SettingAble
             'instagram' => $request->instagram ?? '',
             'pinterest' => $request->pinterest ?? '',
         ]);
+    }
+
+    public function updateCmsData($data){
+        $cms = Cms::first();
+
+        switch ($data->type) {
+            case 'home':
+                $validated = $this->validate($data, [
+                    'home_banner_title' => 'required|max:255',
+                    'home_banner_description' => 'required',
+                    'home_banner_button_text' => 'required',
+                    'home_banner_button2_text' => 'required',
+                    'home_banner_button_url' => 'required|url',
+                    'home_banner_button2_url' => 'required|url',
+                    'home_feature_title' => 'required|max:255',
+                    'home_feature_subtitle' => 'required|max:255',
+                    'home_feature_description' => 'required',
+                ]);
+
+                return $cms->update($validated);
+                break;
+            case 'about':
+                $this->validate($data, [
+                    'about_title' => 'required|max:255',
+                    'about_subtitle' => 'required',
+                    'about_description' => 'required',
+                ]);
+
+                $cms['about_title'] = $data->about_title;
+                $cms['about_subtitle'] = $data->about_subtitle;
+                $cms['about_description'] = $data->about_description;
+
+                if ($data->hasFile('about_image') && $data->file('about_image')->isValid()) {
+                    $data->validate(['about_image' => 'image|mimes:jpeg,png,jpg,svg|max:5120']);
+                    $url = uploadFileToPublic('about_image', $data->about_image);
+                    $cms['about_image'] = $url;
+                }
+
+                return $cms->save();
+                break;
+            case 'plan':
+                $validated = $this->validate($data, [
+                    'pricing_plan_title' => 'required|max:255',
+                    'pricing_plan_description' => 'required|max:255',
+                ]);
+
+                return $cms->update($validated);
+                break;
+
+            default:
+                # code...
+                break;
+        }
     }
 }

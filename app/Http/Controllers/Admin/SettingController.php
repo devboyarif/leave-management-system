@@ -8,6 +8,7 @@ use App\Traits\SettingAble;
 use Illuminate\Http\Request;
 use App\Mail\Admin\SmtpTestMail;
 use App\Http\Controllers\Controller;
+use App\Models\Cms;
 use Illuminate\Support\Facades\Mail;
 
 class SettingController extends Controller
@@ -42,7 +43,22 @@ class SettingController extends Controller
 
     public function cms()
     {
-        return inertia('admin/setting/cms');
+        $cms = Cms::first();
+
+        return inertia('admin/setting/cms', compact('cms'));
+    }
+
+    public function cmsUpdate(Request $request)
+    {
+        $update = $this->updateCmsData($request);
+
+       if ($update) {
+            session()->flash('success', 'CMS content updated successfully');
+            return back();
+        } else {
+            session()->flash('error', 'Something went wrong');
+            return back();
+        }
     }
 
     public function currency()

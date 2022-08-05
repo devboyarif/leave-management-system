@@ -38,7 +38,7 @@ class CmsSeeder extends Seeder
 
         // Pricing Page
         $cms->pricing_plan_title = 'Our Pricing';
-        $cms->pricing_plan_subtitle = 'Here are the plans that we offer for you. Choose the plan that best suits your needs. Pay for it monthly or yearly. You can also pay for it once and get it for life.';
+        $cms->pricing_plan_description = 'Here are the plans that we offer for you. Choose the plan that best suits your needs. Pay for it monthly or yearly. You can also pay for it once and get it for life.';
 
         // Testimonial Page
         $cms->testimonial_title = 'Testimonials';

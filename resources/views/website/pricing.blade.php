@@ -21,11 +21,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ud-section-title mx-auto text-center">
-                        <span>Pricing</span>
-                        <h2>Our Pricing Plans</h2>
+                        <h2>{{ $cms->pricing_plan_title }}</h2>
                         <p>
-                            There are many variations of passages of Lorem Ipsum available
-                            but the majority have suffered alteration in some form.
+                            {{ $cms->pricing_plan_description }}
                         </p>
                     </div>
                 </div>

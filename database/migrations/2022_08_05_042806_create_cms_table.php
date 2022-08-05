@@ -35,7 +35,7 @@ class CreateCmsTable extends Migration
 
             // Pricing page
             $table->string('pricing_plan_title');
-            $table->string('pricing_plan_subtitle');
+            $table->string('pricing_plan_description');
 
             // Testimonial page
             $table->string('testimonial_title');

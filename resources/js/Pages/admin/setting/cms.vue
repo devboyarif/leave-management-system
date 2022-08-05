@@ -19,6 +19,12 @@
                                     <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'contact_page'}" @click="changeTab('contact_page')">Contact Page</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'testimonial_section'}" @click="changeTab('testimonial_section')">Testimonial Section</a>
+                                </li>
+                                <li class="nav-item border rounded mb-1">
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'faq_section'}" @click="changeTab('faq_section')">FAQ Section</a>
+                                </li>
+                                <li class="nav-item border rounded mb-1">
                                     <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'terms_page'}" @click="changeTab('terms_page')">Terms & Condition Page</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
@@ -31,22 +37,28 @@
                             <div class="border rounded">
                                 <div class="tab-content no-padding">
                                     <div class="tab-pane fade" :class="{'show active': currentTab == 'home_page'}">
-                                       <HomePage/>
+                                       <HomePage :cms="cms"/>
                                     </div>
                                     <div class="tab-pane fade" :class="{'show active': currentTab == 'about_page'}">
-                                        <AboutPage/>
+                                        <AboutPage :cms="cms"/>
                                     </div>
                                     <div class="tab-pane fade" :class="{'show active': currentTab == 'plan_page'}">
-                                        <PlanPage/>
+                                        <PlanPage :cms="cms"/>
                                     </div>
                                     <div class="tab-pane fade" :class="{'show active': currentTab == 'contact_page'}">
-                                       <ContactPage/>
+                                       <ContactPage :cms="cms"/>
+                                    </div>
+                                    <div class="tab-pane fade" :class="{'show active': currentTab == 'testimonial_section'}">
+                                       <TestimonialSection :cms="cms"/>
+                                    </div>
+                                    <div class="tab-pane fade" :class="{'show active': currentTab == 'faq_section'}">
+                                       <FaqSection :cms="cms"/>
                                     </div>
                                     <div class="tab-pane fade" :class="{'show active': currentTab == 'terms_page'}">
-                                        <TermsPage/>
+                                        <TermsPage :cms="cms"/>
                                     </div>
                                     <div class="tab-pane fade" :class="{'show active': currentTab == 'privacy_page'}">
-                                        <PrivacyPage/>
+                                        <PrivacyPage :cms="cms"/>
                                     </div>
                                 </div>
                             </div>
@@ -62,13 +74,18 @@
 import HomePage from '../../../Shared/Admin/Setting/Website/HomePage.vue';
 import AboutPage from '../../../Shared/Admin/Setting/Website/AboutPage.vue';
 import ContactPage from '../../../Shared/Admin/Setting/Website/ContactPage.vue';
+import FaqSection from '../../../Shared/Admin/Setting/Website/FaqSection.vue';
+import TestimonialSection from '../../../Shared/Admin/Setting/Website/TestimonialSection.vue';
 import PlanPage from '../../../Shared/Admin/Setting/Website/PlanPage.vue';
 import PrivacyPage from '../../../Shared/Admin/Setting/Website/PrivacyPage.vue';
 import TermsPage from '../../../Shared/Admin/Setting/Website/TermsPage.vue';
 
 export default {
     layout: "Setting",
-    components: { HomePage, AboutPage, ContactPage, PlanPage, PrivacyPage, TermsPage },
+    components: { HomePage, AboutPage, ContactPage, PlanPage, PrivacyPage, TermsPage,FaqSection, TestimonialSection },
+    props: {
+        cms: Object
+    },
     data() {
         return {
             currentTab: "home_page",
