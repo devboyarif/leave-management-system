@@ -1,0 +1,317 @@
+{
+    "Sign up to create your company": "Sign up to create your company",
+    "Sign in to start your session": "Sign in to start your session",
+    "Sign up to join the company": "Sign up to join the company",
+    "Remember Me": "Remember Me",
+    "Sign In": "Sign In",
+    "Sign Up": "Sign Up",
+    "I forgot my password": "I forgot my password",
+    "Create company account": "Create company account",
+    "I agree to the": "I agree to the",
+    "terms & condition": "terms & condition",
+    "I already have a account": "I already have a account",
+
+
+    "Dashboard": "Dashboard",
+    "Total Income": "Total Income",
+    "Total Companies": "Total Companies",
+    "Total Teams": "Total Teams",
+    "Total Employees": "Total Employees",
+    "Yearly Earning": "Yearly Earning",
+    "Recent Registered Companies": "Recent Registered Companies",
+    "Expenses per Company (Most expenses companies)": "Expenses per Company (Most expenses companies)",
+    "Companies per Country (Most active countries)": "Companies per Country (Most active countries)",
+    "Total Leave Request": "Total Leave Request",
+    "Pending Request": "Pending Request",
+    "Total": "Total",
+    "Used": "Used",
+    "Remaining": "Remaining",
+    "Total Expense": "Total Expense",
+   " Pending Request": "Pending Request",
+   " Total Teams": "Total Teams",
+
+    "Users": "Users",
+    "Admin": "Admin",
+    "Leave": "Leave",
+    "Language": "Language",
+    "Logout": "Logout",
+
+
+
+    "Company": "Company",
+    "Company Name": "Company Name",
+    "Company Create": "Company Create",
+    "Company Edit": "Company Edit",
+    "Company Delete": "Company Delete",
+    "Company List": "Company List",
+    "Select Company": "Select Company",
+
+    "Admin List": "Admin List",
+    "Admin Create": "Admin Create",
+    "Admin Edit": "Admin Edit",
+    "Admin Delete": "Admin Delete",
+
+    "Employee": "Employee",
+    "Invite Employee": "Invite Employee",
+    "Instant Create": "Instant Create",
+    "Employee List": "Employee List",
+    "Employee Create": "Employee Create",
+    "Employee Edit": "Employee Edit",
+    "Employee Delete": "Employee Delete",
+    "No Employee Found": "No employee found",
+    "Select Employee": "Select Employee",
+    "Invite": "Invite",
+
+    "Colleagues": "Colleagues",
+    "Teams": "Teams",
+    "Team": "Team",
+    "Team Members": "Team Members",
+    "Team List": "Team List",
+    "Team Edit": "Team Edit",
+    "Team Create": "Team Create",
+    "Team Delete": "Team Delete",
+    "Select Team": "Select Team",
+
+    "Send Request": "Send Request",
+    "Accept Request": "Accept Request",
+    "Reject Request": "Reject Request",
+    "Edit Request": "Edit Request",
+    "Delete Request": "Delete Request",
+    "Show Request Details": "Show Request Details",
+    "Reason": "Reason",
+    "Pending": "Pending",
+    "Approve": "Approve",
+    "Reject": "Reject",
+    "Status": "Status",
+    "Color": "Color",
+    "Apply for leave": "Apply for leave",
+    "Options": "Options",
+    "Leave Request": "Leave Request",
+    "Leave Request List": "Leave Request List",
+    "Create Leave Request": "Create Leave Request",
+    "Edit Leave Request": "Edit Leave Request",
+    "Leave Request Edit": "Leave Request Edit",
+    "Create a new request": "Create a new request",
+    "Leave Type List": "Leave Type List",
+    "Leave Type": "Leave Type",
+    "Edit Leave Type": "Edit Leave Type",
+    "Delete Leave Type": "Delete Leave Type",
+    "Leave Balance Day": "Leave Balance Day",
+    "Leave Request Details": "Leave Request Details",
+    "Recent Approved Leaves": "Recent Approved Leaves",
+
+
+    "Get Request": "Get Request",
+    "Leave Balance": "Leave Balance",
+    "Leave Type Balance": "Leave Type Balance",
+    "Number of requested Days": "Number of requested Days",
+    "Allow auto approve": "Allow auto approve",
+    "Select Leave Type": "Select Leave Type",
+
+
+    "Calendar": "Calendar",
+    "Calendar View": "Calendar View",
+    "Official Holiday Calendar": "Official Holiday Calendar",
+
+    "Language List": "Language List",
+    "Language Create": "Language Create",
+    "Language Edit": "Language Edit",
+    "Language Delete": "Language Delete",
+    "Select Language": "Select Language",
+    "Select Language Code": "Select Language Code",
+    "LTR": "LTR",
+    "RTL": "RTL",
+    "Code": "Code",
+    "Direction": "Direction",
+    "Translate Language": "Translate Language",
+    "Translation Text": "Translation Text",
+    "English Text": "English Text",
+    "Translate All": "Translate All",
+    "Translate": "Translate",
+    "Translating": "Translating...",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "Theme": "Theme",
+    "See All Notifications": "See All Notifications",
+    "Current Plan": "Current Plan",
+    "Plan": "Plan",
+    "Create plan": "Create plan",
+    "Plan Create": "Plan Create",
+    "Plan Edit": "Plan Edit",
+    "Pro": "Pro",
+    "Interval": "Interval",
+    "Expiration Remaining": "Expiration Remaining",
+    "Cancel Plan": "Cancel Plan",
+    "Upgrade Plan": "Upgrade Plan",
+    "Recommended": "Recommended",
+    "Default": "Default",
+    "Unlimited Employees": "Unlimited Employees",
+    "Max Employees": "Max Employees",
+    "Max Teams": "Max Teams",
+    "Max Leave Types": "Max Leave Types",
+    "Custom Theme Look": "Custom Theme Look",
+    "Set Recommended Plan": "Set Recommended Plan",
+    "Set Default Plan": "Set Default Plan",
+    "Select Plan": "Select Plan",
+    "Subscription Type": "Subscription Type",
+    "Pricing Plan": "Pricing Plan",
+    "Plan Type": "Plan Type",
+    "Monthly": "Monthly",
+    "Yearly": "Yearly",
+    "Custom Days": "Custom Days",
+    "Lifetime": "Lifetime",
+    "Free": "Free",
+    "Paid": "Paid",
+    "Number of Days": "Number of Days",
+    "Plan Features": "Plan Features",
+    "Employee Adding Type": "Employee Adding Type",
+    "Orders": "Orders",
+    "Order List": "Order List",
+    "Order Details": "Order Details",
+    "Companies": "Companies",
+    "Recent Orders": "Recent Orders",
+    "View All": "View All",
+    "Plan is expired. Please upgrade your plan": "Plan is expired. Please upgrade your plan",
+    "Upgrade Now": "Upgrade Now",
+    "Subscription Manage": "Subscription Manage",
+    "User Manage": "User Manage",
+    "Leave Manage": "Leave Manage",
+    "Settings": "Settings",
+    "Go Back": "Go Back",
+    "General": "General",
+    "Phone Number": "Phone Number",
+    "Website CMS": "Website CMS",
+    "Others": "Others",
+    "Question": "Question",
+    "Answer": "Answer",
+    "Create Faq": "Create Faq",
+    "Edit Faq": "Edit Faq",
+    "Create Testimonial": "Create Testimonial",
+    "Edit Testimonial": "Edit Testimonial",
+    "Position": "Position",
+    "Page Name": "Page Name",
+    "SEO Content": "SEO Content",
+    "Meta Title": "Meta Title",
+    "Meta Description": "Meta Description",
+    "Meta Keywords": "Meta Keywords",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "Member Since": "Member Since",
+    "Profile Setting": "Profile Setting",
+    "Choose file": "Choose file",
+    "Update Profile": "Update Profile",
+    "Password": "Password",
+    "Confirm Password": "Confirm Password",
+    "Change Password": "Change Password",
+    "Update Password": "Update Password",
+
+
+    "Country": "Country",
+    "Select Country": "Select Country",
+
+
+
+
+    "Title": "Title",
+    "Full Name": "Full Name",
+    "Name": "Name",
+    "Email": "Email",
+    "Email address": "Email address",
+    "Avatar": "Avatar",
+    "Change Avatar": "Change Avatar",
+    "Back": "Back",
+    "Close": "Close",
+    "Cancel": "Cancel",
+    "Save": "Save",
+    "Create": "Create",
+    "Action": "Action",
+    "No Data Found": "No Data Found",
+    "Search": "Search",
+    "Active": "Active",
+    "Inactive": "Inactive",
+    "All": "All",
+
+
+    "Holidays": "Holidays",
+    "Holiday Title": "Holiday Title",
+    "Add Holiday": "Add Holiday",
+    "Holiday Edit": "Holiday Edit",
+    "Holiday Delete": "Holiday Delete",
+    "Create Official Holiday": "Create Official Holiday",
+    "Edit Official Holiday": "Edit Official Holiday",
+    "View holiday details": "View holiday details",
+    "Official Holiday List": "Official Holiday List",
+    "Show all official holidays": "Show all official holidays",
+    "Accept and add to official holiday list": "Accept and add to official holiday list",
+    "Reject and delete from holiday request list": "Reject and delete from holiday request list",
+    "Request Holiday Details": "Request Holiday Details",
+    "Show all requested holidays": "Show all requested holidays",
+    "Holiday Request List": "Holiday Request List",
+    "Holiday Request Create": "Holiday Request Create",
+    "Requested Holidays": "Requested Holidays",
+    "Pending Leave Request": "Pending Leave Request",
+    "Total Holidays": "Total Holidays",
+    "Company Holidays": "Company Holidays",
+    "Company Holidays List": "Company Holidays List",
+    "Day": "Day",
+    "Days": "Days",
+    "Total Days": "Total Days",
+    "Date": "Date",
+    "Start Date": "Start Date",
+    "End Date": "End Date",
+    "Note": "Note",
+
+
+
+    "Upgrade your plan to use this feature": "Upgrade your plan to use this feature",
+    "You have reached the maximum number of leave types": "You have reached the maximum number of leave types",
+    "You have reached the maximum number of teams": "You have reached the maximum number of teams",
+    "You have reached the maximum number of employees": "You have reached the maximum number of employees"
+
+}
+
+
+
+

@@ -1,0 +1,121 @@
+<template>
+    <Head :title="__('Sign Up')" />
+
+    <div class="card-body">
+        <p class="login-box-msg">{{ __('Sign up to create your company') }}</p>
+        <form @submit.prevent="createData">
+            <div class="input-group mb-3">
+                <input v-model="form.name" type="text" class="form-control" :class="{'is-invalid':form.errors.name}"
+                    :placeholder="__('Company Name')">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                    </div>
+                </div>
+                <ErrorMessage :name="form.errors.name" />
+            </div>
+            <div class="input-group mb-3">
+                <input v-model="form.email" type="email" class="form-control" :placeholder="__('Email')"
+                    :class="{'is-invalid':form.errors.email}">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+                <ErrorMessage :name="form.errors.email" />
+            </div>
+            <div class="input-group mb-3">
+                <select v-model="form.country" id="" class="form-control" :class="{'is-invalid':form.errors.country}">
+                    <option value="" class="d-none">{{ __('Select Country') }}</option>
+                    <option :value="country.id" v-for="country in countries" :key="country.id">
+                        {{ country.name }}
+                    </option>
+                </select>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fa-solid fa-globe"></span>
+                    </div>
+                </div>
+                <ErrorMessage :name="form.errors.country" />
+            </div>
+            <div class="input-group mb-3">
+                <input v-model="form.password" type="password" class="form-control" :placeholder="__('Password')"
+                    :class="{'is-invalid':form.errors.password}">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+                <ErrorMessage :name="form.errors.password" />
+            </div>
+            <div class="input-group mb-3">
+                <input v-model="form.password_confirmation" type="password" class="form-control"
+                    :placeholder="__('Confirm Password')" :class="{'is-invalid':form.errors.password_confirmation}">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+                <ErrorMessage :name="form.errors.password_confirmation" />
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="icheck-primary">
+                        <input v-model="form.terms_confirmed" type="checkbox" id="agreeTerms" name="terms" value="agree">
+                        <label for="agreeTerms" class="ml-2">
+                            {{ __('I agree to the') }} <a href="#">{{ __('terms & condition') }}</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <button :disabled="form.processing"  class="btn btn-primary btn-block">
+                        <Loading v-if="form.processing" message="Signing Up..."/>
+                       <span v-else>{{ __('Sign Up') }}</span>
+                    </button>
+                </div>
+
+            </div>
+        </form>
+        <p class="mb-0">
+            <Link :href="route('login')" class="text-center">
+            {{ __('I already have a account') }}
+            </Link>
+        </p>
+    </div>
+</template>
+
+<script>
+export default {
+    layout: "Auth",
+    props: {
+        countries: {
+            type: Array,
+            required: true,
+        },
+        errors: Object,
+    },
+    data() {
+        return {
+            form: this.$inertia.form({
+                name: null,
+                email: null,
+                country: "",
+                password: null,
+                password_confirmation: null,
+                terms_confirmed: null,
+            }),
+        };
+    },
+    // computed: {
+    //     disabledButton() {
+    //         return this.form.email && this.form.password;
+    //     },
+    // },
+    methods: {
+        createData() {
+            this.form.post(route("register"));
+        },
+    },
+};
+</script>

@@ -1,0 +1,42 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "axios": "^0.21",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "vue-loader": "^16.2.0"
+    },
+    "dependencies": {
+        "@fullcalendar/core": "^5.11.0",
+        "@fullcalendar/daygrid": "^5.11.0",
+        "@fullcalendar/interaction": "^5.11.0",
+        "@fullcalendar/list": "^5.11.0",
+        "@fullcalendar/timegrid": "^5.11.0",
+        "@fullcalendar/vue3": "^5.11.1",
+        "@inertiajs/inertia": "^0.10.1",
+        "@inertiajs/inertia-vue3": "^0.5.2",
+        "@inertiajs/progress": "^0.2.6",
+        "@meforma/vue-toaster": "^1.3.0",
+        "@vue/compiler-sfc": "^3.2.26",
+        "@vuepic/vue-datepicker": "^3.2.1",
+        "apexcharts": "^3.32.1",
+        "click-outside-vue3": "^4.0.1",
+        "dayjs": "^1.11.2",
+        "floating-vue": "^2.0.0-beta.17",
+        "vue": "^3.2.26",
+        "vue-sweetalert2": "^5.0.5",
+        "vue-tel-input": "^6.0.3",
+        "vue3-apexcharts": "^1.4.1",
+        "vue3-click-away": "^1.2.1"
+    }
+}
