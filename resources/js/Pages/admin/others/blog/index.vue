@@ -30,10 +30,10 @@
                                         <td>{{ post.title }}</td>
                                         <td><p>{{ post.short_description }}</p></td>
                                         <td class="d-flex">
-                                            <Link :href="route('leaveTypes.edit',post.id)" v-tooltip="__('Edit Leave Type')" class="btn btn-sm  pl-0">
+                                            <Link :href="route('posts.edit',post.id)" v-tooltip="__('Edit')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </Link>
-                                            <button @click="deleteData(post.id)" v-tooltip="__('Delete Leave Type')" class="btn btn-sm">
+                                            <button @click="deleteData(post.id)" v-tooltip="__('Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -63,6 +63,24 @@ export default {
             required: true,
         },
     },
+    methods:{
+         deleteData(id) {
+            this.$swal({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.delete(route("posts.destroy", id));
+                }
+            });
+        },
+    }
+
 };
 </script>
 

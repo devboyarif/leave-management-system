@@ -18,6 +18,12 @@ class Post extends Model
         'long_description',
     ];
 
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = $value;
+        $this->attributes['slug'] = strSlug($value);
+    }
+
     public function getThumbnailAttribute($thumbnail)
     {
         return $thumbnail ? asset($thumbnail) : asset('admin/img/default.png');

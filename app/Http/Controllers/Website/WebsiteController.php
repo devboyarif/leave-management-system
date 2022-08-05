@@ -43,7 +43,6 @@ class WebsiteController extends Controller
     {
         $posts = Post::select('id', 'title', 'slug', 'thumbnail', 'short_description')
             ->latest()
-            ->where('status', 1)
             ->paginate(12);
 
         return view('website.blog', compact('posts'));
@@ -55,12 +54,11 @@ class WebsiteController extends Controller
         $post->load('user');
         $popular_posts = Post::select('id', 'title', 'slug', 'thumbnail')
             ->latest('total_views')
-            ->where('status', 1)
             ->limit(4)
             ->get();
         $latest_posts = Post::select('id', 'title', 'slug', 'thumbnail')
+            ->where('id', '!=', $post->id)
             ->latest()
-            ->where('status', 1)
             ->limit(3)
             ->get();
 

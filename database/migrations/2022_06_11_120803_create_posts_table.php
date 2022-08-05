@@ -23,7 +23,6 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('total_views')->default(0);
             $table->text('short_description');
             $table->longText('long_description');
-            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

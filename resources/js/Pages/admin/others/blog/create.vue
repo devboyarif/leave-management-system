@@ -5,7 +5,7 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">{{ __('Employee Create') }}</h3>
+                        <h3 class="card-title">{{ __('Post Create') }}</h3>
                         <Link :href="route('employees.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         {{ __('Back') }}
@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="card-body row justify-content-center">
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <form @submit.prevent="createData">
                         <div class="mb-3 row">
                            <div class="col-md-6">
@@ -28,20 +28,21 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <!-- <Label :name="__('Short Description')" :required="false" />
+                            <Label :name="__('Short Description')" />
                             <textarea class="form-control" v-model="form.short_description" :class="{'is-invalid':form.errors.short_description}" rows="5"></textarea>
-                            <ErrorMessage :name="form.errors.short_description" /> -->
+                            <ErrorMessage :name="form.errors.short_description" />
                         </div>
                         <div class="mb-3">
-
-
-                            <!-- <Label :name="__('Long Description')" :required="false" />
-                            <textarea class="form-control" v-model="form.short_description" :class="{'is-invalid':form.errors.short_description}" rows="5"></textarea>
-                            <ErrorMessage :name="form.errors.short_description" /> -->
+                            <Label :name="__('Long Description')" />
+                             <QuillEditor theme="snow" v-model:content="form.long_description" contentType="html" class="h-250"/>
+                            <ErrorMessage :name="form.errors.long_description" />
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa-solid fa-check mr-1"></i>
-                            {{ __('Save') }}
+                        <button :disabled="form.processing" type="submit" class="btn btn-primary">
+                            <Loading v-if="form.processing" message="Saving..."/>
+                            <span v-else>
+                                <i class="fa-solid fa-check mr-1"></i>
+                                {{ __('Save') }}
+                            </span>
                         </button>
                     </form>
                     </div>
@@ -52,22 +53,26 @@
 </template>
 
 <script>
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
 export default {
+     components: {
+        QuillEditor
+    },
     data() {
         return {
             form: this.$inertia.form({
-                title: null,
-                thumbnail: null,
-                short_description: null,
-                long_description: null,
+                title: "",
+                thumbnail: "",
+                short_description: "",
+                long_description: "",
             }),
-
-            teams: [],
         };
     },
     methods: {
         createData() {
-            this.form.post(route("employees.store"), {
+            this.form.post(route("posts.store"), {
                 onSuccess: () => {
                     this.form.reset();
                 },
