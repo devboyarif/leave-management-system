@@ -319,6 +319,43 @@ trait SettingAble
                 ]);
 
                 return $cms->update($validated);
+
+                break;
+            case 'contact':
+                $validated = $this->validate($data, [
+                    'contact_title' => 'required|max:255',
+                    'contact_subtitle' => 'required|max:255',
+                ]);
+
+                return $cms->update($validated);
+            case 'testimonial':
+                $validated = $this->validate($data, [
+                    'testimonial_title' => 'required|max:255',
+                    'testimonial_subtitle' => 'required|max:255',
+                    'testimonial_description' => 'required',
+                ]);
+
+                return $cms->update($validated);
+            case 'faq':
+                $validated = $this->validate($data, [
+                    'faq_title' => 'required|max:255',
+                    'faq_subtitle' => 'required|max:255',
+                    'faq_description' => 'required',
+                ]);
+
+                return $cms->update($validated);
+            case 'privacy':
+                $validated = $this->validate($data, [
+                    'privacy_description' => 'required',
+                ]);
+
+                return $cms->update($validated);
+            case 'terms':
+                $validated = $this->validate($data, [
+                    'terms_description' => 'required',
+                ]);
+
+                return $cms->update($validated);
                 break;
 
             default:
