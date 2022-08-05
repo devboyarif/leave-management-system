@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[698],{698:(e,n,t)=>{t.r(n),t.d(n,{default:()=>c});const u={layout:"Setting"};const c=(0,t(3744).Z)(u,[["render",function(e,n,t,u,c,r){return" currency "}]])}}]);
