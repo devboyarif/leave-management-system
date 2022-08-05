@@ -27,6 +27,7 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    return inertia('test/demo');
     return Setting::first();
     $search = 'employee';
 
