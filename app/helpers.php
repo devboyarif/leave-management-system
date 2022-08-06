@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Seo;
 use App\Models\Theme;
 use AmrShawky\Currency;
 use App\Models\Company;
@@ -291,4 +292,9 @@ function checkSetEnv($key, $value)
     if ((env($key) != $value)) {
         setEnv($key, $value);
     }
+}
+
+function metaContent($page)
+{
+    return Seo::where('page_slug',$page)->first();
 }

@@ -1,4 +1,4 @@
- <!-- Primary Meta Tags -->
+ {{-- <!-- Primary Meta Tags -->
  <meta name="title" content="Play - Free Open Source HTML Bootstrap Template by UIdeck">
  <meta name="description" content="Play - Free Open Source HTML Bootstrap Template by UIdeck Team">
 
@@ -14,4 +14,9 @@
  <meta property="twitter:url" content="https://uideck.com/play/">
  <meta property="twitter:title" content="Play - Free Open Source HTML Bootstrap Template by UIdeck">
  <meta property="twitter:description" content="Play - Free Open Source HTML Bootstrap Template by UIdeck Team">
- <meta property="twitter:image" content="https://uideck.com/wp-content/uploads/2021/09/play-meta-bs.jpg">
+ <meta property="twitter:image" content="https://uideck.com/wp-content/uploads/2021/09/play-meta-bs.jpg"> --}}
+
+ {!! SEOMeta::generate() !!}
+ {!! OpenGraph::generate() !!}
+ {!! Twitter::generate() !!}
+ {!! JsonLd::generate() !!}

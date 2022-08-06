@@ -5,12 +5,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | {{ config('app.name') }}</title>
-    <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="{{ $setting->app_favicon }}" type="image/svg" />
-    @routes
+
     <!-- ===== All Tags ===== -->
     @include('website.layout.partials.meta')
+
+    <title>Home | {{ config('app.name') }}</title>
+
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="{{ $setting->app_favicon }}" type="image/svg" />
+
+    @routes
+
 
     <!-- ===== All CSS files ===== -->
     @include('website.layout.partials.links')
