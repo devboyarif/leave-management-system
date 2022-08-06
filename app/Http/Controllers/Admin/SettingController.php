@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Mail\Admin\SmtpTestMail;
 use App\Http\Controllers\Controller;
 use App\Models\Cms;
+use App\Models\Currency;
 use Illuminate\Support\Facades\Mail;
 
 class SettingController extends Controller
@@ -63,7 +64,49 @@ class SettingController extends Controller
 
     public function currency()
     {
-        return inertia('admin/setting/currency');
+        $data = $this->getCurrencyData();
+
+        return inertia('admin/setting/currency', $data);
+    }
+
+    public function storeCurrency(Request $request)
+    {
+        $this->storeCurrencyData($request);
+
+        session()->flash('success', 'Currency added successfully');
+        return back();
+    }
+
+    public function updateCurrency(Request $request, Currency $currency)
+    {
+        $this->updateCurrencyData($request, $currency);
+
+        session()->flash('success', 'Currency updated successfully');
+        return back();
+    }
+
+    public function deleteCurrency(Currency $currency)
+    {
+        $this->deleteCurrencyData($currency);
+
+        session()->flash('success', 'Currency deleted successfully');
+        return back();
+    }
+
+    public function statusUpdateCurrency(Currency $currency)
+    {
+        $this->statusUpdateCurrencyData($currency);
+
+        session()->flash('success', 'Currency status updated successfully.');
+        return back();
+    }
+
+    public function defaultCurrency(Currency $currency)
+    {
+        $this->setDefaultCurrency($currency);
+
+        session()->flash('success', 'Currency default set successfully.');
+        return back();
     }
 
     public function payment()

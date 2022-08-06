@@ -52,8 +52,8 @@ class CreateCmsTable extends Migration
             $table->string('contact_subtitle');
 
             // Terms & Privacy page
-            $table->string('terms_description');
-            $table->string('privacy_description');
+            $table->longText('terms_description');
+            $table->longText('privacy_description');
 
 
             $table->timestamps();

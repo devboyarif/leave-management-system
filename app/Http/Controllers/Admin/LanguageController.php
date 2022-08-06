@@ -15,13 +15,14 @@ class LanguageController extends Controller
     public function index()
     {
         $languages = Language::all();
-
         $path = base_path('Resources/json/languages.json');
         $langInfos = json_decode(file_get_contents($path), true);
+        $defaultLanguage = Language::where('code', config('kodebazar.default_language'))->value('id');
 
         return inertia('admin/setting/language/index', [
             'languages' => $languages,
             'langInfos' => $langInfos,
+            'defaultLanguage' => $defaultLanguage,
         ]);
     }
 
@@ -171,5 +172,12 @@ class LanguageController extends Controller
         // }
 
         // return response()->json($newTranslatedTextArray);
+    }
+
+    public function defaultLanguage(Language $lang){
+        checkSetEnv('APP_DEFAULT_LANGUAGE', $lang->code);
+
+        session()->flash('success', 'Language default set successfully.');
+        return back();
     }
 }

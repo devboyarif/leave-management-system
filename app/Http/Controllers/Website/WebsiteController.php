@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Models\Faq;
+use App\Models\Seo;
 use App\Models\Plan;
 use App\Models\Post;
 use AmrShawky\Currency;
@@ -10,12 +11,25 @@ use App\Models\Feature;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use App\Services\Midtrans\CreateSnapTokenService;
+use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 
 class WebsiteController extends Controller
 {
+    use SEOToolsTrait;
+
     public function home()
     {
+        $content = metaContent('home');
+        $this->seo()->setTitle($content->title);
+        $this->seo()->setDescription($content->description);
+        SEOMeta::setKeywords($content->keywords);
+        $this->seo()->opengraph()->setUrl(url()->current());
+        $this->seo()->opengraph()->addProperty('type', 'website');
+        $this->seo()->twitter()->setSite(url()->current());
+        $this->seo()->jsonLd()->setType('Website');
+
         $faqs = Faq::all();
         $features = Feature::all();
         $testimonials = Testimonial::all();
@@ -26,6 +40,15 @@ class WebsiteController extends Controller
 
     public function about()
     {
+        $content = metaContent('about');
+        $this->seo()->setTitle($content->title);
+        $this->seo()->setDescription($content->description);
+        SEOMeta::setKeywords($content->keywords);
+        $this->seo()->opengraph()->setUrl(url()->current());
+        $this->seo()->opengraph()->addProperty('type', 'website');
+        $this->seo()->twitter()->setSite(url()->current());
+        $this->seo()->jsonLd()->setType('Website');
+
         $testimonials = Testimonial::all();
 
         return view('website.about', compact('testimonials'));
@@ -33,6 +56,15 @@ class WebsiteController extends Controller
 
     public function pricing()
     {
+        $content = metaContent('pricing');
+        $this->seo()->setTitle($content->title);
+        $this->seo()->setDescription($content->description);
+        SEOMeta::setKeywords($content->keywords);
+        $this->seo()->opengraph()->setUrl(url()->current());
+        $this->seo()->opengraph()->addProperty('type', 'website');
+        $this->seo()->twitter()->setSite(url()->current());
+        $this->seo()->jsonLd()->setType('Website');
+
         $faqs = Faq::all();
         $plans = Plan::with('planFeatures')->whereStatus(1)->get();
 
@@ -41,6 +73,15 @@ class WebsiteController extends Controller
 
     public function blog()
     {
+        $content = metaContent('blog');
+        $this->seo()->setTitle($content->title);
+        $this->seo()->setDescription($content->description);
+        SEOMeta::setKeywords($content->keywords);
+        $this->seo()->opengraph()->setUrl(url()->current());
+        $this->seo()->opengraph()->addProperty('type', 'website');
+        $this->seo()->twitter()->setSite(url()->current());
+        $this->seo()->jsonLd()->setType('Website');
+
         $posts = Post::select('id', 'title', 'slug', 'thumbnail', 'short_description')
             ->latest()
             ->paginate(12);
@@ -50,6 +91,13 @@ class WebsiteController extends Controller
 
     public function blogDetails(Post $post)
     {
+        $this->seo()->setTitle($post->title);
+        $this->seo()->setDescription($post->short_description);
+        $this->seo()->opengraph()->setUrl(url()->current());
+        $this->seo()->opengraph()->addProperty('type', 'website');
+        $this->seo()->twitter()->setSite(url()->current());
+        $this->seo()->jsonLd()->setType('Website');
+
         $post->increment('total_views');
         $post->load('user');
         $popular_posts = Post::select('id', 'title', 'slug', 'thumbnail')
@@ -71,11 +119,29 @@ class WebsiteController extends Controller
 
     public function contact()
     {
+        $content = metaContent('contact');
+        $this->seo()->setTitle($content->title);
+        $this->seo()->setDescription($content->description);
+        SEOMeta::setKeywords($content->keywords);
+        $this->seo()->opengraph()->setUrl(url()->current());
+        $this->seo()->opengraph()->addProperty('type', 'website');
+        $this->seo()->twitter()->setSite(url()->current());
+        $this->seo()->jsonLd()->setType('Website');
+
         return view('website.contact');
     }
 
     public function planDetails(Plan $plan)
     {
+        $content = metaContent('pricing');
+        $this->seo()->setTitle($content->title);
+        $this->seo()->setDescription($content->description);
+        SEOMeta::setKeywords($content->keywords);
+        $this->seo()->opengraph()->setUrl(url()->current());
+        $this->seo()->opengraph()->addProperty('type', 'website');
+        $this->seo()->twitter()->setSite(url()->current());
+        $this->seo()->jsonLd()->setType('Website');
+
         // session data storing
         session(['plan' => $plan]);
         session(['stripe_amount' => currencyConversion($plan->price) * 100]);
@@ -100,5 +166,33 @@ class WebsiteController extends Controller
             'plan' => $plan,
             'mid_token' => $snapToken ?? null,
         ]);
+    }
+
+    public function privacyPolicy()
+    {
+        $content = metaContent('privacy-policy');
+        $this->seo()->setTitle($content->title);
+        $this->seo()->setDescription($content->description);
+        SEOMeta::setKeywords($content->keywords);
+        $this->seo()->opengraph()->setUrl(url()->current());
+        $this->seo()->opengraph()->addProperty('type', 'website');
+        $this->seo()->twitter()->setSite(url()->current());
+        $this->seo()->jsonLd()->setType('Website');
+
+        return view('website.privacy_policy');
+    }
+
+    public function termsCondition()
+    {
+        $content = metaContent('terms-conditions');
+        $this->seo()->setTitle($content->title);
+        $this->seo()->setDescription($content->description);
+        SEOMeta::setKeywords($content->keywords);
+        $this->seo()->opengraph()->setUrl(url()->current());
+        $this->seo()->opengraph()->addProperty('type', 'website');
+        $this->seo()->twitter()->setSite(url()->current());
+        $this->seo()->jsonLd()->setType('Website');
+
+        return view('website.terms_condition');
     }
 }

@@ -27,6 +27,10 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    $path = base_path('Resources/json/currency.json');
+    return $currencyInfos = json_decode(file_get_contents($path), true);
+
+
     return inertia('test/demo');
     return Setting::first();
     $search = 'employee';
