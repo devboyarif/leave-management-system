@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
             FeatureSeeder::class,
             TestimonialSeeder::class,
             LanguageSeeder::class,
+            CurrencySeeder::class,
             OrderSeeder::class,
             SettingSeeder::class,
             ContactMessageSeeder::class,

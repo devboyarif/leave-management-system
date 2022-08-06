@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\Cms;
 use App\Models\Seo;
 use App\Models\Setting;
+use App\Models\Currency;
 
 trait SettingAble
 {
@@ -361,6 +362,52 @@ trait SettingAble
             default:
                 # code...
                 break;
+        }
+    }
+
+    public function storeCurrencyData($request){
+        $request->validate([
+            'name' => 'required|unique:currencies,name',
+            'code' => 'required',
+            'symbol' => 'required',
+            'symbol_position' => 'required',
+        ]);
+
+        Currency::create([
+            'name' => $request->name,
+            'code' => $request->code,
+            'symbol' => $request->symbol,
+            'symbol_position' => $request->symbol_position,
+            'status' => $request->status ? 1 : 0,
+        ]);
+    }
+
+    public function updateCurrencyData($request, $currency){
+        $request->validate([
+            'name' => "required|unique:currencies,name,$currency->id",
+            'code' => 'required',
+            'symbol' => 'required',
+            'symbol_position' => 'required',
+        ]);
+
+        $currency->update([
+            'name' => $request->name,
+            'code' => $request->code,
+            'symbol' => $request->symbol,
+            'symbol_position' => $request->symbol_position,
+            'status' => $request->status ? 1 : 0,
+        ]);
+    }
+
+    public function deleteCurrencyData($currency){
+        $currency->delete();
+    }
+
+    public function statusUpdateCurrencyData($currency){
+        if ($currency->status) {
+            $currency->update(['status' => 0]);
+        } else {
+            $currency->update(['status' => 1]);
         }
     }
 }

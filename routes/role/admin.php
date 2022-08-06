@@ -91,16 +91,16 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     // ========================================================================
 
     // Languages Routes
-    Route::controller(LanguageController::class)->group(function () {
-        Route::get('/setting/languages', 'index')->name('languages.index');
-        Route::post('/setting/languages', 'store')->name('languages.store');
-        Route::put('/setting/languages/{lang}', 'update')->name('languages.update');
-        Route::delete('/setting/languages/{lang}', 'destroy')->name('languages.destroy');
-        Route::get('/setting/languages/translation/{lang}', 'translationEdit')->name('languages.translation.edit');
-        Route::put('/setting/languages/translation/{lang}', 'translationUpdate')->name('languages.translation.update');
-        Route::put('/setting/languages/status/{lang}', 'statusUpdate')->name('languages.status.update');
-        Route::get('/setting/languages/translate/single', 'singleTranslate')->name('languages.translate');
-        Route::get('/setting/languages/translate/all', 'allTranslate')->name('languages.translate.all');
+    Route::controller(LanguageController::class)->prefix('setting')->name('languages.')->group(function () {
+        Route::get('languages', 'index')->name('index');
+        Route::post('languages', 'store')->name('store');
+        Route::put('languages/{lang}', 'update')->name('update');
+        Route::delete('languages/{lang}', 'destroy')->name('destroy');
+        Route::get('languages/translation/{lang}', 'translationEdit')->name('translation.edit');
+        Route::put('languages/translation/{lang}', 'translationUpdate')->name('translation.update');
+        Route::put('languages/status/{lang}', 'statusUpdate')->name('status.update');
+        Route::get('languages/translate/single', 'singleTranslate')->name('translate');
+        Route::get('languages/translate/all', 'allTranslate')->name('translate.all');
     });
 
     // Themes Routes
@@ -114,7 +114,6 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     Route::controller(SettingController::class)->prefix('settings')->group(function () {
         Route::get('/general', 'general')->name('settings.general');
         Route::post('/general/setting/update', 'generalSettingUpdate')->name('settings.general.update');
-        Route::get('/currency', 'currency')->name('settings.currency');
 
         // cms routes
         Route::get('/cms', 'cms')->name('settings.cms');
@@ -133,6 +132,15 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
         Route::get('/smtp', 'smtp')->name('settings.smtp');
         Route::put('/smtp/update', 'smtpUpdate')->name('settings.smtp.update');
         Route::post('/send/test-email', 'testEmailSend')->name('settings.send.test.email');
+
+        // Currency Routes
+        Route::prefix('currency')->prefix('currency')->name('settings.')->group(function(){
+            Route::get('/', 'currency')->name('currency');
+            Route::post('/', 'storeCurrency')->name('currency.store');
+            Route::delete('{currency}', 'deleteCurrency')->name('currency.destroy');
+            Route::put('{currency}', 'updateCurrency')->name('currency.update');
+            Route::put('{currency}', 'statusUpdateCurrency')->name('currency.status.update');
+        });
     });
 });
 
