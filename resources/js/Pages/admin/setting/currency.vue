@@ -4,21 +4,21 @@
     <div class="row">
         <div class="col-6">
              <div class="d-flex align-items-center mb-1 mt-3">
-            <div class="form-row align-items-end mr-3">
-                <div class="col-auto">
-                    <label for="" class="mr-sm-2">{{ __('Set Default Currency') }}</label>
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="default_currency">
-                        <option v-for="currency in currencies" :key="currency.id" :value="currency.id">
-                            {{ currency.name }}
-                        </option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <button @click="setDefaultCurrency" type="button" class="btn btn-primary "
-                        style="margin-top:30px">{{ __('Save') }}</button>
+                <div class="form-row align-items-end mr-3">
+                    <div class="col-auto">
+                        <label for="" class="mr-sm-2">{{ __('Set Default Currency') }}</label>
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="default_currency">
+                            <option v-for="currency in currencies" :key="currency.id" :value="currency.id">
+                                {{ currency.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button @click="setDefaultCurrency" type="button" class="btn btn-primary "
+                            style="margin-top:30px">{{ __('Save') }}</button>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 
@@ -230,7 +230,7 @@ export default {
                 }
             }
         },
-         setDefaultCurrency() {
+        setDefaultCurrency() {
             this.$inertia.put(
                 route("settings.currency.set.default", this.default_currency)
             );

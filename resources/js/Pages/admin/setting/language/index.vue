@@ -1,6 +1,27 @@
 <template>
     <Head :title="__('Language List')"/>
 
+     <div class="row">
+        <div class="col-6">
+             <div class="d-flex align-items-center mb-1 mt-3">
+                <div class="form-row align-items-end mr-3">
+                    <div class="col-auto">
+                        <label for="" class="mr-sm-2">{{ __('Set Default Language') }}</label>
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="default_language">
+                            <option v-for="language in languages" :key="language.id" :value="language.id">
+                                {{ language.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button @click="setDefaultLanguage" type="button" class="btn btn-primary "
+                            style="margin-top:30px">{{ __('Save') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card mt-3">
@@ -23,7 +44,12 @@
                             <tbody>
                                 <template v-if="languages && languages.length">
                                     <tr v-for="(language,index) in languages" :key="index">
-                                        <td>{{ language.name }}</td>
+                                        <td>
+                                            {{ language.name }}
+                                            <span class="badge badge-primary" v-if="language.id == defaultLanguage">
+                                                {{ __('Default') }}
+                                            </span>
+                                        </td>
                                         <td>{{ language.code }}</td>
                                         <td>{{ language.direction }}</td>
                                         <td>
@@ -111,7 +137,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
 </template>
 
 
@@ -121,11 +147,13 @@ export default {
     props: {
         languages: Array,
         langInfos: Array,
+        defaultLanguage: Number,
     },
     data() {
         return {
             isEditMode: false,
             selectedId: "",
+            default_language: this.defaultLanguage,
             languageStatus: false,
             form: this.$inertia.form({
                 name: "",
@@ -185,6 +213,11 @@ export default {
         },
         statusChange(event) {
             this.form.status = event.target.checked;
+        },
+        setDefaultLanguage() {
+            this.$inertia.put(
+                route("languages.set.default", this.default_language)
+            );
         },
     },
      mounted(){

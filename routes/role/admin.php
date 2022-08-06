@@ -95,6 +95,7 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
         Route::get('languages', 'index')->name('index');
         Route::post('languages', 'store')->name('store');
         Route::put('languages/{lang}', 'update')->name('update');
+        Route::put('{lang}', 'defaultLanguage')->name('set.default');
         Route::delete('languages/{lang}', 'destroy')->name('destroy');
         Route::get('languages/translation/{lang}', 'translationEdit')->name('translation.edit');
         Route::put('languages/translation/{lang}', 'translationUpdate')->name('translation.update');
