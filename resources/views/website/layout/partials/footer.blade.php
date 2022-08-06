@@ -90,10 +90,10 @@
                         <h5 class="ud-widget-title">Our Support</h5>
                         <ul class="ud-widget-links">
                             <li>
-                                <a href="javascript:void(0)">Privacy policy</a>
+                                <a href="{{ route('website.privacy.policy') }}">Privacy policy</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">Terms & Condition</a>
+                                <a href="{{ route('website.terms.condition') }}">Terms & Condition</a>
                             </li>
                         </ul>
                     </div>

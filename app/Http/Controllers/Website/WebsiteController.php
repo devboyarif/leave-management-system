@@ -101,4 +101,14 @@ class WebsiteController extends Controller
             'mid_token' => $snapToken ?? null,
         ]);
     }
+
+    public function privacyPolicy()
+    {
+        return view('website.privacy_policy');
+    }
+
+    public function termsCondition()
+    {
+        return view('website.terms_condition');
+    }
 }
