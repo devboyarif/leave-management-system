@@ -1,124 +1,150 @@
 <template>
     <Head :title="__('Currency List')"/>
 
-    <div class="row justify-content-center">
-            <div class="col-8">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                            <span>{{ __('Currency List') }}</span>
-                        </div>
-                    </div>
-                     <div class="card-body table-responsive p-0">
-                        <table class="table table-valign-middle">
-                            <thead>
-                               <tr>
-                                    <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Code') }}</th>
-                                    <th>{{ __('Symbol') }}</th>
-                                    <th>{{ __('Symbol Position') }}</th>
-                                    <th>{{ __('Status') }}</th>
-                                    <th>{{ __('Action') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-if="currencies && currencies.length">
-                                    <tr v-for="(currency,index) in currencies" :key="index">
-                                        <td>{{ currency.name }}</td>
-                                        <td>{{ currency.code }}</td>
-                                        <td>{{ currency.symbol }}</td>
-                                        <td>{{ currency.symbol_position }}</td>
-                                        <td>
-                                            <label class="switch ">
-                                                <input @change="currencyStatusUpdate(currency.id)" type="checkbox" class="success toggle-switch" :checked="currency.status">
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </td>
-                                        <td class="d-flex">
-                                            <button @click="editCurrency(currency)" v-tooltip="__('Edit')" class="btn btn-sm ">
-                                                <EditIcon/>
-                                            </button>
-                                            <button @click="deleteData(currency.id)" v-tooltip="__('Delete')" class="btn btn-sm">
-                                                <DeleteIcon/>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </template>
-                                <tr v-else>
-                                    <td colspan="5" class="text-center">
-                                        <h6>{{ __('No Data Found') }}</h6>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+    <div class="row">
+        <div class="col-6">
+             <div class="d-flex align-items-center mb-1 mt-3">
+            <div class="form-row align-items-end mr-3">
+                <div class="col-auto">
+                    <label for="" class="mr-sm-2">{{ __('Set Default Currency') }}</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="default_currency">
+                        <option v-for="currency in currencies" :key="currency.id" :value="currency.id">
+                            {{ currency.name }}
+                        </option>
+                    </select>
                 </div>
-            </div>
-            <div class="col-4">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                            <span v-if="!isEditMode">{{ __('Currency Create') }}</span>
-                            <span v-else>{{ __('Currency Edit') }}</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                         <form @submit.prevent="saveData">
-                            <div class="mb-3">
-                                <Label :name="__('Name')"/>
-                                 <select class="form-control" :class="{'is-invalid':form.errors.name}" v-model="form.name" @change="currencyAutoComplete">
-                                    <option value="" class="d-none">{{ __('Select One') }}</option>
-                                    <option v-for="(currency,key) in currencyInfos" :key="key" :value="currency['name']">{{ currency['name'] }}</option>
-                                </select>
-                                <ErrorMessage :name="form.errors.name" />
-                            </div>
-                            <div class="mb-3">
-                                <Label :name="__('Code')"/>
-                                 <select class="form-control" :class="{'is-invalid':form.errors.code}" v-model="form.code">
-                                    <option value="" class="d-none">{{ __('Select One') }}</option>
-                                    <option v-for="(currency,key) in currencyInfos" :key="key" :value="currency['code']">{{ currency['code'] }}</option>
-                                </select>
-                                <ErrorMessage :name="form.errors.code" />
-                            </div>
-                            <div class="mb-3">
-                                <Label :name="__('Symbol')"/>
-                                 <select class="form-control" :class="{'is-invalid':form.errors.symbol}" v-model="form.symbol">
-                                    <option value="" class="d-none">{{ __('Select One') }}</option>
-                                    <option v-for="(currency,key) in currencyInfos" :key="key" :value="currency['symbol_native']">{{ currency['symbol_native'] }}</option>
-                                </select>
-                                <ErrorMessage :name="form.errors.symbol" />
-                            </div>
-                            <div class="mb-3">
-                                <Label :name="__('Symbol Position')"/>
-                                <select class="form-control" :class="{'is-invalid':form.errors.symbol_position}" v-model="form.symbol_position">
-                                    <option value="left">{{ __('Left') }}</option>
-                                    <option value="left">{{ __('Right') }}</option>
-                                </select>
-                                <ErrorMessage :name="form.errors.symbol_position" />
-                            </div>
-                            <div class="mb-3">
-                                <Label :name="__('Status')" :required="false"/> <br>
-                                <label class="switch ">
-                                    <input @change="statusChange" v-model="form.status" type="checkbox" class="success toggle-switch" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                                <Loading v-if="form.processing" message="Saving..."/>
-                                <span v-else>
-                                    <i class="fa-solid fa-check mr-1"></i>
-                                    {{ __('Save') }}
-                                </span>
-                            </button>
-                            <button v-if="isEditMode" @click="cancelEdit" type="button" class="btn btn-danger ml-2">
-                                <i class="fa-solid fa-times"></i>
-                                {{ __('Cancel') }}
-                            </button>
-                        </form>
-                    </div>
+                <div class="col-auto">
+                    <button @click="setDefaultCurrency" type="button" class="btn btn-primary "
+                        style="margin-top:30px">{{ __('Save') }}</button>
                 </div>
             </div>
         </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <span>{{ __('Currency List') }}</span>
+                    </div>
+                </div>
+                    <div class="card-body table-responsive p-0">
+                    <table class="table table-valign-middle">
+                        <thead>
+                            <tr>
+                                <th>{{ __('Name') }}</th>
+                                <th>{{ __('Code') }}</th>
+                                <th>{{ __('Symbol') }}</th>
+                                <th>{{ __('Symbol Position') }}</th>
+                                <th>{{ __('Status') }}</th>
+                                <th>{{ __('Action') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-if="currencies && currencies.length">
+                                <tr v-for="(currency,index) in currencies" :key="index">
+                                    <td>
+                                        {{ currency.name }}
+                                        <span class="badge badge-primary" v-if="defaultCurrency.id == currency.id">
+                                            {{ __('Default') }}
+                                        </span>
+                                    </td>
+                                    <td>{{ currency.code }}</td>
+                                    <td>{{ currency.symbol }}</td>
+                                    <td>{{ currency.symbol_position }}</td>
+                                    <td>
+                                        <label class="switch ">
+                                            <input @change="currencyStatusUpdate(currency.id)" type="checkbox" class="success toggle-switch" :checked="currency.status">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </td>
+                                    <td class="d-flex">
+                                        <button @click="editCurrency(currency)" v-tooltip="__('Edit')" class="btn btn-sm ">
+                                            <EditIcon/>
+                                        </button>
+                                        <button @click="deleteData(currency.id)" v-tooltip="__('Delete')" class="btn btn-sm">
+                                            <DeleteIcon/>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </template>
+                            <tr v-else>
+                                <td colspan="5" class="text-center">
+                                    <h6>{{ __('No Data Found') }}</h6>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <span v-if="!isEditMode">{{ __('Currency Create') }}</span>
+                        <span v-else>{{ __('Currency Edit') }}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                        <form @submit.prevent="saveData">
+                        <div class="mb-3">
+                            <Label :name="__('Name')"/>
+                                <select class="form-control" :class="{'is-invalid':form.errors.name}" v-model="form.name" @change="currencyAutoComplete">
+                                <option value="" class="d-none">{{ __('Select One') }}</option>
+                                <option v-for="(currency,key) in currencyInfos" :key="key" :value="currency['name']">{{ currency['name'] }}</option>
+                            </select>
+                            <ErrorMessage :name="form.errors.name" />
+                        </div>
+                        <div class="mb-3">
+                            <Label :name="__('Code')"/>
+                                <select class="form-control" :class="{'is-invalid':form.errors.code}" v-model="form.code">
+                                <option value="" class="d-none">{{ __('Select One') }}</option>
+                                <option v-for="(currency,key) in currencyInfos" :key="key" :value="currency['code']">{{ currency['code'] }}</option>
+                            </select>
+                            <ErrorMessage :name="form.errors.code" />
+                        </div>
+                        <div class="mb-3">
+                            <Label :name="__('Symbol')"/>
+                                <select class="form-control" :class="{'is-invalid':form.errors.symbol}" v-model="form.symbol">
+                                <option value="" class="d-none">{{ __('Select One') }}</option>
+                                <option v-for="(currency,key) in currencyInfos" :key="key" :value="currency['symbol_native']">{{ currency['symbol_native'] }}</option>
+                            </select>
+                            <ErrorMessage :name="form.errors.symbol" />
+                        </div>
+                        <div class="mb-3">
+                            <Label :name="__('Symbol Position')"/>
+                            <select class="form-control" :class="{'is-invalid':form.errors.symbol_position}" v-model="form.symbol_position">
+                                <option value="left">{{ __('Left') }}</option>
+                                <option value="left">{{ __('Right') }}</option>
+                            </select>
+                            <ErrorMessage :name="form.errors.symbol_position" />
+                        </div>
+                        <div class="mb-3">
+                            <Label :name="__('Status')" :required="false"/> <br>
+                            <label class="switch ">
+                                <input @change="statusChange" v-model="form.status" type="checkbox" class="success toggle-switch" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <button :disabled="form.processing" type="submit" class="btn btn-primary">
+                            <Loading v-if="form.processing" message="Saving..."/>
+                            <span v-else>
+                                <i class="fa-solid fa-check mr-1"></i>
+                                {{ __('Save') }}
+                            </span>
+                        </button>
+                        <button v-if="isEditMode" @click="cancelEdit" type="button" class="btn btn-danger ml-2">
+                            <i class="fa-solid fa-times"></i>
+                            {{ __('Cancel') }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 
@@ -128,11 +154,13 @@ export default {
     props: {
         currencies: Array,
         currencyInfos: Array,
+        defaultCurrency: Object,
     },
     data() {
         return {
             isEditMode: false,
             selectedId: "",
+            default_currency: this.defaultCurrency.id,
             form: this.$inertia.form({
                 name: "",
                 code: "",
@@ -201,7 +229,12 @@ export default {
                     this.form.symbol = this.currencyInfos[objects[i]]['symbol_native'];
                 }
             }
-        }
+        },
+         setDefaultCurrency() {
+            this.$inertia.put(
+                route("settings.currency.set.default", this.default_currency)
+            );
+        },
     },
      mounted(){
         this.checkPagePermission('admin')

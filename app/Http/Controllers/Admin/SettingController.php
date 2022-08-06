@@ -64,12 +64,9 @@ class SettingController extends Controller
 
     public function currency()
     {
-        $currencies = Currency::all();
+        $data = $this->getCurrencyData();
 
-        $path = base_path('Resources/json/currency.json');
-        $currencyInfos = json_decode(file_get_contents($path), true);
-
-        return inertia('admin/setting/currency', compact('currencies','currencyInfos'));
+        return inertia('admin/setting/currency', $data);
     }
 
     public function storeCurrency(Request $request)
@@ -101,6 +98,14 @@ class SettingController extends Controller
         $this->statusUpdateCurrencyData($currency);
 
         session()->flash('success', 'Currency status updated successfully.');
+        return back();
+    }
+
+    public function defaultCurrency(Currency $currency)
+    {
+        $this->setDefaultCurrency($currency);
+
+        session()->flash('success', 'Currency default set successfully.');
         return back();
     }
 

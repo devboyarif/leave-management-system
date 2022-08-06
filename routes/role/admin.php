@@ -140,6 +140,7 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
             Route::delete('{currency}', 'deleteCurrency')->name('currency.destroy');
             Route::put('{currency}', 'updateCurrency')->name('currency.update');
             Route::put('{currency}', 'statusUpdateCurrency')->name('currency.status.update');
+            Route::put('{currency}', 'defaultCurrency')->name('currency.set.default');
         });
     });
 });

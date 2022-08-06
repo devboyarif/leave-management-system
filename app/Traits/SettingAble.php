@@ -365,6 +365,15 @@ trait SettingAble
         }
     }
 
+    public function getCurrencyData(){
+        $data['currencies'] = Currency::all();
+        $path = base_path('Resources/json/currency.json');
+        $data['currencyInfos'] = json_decode(file_get_contents($path), true);
+        $data['defaultCurrency'] = Currency::where('code', config('kodebazar.currency'))->first();
+
+        return $data;
+    }
+
     public function storeCurrencyData($request){
         $request->validate([
             'name' => 'required|unique:currencies,name',
@@ -409,5 +418,11 @@ trait SettingAble
         } else {
             $currency->update(['status' => 1]);
         }
+    }
+
+    public function setDefaultCurrency($currency){
+        checkSetEnv('APP_CURRENCY', $currency->code);
+        checkSetEnv('APP_CURRENCY_SYMBOL', $currency->symbol);
+        checkSetEnv('APP_CURRENCY_SYMBOL_POSITION', $currency->symbol_position);
     }
 }
