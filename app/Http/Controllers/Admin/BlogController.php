@@ -40,7 +40,28 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string'
+        ]);
+
+        if ($request->hasFile('thumbnail') && $request->file('thumbnail')->isValid()) {
+            $request->validate(['thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:5120']);
+            $url = uploadFileToPublic('thumbnail', $request->thumbnail);
+            $thumbnail = $url;
+        }
+
+        Post::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'thumbnail' => $thumbnail ?? '',
+            'short_description' => $request->short_description,
+            'long_description' => $request->long_description,
+        ]);
+
+        session()->flash('success', 'Post created successfully!');
+        return back();
     }
 
     /**
@@ -60,9 +81,11 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return inertia('admin/others/blog/edit', [
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -72,9 +95,30 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string'
+        ]);
+
+        if ($request->hasFile('thumbnail') && $request->file('thumbnail')->isValid()) {
+            $request->validate(['thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:5120']);
+            $url = uploadFileToPublic('thumbnail', $request->thumbnail);
+            $thumbnail = $url;
+        }
+
+        $post->update([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'thumbnail' => $thumbnail ?? '',
+            'short_description' => $request->short_description,
+            'long_description' => $request->long_description,
+        ]);
+
+        session()->flash('success', 'Post updated successfully!');
+        return back();
     }
 
     /**
@@ -83,8 +127,10 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        session()->flash('success', 'Post deleted successfully!');
+        return back();
     }
 }

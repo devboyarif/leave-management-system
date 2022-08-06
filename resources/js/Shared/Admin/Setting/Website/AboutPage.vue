@@ -14,7 +14,7 @@
                 </div>
                 <div class="form-group ">
                     <Label :name="__('About Description')" />
-                    <textarea v-model="form.about_description" class="form-control" :class="{'is-invalid':form.errors.about_description}" rows="6"></textarea>
+                      <QuillEditor theme="snow" v-model:content="form.about_description" contentType="html" class="h-250"/>
                     <ErrorMessage :name="form.errors.about_description" />
 
                 </div>
@@ -43,9 +43,15 @@
 </template>
 
 <script>
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
 export default {
     props: {
         cms: Object,
+    },
+     components: {
+        QuillEditor
     },
     data() {
         return {

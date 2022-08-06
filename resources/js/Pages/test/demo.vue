@@ -1,29 +1,27 @@
 <template>
-    <Head title="Leave Type List"/>
-
-    <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                             <span>Leave Type List</span>
-                        </div>
-                    </div>
-                     <div class="card-body table-responsive p-0">
-
-                    </div>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-body">
+             <QuillEditor theme="snow" v-model:content="myContent" contentType="html"/>
         </div>
+
+        {{ myContent }}
+    </div>
 </template>
 
 
 <script>
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import '@vueup/vue-quill/dist/vue-quill.bubble.css';
+
 export default {
-    props: {},
-    data() {
-        return {};
-    },
-    methods: {},
+    components: {
+    QuillEditor
+  },
+  data(){
+    return {
+        myContent : 'asdas'
+    }
+  }
 };
 </script>

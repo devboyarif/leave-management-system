@@ -4,7 +4,7 @@
             <form @submit.prevent="updateData">
                 <div class="form-group">
                     <Label :name="__('Privacy Policy Content')" />
-                     <textarea v-model="form.terms_description" class="form-control" :class="{'is-invalid':form.errors.terms_description}" rows="4"></textarea>
+                     <QuillEditor theme="snow" v-model:content="form.terms_description" contentType="html" class="h-250"/>
                     <ErrorMessage :name="form.errors.terms_description" />
                 </div>
                  <button :disabled="form.processing" type="submit" class="btn btn-primary">
@@ -20,9 +20,15 @@
 </template>
 
 <script>
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
 export default {
     props: {
         cms: Object,
+    },
+    components: {
+        QuillEditor
     },
     data() {
         return {
