@@ -367,7 +367,7 @@ trait SettingAble
 
     public function getCurrencyData(){
         $data['currencies'] = Currency::all();
-        $path = base_path('Resources/json/currency.json');
+        $path = base_path('resources/json/currency.json');
         $data['currencyInfos'] = json_decode(file_get_contents($path), true);
         $data['defaultCurrency'] = Currency::where('code', config('kodebazar.currency'))->first();
 

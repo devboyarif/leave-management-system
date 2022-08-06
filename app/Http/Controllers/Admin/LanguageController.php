@@ -15,7 +15,7 @@ class LanguageController extends Controller
     public function index()
     {
         $languages = Language::all();
-        $path = base_path('Resources/json/languages.json');
+        $path = base_path('resources/json/languages.json');
         $langInfos = json_decode(file_get_contents($path), true);
         $defaultLanguage = Language::where('code', config('kodebazar.default_language'))->value('id');
 
