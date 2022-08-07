@@ -2,7 +2,7 @@
 
     <Head :title="__('Profile')" />
 
-    <div class="container">
+    <div class="container pt-3">
         <div class="main-body">
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
@@ -14,8 +14,9 @@
 
                                 <div class="mt-3">
                                     <h4>{{ user.name }}</h4>
-                                    <p class="text-secondary mb-1">Admin</p>
-                                    <p class="text-secondary mb-1">{{ __('Member Since') }}: 1 july 2020</p>
+                                    <p class="text-secondary mb-1">
+                                        {{ __('Member Since') }}: <b>{{ formateDate(user.created_at) }}</b>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -106,8 +107,6 @@
                                                         {{ __('Update Profile') }}
                                                     </span>
                                                 </button>
-
-
                                             </div>
                                         </div>
                                     </form>
