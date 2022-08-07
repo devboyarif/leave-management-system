@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\ProfileUpdateRequest;
@@ -63,6 +64,7 @@ class UserController extends Controller
     {
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
+        $data['role'] = 'admin';
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $request->validate([
@@ -148,7 +150,7 @@ class UserController extends Controller
 
     public function profile()
     {
-        return inertia('admin/user/profile', [
+        return inertia('profile', [
             'user' => auth()->user(),
         ]);
     }
@@ -162,7 +164,8 @@ class UserController extends Controller
             'email' => "required|string|email|max:255|unique:users,email, $user->id",
         ]);
 
-        $data = $request->all();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $request->validate([
@@ -192,5 +195,12 @@ class UserController extends Controller
 
         session()->flash('success', 'Password changed successfully!');
         return back();
+    }
+
+    public function accountDelete(){
+        User::find(auth()->id())->delete();
+
+        session()->flash('success', 'Account deleted successfully!');
+        return redirect()->route('login');
     }
 }
