@@ -18,6 +18,7 @@ Route::middleware(['auth','check.company.role'])->prefix('company')->name('compa
     // Pricing Plan
     Route::get('/orders', [CompanyController::class, 'orders'])->name('orders.index');
     Route::get('/pricing/plan', [CompanyController::class, 'plan'])->name('plan');
+    // Route::get('/profile')
 
     // Team routes
     Route::get('/teams/employees', [TeamController::class, 'teamEmployees'])->name('teams.employees');

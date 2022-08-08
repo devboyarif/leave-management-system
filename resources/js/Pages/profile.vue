@@ -1,8 +1,8 @@
 <template>
     <Head :title="__('Profile')" />
-
+{{ user.company.country_id }}
     <AdminProfile :user="user" v-if="role == 'admin'"/>
-    <CompanyProfile :user="user" v-else-if="role == 'company'"/>
+    <CompanyProfile :user="user" :countries="countries" v-else-if="role == 'company'"/>
     <EmployeeProfile :user="user" v-else/>
 </template>
 
@@ -16,6 +16,10 @@ export default {
         user: {
             type: Object,
             required: true,
+        },
+        countries: {
+            type: Array,
+            required: false,
         },
     },
     components: {
