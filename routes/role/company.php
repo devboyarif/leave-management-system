@@ -9,6 +9,7 @@ use App\Http\Controllers\Company\SettingController;
 use App\Http\Controllers\Company\EmployeeController;
 use App\Http\Controllers\Company\LeaveTypeController;
 use App\Http\Controllers\Company\LeaveRequestController;
+use App\Http\Controllers\Company\ReportController;
 
 Route::middleware(['auth','check.company.role'])->prefix('company')->name('company.')->group(function () {
     // Employee routes
@@ -18,7 +19,6 @@ Route::middleware(['auth','check.company.role'])->prefix('company')->name('compa
     // Pricing Plan
     Route::get('/orders', [CompanyController::class, 'orders'])->name('orders.index');
     Route::get('/pricing/plan', [CompanyController::class, 'plan'])->name('plan');
-    // Route::get('/profile')
 
     // Team routes
     Route::get('/teams/employees', [TeamController::class, 'teamEmployees'])->name('teams.employees');
@@ -37,6 +37,16 @@ Route::middleware(['auth','check.company.role'])->prefix('company')->name('compa
         Route::delete('/requested/holiday/reject/{holiday}', 'requestedHolidaysReject')->name('request.holidays.reject');
     });
     Route::resource('/holidays', HolidayController::class);
+
+    // Reports
+    Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::get('/employee-leave-balance', 'employeeLeaveBalance')->name('employee.leave.balance');
+        Route::get('/employee-leave-history', 'employeeLeaveHistory')->name('employee.leave.history');
+        Route::get('/team-leave-balance', 'teamLeaveBalance')->name('team.leave.balance');
+        Route::get('/team-leave-history', 'teamLeaveHistory')->name('team.leave.history');
+    });
+
 
     // Setting
     Route::controller(SettingController::class)->group(function () {

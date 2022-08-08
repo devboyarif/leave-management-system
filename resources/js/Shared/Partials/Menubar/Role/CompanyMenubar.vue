@@ -30,6 +30,11 @@
                           <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
                     </NavLink>
+                    <NavLink title="Reports" :href="route('company.reports.index')" :active="$page.component == 'company/reports/index' || $page.component == 'company/reports/employeeLeaveBalance' || $page.component == 'company/reports/employeeLeaveHistory' || $page.component == 'company/reports/teamLeaveBalance' || $page.component == 'company/reports/teamLeaveHistory'">
+                        <template v-slot:icon>
+                            <i class="fa-regular fa-calendar-days nav-icon"></i>
+                        </template>
+                    </NavLink>
 
                     <!-- Leave Manage  -->
                     <li class="nav-header">{{ __('Leave Manage') }}</li>

@@ -71,5 +71,16 @@ class EmployeeSeeder extends Seeder
                 'total_days' => $leave_type->balance,
             ]);
         }
+
+        Employee::factory(50)->create()->each(function ($employee) {
+            $leave_types = LeaveType::where('company_id', $employee->company_id)->get();
+            foreach ($leave_types as $leave_type) {
+                LeaveBalance::create([
+                    'employee_id' => $employee->id,
+                    'leave_type_id' => $leave_type->id,
+                    'total_days' => $leave_type->balance,
+                ]);
+            }
+        });
     }
 }
