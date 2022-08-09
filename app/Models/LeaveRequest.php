@@ -47,11 +47,17 @@ class LeaveRequest extends Model
 
     public function scopeCompanyTeamReport($query, $company_id, $team_id)
     {
-        return $query->with(['employee.user', 'company.user', 'leaveType'])
+        return $query->with(['employee.user', 'employee.team', 'company.user', 'leaveType'])
         ->where('company_id', $company_id)
         ->whereHas('employee', function ($query) use ($team_id) {
             $query->where('team_id', $team_id);
         });
+    }
+
+    public function scopeEmployeeReport($query, $employee_id)
+    {
+        return $query->with(['leaveType'])
+        ->where('employee_id', $employee_id);
     }
 
     public function scopeThisWeek($query)

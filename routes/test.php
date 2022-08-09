@@ -28,6 +28,9 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    $leaveRequest = new LeaveRequest();
+    $employee_id = currentEmployee()->id;
+    return $leaveRequest->employeeReport($employee_id)->thisWeek()->get();
 
 
     $leaveRequest = new LeaveRequest();

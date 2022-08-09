@@ -49,7 +49,6 @@ Route::middleware(['auth','check.company.role'])->prefix('company')->name('compa
         Route::get('/team/leave/history/report', 'teamLeaveHistoryReport')->name('team.leave.history.report');
     });
 
-
     // Setting
     Route::controller(SettingController::class)->group(function () {
         Route::get('/theme', 'theme')->name('theme.index');

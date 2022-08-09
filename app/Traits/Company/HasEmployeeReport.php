@@ -61,32 +61,32 @@ trait HasEmployeeReport
 
         switch ($request->date_type) {
             case 'this_week':
-                $leaveRequest->companyEmployeeReport($company_id,$employee_id)->thisWeek();
+                return $leaveRequest->companyEmployeeReport($company_id,$employee_id)->thisWeek()->get();
                 break;
             case 'last_week':
-                $leaveRequest->companyEmployeeReport($company_id,$employee_id)->lastWeek();
+                return $leaveRequest->companyEmployeeReport($company_id,$employee_id)->lastWeek()->get();
                 break;
             case 'this_month':
-                $leaveRequest->companyEmployeeReport($company_id,$employee_id)->thisMonth();
+                return $leaveRequest->companyEmployeeReport($company_id,$employee_id)->thisMonth()->get();
                 break;
             case 'last_month':
-                $leaveRequest->companyEmployeeReport($company_id,$employee_id)->lastMonth();
+                return $leaveRequest->companyEmployeeReport($company_id,$employee_id)->lastMonth()->get();
                 break;
             case 'last_6_month':
-                $leaveRequest->companyEmployeeReport($company_id,$employee_id)->last6Month();
+                return $leaveRequest->companyEmployeeReport($company_id,$employee_id)->last6Month()->get();
                 break;
             case 'this_year':
-                $leaveRequest->companyEmployeeReport($company_id,$employee_id)->thisYear();
+                return $leaveRequest->companyEmployeeReport($company_id,$employee_id)->thisYear()->get();
                 break;
             case 'last_year':
-                $leaveRequest->companyEmployeeReport($company_id,$employee_id)->lastYear();
+                return $leaveRequest->companyEmployeeReport($company_id,$employee_id)->lastYear()->get();
                 break;
             case 'custom_date':
                 $request->validate([
                     'custom_date' => 'required',
                 ]);
 
-                $leaveRequest->companyEmployeeReport($company_id,$employee_id)->customDate($request->custom_date);
+                return $leaveRequest->companyEmployeeReport($company_id,$employee_id)->customDate($request->custom_date)->get();
                 break;
             case 'custom_range_date':
                 $request->validate([
@@ -94,13 +94,10 @@ trait HasEmployeeReport
                     'custom_end_date' => 'required',
                 ]);
 
-                $leaveRequest
-                ->companyEmployeeReport($company_id,$employee_id)
-                ->customRangeDate($request->custom_start_date, $request->custom_end_date);
+                return $leaveRequest->companyEmployeeReport($company_id,$employee_id)
+                ->customRangeDate($request->custom_start_date, $request->custom_end_date)->get();
                 break;
         }
-
-        return $leaveRequest->get();
     }
 
     public function getTeamLeaveHistory()
