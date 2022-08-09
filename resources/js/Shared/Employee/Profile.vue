@@ -1,15 +1,5 @@
 <template>
     <div class="container-fluid pt-3">
-      <!-- Breadcrumb -->
-      <nav class="main-breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-          <li class="breadcrumb-item active">Profile Settings</li>
-        </ol>
-      </nav>
-      <!-- /Breadcrumb -->
-
       <div class="row gutters-sm">
         <div class="col-md-4 d-none d-md-block">
           <div class="card">
