@@ -74,5 +74,8 @@
         methods: {
 
         },
+         mounted(){
+            this.checkPagePermission('company')
+        }
     };
 </script>

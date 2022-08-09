@@ -12,7 +12,7 @@ class ReportController extends Controller
     use HasEmployeeReport;
 
     public function index(){
-        return  inertia('company/reports/index');
+        return inertia('company/reports/index');
     }
 
     public function employeeLeaveBalance(){
@@ -26,7 +26,9 @@ class ReportController extends Controller
     }
 
     public function teamLeaveBalance(){
-        return inertia('company/reports/teamLeaveBalance');
+        $data = $this->getTeamLeaveBalance();
+
+        return inertia('company/reports/teamLeaveBalance', $data);
     }
 
     public function teamLeaveHistory(){
