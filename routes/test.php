@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Holiday;
 use App\Models\Setting;
 use Twilio\Rest\Client;
+use App\Models\LeaveRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,69 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+
+
+    $leaveRequest = new LeaveRequest();
+    $company = currentCompany();
+
+    $team_id = 12;
+
+    return $leaveRequest->companyTeamReport(4,12)->thisWeek()->get();
+
+
+    return $leaveRequest->companyTeamReport($company->id,12)->thisWeek()->get();
+
+    return $leaveRequest->where('company_id', $company->id)->whereHas('employee',function ($query) use ($team_id){
+        $query->where('team_id', $team_id);
+    })->get();
+    // return $leaveRequest->whereHas(['employee' => function ($query) use ($team_id){
+    //     $query->where('team_id', $team_id);
+    // }])->get();
+
+    // ->with(['employee' => function($q){
+    //     $q->where('team_id', 12);
+    // }])->thisWeek()->get();
+    // return $leaveRequest->thisWeek()->get();
+
+    // return $leaveRequest->companyEmployeeReport(4,36)->thisWeek()->get();
+
+    return [
+        'this_week' => [
+            'start_date' => now()->startOfWeek()->format('Y-m-d'),
+            'end_date' => now()->endOfWeek()->format('Y-m-d'),
+            'leave_requests' => $leaveRequest->thisWeek()->count(),
+        ],
+        'last_week' => [
+            'start_date' => now()->startOfWeek()->subWeek()->format('Y-m-d'),
+            'end_date' => now()->startOfWeek()->subWeek()->endOfWeek()->format('Y-m-d'),
+            'leave_requests' => $leaveRequest->lastWeek()->count(),
+        ],
+        'this_month' => [
+            'start_date' => now()->startOfMonth()->format('Y-m-d'),
+            'end_date' => now()->endOfMonth()->format('Y-m-d'),
+            'leave_requests' => $leaveRequest->thisMonth()->count(),
+        ],
+        'last_month' => [
+            'start_date' => now()->startOfMonth()->subMonth()->format('Y-m-d'),
+            'end_date' => now()->startOfMonth()->subMonth()->endOfMonth()->format('Y-m-d'),
+            'leave_requests' => $leaveRequest->lastMonth()->count(),
+        ],
+        'this_year' => [
+            'start_date' => now()->startOfYear()->format('Y-m-d'),
+            'end_date' => now()->endOfYear()->format('Y-m-d'),
+            'leave_requests' => $leaveRequest->thisYear()->count(),
+        ],
+        'last_year' => [
+            'start_date' => now()->startOfYear()->subYear()->format('Y-m-d'),
+            'end_date' => now()->startOfYear()->subYear()->endOfYear()->format('Y-m-d'),
+            'leave_requests' => $leaveRequest->lastYear()->count(),
+        ],
+    ];
+
+
+
+
+
     $path = base_path('resources/json/currency.json');
     return $currencyInfos = json_decode(file_get_contents($path), true);
 

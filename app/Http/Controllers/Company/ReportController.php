@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\LeaveRequest;
 use App\Traits\Company\HasEmployeeReport;
 
 class ReportController extends Controller
@@ -22,7 +23,13 @@ class ReportController extends Controller
     }
 
     public function employeeLeaveHistory(){
-        return inertia('company/reports/employeeLeaveHistory');
+        $data = $this->getEmployeeLeaveHistory();
+
+        return inertia('company/reports/employeeLeaveHistory',$data);
+    }
+
+    public function employeeLeaveHistoryReport(Request $request){
+       return $this->getEmployeeLeaveHistoryReport($request);
     }
 
     public function teamLeaveBalance(){
@@ -32,6 +39,12 @@ class ReportController extends Controller
     }
 
     public function teamLeaveHistory(){
-        return inertia('company/reports/teamLeaveHistory');
+        $data = $this->getTeamLeaveHistory();
+
+        return inertia('company/reports/teamLeaveHistory', $data);
+    }
+
+    public function teamLeaveHistoryReport(Request $request){
+       return $this->getTeamLeaveHistoryReport($request);
     }
 }

@@ -41,10 +41,12 @@ Route::middleware(['auth','check.company.role'])->prefix('company')->name('compa
     // Reports
     Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function(){
         Route::get('/', 'index')->name('index');
-        Route::get('/employee-leave-balance', 'employeeLeaveBalance')->name('employee.leave.balance');
-        Route::get('/employee-leave-history', 'employeeLeaveHistory')->name('employee.leave.history');
-        Route::get('/team-leave-balance', 'teamLeaveBalance')->name('team.leave.balance');
-        Route::get('/team-leave-history', 'teamLeaveHistory')->name('team.leave.history');
+        Route::get('/employee/leave/balance', 'employeeLeaveBalance')->name('employee.leave.balance');
+        Route::get('/employee/leave/history', 'employeeLeaveHistory')->name('employee.leave.history');
+        Route::get('/employee/leave/history/report', 'employeeLeaveHistoryReport')->name('employee.leave.history.report');
+        Route::get('/team/leave/balance', 'teamLeaveBalance')->name('team.leave.balance');
+        Route::get('/team/leave/history', 'teamLeaveHistory')->name('team.leave.history');
+        Route::get('/team/leave/history/report', 'teamLeaveHistoryReport')->name('team.leave.history.report');
     });
 
 
