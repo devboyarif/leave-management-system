@@ -96,7 +96,6 @@ export default {
     data() {
         return {
             company: this.filter_company || "",
-            errors: {},
             buttonLoading: false,
         };
     },

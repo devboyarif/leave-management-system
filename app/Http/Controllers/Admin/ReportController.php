@@ -34,9 +34,9 @@ class ReportController extends Controller
         return $this->getEmployeeLeaveHistoryReport($request);
     }
 
-    public function teamLeaveBalance()
+    public function teamLeaveBalance(Request $request)
     {
-        $data = $this->getTeamLeaveBalance();
+        $data = $this->getTeamLeaveBalance($request);
 
         return inertia('admin/reports/teamLeaveBalance', $data);
     }

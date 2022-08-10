@@ -32,17 +32,28 @@ trait HasCompanyReport
         ];
     }
 
-    public function getTeamLeaveBalance()
+    public function getTeamLeaveBalance($request)
     {
-        $leave_types = currentCompany()->leaveTypes;
-        $team_employees = Employee::where('company_id', currentCompany()->id)
-            ->with('team:id,name', 'user:id,name,avatar', 'leaveBalances')
-            ->get()
-            ->groupBy('team_id');
+        $companies = Company::with('user:id,name')->get(['id', 'user_id']);
+
+        if ($request->has('company') && $request->company != null) {
+            $company = Company::find($request->company);
+
+            if ($company) {
+                $leave_types = $company->leaveTypes;
+                $team_employees = Employee::where('company_id', $company->id)
+                    ->with('team:id,name', 'user:id,name,avatar', 'leaveBalances')
+                    ->get()
+                    ->groupBy('team_id');
+            }
+        }
 
         return [
-            'team_employees' => $team_employees,
-            'leave_types' => $leave_types,
+            'team_employees' => $team_employees ?? [],
+            'leave_types' => $leave_types ?? [],
+            'companies' => $companies,
+            'filter_company' => $request->company ?? '',
+
         ];
     }
 
