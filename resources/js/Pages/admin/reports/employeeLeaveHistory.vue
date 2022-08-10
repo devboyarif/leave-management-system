@@ -254,15 +254,6 @@ export default {
             );
 
             this.employees = response.data.employees;
-            console.log(response.data.employees);
-            // axios.get(route('company.wise.employees', this.form.company))
-            // .then(response => {
-            //     console.log(response.data)
-            //     // this.employees = response.data;
-            // })
-            // .catch(error => {
-            //     console.log(error);
-            // });
         },
     },
     watch: {

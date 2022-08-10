@@ -122,25 +122,24 @@ trait HasCompanyReport
 
     public function getTeamLeaveHistory()
     {
-        $company_id = currentCompany()->id;
-        $teams = Team::where('company_id', $company_id)
-            ->get(['id', 'name']);
+        $companies = Company::with('user:id,name')->get(['id', 'user_id']);
 
         return [
-            'teams' => $teams,
+            'companies' => $companies,
         ];
     }
 
     public function getTeamLeaveHistoryReport($request)
     {
-        $leaveRequest = new LeaveRequest();
-        $company_id = currentCompany()->id;
-        $team_id = $request->team;
-
         $request->validate([
+            'company' => 'required',
             'team' => 'required',
             'date_type' => 'required',
         ]);
+
+        $leaveRequest = new LeaveRequest();
+        $company_id = $request->company;
+        $team_id = $request->team;
 
         switch ($request->date_type) {
             case 'this_week':
