@@ -17,6 +17,7 @@ class AddFieldsToUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->enum('role', ['admin', 'company', 'employee'])->default('company');
             $table->boolean('status')->default(true);
+            $table->integer('code')->nullable();
         });
     }
 

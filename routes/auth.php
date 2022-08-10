@@ -1,18 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Employee\EmployeeController;
+use App\Http\Controllers\Auth\ForgetPasswordController;
 
 // Authentication routes
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout']);
-Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register.form');
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::get('/email', [LoginController::class, 'passwordEmail'])->name('password.email');
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/login', 'showLoginForm')->name('login');
+    Route::post('/login', 'login');
+    Route::post('/logout', 'logout');
+});
+
+Route::controller(RegisterController::class)->group(function () {
+    Route::get('/register', 'showRegisterForm')->name('register.form');
+    Route::post('/register', 'register')->name('register');
+});
+
+Route::controller(ForgetPasswordController::class)->group(function () {
+    Route::get('/email', 'passwordEmail')->name('password.email');
+    Route::post('/email/send/code', 'sendCode')->name('password.email.send.code');
+    Route::post('/email/check/code', 'checkCode')->name('password.email.check.code');
+    Route::post('/password/reset', 'passwordReset')->name('password.reset');
+});
+
 
 // Roles dashboard routes
 Route::controller(DashboardController::class)->middleware('auth')->group(function () {

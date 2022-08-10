@@ -1,24 +1,26 @@
 <template>
 
-    <Head :title="__('Reset Email')" />
+    <Head :title="__('Sign in')" />
 
     <div class="card-body">
-        <p class="login-box-msg">{{ __('Reset Email') }}</p>
-        <form @submit.prevent="sendCode">
+        <p class="login-box-msg">{{ __('Sign in to start your session') }}</p>
+        <form @submit.prevent="checkCode">
             <div class="input-group mb-3">
-                <input v-model="form.email" :class="{'is-invalid':form.errors.email}" type="email" class="form-control"
-                    :placeholder="__('Email')">
+                <input v-model="form.code" :class="{'is-invalid':form.errors.code}" type="text" class="form-control"
+                    :placeholder="__('Code')">
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-envelope"></span>
                     </div>
                 </div>
-                <span v-if="errors.email" class="invalid-feedback">{{ form.errors.email }}</span>
+                <span v-if="errors.code" class="invalid-feedback">
+                    {{ form.errors.code }}
+                </span>
             </div>
             <div class="row">
                 <button :disabled="form.processing" type="submit" class="btn btn-primary btn-block">
                     <Loading v-if="form.processing" :messageShow="false"/>
-                    <span v-else>{{ __('Send Code') }}</span>
+                    <span v-else>{{ __('Check Code') }}</span>
                 </button>
                 <div class="col-4">
                 </div>
@@ -40,6 +42,7 @@ export default {
     layout: "Auth",
     props: {
         errors: Object,
+        email: String,
     },
     components: {
         LoginIcon,
@@ -47,18 +50,19 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                email: "",
+                email: this.email,
+                code: "",
             }),
         };
     },
     computed: {
         disabledButton() {
-            return this.form.email && this.form.password;
+            return this.form.code;
         },
     },
     methods: {
-        sendCode() {
-            this.form.post(route("password.email.send.code"));
+        checkCode() {
+            this.form.post(route("password.email.check.code"));
         },
     },
 };

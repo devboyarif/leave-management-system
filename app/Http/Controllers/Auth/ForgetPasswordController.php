@@ -2,36 +2,70 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Notifications\ResetPassword;
 
-class ForgotPasswordController extends Controller
+class ForgetPasswordController extends Controller
 {
 
-    /**
-     * Create a new controller instance.
-     */
-    public function __construct()
+    public function passwordEmail()
     {
-        $this->middleware('guest');
+        if (auth()->check()) {
+            return redirect()->route('dashboard');
+        }
+        return inertia('auth/email');
     }
 
-    /**
-     * Get the response for a successful password reset link.
-     */
-    protected function sendResetLinkResponse(Request $request, string $response)
+    public function sendCode(Request $request)
     {
-        info($request->email);
-        return response()->json(['status' => trans($response)]);
+        $this->validate($request, [
+            'email' => 'required|string|email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        $code = rand(1000, 9999);
+
+        if (!$user) {
+            session()->flash('error', 'Email not found');
+            return back();
+        }
+
+        if (checkMailConfig()) {
+            $user->notify(new ResetPassword($code));
+        } else {
+            session()->flash('error', 'Mail not configured');
+            return back();
+        }
+
+        $user->update(['code' => $code]);
+
+        session()->flash('success', 'We have emailed your password reset code');
+        return inertia('auth/checkCode', ['email' => $request->email]);
     }
 
-    /**
-     * Get the response for a failed password reset link.
-     */
-    protected function sendResetLinkFailedResponse(Request $request, string $response)
+    public function checkCode(Request $request)
     {
-        return response()->json(['email' => trans($response)], 400);
+        $this->validate($request, [
+            'code' => 'required'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user->code == $request->code) {
+            return inertia('auth/resetPassword', ['email' => $request->email]);
+        }
+
+        session()->flash('error', 'Invalid code');
+        return inertia('auth/checkCode', ['email' => $request->email]);
     }
 
+    public function passwordReset(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        return $request;
+    }
 }
