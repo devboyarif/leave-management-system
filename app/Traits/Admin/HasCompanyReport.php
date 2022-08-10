@@ -1,24 +1,34 @@
 <?php
 
-namespace App\Traits\Company;
+namespace App\Traits\Admin;
 
+use App\Models\Company;
 use App\Models\Employee;
 use App\Models\LeaveRequest;
 use App\Models\Team;
 
-trait HasEmployeeReport
+trait HasCompanyReport
 {
-    public function getEmployeeLeaveBalance()
+    public function getEmployeeLeaveBalance($request)
     {
+        $companies = Company::with('user:id,name')->get(['id', 'user_id']);
 
-        $leave_types = currentCompany()->leaveTypes;
-        $employees = Employee::where('company_id', currentCompany()->id)
-            ->with('user:id,name,avatar', 'leaveBalances')
-            ->get();
+        if ($request->has('company') && $request->company != null) {
+            $company = Company::find($request->company);
+
+            if ($company) {
+                $leave_types = $company->leaveTypes;
+                $employees = Employee::where('company_id', $company->id)
+                    ->with('user:id,name,avatar', 'leaveBalances')
+                    ->get();
+            }
+        }
 
         return [
-            'leave_types' => $leave_types,
-            'employees' => $employees,
+            'leave_types' => $leave_types ?? [],
+            'employees' => $employees ?? [],
+            'companies' => $companies,
+            'filter_company' => $request->company ?? '',
         ];
     }
 
