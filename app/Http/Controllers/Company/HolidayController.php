@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Models\User;
+use App\Models\Company;
+use App\Models\Country;
+use App\Models\Holiday;
+use App\Traits\HasCountry;
+use Illuminate\Http\Request;
+use App\Models\HolidayRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\HolidaySaveRequest;
-use App\Models\Company;
-use App\Models\Holiday;
-use App\Models\HolidayRequest;
-use App\Models\User;
 use App\Notifications\Company\NewHolidayRequest;
-use Illuminate\Http\Request;
 
 class HolidayController extends Controller
 {
+    use HasCountry;
+
     public function index()
     {
         $user = currentUser();
@@ -64,6 +68,35 @@ class HolidayController extends Controller
         $holiday->delete();
 
         session()->flash('success', 'Holiday deleted successfully!');
+        return back();
+    }
+
+    public function destroyAllHolidays()
+    {
+        currentCompany()->holidays()->delete();
+
+        session()->flash('success', 'All holidays deleted successfully!');
+        return back();
+    }
+
+    public function importHolidays(Request $request)
+    {
+        $request->validate([
+            'country' => 'required|exists:countries,id',
+        ]);
+
+        $company = currentCompany();
+        $country = Country::findOrFail($request->country);
+        $code = $this->getCountryCode($country->code);
+
+        if ($request->type == 'add') {
+            importHolidays($company->id, $code);
+        } else {
+            $company->holidays()->delete();
+            importHolidays($company->id, $code);
+        }
+
+        session()->flash('success', 'Holidays imported successfully!');
         return back();
     }
 

@@ -11,7 +11,7 @@ use App\Http\Controllers\Company\LeaveTypeController;
 use App\Http\Controllers\Company\LeaveRequestController;
 use App\Http\Controllers\Company\ReportController;
 
-Route::middleware(['auth','check.company.role'])->prefix('company')->name('company.')->group(function () {
+Route::middleware(['auth', 'check.company.role'])->prefix('company')->name('company.')->group(function () {
     // Employee routes
     Route::resource('/employees', EmployeeController::class);
     Route::post('/employees/invite', [EmployeeController::class, 'inviteEmployee'])->name('employees.invite');
@@ -35,11 +35,13 @@ Route::middleware(['auth','check.company.role'])->prefix('company')->name('compa
         Route::get('/requested/holidays', 'requestedHolidays')->name('request.holidays');
         Route::post('/requested/holiday/accept', 'requestedHolidaysAccept')->name('request.holidays.accept');
         Route::delete('/requested/holiday/reject/{holiday}', 'requestedHolidaysReject')->name('request.holidays.reject');
+        Route::delete('/holiday/destroy/all', 'destroyAllHolidays')->name('holidays.all.destroy');
+        Route::post('/holiday/import', 'importHolidays')->name('holidays.import');
     });
     Route::resource('/holidays', HolidayController::class);
 
     // Reports
-    Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function(){
+    Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/employee/leave/balance', 'employeeLeaveBalance')->name('employee.leave.balance');
         Route::get('/employee/leave/history', 'employeeLeaveHistory')->name('employee.leave.history');

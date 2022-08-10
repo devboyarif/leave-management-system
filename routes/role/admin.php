@@ -172,4 +172,5 @@ Route::controller(GlobalController::class)->group(function () {
     Route::get('/user/notifications', 'notifications')->name('notifications.index');
     Route::get('/get/translated/message', 'getTranslatedMessage')->name('get.translated.message');
     Route::get('/error/403', 'error403')->name('error.403');
+    Route::get('/all/countries', 'allCountries')->name('all.countries');
 });

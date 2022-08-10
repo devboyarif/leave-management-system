@@ -24,7 +24,7 @@
                 </div>
                 <ErrorMessage :name="form.errors.email" />
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group">
                 <select v-model="form.country" id="" class="form-control" :class="{'is-invalid':form.errors.country}">
                     <option value="" class="d-none">{{ __('Select Country') }}</option>
                     <option :value="country.id" v-for="country in countries" :key="country.id">
@@ -37,6 +37,12 @@
                     </div>
                 </div>
                 <ErrorMessage :name="form.errors.country" />
+            </div>
+            <div class="form-check mb-3">
+                <input @change="checkboxChange" type="checkbox" class="form-check-input" id="holiday" v-model="form.import_official_holidays" :checked="form.import_official_holidays">
+                <label class="form-check-label" for="holiday">
+                    Import official holidays from country ?
+                </label>
             </div>
             <div class="input-group mb-3">
                 <input v-model="form.password" type="password" class="form-control" :placeholder="__('Password')"
@@ -104,17 +110,16 @@ export default {
                 password: null,
                 password_confirmation: null,
                 terms_confirmed: null,
+                import_official_holidays: true,
             }),
         };
     },
-    // computed: {
-    //     disabledButton() {
-    //         return this.form.email && this.form.password;
-    //     },
-    // },
     methods: {
         createData() {
             this.form.post(route("register"));
+        },
+        checkboxChange(e) {
+            this.form.import_official_holidays = e.target.checked;
         },
     },
 };

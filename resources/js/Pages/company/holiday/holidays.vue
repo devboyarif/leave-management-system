@@ -8,16 +8,32 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <span>{{ __('Official Holiday List') }}</span>
-                        <div>
-                            <button @click="showCalendarModal = true" class="btn btn-info" type="button">
-                                <i class="fa-regular fa-calendar"></i>
-                                {{ __('Calendar View') }}
-                            </button>
-                            <Link v-tooltip="'Show all requested holidays'" :href="route('company.request.holidays')" class="btn btn-warning mx-2" type="button">
-                                <i class="fa-solid fa-eye"></i>
-                                {{ __('Requested Holidays') }}
-                            </Link>
-                            <button @click="showModal = true" class="btn btn-primary" type="button">
+
+                        <div v-click-outside="()=> showHolidayDropdown = false">
+                            <div class="btn-group" :class="{'show':showHolidayDropdown}" role="group">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" @click="showHolidayDropdown = !showHolidayDropdown">
+                                    {{ __('Options') }}
+                                </button>
+                                <div class="dropdown-menu employee-add-dropdown" :class="{'show':showHolidayDropdown}" x-placement="bottom-start">
+                                    <a @click="showCalendarModal = true" class="dropdown-item" href="javascript:void(0)" v-tooltip="'Calendar View'">
+                                        <i class="fa-regular fa-calendar"></i>
+                                    {{ __('Calendar View') }}
+                                    </a>
+                                <Link :href="route('company.request.holidays')" @click="showEmployeeCreateModal = true" class="dropdown-item" v-tooltip="'Show all requested holidays'">
+                                        <i class="fa-solid fa-eye"></i>
+                                    {{ __('Requested Holidays') }}
+                                    </Link>
+                                    <a @click="deleteHolidays" class="dropdown-item" href="javascript:void(0)" v-tooltip="'Remove all holidays'">
+                                        <i class="fa-solid fa-times"></i>
+                                        {{ __('Remove holidays') }}
+                                    </a>
+                                    <a @click="showImportHolidayModal" class="dropdown-item" href="javascript:void(0)" v-tooltip="'Remove all holidays'">
+                                        <i class="fa-solid fa-plus"></i>
+                                        {{ __('Import holidays') }}
+                                    </a>
+                                </div>
+                            </div>
+                            <button @click="showModal = true" class="btn btn-primary ml-2">
                                 <i class="fa-solid fa-plus"></i>
                                 {{ __('Add Holiday') }}
                             </button>
@@ -154,6 +170,65 @@
             </div>
         </transition>
     </div>
+
+    <!-- Import holidays -->
+    <div v-if="importHolidayModal">
+        <transition name="fade">
+            <div class="modal-mask">
+                <div class="modal-wrapper">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">
+                                    <span>{{ __('Import Holidays from country') }}</span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" @click="importHolidayModal = false">&times;</span>
+                                </button>
+                            </div>
+                            <form>
+                                <div class="modal-body">
+                                    <div class="mb-3 row">
+                                        <div class="col-md-12">
+                                            <Label :name="__('Country')" />
+                                            <select v-model="importForm.country" id="" class="form-control" :class="{'is-invalid':importForm.errors.country}">
+                                                <option value="" class="d-none">{{ __('Select Country') }}</option>
+                                                <option :value="country.id" v-for="country in countries" :key="country.id">
+                                                    {{ country.name }}
+                                                </option>
+                                            </select>
+                                            <ErrorMessage :name="importForm.errors.country" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <template v-if="!importForm.processing">
+                                        <button @click="importHolidays('add')" type="button" class="btn btn-primary">
+                                            <Loading v-if="importForm.processing" />
+                                            <span v-else>
+                                                <i class="fa-solid fa-check mr-1"></i>
+                                                {{ __('Import Holidays') }}
+                                            </span>
+                                        </button>
+                                        <button @click="importHolidays('add_delete')" type="button" class="btn btn-danger">
+                                            <Loading v-if="importForm.processing" />
+                                            <span v-else>
+                                                <i class="fa-solid fa-check mr-1"></i>
+                                                {{ __('Import & Delete Current Holidays') }}
+                                            </span>
+                                        </button>
+                                    </template>
+                                    <button type="button" class="btn btn-primary" v-else>
+                                        <Loading />
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+    </div>
 </template>
 
 <script>
@@ -189,10 +264,18 @@ export default {
                 end: "",
             }),
 
+            importForm: this.$inertia.form({
+                country: "",
+                type: "add",
+            }),
+
             editMode: false,
             showModal: false,
             showCalendarModal: false,
+            importHolidayModal: false,
             holiday_id: null,
+            showHolidayDropdown: false,
+            countries: [],
         };
     },
     methods: {
@@ -263,9 +346,49 @@ export default {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
             this.form.end = formatTime;
         },
+        deleteHolidays() {
+            this.$swal({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.delete(route("company.holidays.all.destroy"));
+                }
+            });
+        },
+        async showImportHolidayModal() {
+            if (!this.countries.length) {
+                let response = await axios.get(route("all.countries"));
+                this.countries = response.data;
+            }
+
+            this.importHolidayModal = true;
+        },
+        importHolidays(type) {
+            this.importForm.type = type;
+
+            this.importForm.post(
+                route("company.holidays.import"),
+                {
+                    onSuccess: () => {
+                        this.importHolidayModal = false;
+                        this.importForm.reset();
+                    },
+                },
+                {
+                    preserveScroll: true,
+                    preserveState: true,
+                }
+            );
+        },
     },
-     mounted(){
-        this.checkPagePermission('company')
-    }
+    mounted() {
+        this.checkPagePermission("company");
+    },
 };
 </script>
