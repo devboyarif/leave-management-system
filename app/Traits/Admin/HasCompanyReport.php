@@ -59,26 +59,25 @@ trait HasCompanyReport
 
     public function getEmployeeLeaveHistory()
     {
-        $company_id = currentCompany()->id;
-        $employees = Employee::where('company_id', $company_id)
-            ->with('user:id,name,avatar')
-            ->get();
+        $companies = Company::with('user:id,name')->get(['id', 'user_id']);
 
         return [
-            'employees' => $employees,
+            'companies' => $companies,
         ];
     }
 
     public function getEmployeeLeaveHistoryReport($request)
     {
-        $leaveRequest = new LeaveRequest();
-        $company_id = currentCompany()->id;
-        $employee_id = $request->employee;
-
         $request->validate([
+            'company' => 'required',
             'employee' => 'required',
             'date_type' => 'required',
         ]);
+
+        $leaveRequest = new LeaveRequest();
+        $company_id = $request->company;
+        $employee_id = $request->employee;
+
 
         switch ($request->date_type) {
             case 'this_week':

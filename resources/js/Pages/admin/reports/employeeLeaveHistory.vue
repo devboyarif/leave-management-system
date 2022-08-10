@@ -5,6 +5,18 @@
      <div class="row justify-content-center pt-5">
         <div class="col-lg-2">
             <div class="form-group">
+                <label for="" class="mr-sm-2">{{ __('Company') }}</label>
+                <select @change.prevent="getEmployees" class="custom-select mr-sm-2" v-model="form.company" :class="{'is-invalid':errors.company}">
+                    <option value="" class="d-none">{{ __('Select Company') }}</option>
+                    <option v-for="company in companies" :key="company.id" :value="company.id">
+                        {{ company.user.name }}
+                    </option>
+                </select>
+                <span v-if="errors.company" class="invalid-feedback">{{ errors.company && errors.company[0] }}</span>
+            </div>
+        </div>
+        <div class="col-lg-2" v-if="employees.length">
+            <div class="form-group">
                 <label for="" class="mr-sm-2">{{ __('Employee') }}</label>
                 <select class="custom-select mr-sm-2" v-model="form.employee" :class="{'is-invalid':errors.employee}">
                     <option value="" class="d-none">{{ __('Select Employee') }}</option>
@@ -145,7 +157,7 @@ import Actions from "../../../Shared/Company/LeaveRequest/Status.vue";
 
 export default {
     props: {
-        employees: Array,
+        companies: Array,
     },
     components: {
         Datepicker,
@@ -154,6 +166,7 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
+                company: "",
                 employee: "",
                 date_type: "",
                 custom_date: "",
@@ -162,6 +175,7 @@ export default {
             }),
 
             leave_requests: [],
+            employees: [],
 
             showSingleDate: false,
             showDateRange: false,
@@ -197,9 +211,10 @@ export default {
                 this.buttonLoading = true;
                 this.errors = {};
                 let response = await axios.get(
-                    route("company.reports.employee.leave.history.report"),
+                    route("reports.employee.leave.history.report"),
                     {
                         params: {
+                            company: this.form.company,
                             employee: this.form.employee,
                             date_type: this.form.date_type,
                             custom_date: this.form.custom_date,
@@ -232,6 +247,22 @@ export default {
         },
         endDate(date) {
             return dayjs(date).format("DD MMM, YYYY");
+        },
+        async getEmployees() {
+            let response = await axios.get(
+                route("company.wise.employees", this.form.company)
+            );
+
+            this.employees = response.data.employees;
+            console.log(response.data.employees);
+            // axios.get(route('company.wise.employees', this.form.company))
+            // .then(response => {
+            //     console.log(response.data)
+            //     // this.employees = response.data;
+            // })
+            // .catch(error => {
+            //     console.log(error);
+            // });
         },
     },
     watch: {

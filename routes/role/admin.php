@@ -41,6 +41,7 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
         Route::get('/companies/teams/{company}', 'companiesTeams')->name('companies.teams');
         Route::get('/companies/leaveTypes/{user}', 'companiesLeaveTypes')->name('companies.leaveTypes');
         Route::get('/companies/employees/{user}', 'companiesEmployees')->name('companies.employees');
+        Route::get('/company/wise/employees/{company}', 'companiesWiseEmployees')->name('company.wise.employees');
     });
 
     // Employees
