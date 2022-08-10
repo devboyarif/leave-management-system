@@ -64,7 +64,11 @@ export default {
     },
     methods: {
         createData() {
-            this.form.post(route("admins.store"));
+            this.form.post(route("admins.store"), {
+                onSuccess: () => {
+                    this.form.reset();
+                },
+            });
         },
     },
      mounted(){

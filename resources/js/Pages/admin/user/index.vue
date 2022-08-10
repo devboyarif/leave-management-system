@@ -1,75 +1,82 @@
 <template>
     <Head :title="__('Admin List')"/>
+    <nav class="main-breadcrumb pt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+            <li class="breadcrumb-item active">Profile Settings</li>
+        </ol>
+    </nav>
 
     <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                            <h3 class="card-title">{{ __('Admin List') }}</h3>
-                            <div>
-                                <Link :href="route('admins.create')" class="btn btn-primary">
-                                    <i class="fa-solid fa-plus"></i>
-                                    {{ __('Admin Create') }}
-                                </Link>
-                                <button class="btn btn-secondary ml-2" @click="filteringData">
-                                    <i class="fa-solid fa-filter"></i>
-                                </button>
-                                 <Link :href="'admins'" class="btn btn-danger ml-2" v-if="search && search.length">
-                                    <i class="fa-solid fa-times"></i>
-                                    {{ __('Clear') }}
-                                </Link>
-                            </div>
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="card-title">{{ __('Admin List') }}</h3>
+                        <div>
+                            <Link :href="route('admins.create')" class="btn btn-primary">
+                                <i class="fa-solid fa-plus"></i>
+                                {{ __('Admin Create') }}
+                            </Link>
+                            <button class="btn btn-secondary ml-2" @click="filteringData">
+                                <i class="fa-solid fa-filter"></i>
+                            </button>
+                                <Link :href="'admins'" class="btn btn-danger ml-2" v-if="search && search.length">
+                                <i class="fa-solid fa-times"></i>
+                                {{ __('Clear') }}
+                            </Link>
                         </div>
                     </div>
-                    <div class="card-body border-bottom" v-if="showFilter">
-                        <label>Search</label>
-                        <input v-model="search" type="text" placeholder="Search.." class="form-control w-25">
-                    </div>
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-valign-middle">
-                            <thead>
-                                <tr>
-                                    <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Action') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-if="admins && admins.data.length">
-                                    <tr v-for="(user,index) in admins.data" :key="index">
-                                        <td>
-                                            <img :src="user.avatar" alt="Product 1"
-                                                class="img-circle img-size-32 mr-2">
-                                            <span v-html="user.name"></span>
-                                        </td>
-                                        <td>
-                                             <span v-html="user.email"></span>
-                                        </td>
-                                        <td class="d-flex">
-                                            <Link :href="route('admins.edit',user.id)" v-tooltip="'Edit Admin'" class="btn btn-sm pl-0">
-                                                <EditIcon/>
-                                            </Link>
-                                            <button @click="deleteStudent(user.id)" v-tooltip="'Delete Admin'" class="btn btn-sm">
-                                                <DeleteIcon/>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </template>
-                                <tr v-else>
-                                    <td colspan="5" class="text-center">
-                                        <h6>{{ __('No Data Found') }}</h6>
+                </div>
+                <div class="card-body border-bottom" v-if="showFilter">
+                    <label>Search</label>
+                    <input v-model="search" type="text" placeholder="Search.." class="form-control w-25">
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-valign-middle">
+                        <thead>
+                            <tr>
+                                <th>{{ __('Name') }}</th>
+                                <th>{{ __('Email') }}</th>
+                                <th>{{ __('Action') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-if="admins && admins.data.length">
+                                <tr v-for="(user,index) in admins.data" :key="index">
+                                    <td>
+                                        <img :src="user.avatar" alt="Product 1"
+                                            class="img-circle img-size-32 mr-2">
+                                        <span v-html="user.name"></span>
+                                    </td>
+                                    <td>
+                                            <span v-html="user.email"></span>
+                                    </td>
+                                    <td class="d-flex">
+                                        <Link :href="route('admins.edit',user.id)" v-tooltip="'Edit Admin'" class="btn btn-sm pl-0">
+                                            <EditIcon/>
+                                        </Link>
+                                        <button @click="deleteStudent(user.id)" v-tooltip="'Delete Admin'" class="btn btn-sm">
+                                            <DeleteIcon/>
+                                        </button>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
+                            </template>
+                            <tr v-else>
+                                <td colspan="5" class="text-center">
+                                    <h6>{{ __('No Data Found') }}</h6>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                        <!-- Pagination  -->
-                        <Pagination :links="admins.links" />
-                    </div>
+                    <!-- Pagination  -->
+                    <Pagination :links="admins.links" />
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 

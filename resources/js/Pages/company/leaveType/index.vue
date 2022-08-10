@@ -17,7 +17,7 @@
                         <table class="table table-valign-middle">
                             <thead>
                                <tr>
-                                     <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Name') }}</th>
                                     <th>{{ __('Color') }}</th>
                                     <th>{{ __('Leave Balance') }}</th>
                                     <th>{{ __('Options') }}</th>

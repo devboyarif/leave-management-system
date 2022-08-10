@@ -45,7 +45,7 @@
         </form>
 
         <p class="mb-1">
-            <a href="#">{{ __('I forgot my password') }}</a>
+            <Link :href="route('password.email')">{{ __('I forgot my password') }}</Link>
         </p>
         <p class="mb-0">
             <Link :href="route('register.form')" class="text-center">

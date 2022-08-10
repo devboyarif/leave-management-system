@@ -24,15 +24,15 @@
                     </div>
                 </div>
                  <div class="card-body border-bottom d-flex justify-content-between" v-if="showFilter">
-                        <div class=" w-25">
-                            <label>Leave Type</label>
-                            <select class="form-control" v-model="form.leave_type" @change="filterData">
-                                <option value="">{{ __('All') }}</option>
-                                <option :value="leave_type.id" v-for="leave_type in leaveTypes" :key="leave_type.id">
-                                    {{ leave_type.name }}
-                                </option>
-                            </select>
-                        </div>
+                    <div class="w-25">
+                        <label>Leave Type</label>
+                        <select class="form-control" v-model="form.leave_type" @change="filterData">
+                            <option value="">{{ __('All') }}</option>
+                            <option :value="leave_type.id" v-for="leave_type in leaveTypes" :key="leave_type.id">
+                                {{ leave_type.name }}
+                            </option>
+                        </select>
+                    </div>
                     <div class="ml-auto w-25">
                         <label>Status</label>
                         <select class="form-control" v-model="form.status" @change="filterData">
@@ -110,7 +110,6 @@
 import Pagination from "../../../Shared/Pagination.vue";
 import Actions from "../../../Shared/Company/LeaveRequest/Status.vue";
 import dayjs from "dayjs";
-import { Inertia } from "@inertiajs/inertia";
 
 export default {
     props: {
@@ -120,8 +119,7 @@ export default {
     },
     components: {
         Pagination,
-        Actions,
-        Inertia
+        Actions
     },
     data() {
         return {
@@ -149,15 +147,18 @@ export default {
             return dayjs(date).format("DD MMM, YYYY");
         },
         filteringData() {
+            console.log(this.showFilter)
             this.showFilter = !this.showFilter;
-            localStorage.setItem("showFilter", this.showFilter);
+            console.log(this.showFilter)
+            localStorage.setItem("companyLeaveRequestList", this.showFilter);
         },
         filterData() {
-            Inertia.get(
+            this.$inertia.get(
                 route("company.leaveRequests.index"),
                 {
                     status: this.form.status,
                     leave_type: this.form.leave_type,
+                    team: this.form.team,
                 },
                 {
                     preserveState: true,
@@ -168,9 +169,7 @@ export default {
     },
      mounted(){
         this.checkPagePermission('company')
-         if (localStorage.getItem("showFilter")) {
-            this.showFilter = localStorage.getItem("showFilter");
-        }
+        this.showFilter = localStorage.getItem("companyLeaveRequestList") == "true" ? true : false;
     }
 };
 </script>

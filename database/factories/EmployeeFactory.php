@@ -16,6 +16,7 @@ class EmployeeFactory extends Factory
      */
     public function definition()
     {
+        $company = Company::inRandomOrder()->first();
         $user = User::create([
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
@@ -24,10 +25,13 @@ class EmployeeFactory extends Factory
             'role' => 'employee',
         ]);
 
+        $team = $company->teams()->inRandomOrder()->first();
+
         return [
             'user_id' => $user->id,
-            'company_id' => Company::inRandomOrder()->value('id'),
-            'team_id' => Team::inRandomOrder()->value('id'),
+            'company_id' =>  $company->id,
+            'team_id' => $team->id,
+            'phone' => '+8801698759865',
         ];
     }
 }

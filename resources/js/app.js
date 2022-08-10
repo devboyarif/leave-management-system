@@ -33,7 +33,6 @@ import EyeIcon from "./Shared/Icons/EyeIcon.vue";
 import DeleteIcon from "./Shared/Icons/DeleteIcon.vue";
 import CheckIcon from "./Shared/Icons/CheckIcon.vue";
 import CrossIcon from "./Shared/Icons/CrossIcon.vue";
-import CogIcon from "./Shared/Icons/CogIcon.vue";
 
 // 3rd party plugins
 import FloatingVue from 'floating-vue'
@@ -98,7 +97,6 @@ app.use(InertiaPlugin)
     .component('EditIcon', EditIcon)
     .component('DeleteIcon', DeleteIcon)
     .component('EyeIcon', EyeIcon)
-    .component('CogIcon', CogIcon)
     .component('CheckIcon', CheckIcon)
     .component('CrossIcon', CrossIcon)
     .component('InfoTip', InfoTip)

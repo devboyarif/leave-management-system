@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Employee\LeaveRequestController;
-use App\Http\Controllers\Employee\EmployeeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Employee\ReportController;
+use App\Http\Controllers\Employee\EmployeeController;
+use App\Http\Controllers\Employee\LeaveRequestController;
 
 Route::middleware(['auth','check.employee.role'])->prefix('employee')->name('employee.')->group(function () {
     Route::controller(EmployeeController::class)->group(function () {
@@ -20,5 +21,11 @@ Route::middleware(['auth','check.employee.role'])->prefix('employee')->name('emp
         Route::put('/leave/request/update/{leave_request}', 'update')->name('leave.request.update');
         Route::delete('/leave/request/{leave_request}', 'destroy')->name('leave.request.delete');
         Route::get('/leave/{leaveType}/balance', 'leaveTypeBalance')->name('leave.type.balance');
+    });
+
+      // Reports
+      Route::controller(ReportController::class)->prefix('reports')->group(function(){
+        Route::get('/', 'index')->name('reports');
+        Route::get('/details', 'details')->name('reports.details');
     });
 });

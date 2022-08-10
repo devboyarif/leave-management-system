@@ -14,58 +14,78 @@
                     </div>
                 </div>
                 <div class="card-body row justify-content-center">
-                    <div class="col-lg-6">
-                         <form @submit.prevent="sendData">
-                        <div class="mb-3 row">
-                            <div class="col-md-12">
-                                 <Label :name="__('Leave Type')" />
-                                <select v-model="form.leave_type_id" id="company" class="form-control"
-                                    :class="{'is-invalid':form.errors.leave_type_id}" @change="checkLeaveTypeBalance">
-                                    <option value="" class="d-none">{{ __('Select Leave Type') }}</option>
-                                    <option :value="leaveType.id" v-for="leaveType in leaveTypes" :key="leaveType.id">
-                                        {{ leaveType.name }}
-                                    </option>
-                                </select>
-                                <ErrorMessage :name="form.errors.leave_type_id" />
-                                <template v-if="showLeaveTypeBalance">
-                                    <strong :class="!leaveTypeBalance.remaining_days ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Leave Type Balance') }}: {{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</strong>
+                    <div class="col-lg-6 offset-lg-2">
+                        <form @submit.prevent="sendData">
+                            <div class="mb-3 row">
+                                <div class="col-md-12">
+                                    <Label :name="__('Leave Type')" />
+                                    <select v-model="form.leave_type_id" id="company" class="form-control"
+                                        :class="{'is-invalid':form.errors.leave_type_id}" @change="checkLeaveTypeBalance">
+                                        <option value="" class="d-none">{{ __('Select Leave Type') }}</option>
+                                        <option :value="leaveType.id" v-for="leaveType in leaveTypes" :key="leaveType.id">
+                                            {{ leaveType.name }}
+                                        </option>
+                                    </select>
+                                    <ErrorMessage :name="form.errors.leave_type_id" />
+                                    <template v-if="showLeaveTypeBalance">
+                                        <strong :class="!leaveTypeBalance.remaining_days ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Leave Type Balance') }}: {{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</strong>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col-md-6">
+                                    <Label :name="__('Start Date')" />
+                                    <Datepicker v-model="form.start" :enableTimePicker="false"
+                                        @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}" :placeholder="__('Start Date')"/>
+                                    <ErrorMessage :name="form.errors.start"/>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <Label :name="__('End Date')" />
+                                    <Datepicker v-model="form.end" :enableTimePicker="false"
+                                        @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}" :disabled="!form.start" :placeholder="__('End Date')"/>
+                                    <ErrorMessage :name="form.errors.end"/>
+                                </div>
+                                <template v-if="diffBetweenDays">
+                                    <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of requested Days') }}: {{ diffBetweenDays }}</strong>
                                 </template>
                             </div>
-                        </div>
-                         <div class="mb-3 row">
-                            <div class="col-md-6">
-                                <Label :name="__('Start Date')" />
-                                <Datepicker v-model="form.start" :enableTimePicker="false"
-                                    @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}"/>
-                                <ErrorMessage :name="form.errors.start"/>
 
+                            <div class="mb-3 row">
+                                <div class="col-lg-12">
+                                    <Label :name="__('Reason')" />
+                                    <textarea class="form-control" v-model="form.reason" :class="{'is-invalid':form.errors.reason}" rows="5" :placeholder="__('Reason')"></textarea>
+                                    <ErrorMessage :name="form.errors.reason" />
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <Label :name="__('End Date')" />
-                                <Datepicker v-model="form.end" :enableTimePicker="false"
-                                    @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}" :disabled="!form.start"/>
-                                <ErrorMessage :name="form.errors.end"/>
+                            <button :disabled="submitButtonDisabled" type="submit" class="btn btn-primary">
+                                <Loading v-if="form.processing" message="Sending..."/>
+                                <span v-else>
+                                    <i class="fa-regular fa-paper-plane"></i>
+                                    {{ __('Send Request') }}
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="card">
+                            <div class="card-bod">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ __('Leave Type') }}</th>
+                                            <th>{{ __('Balance') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="leaveTypeBalance in leaveTypeBalances" :key="leaveTypeBalance.id">
+                                            <td>{{ leaveTypeBalance.leave_type.name }}</td>
+                                            <td>{{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                             <template v-if="diffBetweenDays">
-                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of requested Days') }}: {{ diffBetweenDays }}</strong>
-                            </template>
                         </div>
-
-                        <div class="mb-3 row">
-                            <div class="col-lg-12">
-                                <Label :name="__('Reason')" />
-                                <textarea class="form-control" v-model="form.reason" :class="{'is-invalid':form.errors.reason}" rows="5"></textarea>
-                                <ErrorMessage :name="form.errors.reason" />
-                            </div>
-                        </div>
-                        <button :disabled="submitButtonDisabled" type="submit" class="btn btn-primary">
-                            <Loading v-if="form.processing" message="Sending..."/>
-                            <span v-else>
-                                <i class="fa-regular fa-paper-plane"></i>
-                                {{ __('Send Request') }}
-                            </span>
-                        </button>
-                    </form>
                     </div>
                 </div>
             </div>
@@ -81,6 +101,10 @@ import dayjs from "dayjs";
 export default {
     props: {
         leaveTypes: {
+            type: Array,
+            required: true,
+        },
+        leaveTypeBalances: {
             type: Array,
             required: true,
         },

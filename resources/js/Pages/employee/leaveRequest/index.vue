@@ -16,7 +16,7 @@
                             <button class="btn btn-secondary ml-2" @click="filteringData">
                                 <i class="fa-solid fa-filter"></i>
                             </button>
-                            <Link :href="'admins'" class="btn btn-danger ml-2">
+                            <Link :href="route('employee.leave.request.index')" class="btn btn-danger ml-2" v-if="filterForm.status || filterForm.leave_type">
                                 <i class="fa-solid fa-times"></i>
                                 {{ __('Clear') }}
                             </Link>

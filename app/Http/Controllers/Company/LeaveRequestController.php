@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\LeaveRequestSaveRequest;
 use App\Models\LeaveBalance;
+use App\Models\Team;
 
 class LeaveRequestController extends Controller
 {
@@ -36,10 +37,12 @@ class LeaveRequestController extends Controller
             ->paginate(10);
 
         $leave_types = LeaveType::where('company_id', $company->id)->get(['id', 'name']);
+        $teams = Team::where('company_id', $company->id)->get(['id', 'name']);
 
         return inertia('company/leaveRequest/index', [
             'leaveRequests' => $leave_requests,
             'leaveTypes' => $leave_types,
+            'teams' => $teams,
             'filters' => [
                 'status' => $status ?? '',
                 'leave_type' => $leave_type ?? '',

@@ -44,10 +44,13 @@ class LeaveRequestController extends Controller
 
     public function create()
     {
-        $leaveTypes = LeaveType::where('company_id', currentUser()->employee->company_id)->get();
+        $employee = currentEmployee();
+        $leaveTypes = LeaveType::where('company_id', $employee->company_id)->get();
+        $leaveTypeBalances = LeaveBalance::with('leaveType')->where('employee_id', $employee->id)->get();
 
         return inertia('employee/leaveRequest/create', [
             'leaveTypes' => $leaveTypes,
+            'leaveTypeBalances' => $leaveTypeBalances,
         ]);
     }
 

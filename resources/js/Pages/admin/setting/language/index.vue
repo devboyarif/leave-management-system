@@ -60,7 +60,7 @@
                                         </td>
                                         <td class="d-flex">
                                             <Link :href="route('languages.translation.edit', language.id)" v-tooltip="__('Translate Language')" class="btn btn-sm  pl-0">
-                                                <CogIcon/>
+                                                 <i class="fa-solid fa-cog fa-2x text-secondary"></i>
                                             </Link>
                                             <button @click="editLanguage(language)" v-tooltip="__('Language Edit')" class="btn btn-sm ">
                                                 <EditIcon/>
