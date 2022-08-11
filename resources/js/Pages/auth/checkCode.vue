@@ -29,7 +29,7 @@
 
         <p class="mb-0">
             <Link :href="route('login')" class="text-center">
-            {{ __('I already have a account') }}
+            {{ __('Already have a account') }}
             </Link>
         </p>
     </div>

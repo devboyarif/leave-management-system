@@ -55,4 +55,9 @@ class GlobalController extends Controller
     {
         return Country::all(['id', 'name']);
     }
+
+    public function appSetting()
+    {
+        return setting();
+    }
 }
