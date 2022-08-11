@@ -20,9 +20,9 @@ Route::controller(RegisterController::class)->group(function () {
 });
 
 Route::controller(ForgetPasswordController::class)->group(function () {
-    Route::get('/email', 'passwordEmail')->name('password.email');
+    Route::get('/request/email', 'passwordEmail')->name('password.email');
     Route::post('/email/send/code', 'sendCode')->name('password.email.send.code');
-    Route::post('/email/check/code', 'checkCode')->name('password.email.check.code');
+    Route::get('/password/reset/{email}', 'passwordResetForm')->name('password.reset.form');
     Route::post('/password/reset', 'passwordReset')->name('password.reset');
 });
 

@@ -42,30 +42,37 @@ class ForgetPasswordController extends Controller
         $user->update(['code' => $code]);
 
         session()->flash('success', 'We have emailed your password reset code');
-        return inertia('auth/checkCode', ['email' => $request->email]);
+        return redirect()->route('password.reset.form', $user->email);
     }
 
-    public function checkCode(Request $request)
+    public function passwordResetForm($email)
     {
-        $this->validate($request, [
-            'code' => 'required'
-        ]);
-
-        $user = User::where('email', $request->email)->first();
-
-        if ($user->code == $request->code) {
-            return inertia('auth/resetPassword', ['email' => $request->email]);
-        }
-
-        session()->flash('error', 'Invalid code');
-        return inertia('auth/checkCode', ['email' => $request->email]);
+        return inertia('auth/reset', compact('email'));
     }
 
     public function passwordReset(Request $request)
     {
         $this->validate($request, [
-            'password' => 'required|string|min:6|confirmed',
+            'email' => 'required|string|email',
+            'code' => 'required|numeric',
+            'password' => 'required|string',
         ]);
-        return $request;
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            session()->flash('error', 'Email not found');
+            return back();
+        }
+
+        if ($user->code != $request->code) {
+            session()->flash('error', 'Code mismatch');
+            return back();
+        }
+
+        $user->update(['password' => bcrypt($request->password)]);
+
+        session()->flash('success', 'Password changed successfully');
+        return redirect()->route('login');
     }
 }

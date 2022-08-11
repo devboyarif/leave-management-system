@@ -33,7 +33,7 @@
                             <span v-else>{{ __('Sign In') }}</span>
                         </button>
 
-                        <Link :href="route('password.email')" class="text-center">{{ __('Forgot password') }}?</Link>
+                        <Link :href="route('password.email')" class="text-center">{{ __('Forgot password') }}</Link>
                     </form>
                 </div>
             </div>
@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import LoginIcon from "../../Shared/Icons/LoginIcon.vue";
 import Logo from "../../Shared/Partials/Logo.vue";
 
 export default {
@@ -62,7 +61,6 @@ export default {
         errors: Object,
     },
     components: {
-        LoginIcon,
         Logo,
     },
     data() {

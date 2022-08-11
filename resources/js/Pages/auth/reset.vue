@@ -11,17 +11,23 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <form @submit.prevent="sendCode">
-                        <h2 class="title">{{ __('Forget Password') }}</h2>
+                    <form @submit.prevent="resetPassword">
+                        <h2 class="title">{{ __('Reset Password') }}</h2>
                         <p class="subtitle">{{ __("Already have an account") }}
                             <Link :href="route('login')">{{ __('Sign In') }}</Link>
                         </p>
                         <div class="email-login">
-                            <!-- Email  -->
-                            <label class="text-secondary" for="email"> <b>{{ __('Email') }}</b></label>
-                            <input v-model="form.email" :class="{'border-danger':form.errors.email}" type="email"
-                                :placeholder="__('Email')">
-                            <span v-if="errors.email" class="d-block text-danger mt--10 mb-1">{{ form.errors.email }}</span>
+                            <!-- Code  -->
+                            <label class="text-secondary" for="code"> <b>{{ __('Code') }}</b></label>
+                            <input v-model="form.code" :class="{'border-danger':form.errors.code}" type="text"
+                                :placeholder="__('Code')" id="code">
+                            <span v-if="errors.code" class="d-block text-danger mt--10 mb-1">{{ form.errors.code }}</span>
+
+                            <!-- Password  -->
+                            <label class="text-secondary" for="code"> <b>{{ __('Password') }}</b></label>
+                            <input :disabled="!form.code" v-model="form.password" :class="{'border-danger':form.errors.password}" type="password"
+                                :placeholder="__('Password')" id="code">
+                            <span v-if="errors.password" class="d-block text-danger mt--10 mb-1">{{ form.errors.password }}</span>
                         </div>
                         <button :disabled="form.processing" type="submit" class="cta-btn bg-primary">
                             <Loading v-if="form.processing" :messageShow="false" />
@@ -41,6 +47,7 @@ export default {
     layout: "Auth",
     props: {
         errors: Object,
+        email: String,
     },
     components: {
         Logo,
@@ -48,7 +55,9 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                email: "",
+                email: this.email,
+                code: "",
+                password: "",
             }),
         };
     },
@@ -58,8 +67,8 @@ export default {
         },
     },
     methods: {
-        sendCode() {
-            this.form.post(route("password.email.send.code"));
+        resetPassword() {
+            this.form.post(route("password.reset"));
         },
     },
 };
@@ -83,7 +92,9 @@ export default {
         flex-direction: column;
     }
 
-    input[type="email"]{
+    input[type="password"],
+    input[type="text"]
+    {
         padding: 15px 20px;
         margin-bottom: 15px;
         border: 1px solid #ccc;
