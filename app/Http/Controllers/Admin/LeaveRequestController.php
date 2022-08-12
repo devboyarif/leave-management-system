@@ -10,7 +10,10 @@ use App\Models\LeaveBalance;
 use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\Employee\PendingLeaveRequest;
 use App\Http\Requests\Admin\LeaveRequestSaveRequest;
+use App\Notifications\Employee\ApprovedLeaveRequest;
+use App\Notifications\Employee\RejectedLeaveRequest;
 
 class LeaveRequestController extends Controller
 {
@@ -90,6 +93,18 @@ class LeaveRequestController extends Controller
             $leave_balance->increment('used_days', $diffDays);
         }
 
+        // Notification and mail sending
+        if ($leave_request->status == 'pending') {
+            $leave_request->employee->user->notify(new PendingLeaveRequest($leave_request));
+        } elseif ($leave_request->status == 'approved') {
+            $leave_request->employee->user->notify(new ApprovedLeaveRequest($leave_request));
+
+            setting('default_sms');
+        } elseif ($leave_request->status == 'rejected') {
+            $leave_request->employee->user->notify(new RejectedLeaveRequest($leave_request));
+            setting('default_sms');
+        }
+
         session()->flash('success', 'Leave request created successfully!');
         return redirect_to('leaveRequests.index');
     }
@@ -146,6 +161,15 @@ class LeaveRequestController extends Controller
             'reason' => $request->reason,
             'status' => $request->status,
         ]);
+
+        // Notification and mail sending
+        if ($leaveRequest->status == 'pending') {
+            $leaveRequest->employee->user->notify(new PendingLeaveRequest($leaveRequest));
+        } elseif ($leaveRequest->status == 'approved') {
+            $leaveRequest->employee->user->notify(new ApprovedLeaveRequest($leaveRequest));
+        } elseif ($leaveRequest->status == 'rejected') {
+            $leaveRequest->employee->user->notify(new RejectedLeaveRequest($leaveRequest));
+        }
 
         session()->flash('success', 'Leave request updated successfully!');
         return redirect_to('leaveRequests.index');
