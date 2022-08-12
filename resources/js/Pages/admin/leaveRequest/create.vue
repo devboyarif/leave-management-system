@@ -68,7 +68,7 @@
                                 <ErrorMessage :name="form.errors.end"/>
                             </div>
                             <template v-if="diffBetweenDays">
-                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of requested Days') }}: {{ diffBetweenDays }}</strong>
+                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of Days') }}: {{ diffBetweenDays }}</strong>
                             </template>
                         </div>
                         <div class="mb-3 row">
@@ -223,9 +223,9 @@ export default {
             }
         },
     },
-     mounted(){
-        this.checkPagePermission('admin')
-    }
+    mounted() {
+        this.checkPagePermission("admin");
+    },
 };
 </script>
 
