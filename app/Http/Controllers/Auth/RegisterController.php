@@ -40,33 +40,11 @@ class RegisterController extends Controller
         ]);
 
         // store official holidays
-        $country = Country::findOrFail($request->country);
-        $code = $this->getCountryCode($country->code);
+        if ($request->import_official_holidays) {
+            $country = Country::findOrFail($request->country);
+            $code = $this->getCountryCode($country->code);
 
-        try {
-            $holidays = getHolidays($code);
-        } catch (\Throwable $th) {
-            // throw $th;
-        }
-
-        if (isset($holidays) && count($holidays)) {
-            for ($i = 0; $i < count($holidays); $i++) {
-                $holiday_data[] = [
-                    'company_id' => $company->id,
-                    'title' => $holidays[$i]['title'],
-                    'start' => $holidays[$i]['start'],
-                    'end' => $holidays[$i]['end'],
-                    'days' => diffBetweenDays($holidays[$i]['start'], $holidays[$i]['end']),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-            }
-
-            $holiday_chunks = array_chunk($holiday_data, ceil(count($holiday_data) / 3));
-
-            foreach ($holiday_chunks as $country) {
-                Holiday::insert($country);
-            }
+            importHolidays($company->id, $code);
         }
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {

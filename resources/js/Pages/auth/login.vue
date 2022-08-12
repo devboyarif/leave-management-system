@@ -1,109 +1,59 @@
 <template>
 
     <Head :title="__('Sign in')" />
+    <div class="mt-5 pt-2 row align-items-center justify-content-center">
+        <div class="auth-card-width">
+            <div class="card card-outline card-primary card-width">
+                <div class="card-header text-center">
+                    <a href="#" class="h1">
+                        <Logo/>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <form @submit.prevent="login">
+                        <h2 class="title">{{ __('Sign in') }}</h2>
+                        <p class="subtitle">{{ __("Don't have an account") }}
+                            <Link :href="route('register.form')">{{ __('Sign Up') }}</Link>
+                        </p>
+                        <div class="email-login">
+                            <!-- Email  -->
+                            <label class="text-secondary" for="email"> <b>{{ __('Email') }}</b></label>
+                            <input v-model="form.email" :class="{'border-danger':form.errors.email}" type="text"
+                                :placeholder="__('Email')">
+                            <span v-if="errors.email" class="d-block text-danger mt--10 mb-1">{{ form.errors.email }}</span>
 
-    <div class="card-body">
-        <p class="login-box-msg">{{ __('Sign in to start your session') }}</p>
-        <form @submit.prevent="login">
-            <div class="input-group mb-3">
-                <input v-model="form.email" :class="{'is-invalid':form.errors.email}" type="email" class="form-control"
-                    :placeholder="__('Email')">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
-                    </div>
-                </div>
-                <span v-if="errors.email" class="invalid-feedback">{{ form.errors.email }}</span>
-            </div>
-            <div class="input-group mb-3">
-                <input v-model="form.password" type="password" :class="{'is-invalid':form.errors.password}"
-                    class="form-control" :placeholder="__('Password')">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
-                    </div>
-                </div>
-                <span v-if="errors.password" class="invalid-feedback">{{ form.errors.password }}</span>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <div class="icheck-primary">
-                        <input type="checkbox" id="remember">
-                        <label for="remember" class="ml-2">
-                            {{ __('Remember Me') }}
-                        </label>
-                    </div>
-                </div>
+                            <!-- Password -->
+                            <label class="text-secondary" for="psw"><b>{{ __('Password') }}</b></label>
+                            <input v-model="form.password" :class="{'border-danger':form.errors.password}"
+                                type="password" :placeholder="__('Password')">
+                            <span v-if="errors.password" class="d-block text-danger mt--10 mb-1">{{ form.errors.password }}</span>
+                        </div>
+                        <button :disabled="form.processing" type="submit" class="cta-btn bg-primary">
+                            <Loading v-if="form.processing" :messageShow="false" />
+                            <span v-else>{{ __('Sign In') }}</span>
+                        </button>
 
-                <div class="col-4">
-                    <button :disabled="form.processing" type="submit" class="btn btn-primary btn-block">
-                        <Loading v-if="form.processing" :messageShow="false"/>
-                        <span v-else>{{ __('Sign In') }}</span>
-                    </button>
+                        <Link :href="route('password.email')" class="text-center">{{ __('Forgot password') }}</Link>
+                    </form>
                 </div>
             </div>
-        </form>
-
-        <p class="mb-1">
-            <Link :href="route('password.email')">{{ __('I forgot my password') }}</Link>
-        </p>
-        <p class="mb-0">
-            <Link :href="route('register.form')" class="text-center">
-            {{ __('Create company account') }}
-            </Link>
-        </p>
-    </div>
-    <div class="card mt-2">
-        <div class="card-body table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Role</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="cursor-pointer">
-                        <td>admin@mail.com</td>
-                        <td>password</td>
-                        <td>Admin</td>
-                        <td>
-                            <button @click="roleLogin('admin@mail.com','password')" class="btn btn-primary btn-sm">
-                                <LoginIcon/>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr class="cursor-pointer">
-                        <td>company@mail.com</td>
-                        <td>password</td>
-                        <td>Company</td>
-                        <td>
-                            <button @click="roleLogin('company@mail.com', 'password')" class="btn btn-primary btn-sm">
-                                <LoginIcon/>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr class="cursor-pointer">
-                        <td>employee@mail.com</td>
-                        <td>password</td>
-                        <td>Employee</td>
-                        <td>
-                            <button @click="roleLogin('employee@mail.com', 'password')" class="btn btn-primary btn-sm">
-                                <LoginIcon/>
-                            </button>
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <button @click="roleLogin('admin@mail.com','password')" class="btn btn-secondary">Login Via Admin</button>
+                        <button @click="roleLogin('company@mail.com', 'password')" class="btn btn-secondary mx-1">Login Via
+                            Company</button>
+                        <button @click="roleLogin('employee@mail.com', 'password')" class="btn btn-secondary">Login Via
+                            Employee</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import LoginIcon from "../../Shared/Icons/LoginIcon.vue";
+import Logo from "../../Shared/Partials/Logo.vue";
 
 export default {
     layout: "Auth",
@@ -111,7 +61,7 @@ export default {
         errors: Object,
     },
     components: {
-        LoginIcon,
+        Logo,
     },
     data() {
         return {
@@ -138,3 +88,47 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+    .title {
+        text-align: center;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .email-login {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+
+    .cta-btn {
+        padding: 16px 20px !important;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        border-radius: 10px;
+        border: none;
+    }
+
+    .mt--10 {
+        margin-top: -10px;
+    }
+
+    .auth-card-width {
+        width: 500px !important;
+    }
+</style>

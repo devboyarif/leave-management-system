@@ -28,6 +28,7 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    return setting();
     $leaveRequest = new LeaveRequest();
     $employee_id = currentEmployee()->id;
     return $leaveRequest->employeeReport($employee_id)->thisWeek()->get();
@@ -38,12 +39,12 @@ Route::get('/test', function () {
 
     $team_id = 12;
 
-    return $leaveRequest->companyTeamReport(4,12)->thisWeek()->get();
+    return $leaveRequest->companyTeamReport(4, 12)->thisWeek()->get();
 
 
-    return $leaveRequest->companyTeamReport($company->id,12)->thisWeek()->get();
+    return $leaveRequest->companyTeamReport($company->id, 12)->thisWeek()->get();
 
-    return $leaveRequest->where('company_id', $company->id)->whereHas('employee',function ($query) use ($team_id){
+    return $leaveRequest->where('company_id', $company->id)->whereHas('employee', function ($query) use ($team_id) {
         $query->where('team_id', $team_id);
     })->get();
     // return $leaveRequest->whereHas(['employee' => function ($query) use ($team_id){

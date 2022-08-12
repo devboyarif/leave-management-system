@@ -1,63 +1,83 @@
 <?php
 
-namespace App\Traits\Company;
+namespace App\Traits\Admin;
 
+use App\Models\Company;
 use App\Models\Employee;
 use App\Models\LeaveRequest;
 use App\Models\Team;
 
-trait HasEmployeeReport
+trait HasCompanyReport
 {
-    public function getEmployeeLeaveBalance()
+    public function getEmployeeLeaveBalance($request)
     {
+        $companies = Company::with('user:id,name')->get(['id', 'user_id']);
 
-        $leave_types = currentCompany()->leaveTypes;
-        $employees = Employee::where('company_id', currentCompany()->id)
-            ->with('user:id,name,avatar', 'leaveBalances')
-            ->get();
+        if ($request->has('company') && $request->company != null) {
+            $company = Company::find($request->company);
+
+            if ($company) {
+                $leave_types = $company->leaveTypes;
+                $employees = Employee::where('company_id', $company->id)
+                    ->with('user:id,name,avatar', 'leaveBalances')
+                    ->get();
+            }
+        }
 
         return [
-            'leave_types' => $leave_types,
-            'employees' => $employees,
+            'leave_types' => $leave_types ?? [],
+            'employees' => $employees ?? [],
+            'companies' => $companies,
+            'filter_company' => $request->company ?? '',
         ];
     }
 
-    public function getTeamLeaveBalance()
+    public function getTeamLeaveBalance($request)
     {
-        $leave_types = currentCompany()->leaveTypes;
-        $team_employees = Employee::where('company_id', currentCompany()->id)
-            ->with('team:id,name', 'user:id,name,avatar', 'leaveBalances')
-            ->get()
-            ->groupBy('team_id');
+        $companies = Company::with('user:id,name')->get(['id', 'user_id']);
+
+        if ($request->has('company') && $request->company != null) {
+            $company = Company::find($request->company);
+
+            if ($company) {
+                $leave_types = $company->leaveTypes;
+                $team_employees = Employee::where('company_id', $company->id)
+                    ->with('team:id,name', 'user:id,name,avatar', 'leaveBalances')
+                    ->get()
+                    ->groupBy('team_id');
+            }
+        }
 
         return [
-            'team_employees' => $team_employees,
-            'leave_types' => $leave_types,
+            'team_employees' => $team_employees ?? [],
+            'leave_types' => $leave_types ?? [],
+            'companies' => $companies,
+            'filter_company' => $request->company ?? '',
+
         ];
     }
 
     public function getEmployeeLeaveHistory()
     {
-        $company_id = currentCompany()->id;
-        $employees = Employee::where('company_id', $company_id)
-            ->with('user:id,name,avatar')
-            ->get();
+        $companies = Company::with('user:id,name')->get(['id', 'user_id']);
 
         return [
-            'employees' => $employees,
+            'companies' => $companies,
         ];
     }
 
     public function getEmployeeLeaveHistoryReport($request)
     {
-        $leaveRequest = new LeaveRequest();
-        $company_id = currentCompany()->id;
-        $employee_id = $request->employee;
-
         $request->validate([
+            'company' => 'required',
             'employee' => 'required',
             'date_type' => 'required',
         ]);
+
+        $leaveRequest = new LeaveRequest();
+        $company_id = $request->company;
+        $employee_id = $request->employee;
+
 
         switch ($request->date_type) {
             case 'this_week':
@@ -102,25 +122,24 @@ trait HasEmployeeReport
 
     public function getTeamLeaveHistory()
     {
-        $company_id = currentCompany()->id;
-        $teams = Team::where('company_id', $company_id)
-            ->get(['id', 'name']);
+        $companies = Company::with('user:id,name')->get(['id', 'user_id']);
 
         return [
-            'teams' => $teams,
+            'companies' => $companies,
         ];
     }
 
     public function getTeamLeaveHistoryReport($request)
     {
-        $leaveRequest = new LeaveRequest();
-        $company_id = currentCompany()->id;
-        $team_id = $request->team;
-
         $request->validate([
+            'company' => 'required',
             'team' => 'required',
             'date_type' => 'required',
         ]);
+
+        $leaveRequest = new LeaveRequest();
+        $company_id = $request->company;
+        $team_id = $request->team;
 
         switch ($request->date_type) {
             case 'this_week':

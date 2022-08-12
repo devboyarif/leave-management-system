@@ -5,6 +5,7 @@ use App\Models\Seo;
 use App\Models\Theme;
 use AmrShawky\Currency;
 use App\Models\Company;
+use App\Models\Holiday;
 use App\Models\Setting;
 use App\Models\Employee;
 use Illuminate\Support\Str;
@@ -296,5 +297,34 @@ function checkSetEnv($key, $value)
 
 function metaContent($page)
 {
-    return Seo::where('page_slug',$page)->first();
+    return Seo::where('page_slug', $page)->first();
+}
+
+function importHolidays($company_id, $country_code)
+{
+    try {
+        $holidays = getHolidays($country_code);
+    } catch (\Throwable $th) {
+        // throw $th;
+    }
+
+    if (isset($holidays) && count($holidays)) {
+        for ($i = 0; $i < count($holidays); $i++) {
+            $holiday_data[] = [
+                'company_id' => $company_id,
+                'title' => $holidays[$i]['title'],
+                'start' => $holidays[$i]['start'],
+                'end' => $holidays[$i]['end'],
+                'days' => diffBetweenDays($holidays[$i]['start'], $holidays[$i]['end']),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        $holiday_chunks = array_chunk($holiday_data, ceil(count($holiday_data) / 3));
+
+        foreach ($holiday_chunks as $country) {
+            Holiday::insert($country);
+        }
+    }
 }

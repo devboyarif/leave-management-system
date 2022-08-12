@@ -207,4 +207,14 @@ class CompanyController extends Controller
             'employeesUsers' => $employeesUsers,
         ]);
     }
+
+    public function companiesWiseEmployees(Company $company)
+    {
+        $employees = $company->employees->load('user:id,name');
+
+        return response()->json([
+            'success' => true,
+            'employees' => $employees,
+        ]);
+    }
 }

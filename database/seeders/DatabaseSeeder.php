@@ -22,9 +22,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            // Plan Seeder
             PlanSeeder::class,
-
             AdminSeeder::class,
             ThemeSeeder::class,
             CountrySeeder::class,

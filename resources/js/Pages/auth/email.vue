@@ -1,43 +1,41 @@
 <template>
 
-    <Head :title="__('Sign in')" />
+    <Head :title="__('Forget Password')" />
 
-    <div class="card-body">
-        <p class="login-box-msg">{{ __('Sign in to start your session') }}</p>
-        <form @submit.prevent="login">
-            <div class="input-group mb-3">
-                <input v-model="form.email" :class="{'is-invalid':form.errors.email}" type="email" class="form-control"
-                    :placeholder="__('Email')">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
-                    </div>
+     <div class="mt-5 pt-2 row align-items-center justify-content-center">
+        <div class="auth-card-width">
+            <div class="card card-outline card-primary card-width">
+                <div class="card-header text-center">
+                    <a href="#" class="h1">
+                        <Logo/>
+                    </a>
                 </div>
-                <span v-if="errors.email" class="invalid-feedback">{{ form.errors.email }}</span>
-            </div>
-            <div class="row">
-                <div class="col-4">
-                    <button :disabled="form.processing" type="submit" class="btn btn-primary btn-block">
-                        <Loading v-if="form.processing" :messageShow="false"/>
-                        <span v-else>{{ __('Sign In') }}</span>
-                    </button>
+                <div class="card-body">
+                    <form @submit.prevent="sendCode">
+                        <h2 class="title">{{ __('Forget Password') }}</h2>
+                        <p class="subtitle">{{ __("Already have an account") }}
+                            <Link :href="route('login')">{{ __('Sign In') }}</Link>
+                        </p>
+                        <div class="email-login">
+                            <!-- Email  -->
+                            <label class="text-secondary" for="email"> <b>{{ __('Email') }}</b></label>
+                            <input v-model="form.email" :class="{'border-danger':form.errors.email}" type="email"
+                                :placeholder="__('Email')">
+                            <span v-if="errors.email" class="d-block text-danger mt--10 mb-1">{{ form.errors.email }}</span>
+                        </div>
+                        <button :disabled="form.processing" type="submit" class="cta-btn bg-primary">
+                            <Loading v-if="form.processing" :messageShow="false" />
+                            <span v-else>{{ __('Send Reset Code') }}</span>
+                        </button>
+                    </form>
                 </div>
             </div>
-        </form>
-
-        <p class="mb-1">
-            <a href="#">{{ __('I forgot my password') }}</a>
-        </p>
-        <p class="mb-0">
-            <Link :href="route('register.form')" class="text-center">
-            {{ __('Create company account') }}
-            </Link>
-        </p>
+        </div>
     </div>
 </template>
 
 <script>
-import LoginIcon from "../../Shared/Icons/LoginIcon.vue";
+import Logo from "../../Shared/Partials/Logo.vue";
 
 export default {
     layout: "Auth",
@@ -45,13 +43,12 @@ export default {
         errors: Object,
     },
     components: {
-        LoginIcon,
+        Logo,
     },
     data() {
         return {
             form: this.$inertia.form({
-                email: null,
-                password: null,
+                email: "",
             }),
         };
     },
@@ -61,9 +58,53 @@ export default {
         },
     },
     methods: {
-        login() {
-            this.form.post("/login");
-        }
+        sendCode() {
+            this.form.post(route("password.email.send.code"));
+        },
     },
 };
 </script>
+
+
+<style scoped>
+    .title {
+        text-align: center;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .email-login {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input[type="email"]{
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+
+    .cta-btn {
+        padding: 16px 20px !important;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        border-radius: 10px;
+        border: none;
+    }
+
+    .mt--10 {
+        margin-top: -10px;
+    }
+
+    .auth-card-width {
+        width: 500px !important;
+    }
+</style>

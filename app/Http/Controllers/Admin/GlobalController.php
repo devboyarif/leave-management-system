@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContactMessage;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class GlobalController extends Controller
@@ -50,5 +51,13 @@ class GlobalController extends Controller
         return inertia('errors/403');
     }
 
+    public function allCountries()
+    {
+        return Country::all(['id', 'name']);
+    }
 
+    public function appSetting()
+    {
+        return setting();
+    }
 }

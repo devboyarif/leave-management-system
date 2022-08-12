@@ -1,15 +1,16 @@
 {
-    "Sign up to create your company": "Sign up to create your company",
+    "Sign up as a company": "Sign up as a company",
     "Sign in to start your session": "Sign in to start your session",
     "Sign up to join the company": "Sign up to join the company",
     "Remember Me": "Remember Me",
     "Sign In": "Sign In",
     "Sign Up": "Sign Up",
-    "I forgot my password": "I forgot my password",
+    "Forgot password": "Forgot password ?",
     "Create company account": "Create company account",
+    "Don't have an account": "Don't have an account",
     "I agree to the": "I agree to the",
     "terms & condition": "terms & condition",
-    "I already have a account": "I already have a account",
+    "Already have an account": "Already have a account ?",
 
 
     "Dashboard": "Dashboard",
