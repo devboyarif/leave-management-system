@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Holiday;
 use App\Models\Setting;
 use Twilio\Rest\Client;
+use Carbon\CarbonPeriod;
 use App\Models\LeaveRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,50 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    // $date = Carbon::now();
+    // return $date->isFriday();
+
+    // $dates = CarbonPeriod::since('2022-08-01')->days(1)->until('2022-08-12');
+
+    // $datesWithoutSundays = collect($dates)->filter(function ($date) {
+    //     return !$date->isSunday();
+    // })->map(function ($date) {
+    //     return ['date' => $date->format('Y-m-d')];
+    // });
+
+    // return [
+    //     'dates' => $datesWithoutSundays,
+    //     'datesWithoutSundays' => $datesWithoutSundays
+    // ];
+
+
+
+    // $dates = CarbonPeriod::create('2022-08-01', '2022-08-15')->filter(function ($date) {
+    //     return !$date->isFriday();
+    // })->map(function ($date) {
+    //     return $date->toDateString();
+    // });
+    // $dates = iterator_to_array($dates);
+    // return $dates;
+
+
+    $dates = CarbonPeriod::create('2022-08-01', '2022-08-15')
+        ->filter(fn ($date) => !$date->isSunday())
+        ->map(fn ($date) => $date->toDateString());
+    $dates = iterator_to_array($dates);
+    return $dates;
+
+
+
+
+
+
+
+
+
+
+
+
     return setting();
     $leaveRequest = new LeaveRequest();
     $employee_id = currentEmployee()->id;

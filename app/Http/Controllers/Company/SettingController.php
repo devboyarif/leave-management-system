@@ -10,6 +10,15 @@ class SettingController extends Controller
 {
     use HasSubscription;
 
+    public function general()
+    {
+        $data['user'] = auth()->user();
+        $data['workingdays'] = $data['user']->company->workingDays;
+        $data['theme'] = $data['user']->company->theme;
+
+        return inertia('company/settings', $data);
+    }
+
     public function theme()
     {
         $theme = currentCompany()->theme;
@@ -42,5 +51,22 @@ class SettingController extends Controller
         session(['company_theme' => $theme]);
         session()->flash('success', 'Theme updated successfully.');
         return redirect()->back();
+    }
+
+    public function workingdaysUpdate(Request $request)
+    {
+        $company = currentCompany();
+        $company->workingDays()->update([
+            "monday" => $request->monday ? true : false,
+            "tuesday" => $request->tuesday ? true : false,
+            "wednesday" => $request->wednesday ? true : false,
+            "thursday" => $request->thursday ? true : false,
+            "friday" => $request->friday ? true : false,
+            "saturday" => $request->saturday ? true : false,
+            "sunday" => $request->sunday ? true : false,
+        ]);
+
+        session()->flash('success', 'Working days updated successfully.');
+        return back();
     }
 }

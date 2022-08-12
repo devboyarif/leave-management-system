@@ -86,6 +86,9 @@ export default {
             this.login();
         },
     },
+    mounted() {
+        localStorage.removeItem("toggleDarkMode");
+    },
 };
 </script>
 

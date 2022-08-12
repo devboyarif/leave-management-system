@@ -27,6 +27,15 @@ class Company extends Model
             $company->subscriptionHistory()->create([
                 'plan_id'  => 1,
             ]);
+            $company->workingDays()->create([
+                'monday' => true,
+                'tuesday' => true,
+                'wednesday' => true,
+                'thursday' => true,
+                'friday' => true,
+                'saturday' => true,
+                'sunday' => false
+            ]);
         });
     }
 
@@ -78,5 +87,10 @@ class Company extends Model
     public function orders()
     {
         return $this->hasMany(Order::class, 'company_id');
+    }
+
+    public function workingDays()
+    {
+        return $this->hasOne(WorkingDay::class, 'company_id');
     }
 }

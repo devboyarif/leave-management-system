@@ -77,7 +77,8 @@ class HandleInertiaRequests extends Middleware
         $data['app_version'] = config('kodebazar.app_version');
 
         // Settings
-        $data['setting'] = auth()->check() && currentUser()->role == 'admin' ? Setting::first() : [];
+        $data['setting'] = auth()->check() ? Setting::first() : [];
+        // $data['setting'] = auth()->check() && currentUser()->role == 'admin' ? Setting::first() : [];
 
         return array_merge(parent::share($request), $data);
     }
