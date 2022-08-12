@@ -29,6 +29,47 @@ Route::get('language/{language}', function ($language) {
 
 
 Route::get('/test', function () {
+    $holidays = getHolidays('bd');
+    return $holidays;
+
+
+    $data = '2022-08-03';
+
+    return subDays($data);
+    $date = Carbon::parse($data)->subDay(1)->format('Y-m-d');
+
+    return $date;
+
+    $period = CarbonPeriod::create($start, $end);
+    return $period;
+
+
+    // return $holidays = getHolidays('bd');
+    $country_code = 'bd';
+    $api = config('kodebazar.google_api');
+    $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.$country_code%23holiday%40group.v.calendar.google.com/events?key=$api";
+
+    $response = Http::get($calendar_api);
+    return $holidays_list = $response->json()['items'];
+
+
+
+    // $dates = CarbonPeriod::since('2022-08-01')->days(1)->until('2022-08-07');
+    // $datesWithoutSundays = collect($dates)->filter(function ($date) {
+    //     return !$date->isSunday();
+    // })->map(function ($date) {
+    //     return ['date' => $date->format('Y-m-d')];
+    // });
+
+    // return count($dates);
+
+
+
+
+
+
+
+
     // $date = Carbon::now();
     // return $date->isFriday();
 
@@ -56,11 +97,11 @@ Route::get('/test', function () {
     // return $dates;
 
 
-    $dates = CarbonPeriod::create('2022-08-01', '2022-08-15')
-        ->filter(fn ($date) => !$date->isSunday())
-        ->map(fn ($date) => $date->toDateString());
-    $dates = iterator_to_array($dates);
-    return $dates;
+    // $dates = CarbonPeriod::create('2022-08-01', '2022-08-15')
+    //     ->filter(fn ($date) => !$date->isSunday())
+    //     ->map(fn ($date) => $date->toDateString());
+    // $dates = iterator_to_array($dates);
+    // return $dates;
 
 
 

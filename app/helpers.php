@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Holiday;
 use App\Models\Setting;
 use App\Models\Employee;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Str;
 use msztorc\LaravelEnv\Env;
 use Nexmo\Client as NexmoClient;
@@ -122,7 +123,7 @@ function getHolidays($country_code = 'bd')
             $current_year_holidays[] = [
                 'title' => $holiday['summary'],
                 'start' => $holiday['start']['date'],
-                'end' => $holiday['end']['date']
+                'end' => subDays($holiday['end']['date'])
             ];
         }
     }
@@ -139,10 +140,18 @@ function currentYearData($data, $format = 'Y-m-d')
 
 function diffBetweenDays($start_date, $end_date)
 {
-    $start_date = Carbon::parse(date('Y-m-d', strtotime($start_date)));
-    $end_date = Carbon::parse(date('Y-m-d', strtotime($end_date)));
+    $days = CarbonPeriod::since($start_date)->days(1)->until($end_date);
+    return count($days);
 
-    return $start_date->diffInDays($end_date);
+    // $start_date = Carbon::parse(date('Y-m-d', strtotime($start_date)));
+    // $end_date = Carbon::parse(date('Y-m-d', strtotime($end_date)));
+
+    // return $start_date->diffInDays($end_date);
+}
+
+function subDays($date, $days = 1, $format = 'Y-m-d')
+{
+    return Carbon::parse($date)->subDay($days)->format($format);
 }
 
 function formatTime($date, $format = 'Y-m-d')

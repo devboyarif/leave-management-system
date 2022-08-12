@@ -56,6 +56,7 @@ class LeaveRequestController extends Controller
 
     public function store(Request $request)
     {
+        return $request;
         $request->validate([
             'start' => 'required',
             'end' => 'required',
