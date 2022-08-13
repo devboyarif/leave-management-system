@@ -11,10 +11,14 @@ class GlobalController extends Controller
 {
     public function diffBetweenDays(Request $request)
     {
+        $company_id = $request->company_id;
         $start = $request->start;
         $end = $request->end;
 
-        return diffBetweenDays($start, $end);
+        return sumDaysBetweenDates($company_id,$start, $end);
+
+        // return diffBetweenDays($start, $end);
+        return $request;
     }
 
     public function contactMessages()

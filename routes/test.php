@@ -2,33 +2,417 @@
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Company;
 use App\Models\Holiday;
 use App\Models\Setting;
 use Twilio\Rest\Client;
+use App\Models\WeekDays;
 use Carbon\CarbonPeriod;
+use App\Models\WorkingDay;
 use App\Models\LeaveRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
-Route::get('language/{language}', function ($language) {
-    // return $language;
-    session(['current_lang' => $language]);
+Route::get('/test', function () {
 
 
-    $current_lang = session('current_lang');
 
-    if (session()->has('current_lang')) {
-        app()->setLocale($current_lang);
-    } else {
-        app()->setLocale(config('app.locale'));
+    $start_date = '2022-05-25';
+    $end_date = '2022-05-31';
+    return sumDaysBetweenDates(1,$start_date, $end_date);
+
+    $days_periods = daysPeriods($start_date, $end_date);
+    $total_days = count($days_periods);
+    $final_total_days = 0;
+
+    // Holidays
+    $holidays = official_holidays(1,$start_date, $end_date);
+    $official_holidays = sumOfficialHolidays($days_periods, $holidays);
+
+    // Weekly Off days
+    $company_holidays = WorkingDay::where('company_id', 1)->first();
+    $weekly_holidays = weekly_holidays($company_holidays);
+    $weekend_days = sumWeekendDays($days_periods, $weekly_holidays);
+
+    return [
+        'start_date' => $start_date,
+        'end_date' => $end_date,
+        'days_period' => $days_periods,
+        'total_days' => $total_days,
+        'official_holidays' => $official_holidays,
+        'weekend_days' => $weekend_days,
+        'final_total_days' => $total_days - $official_holidays - $weekend_days,
+    ];
+
+
+
+
+
+
+
+
+    // =====================================================================
+    // ======================Weekly Holidays Remove=========================
+    // =====================================================================
+    $company_holidays = WorkingDay::first();
+    $weekly_holidays = weekly_holidays($company_holidays);
+    $without_holidays = [];
+    $with_holidays = [];
+
+    foreach ($days_periods as $key => $day) {
+        $day_name = mb_strtolower(Carbon::parse($day)->format('l'));
+
+        if (!in_array($day_name, $weekly_holidays)) {
+            $final_total_days++;
+            $with_holidays[] = $day.' '.$day_name;
+        }else{
+            $without_holidays[] = $day.' '.$day_name;
+        }
     }
 
+    return [
+        'start_date' => $start_date,
+        'end_date' => $end_date,
+        'days_period' => $days_periods,
+        'total_days' => $total_days,
+        'final_total_days' => $final_total_days,
+        'weekly_holidays' => $weekly_holidays,
+    ];
 
-    return redirect()->back();
-})->name('language');
 
 
-Route::get('/test', function () {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // // =====================================================================
+    // // ======================Official Holidays Remove=========================
+    // // =====================================================================
+    // $start_date = '2022-05-25';
+    // $end_date = '2022-05-31';
+    // $days_periods = CarbonPeriod::create($start_date, $end_date)->map(fn ($date) => $date->toDateString());
+    // $days_periods = iterator_to_array($days_periods);
+    // $total_days = count($days_periods);
+
+    // $final_total_days = 0;
+    // $without_holidays = [];
+    // $with_holidays = [];
+    // $holidays = [];
+
+    // $holidays_between_days = Holiday::where('company_id', 1)
+    //         ->whereDate('start', '>=', $start_date)
+    //         ->whereDate('end', '<=', $end_date)
+    //         ->get(['start','end']);
+
+    // foreach ($holidays_between_days as $holiday) {
+    //     $holidays = array_merge($holidays, iterator_to_array(CarbonPeriod::create($holiday->start, $holiday->end)->map(fn ($date) => $date->toDateString())));
+    // }
+
+    // $holidays = array_values(array_unique($holidays));
+
+    // foreach ($days_periods as $key => $day) {
+    //     if (!in_array($day, $holidays)) {
+    //         $final_total_days++;
+    //         $with_holidays[] = $day;
+    //     }else{
+    //         $without_holidays[] = $day;
+    //     }
+    // }
+
+    // return [
+    //     'start_date' => $start_date,
+    //     'end_date' => $end_date,
+    //     'days_period' => $days_periods,
+    //     'total_days' => $total_days,
+    //     'final_total_days' => $final_total_days,
+    //     'holidays' => $holidays,
+    //     'with_holidays' => $with_holidays,
+    //     'without_holidays' => $without_holidays,
+    // ];
+
+
+
+
+
+
+
+
+
+    // // =====================================================================
+    // // ======================Weekly Holidays Remove=========================
+    // // =====================================================================
+    // $company_holidays = WorkingDay::first();
+    // $start_date = '2022-05-25';
+    // $end_date = '2022-05-29';
+    // $days_periods = CarbonPeriod::create($start_date, $end_date)->map(fn ($date) => $date->toDateString());
+    // $days_periods = iterator_to_array($days_periods);
+    // $total_days = count($days_periods);
+
+    // $final_total_days = 0;
+    // $weekly_holidays = weekly_holidays($company_holidays);
+    // $without_holidays = [];
+    // $with_holidays = [];
+
+    // foreach ($days_periods as $key => $day) {
+    //     $day_name = mb_strtolower(Carbon::parse($day)->format('l'));
+
+    //     if (!in_array($day_name, $weekly_holidays)) {
+    //         $final_total_days++;
+    //         $with_holidays[] = $day.' '.$day_name;
+    //     }else{
+    //         $without_holidays[] = $day.' '.$day_name;
+    //     }
+    // }
+
+    // return [
+    //     'start_date' => $start_date,
+    //     'end_date' => $end_date,
+    //     'days_period' => $days_periods,
+    //     'total_days' => $total_days,
+    //     'final_total_days' => $final_total_days,
+    //     'weekly_holidays' => $weekly_holidays,
+    //     'with_holidays' => $with_holidays,
+    //     'without_holidays' => $without_holidays,
+    // ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $start_date = '2022-05-25';
+    $end_date = '2022-05-28';
+
+    $start_day = date("D", strtotime($start_date));
+    $end_day = date("D", strtotime($end_date));
+
+    $start = Carbon::parse($start_date);
+    $end = Carbon::parse($end_date);
+    $total_days = $end->diffInDays($start) + 1;
+
+    // Gets the working days in comma seperated without the key from the database [Example: Sat, Sun, Mon, Tue, Wed, Thu] in array
+    $working_days = WorkingDay::where('working_status', 0)
+        ->get(['day'])->map(function ($day) {
+            return $day->day;
+        })->toArray();
+
+    // Gets the holidays in comma seperated dates without the key from the database [Example: 2022-05-26, 2022-05-28] in array
+    $holidays = Holiday::where('publication_status', 1)->get(['date'])->map(function ($date) {
+        return date('Y-m-d', strtotime($date->date));
+    })->toArray();
+
+    // Get the weekend holidays we get between the start date and end date by the helper function we created
+    $weekend_holidays = $this->sumHolidays($working_days, $start_date, $total_days, 'weekends');
+
+    // Get the holidays if have any between the start date and end date by the helper function we created
+    $monthly_holidays = $this->sumHolidays($holidays, $start_date, $total_days, 'holidays');
+
+    $total_leaves = $total_days - $weekend_holidays - $monthly_holidays + 1; //need solution here;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $start_date = '2022-05-25';
+    $end_date = '2022-05-28';
+    $total_days = CarbonPeriod::create($start_date, $end_date)->count();
+
+    $official_holiday = 1;
+    $weekly_off = 1;
+
+    $total_days = $total_days - $official_holiday - $weekly_off;
+    return $total_days;
+
+
+
+
+
+
+
+    $start_date = '2022-05-25';
+    $end_date = '2022-05-28';
+
+    // return $start_day = mb_strtolower(date("l", strtotime($start_date))); // monday
+    $start_day = date("D", strtotime($start_date));
+    $end_day = date("D", strtotime($end_date));
+
+    // this is change
+    $start = strtotime($start_date);
+    $end = strtotime($end_date);
+    $diff = $end - $start;
+    // This will calculate days between two days including start date and end date
+    return  $diff_in_days = floor($diff / (60 * 60 * 24)) + 1;
+    // assuming Fri is holiday and get count of it
+    $weekly_holidays = 1;
+    // $weekly_holidays = WorkingDay::where('working_status', 1)
+    //     ->get(['day'])->count();
+    // Get count of monthly holidays
+    $monthly_holidays = 1;
+    // $monthly_holidays = Holiday::where('publication_status', 1)->get(['date'])->count();
+    // your result will be 4
+    $total_days = $diff_in_days - $weekly_holidays - $monthly_holidays;
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $start = '2020-01-01';
+    $end = '2020-01-31';
+
+    $startDate = new DateTime($start);
+    $endDate = new DateTime($end);
+    $interval = new DateInterval('P1D');
+    $dateRange = new CarbonPeriod($startDate, $endDate, $interval);
+    // return $dateRange;
+
+    return $holidays = Holiday::where('company_id', 1)->get();
+
+
+
+
+    $results = [];
+    foreach ($dateRange as $date) {
+        $name = $date->format('l');
+        if (in_array($name, $workday) && !in_array($date->format('Y-m-d'), $holidays)) {
+            $results[] = $date->format('Y-m-d');
+        }
+    }
+    return $results;
+
+
+
+
+    // $dates = CarbonPeriod::create('2022-08-01', '2022-08-15')
+    //     ->filter(fn ($date) => !$date->isSunday())
+    //     ->map(fn ($date) => $date->toDateString());
+    // $dates = iterator_to_array($dates);
+    // return $dates;
+
+
+
+    $company = Company::first();
+    $workdays = $company->workingDays;
+    return $workdays;
+
+    // "monday": 1,
+    // "tuesday": 1,
+    // "wednesday": 1,
+    // "thursday": 1,
+    // "friday": 1,
+    // "saturday": 1,
+    // "sunday": 0,
+
+
+    $dates = CarbonPeriod::create('2022-08-01', '2022-08-10')->filter(function ($date) use ($workdays) {
+        if (!$workdays->monday && $date->isMonday()) {
+            return false;
+        }
+        if (!$workdays->tuesday && $date->isTuesday()) {
+            return false;
+        }
+
+        if (!$workdays->wednesday && $date->isWednesday()) {
+            return false;
+        }
+
+        if (!$workdays->thursday && $date->isThursday()) {
+            return false;
+        }
+
+        if (!$workdays->friday && $date->isFriday()) {
+            return false;
+        }
+
+        if (!$workdays->saturday && $date->isSaturday()) {
+            return false;
+        }
+
+        if (!$workdays->sunday && $date->isSunday()) {
+            return false;
+        }
+
+        return true;
+
+
+
+
+        return !$date->isFriday();
+    })->map(function ($date) {
+        return $date->toDateString();
+    });
+    $dates = iterator_to_array($dates);
+    return $dates;
+
+
+
+
+
+
+
+
+
+
+
+
+
     $holidays = getHolidays('bd');
     return $holidays;
 

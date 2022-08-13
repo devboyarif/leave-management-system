@@ -124,6 +124,7 @@ export default {
             leaveTypeBalance: {},
             showLeaveTypeBalance: false,
             diffBetweenDays: 0,
+            employee: this.$page.props.authenticatedUser.employee,
         };
     },
     methods: {
@@ -188,11 +189,14 @@ export default {
                         params: {
                             start: this.form.start,
                             end: this.form.end,
+                            company_id: this.employee.company_id,
                         },
                     }
                 );
 
-                this.diffBetweenDays = response.data;
+                console.log(response.data);
+
+                // this.diffBetweenDays = response.data;
             }
         },
     },
