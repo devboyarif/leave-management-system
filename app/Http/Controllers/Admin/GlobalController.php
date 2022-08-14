@@ -18,7 +18,6 @@ class GlobalController extends Controller
         return sumDaysBetweenDates($company_id,$start, $end);
 
         // return diffBetweenDays($start, $end);
-        return $request;
     }
 
     public function contactMessages()
@@ -63,5 +62,10 @@ class GlobalController extends Controller
     public function appSetting()
     {
         return setting();
+    }
+
+    public function useridWiseCompany(Request $request)
+    {
+        return getCompany($request->user_id);
     }
 }

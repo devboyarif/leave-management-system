@@ -174,4 +174,5 @@ Route::controller(GlobalController::class)->group(function () {
     Route::get('/error/403', 'error403')->name('error.403');
     Route::get('/all/countries', 'allCountries')->name('all.countries');
     Route::get('/app/setting', 'appSetting')->name('app.setting');
+    Route::get('/userid/wise/company', 'useridWiseCompany')->name('userid.wise.company');
 });

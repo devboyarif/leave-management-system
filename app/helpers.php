@@ -420,9 +420,27 @@ function sumDaysBetweenDates($company_id, $start_date, $end_date){
     $weekend_days = sumWeekendDays($days_periods, $weekly_holidays);
 
     return [
-        'total_days' => $total_days,
+        'days_count' => $total_days,
         'official_holidays_count' => $official_holidays,
         'weekend_days_count' => $weekend_days,
-        'final_total_days' => $total_days - $official_holidays - $weekend_days,
+        'final_days_count' => $total_days - $official_holidays - $weekend_days,
     ];
+}
+
+function sumFinalDays($company_id, $start_date, $end_date){
+    $start_date = $start_date;
+    $end_date = $end_date;
+    $days_periods = daysPeriods($start_date, $end_date);
+    $total_days = count($days_periods);
+
+    // Holidays
+    $holidays = official_holidays($company_id,$start_date, $end_date);
+    $official_holidays = sumOfficialHolidays($days_periods, $holidays);
+
+    // Weekly Off days
+    $company_holidays = WorkingDay::where('company_id', $company_id)->first();
+    $weekly_holidays = weekly_holidays($company_holidays);
+    $weekend_days = sumWeekendDays($days_periods, $weekly_holidays);
+
+    return $total_days - $official_holidays - $weekend_days;
 }

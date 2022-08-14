@@ -194,9 +194,7 @@ export default {
                     }
                 );
 
-                console.log(response.data);
-
-                // this.diffBetweenDays = response.data;
+                this.diffBetweenDays = response.data.final_days_count;
             }
         },
     },

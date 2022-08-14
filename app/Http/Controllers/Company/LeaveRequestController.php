@@ -78,23 +78,27 @@ class LeaveRequestController extends Controller
      */
     public function store(LeaveRequestSaveRequest $request)
     {
+        $company = currentCompany();
+        $final_days_count = sumFinalDays($company->id,$request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
+
         $leave_request = LeaveRequest::create([
-            'company_id' => currentCompany()->id,
+            'company_id' => $company->id,
             'employee_id' => $request->employee_id,
             'leave_type_id' => $request->leave_type_id,
             'start' => $request->start,
             'end' => $request->end,
-            'days' => diffBetweenDays($request->start, $request->end),
+            'days' => $final_days_count,
             'reason' => $request->reason,
             'status' => $request->status,
         ]);
+
 
         if ($request->status == 'approved') {
             $leave_balance = LeaveBalance::where('leave_type_id', $leave_request->leave_type_id)
                 ->where('employee_id', $leave_request->employee_id)
                 ->first();
 
-            $diffDays = diffBetweenDays($leave_request->start, $leave_request->end);
+            $diffDays = $final_days_count;
             $leave_balance->increment('used_days', $diffDays);
         }
 
@@ -153,13 +157,16 @@ class LeaveRequestController extends Controller
      */
     public function update(LeaveRequestSaveRequest $request, LeaveRequest $leaveRequest)
     {
+        $company = currentCompany();
+        $final_days_count = sumFinalDays($company->id,$request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
+
         $leaveRequest->update([
             'company_id' => currentCompany()->id,
             'employee_id' => $request->employee_id,
             'leave_type_id' => $request->leave_type_id,
             'start' => $request->start,
             'end' => $request->end,
-            'days' => diffBetweenDays($request->start, $request->end),
+            'days' => $final_days_count,
             'reason' => $request->reason,
             'status' => $request->status,
         ]);
@@ -196,11 +203,14 @@ class LeaveRequestController extends Controller
         $leave_request = LeaveRequest::findOrFail($request->id);
 
         if ($leave_request->status == 'pending' && $request->status == 'approved') {
+
+            $final_days_count = sumFinalDays($leave_request->company_id,$leave_request->start, $leave_request->end) ?? diffBetweenDays($leave_request->start, $leave_request->end);
+
             $leave_balance = LeaveBalance::where('leave_type_id', $leave_request->leave_type_id)
                 ->where('employee_id', $leave_request->employee_id)
                 ->first();
 
-            $diffDays = diffBetweenDays($leave_request->start, $leave_request->end);
+            $diffDays = $final_days_count;
             $leave_balance->increment('used_days', $diffDays);
         }
 
