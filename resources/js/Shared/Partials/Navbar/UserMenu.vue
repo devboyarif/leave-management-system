@@ -23,15 +23,8 @@
 </template>
 
 <script>
-import UserIcon from "../../Icons/UserIcon.vue";
-import CogIcon from "../../Icons/CogIcon.vue";
-
 export default {
     name: "user-menu",
-    components: {
-        UserIcon,
-        CogIcon,
-    },
     data() {
         return {
             show: false,

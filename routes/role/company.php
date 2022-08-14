@@ -55,6 +55,13 @@ Route::middleware(['auth', 'check.company.role'])->prefix('company')->name('comp
     Route::controller(SettingController::class)->group(function () {
         Route::get('/theme', 'theme')->name('theme.index');
         Route::post('/theme/update', 'themeUpdate')->name('theme.update');
+        Route::put('/workingdays/update', 'workingdaysUpdate')->name('workingdays.update');
+    });
+
+    // Configurations & Settings
+    Route::controller(SettingController::class)->prefix('settings')->name('settings.')->group(function () {
+        Route::get('/general', 'general')->name('general');
+        Route::post('/general/setting/update', 'generalSettingUpdate')->name('general.update');
     });
 });
 

@@ -14,50 +14,76 @@
                     </div>
                 </div>
                 <div class="card-body row justify-content-center">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 offset-lg-2">
                         <form @submit.prevent="saveData">
-                        <div class="mb-3 row">
-                            <div class="col-md-12">
-                                 <Label name="Leave Type" />
-                                <select v-model="form.leave_type_id" id="company" class="form-control"
-                                    :class="{'is-invalid':form.errors.leave_type_id}">
-                                    <option value="" class="d-none">{{ __('Select Leave Type') }}</option>
-                                    <option :value="leaveType.id" v-for="leaveType in leaveTypes" :key="leaveType.id">
-                                        {{ leaveType.name }}
-                                    </option>
-                                </select>
-                                <ErrorMessage :name="form.errors.leave_type_id" />
+                            <div class="mb-3 row">
+                                <div class="col-md-12">
+                                    <Label name="Leave Type" />
+                                    <select v-model="form.leave_type_id" id="company" class="form-control"
+                                        :class="{'is-invalid':form.errors.leave_type_id}" @change="checkLeaveTypeBalance">
+                                        <option value="" class="d-none">{{ __('Select Leave Type') }}</option>
+                                        <option :value="leaveType.id" v-for="leaveType in leaveTypes" :key="leaveType.id">
+                                            {{ leaveType.name }}
+                                        </option>
+                                    </select>
+                                    <ErrorMessage :name="form.errors.leave_type_id" />
+                                    <template v-if="showLeaveTypeBalance">
+                                        <strong :class="!leaveTypeBalance.remaining_days ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Leave Type Balance') }}: {{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</strong>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col-md-6">
+                                    <Label :name="__('Start Date')" />
+                                    <Datepicker v-model="form.start" :enableTimePicker="false"
+                                        @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}"/>
+                                    <ErrorMessage :name="form.errors.start"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <Label :name="__('End Date')" />
+                                    <Datepicker v-model="form.end" :enableTimePicker="false"
+                                        @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}"/>
+                                    <ErrorMessage :name="form.errors.end"/>
+                                </div>
+                                 <template v-if="diffBetweenDays">
+                                    <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of Days') }}: {{ diffBetweenDays }}</strong>
+                                </template>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col-lg-12">
+                                    <Label :name="__('Reason')" />
+                                    <textarea class="form-control" v-model="form.reason" :class="{'is-invalid':form.errors.reason}" rows="5"></textarea>
+                                    <ErrorMessage :name="form.errors.reason" />
+                                </div>
+                            </div>
+                            <button :disabled="submitButtonDisabled" type="submit" class="btn btn-primary">
+                                <Loading v-if="form.processing" message="Sending..."/>
+                                <span v-else>
+                                    <i class="fa-regular fa-paper-plane"></i>
+                                    {{ __('Save') }}
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="card">
+                            <div class="card-bod">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ __('Leave Type') }}</th>
+                                            <th>{{ __('Balance') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="leaveTypeBalance in leaveTypeBalances" :key="leaveTypeBalance.id">
+                                            <td>{{ leaveTypeBalance.leave_type.name }}</td>
+                                            <td>{{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                         <div class="mb-3 row">
-                            <div class="col-md-6">
-                                <Label :name="__('Start Date')" />
-                                <Datepicker v-model="form.start" :enableTimePicker="false"
-                                    @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}"/>
-                                <ErrorMessage :name="form.errors.start"/>
-                            </div>
-                            <div class="col-md-6">
-                                <Label :name="__('End Date')" />
-                                <Datepicker v-model="form.end" :enableTimePicker="false"
-                                    @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}"/>
-                                <ErrorMessage :name="form.errors.end"/>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <div class="col-lg-12">
-                                <Label :name="__('Reason')" />
-                                <textarea class="form-control" v-model="form.reason" :class="{'is-invalid':form.errors.reason}" rows="5"></textarea>
-                                <ErrorMessage :name="form.errors.reason" />
-                            </div>
-                        </div>
-                        <button :disabled="form.processing" type="submit" class="btn btn-primary">
-                            <Loading v-if="form.processing" message="Sending..."/>
-                            <span v-else>
-                                <i class="fa-regular fa-paper-plane"></i>
-                                {{ __('Save') }}
-                            </span>
-                        </button>
-                    </form>
                     </div>
                 </div>
             </div>
@@ -80,6 +106,10 @@ export default {
             type: Object,
             required: true,
         },
+         leaveTypeBalances: {
+            type: Array,
+            required: true,
+        },
     },
     components: {
         Datepicker,
@@ -92,6 +122,11 @@ export default {
                 end: this.leaveRequest.end,
                 reason: this.leaveRequest.reason,
             }),
+
+            leaveTypeBalance: {},
+            showLeaveTypeBalance: false,
+            diffBetweenDays: 0,
+            employee: this.$page.props.authenticatedUser.employee,
         };
     },
     methods: {
@@ -127,6 +162,46 @@ export default {
         handleEndDate(endDate) {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
             this.form.end = formatTime;
+        },
+         async checkLeaveTypeBalance() {
+            let response = await axios.get(
+                route("employee.leave.type.balance", this.form.leave_type_id)
+            );
+
+            this.leaveTypeBalance = response.data;
+            this.showLeaveTypeBalance = true;
+        },
+    },
+    computed: {
+        dates() {
+            return `${this.form.start}|${this.form.end}`;
+        },
+        submitButtonDisabled() {
+            return (
+                this.form.processing ||
+                !this.leaveTypeBalance.remaining_days ||
+                this.leaveTypeBalance.remaining_days < this.diffBetweenDays
+            );
+        },
+    },
+    watch: {
+        async dates(newVal) {
+            const [start, end] = newVal.split("|");
+
+            if (start && end) {
+                let response = await axios.get(
+                    route("difference.between.days"),
+                    {
+                        params: {
+                            start: this.form.start,
+                            end: this.form.end,
+                            company_id: this.employee.company_id,
+                        },
+                    }
+                );
+
+                this.diffBetweenDays = response.data.final_days_count;
+            }
         },
     },
     mounted(){

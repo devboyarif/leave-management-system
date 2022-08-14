@@ -8,6 +8,8 @@ use App\Models\Company;
 use App\Models\Holiday;
 use App\Models\Setting;
 use App\Models\Employee;
+use Carbon\CarbonPeriod;
+use App\Models\WorkingDay;
 use Illuminate\Support\Str;
 use msztorc\LaravelEnv\Env;
 use Nexmo\Client as NexmoClient;
@@ -122,7 +124,7 @@ function getHolidays($country_code = 'bd')
             $current_year_holidays[] = [
                 'title' => $holiday['summary'],
                 'start' => $holiday['start']['date'],
-                'end' => $holiday['end']['date']
+                'end' => subDays($holiday['end']['date'])
             ];
         }
     }
@@ -135,19 +137,6 @@ function currentYearData($data, $format = 'Y-m-d')
     $date = Carbon::createFromFormat($format, $data)->format('Y');
 
     return $date == now()->format('Y') ? 1 : 0;
-}
-
-function diffBetweenDays($start_date, $end_date)
-{
-    $start_date = Carbon::parse(date('Y-m-d', strtotime($start_date)));
-    $end_date = Carbon::parse(date('Y-m-d', strtotime($end_date)));
-
-    return $start_date->diffInDays($end_date);
-}
-
-function formatTime($date, $format = 'Y-m-d')
-{
-    return Carbon::parse($date)->format($format);
 }
 
 function translations($json)
@@ -327,4 +316,131 @@ function importHolidays($company_id, $country_code)
             Holiday::insert($country);
         }
     }
+}
+
+function diffBetweenDays($start_date, $end_date)
+{
+    $days = CarbonPeriod::since($start_date)->days(1)->until($end_date);
+    return count($days);
+
+    // $start_date = Carbon::parse(date('Y-m-d', strtotime($start_date)));
+    // $end_date = Carbon::parse(date('Y-m-d', strtotime($end_date)));
+
+    // return $start_date->diffInDays($end_date);
+}
+
+function daysPeriods($start_date, $end_date)
+{
+    $days_periods = CarbonPeriod::create($start_date, $end_date)->map(fn ($date) => $date->toDateString());
+    return iterator_to_array($days_periods);
+}
+
+function subDays($date, $days = 1, $format = 'Y-m-d')
+{
+    return Carbon::parse($date)->subDay($days)->format($format);
+}
+
+function formatTime($date, $format = 'Y-m-d')
+{
+    return Carbon::parse($date)->format($format);
+}
+
+function weekly_holidays($company_holidays)
+{
+    $week_days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+
+    $weekly_holidays = [];
+
+    if ($week_days && $company_holidays) {
+        foreach ($week_days as $week_day) {
+            if (!$company_holidays->$week_day) {
+                $weekly_holidays[] = $week_day;
+            }
+        }
+    }
+
+    return $weekly_holidays;
+}
+
+function official_holidays($company_id ,$start_date, $end_date){
+    $holidays = [];
+    $holidays_between_days = Holiday::where('company_id', $company_id)
+            ->whereDate('start', '>=', $start_date)
+            ->whereDate('end', '<=', $end_date)
+            ->get(['start','end']);
+
+    foreach ($holidays_between_days as $holiday) {
+        $holidays = array_merge($holidays, iterator_to_array(CarbonPeriod::create($holiday->start, $holiday->end)->map(fn ($date) => $date->toDateString())));
+    }
+
+    $holidays = array_values(array_unique($holidays));
+
+    return $holidays;
+}
+
+function sumWeekendDays($days_periods,$weekly_holidays){
+    $total_days = 0;
+
+    foreach ($days_periods as $day) {
+        $day_name = mb_strtolower(Carbon::parse($day)->format('l'));
+
+        if (in_array($day_name, $weekly_holidays)) {
+            $total_days++;
+        }
+    }
+
+    return $total_days;
+}
+
+function sumOfficialHolidays($days_periods,$holidays){
+    $total_days = 0;
+
+    foreach ($days_periods as $day) {
+        if (in_array($day, $holidays)) {
+            $total_days++;
+        }
+    }
+
+    return $total_days;
+}
+
+function sumDaysBetweenDates($company_id, $start_date, $end_date){
+    $start_date = $start_date;
+    $end_date = $end_date;
+    $days_periods = daysPeriods($start_date, $end_date);
+    $total_days = count($days_periods);
+
+    // Holidays
+    $holidays = official_holidays($company_id,$start_date, $end_date);
+    $official_holidays = sumOfficialHolidays($days_periods, $holidays);
+
+    // Weekly Off days
+    $company_holidays = WorkingDay::where('company_id', $company_id)->first();
+    $weekly_holidays = weekly_holidays($company_holidays);
+    $weekend_days = sumWeekendDays($days_periods, $weekly_holidays);
+
+    return [
+        'days_count' => $total_days,
+        'official_holidays_count' => $official_holidays,
+        'weekend_days_count' => $weekend_days,
+        'final_days_count' => $total_days - $official_holidays - $weekend_days,
+    ];
+}
+
+function sumFinalDays($company_id, $start_date, $end_date){
+    $start_date = $start_date;
+    $end_date = $end_date;
+    $days_periods = daysPeriods($start_date, $end_date);
+    $total_days = count($days_periods);
+
+    // Holidays
+    $holidays = official_holidays($company_id,$start_date, $end_date);
+    $official_holidays = sumOfficialHolidays($days_periods, $holidays);
+
+    // Weekly Off days
+    $company_holidays = WorkingDay::where('company_id', $company_id)->first();
+    $weekly_holidays = weekly_holidays($company_holidays);
+    $weekend_days = sumWeekendDays($days_periods, $weekly_holidays);
+
+    return $total_days - $official_holidays - $weekend_days;
 }

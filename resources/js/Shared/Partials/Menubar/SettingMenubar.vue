@@ -2,7 +2,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <Link :href="route('dashboard')" class="brand-link">
-            <img :src="setting.app_favicon" alt="AdminLTE Logo"
+            <img :src="setting.app_favicon" alt="logo"
                 class="brand-image img-circle" style="opacity: .8">
             <span class="brand-text font-weight-bold">{{ setting.app_name }}</span>
         </Link>
@@ -79,11 +79,11 @@ export default {
     components: {
         NavLink,
     },
-    data(){
+    data() {
         return {
             setting: this.$page.props.setting,
-        }
-    }
+        };
+    },
 };
 </script>
 

@@ -62,15 +62,13 @@
                                         </div>
                                 </div>
                             </div>
-                            <div class="row justify-content-center mt-5">
-                                 <button :disabled="form.processing" type="submit" class="btn btn-primary">
+                            <button :disabled="form.processing" type="submit" class="btn btn-primary">
                                 <Loading v-if="form.processing"/>
                                 <span v-else>
                                     <i class="fa-solid fa-sync mr-1"></i>
                                     {{ __('Save') }}
                                 </span>
                             </button>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -114,21 +112,27 @@ export default {
                     },
                 });
             } else {
-                let response = await axios.get(
-                    route("get.translated.message"),
-                    {
-                        params: {
-                            message: "Upgrade your plan to use this feature",
-                        },
-                    }
-                );
+                let response = await axios.get(route("get.translated.text"), {
+                    params: {
+                        message: "Upgrade your plan to use this feature",
+                    },
+                });
 
                 this.$toast.error(response.data);
             }
         },
     },
-     mounted(){
-        this.checkPagePermission('company')
-    }
+    computed: {
+        hasAccessCustomThemeLook() {
+            return (
+                this.subscription.plan &&
+                this.subscription.plan.plan_features &&
+                this.subscription.plan.plan_features.custom_theme_look
+            );
+        },
+    },
+    mounted() {
+        this.checkPagePermission("company");
+    },
 };
 </script>

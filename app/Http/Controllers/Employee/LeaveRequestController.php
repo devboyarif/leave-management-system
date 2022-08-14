@@ -65,34 +65,43 @@ class LeaveRequestController extends Controller
             'leave_type_id.required' => 'Leave type is required',
         ]);
 
-        $employee = currentEmployee();
+        try {
+            $employee = currentEmployee();
+            $final_days_count = sumFinalDays($employee->company_id,$request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
 
-        LeaveRequest::create([
-            'company_id' => $employee->company_id,
-            'employee_id' => $employee->id,
-            'leave_type_id' => $request->leave_type_id,
-            'start' => $request->start,
-            'end' => $request->end,
-            'days' => diffBetweenDays($request->start, $request->end),
-            'reason' => $request->reason,
-        ]);
+            LeaveRequest::create([
+                'company_id' => $employee->company_id,
+                'employee_id' => $employee->id,
+                'leave_type_id' => $request->leave_type_id,
+                'start' => $request->start,
+                'end' => $request->end,
+                'days' => $final_days_count,
+                'reason' => $request->reason,
+            ]);
 
-        // Notification for company
-        $user = $employee->company->user ?? null;
-        isset($user) ? $user->notify(new NewLeaveRequest()) : '';
+            // Notification for company
+            $user = $employee->company->user ?? null;
+            isset($user) ? $user->notify(new NewLeaveRequest()) : '';
 
 
-        session()->flash('success', 'Leave request sent successfully!');
-        return back();
+            session()->flash('success', 'Leave request sent successfully!');
+            return back();
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Something went wrong!');
+            return back();
+        }
     }
 
     public function edit(LeaveRequest $leave_request)
     {
+        $employee = currentEmployee();
         $leave_types = LeaveType::where('company_id', currentUser()->employee->company_id)->get();
+        $leaveTypeBalances = LeaveBalance::with('leaveType')->where('employee_id', $employee->id)->get();
 
         return inertia('employee/leaveRequest/edit', [
             'leaveRequest' => $leave_request,
-            'leaveTypes' =>  $leave_types
+            'leaveTypes' =>  $leave_types,
+            'leaveTypeBalances' => $leaveTypeBalances,
         ]);
     }
 
@@ -107,16 +116,23 @@ class LeaveRequestController extends Controller
             'leave_type_id.required' => 'Leave type is required',
         ]);
 
-        $leave_request->update([
-            'leave_type_id' => $request->leave_type_id,
-            'start' => $request->start,
-            'end' => $request->end,
-            'days' => diffBetweenDays($request->start, $request->end),
-            'reason' => $request->reason,
-        ]);
+        try {
+            $final_days_count = sumFinalDays($leave_request->company_id,$request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
 
-        session()->flash('success', 'Leave request updated successfully!');
-        return redirect_to('employee.leave.request.index');
+            $leave_request->update([
+                'leave_type_id' => $request->leave_type_id,
+                'start' => $request->start,
+                'end' => $request->end,
+                'days' => $final_days_count,
+                'reason' => $request->reason,
+            ]);
+
+            session()->flash('success', 'Leave request updated successfully!');
+            return redirect_to('employee.leave.request.index');
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Something went wrong!');
+            return back();
+        }
     }
 
     public function destroy(LeaveRequest $leave_request)

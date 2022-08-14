@@ -57,18 +57,18 @@
                          <div class="mb-3 row">
                             <div class="col-md-6">
                                 <Label :name="__('Start Date')" />
-                                <Datepicker v-model="form.start" :enableTimePicker="false"
+                                <Datepicker :disabled="!company_id" v-model="form.start" :enableTimePicker="false"
                                     @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}"/>
                                 <ErrorMessage :name="form.errors.start"/>
                             </div>
                             <div class="col-md-6">
                                 <Label :name="__('End Date')" />
-                                <Datepicker v-model="form.end" :enableTimePicker="false"
+                                <Datepicker :disabled="!company_id" v-model="form.end" :enableTimePicker="false"
                                     @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}"/>
                                 <ErrorMessage :name="form.errors.end"/>
                             </div>
                             <template v-if="diffBetweenDays">
-                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of requested Days') }}: {{ diffBetweenDays }}</strong>
+                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of Days') }}: {{ diffBetweenDays }}</strong>
                             </template>
                         </div>
                         <div class="mb-3 row">
@@ -147,6 +147,7 @@ export default {
             leaveTypeBalance: {},
             showLeaveTypeBalance: false,
             diffBetweenDays: 0,
+            company_id: "",
         };
     },
     methods: {
@@ -176,8 +177,6 @@ export default {
             this.form.end = formatTime;
         },
         async checkLeaveTypeBalance() {
-            console.log(this.form.employee_id);
-            console.log(this.form.leave_type_id);
             let response = await axios.get(
                 route("companies.employee.leave.type.balance"),
                 {
@@ -215,17 +214,33 @@ export default {
                         params: {
                             start: this.form.start,
                             end: this.form.end,
+                            company_id: this.company_id,
                         },
                     }
                 );
 
-                this.diffBetweenDays = response.data;
+                this.diffBetweenDays = response.data.final_days_count;
             }
         },
+        'form.user_id': {
+            handler: async function (newVal) {
+                 let response = await axios.get(
+                    route("userid.wise.company"),
+                    {
+                        params: {
+                            user_id: newVal,
+                        },
+                    }
+                );
+
+                this.company_id = response.data.id;
+            },
+            deep: true,
+        },
     },
-     mounted(){
-        this.checkPagePermission('admin')
-    }
+    mounted() {
+        this.checkPagePermission("admin");
+    },
 };
 </script>
 

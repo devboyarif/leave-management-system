@@ -57,7 +57,7 @@
                                 <ErrorMessage :name="form.errors.end"/>
                             </div>
                             <template v-if="diffBetweenDays">
-                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of requested Days') }}: {{ diffBetweenDays }}</strong>
+                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of Days') }}: {{ diffBetweenDays }}</strong>
                             </template>
                         </div>
                         <div class="mb-3 row">
@@ -136,6 +136,7 @@ export default {
             leaveTypeBalance: {},
             showLeaveTypeBalance: false,
             diffBetweenDays: 0,
+            auth_user: this.$page.props.authenticatedUser,
         };
     },
     methods: {
@@ -191,17 +192,18 @@ export default {
                         params: {
                             start: this.form.start,
                             end: this.form.end,
+                            company_id: this.auth_user.company.id,
                         },
                     }
                 );
 
-                this.diffBetweenDays = response.data;
+                this.diffBetweenDays = response.data.final_days_count;
             }
         },
     },
-     mounted(){
-        this.checkPagePermission('company')
-    }
+    mounted() {
+        this.checkPagePermission("company");
+    },
 };
 </script>
 

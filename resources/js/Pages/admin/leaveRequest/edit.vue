@@ -1,5 +1,5 @@
 <template>
-    <Head title="__('Edit Leave Request')" />
+    <Head :title="__('Edit Leave Request')" />
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
@@ -28,17 +28,6 @@
                                 <ErrorMessage :name="form.errors.user_id" />
                             </div>
                             <div class="col-md-4">
-                                 <Label name="Leave Type" />
-                                <select v-model="form.leave_type_id" id="company" class="form-control"
-                                    :class="{'is-invalid':form.errors.leave_type_id}">
-                                    <option value="" class="d-none">{{ __('Select Leave Type') }}</option>
-                                    <option :value="leaveType.id" v-for="leaveType in leaveTypes" :key="leaveType.id">
-                                        {{ leaveType.name }}
-                                    </option>
-                                </select>
-                                <ErrorMessage :name="form.errors.leave_type_id" />
-                            </div>
-                            <div class="col-md-4">
                                  <Label :name="__('Employee')" />
                                 <select v-model="form.employee_id" id="company" class="form-control"
                                     :class="{'is-invalid':form.errors.employee_id}">
@@ -49,20 +38,37 @@
                                 </select>
                                 <ErrorMessage :name="form.errors.employee_id" />
                             </div>
+                            <div class="col-md-4">
+                                 <Label name="Leave Type" />
+                                <select @change="checkLeaveTypeBalance" v-model="form.leave_type_id" id="company" class="form-control"
+                                    :class="{'is-invalid':form.errors.leave_type_id}">
+                                    <option value="" class="d-none">{{ __('Select Leave Type') }}</option>
+                                    <option :value="leaveType.id" v-for="leaveType in leaveTypes" :key="leaveType.id">
+                                        {{ leaveType.name }}
+                                    </option>
+                                </select>
+                                <ErrorMessage :name="form.errors.leave_type_id" />
+                                <template v-if="showLeaveTypeBalance">
+                                    <strong :class="!leaveTypeBalance.remaining_days ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Leave Type Balance') }}: {{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</strong>
+                                </template>
+                            </div>
                         </div>
                          <div class="mb-3 row">
                             <div class="col-md-6">
                                 <Label :name="__('Start Date')" />
-                                <Datepicker v-model="form.start" :enableTimePicker="false"
+                                <Datepicker :disabled="!company_id" v-model="form.start" :enableTimePicker="false"
                                     @update:modelValue="handleStartDate" :class="{'is-invalid':form.errors.start}"/>
                                 <ErrorMessage :name="form.errors.start"/>
                             </div>
                             <div class="col-md-6">
                                 <Label :name="__('End Date')" />
-                                <Datepicker v-model="form.end" :enableTimePicker="false"
+                                <Datepicker :disabled="!company_id" v-model="form.end" :enableTimePicker="false"
                                     @update:modelValue="handleEndDate" :class="{'is-invalid':form.errors.end}"/>
                                 <ErrorMessage :name="form.errors.end"/>
                             </div>
+                            <template v-if="diffBetweenDays">
+                                <strong class="ml-1" :class="leaveTypeBalance.remaining_days < diffBetweenDays ? 'text-danger':'text-secondary'" v-if="leaveTypeBalance">{{ __('Number of Days') }}: {{ diffBetweenDays }}</strong>
+                            </template>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-lg-12">
@@ -92,7 +98,7 @@
                                 <ErrorMessage :name="form.errors.end" className="d-block text-danger"/>
                             </div>
                         </div>
-                        <button :disabled="form.processing" type="submit" class="btn btn-primary">
+                        <button :disabled="submitButtonDisabled" type="submit" class="btn btn-primary">
                             <Loading v-if="form.processing"/>
                             <span v-else>
                                 <i class="fa-solid fa-check mr-1"></i>
@@ -148,6 +154,11 @@ export default {
 
             leaveTypes: this.leaveTypes,
             employeesUsers: this.employeesUsers,
+
+            leaveTypeBalance: {},
+            showLeaveTypeBalance: false,
+            diffBetweenDays: 0,
+            company_id: this.leaveRequest.company_id,
         };
     },
     methods: {
@@ -176,6 +187,67 @@ export default {
         handleEndDate(endDate) {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
             this.form.end = formatTime;
+        },
+        async checkLeaveTypeBalance() {
+            let response = await axios.get(
+                route("companies.employee.leave.type.balance"),
+                {
+                    params: {
+                        employee_id: this.form.employee_id,
+                        leave_type_id: this.form.leave_type_id,
+                    },
+                }
+            );
+
+            this.leaveTypeBalance = response.data;
+            this.showLeaveTypeBalance = true;
+        },
+    },
+    computed: {
+        dates() {
+            return `${this.form.start}|${this.form.end}`;
+        },
+        submitButtonDisabled() {
+            return (
+                this.form.processing ||
+                !this.leaveTypeBalance.remaining_days ||
+                this.leaveTypeBalance.remaining_days < this.diffBetweenDays
+            );
+        },
+    },
+    watch: {
+        async dates(newVal) {
+            const [start, end] = newVal.split("|");
+
+            if (start && end) {
+                let response = await axios.get(
+                    route("difference.between.days"),
+                    {
+                        params: {
+                            start: this.form.start,
+                            end: this.form.end,
+                            company_id: this.company_id,
+                        },
+                    }
+                );
+
+                this.diffBetweenDays = response.data.final_days_count;
+            }
+        },
+        'form.user_id': {
+            handler: async function (newVal) {
+                 let response = await axios.get(
+                    route("userid.wise.company"),
+                    {
+                        params: {
+                            user_id: newVal,
+                        },
+                    }
+                );
+
+                this.company_id = response.data.id;
+            },
+            deep: true,
         },
     },
      mounted(){
