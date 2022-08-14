@@ -15,8 +15,11 @@
                             </Link>
                             <button class="btn btn-secondary ml-2" @click="filteringData">
                                 <i class="fa-solid fa-filter"></i>
+                                &nbsp;
+                                <span v-if="!showFilter">{{ __('Show Filter') }}</span>
+                                <span v-else>{{ __('Hide Filter') }}</span>
                             </button>
-                            <Link :href="'admins'" class="btn btn-danger ml-2">
+                            <Link v-if="form.status || form.leave_type" :href="route('company.leaveRequests.index')" class="btn btn-danger ml-2">
                                 <i class="fa-solid fa-times"></i>
                                 {{ __('Clear') }}
                             </Link>

@@ -15,6 +15,9 @@
                             </Link>
                             <button class="btn btn-secondary ml-2" @click="filteringData">
                                 <i class="fa-solid fa-filter"></i>
+                                &nbsp;
+                                <span v-if="!showFilter">{{ __('Show Filter') }}</span>
+                                <span v-else>{{ __('Hide Filter') }}</span>
                             </button>
                             <Link :href="route('employee.leave.request.index')" class="btn btn-danger ml-2" v-if="filterForm.status || filterForm.leave_type">
                                 <i class="fa-solid fa-times"></i>
@@ -249,7 +252,7 @@ export default {
         },
          filteringData() {
             this.showFilter = !this.showFilter;
-            localStorage.setItem("showFilter", this.showFilter);
+            localStorage.setItem("employeeLeaveRequest", this.showFilter);
         },
         filterData() {
             Inertia.get(
@@ -267,10 +270,12 @@ export default {
     },
     mounted(){
         this.checkPagePermission('employee')
-         if (localStorage.getItem("showFilter")) {
-            this.showFilter = localStorage.getItem("showFilter");
-        }
+        this.showFilter = localStorage.getItem("employeeLeaveRequest") == "true" ? true : false;
     }
+
+
+    
+
 };
 </script>
 

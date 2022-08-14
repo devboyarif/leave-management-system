@@ -14,6 +14,9 @@
                                 </Link>
                                 <button class="btn btn-secondary ml-2" @click="filteringData">
                                     <i class="fa-solid fa-filter"></i>
+                                    &nbsp;
+                                    <span v-if="!showFilter">{{ __('Show Filter') }}</span>
+                                    <span v-else>{{ __('Hide Filter') }}</span>
                                 </button>
                                 <Link :href="route('companies.index')" class="btn btn-danger ml-2" v-if="form.search.length || form.country.length">
                                     <i class="fa-solid fa-times"></i>
@@ -126,7 +129,7 @@ export default {
         },
         filteringData() {
             this.showFilter = !this.showFilter;
-            localStorage.setItem("showFilter", this.showFilter);
+            localStorage.setItem("adminCompany", this.showFilter);
         },
     },
     watch: {
@@ -153,9 +156,7 @@ export default {
     },
     mounted() {
         this.checkPagePermission("admin");
-        if (localStorage.getItem("showFilter")) {
-            this.showFilter = localStorage.getItem("showFilter");
-        }
+        this.showFilter = localStorage.getItem("adminCompany") == "true" ? true : false;
     },
 };
 </script>

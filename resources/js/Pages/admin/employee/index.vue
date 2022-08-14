@@ -15,7 +15,10 @@
                                 {{ __('Employee Create') }}
                             </Link>
                             <button class="btn btn-secondary ml-2" @click="filteringData">
-                                    <i class="fa-solid fa-filter"></i>
+                                <i class="fa-solid fa-filter"></i>
+                                &nbsp;
+                                <span v-if="!showFilter">{{ __('Show Filter') }}</span>
+                                <span v-else>{{ __('Hide Filter') }}</span>
                             </button>
                             <Link :href="route('employees.index')" class="btn btn-danger ml-2" v-if="form.search.length || form.company">
                                 <i class="fa-solid fa-times"></i>
@@ -130,7 +133,7 @@ export default {
         },
         filteringData() {
             this.showFilter = !this.showFilter;
-            localStorage.setItem("showFilter", this.showFilter);
+            localStorage.setItem("adminEmployee", this.showFilter);
         },
     },
     watch: {
@@ -157,9 +160,7 @@ export default {
     },
     mounted() {
         this.checkPagePermission("admin");
-        if (localStorage.getItem("showFilter")) {
-            this.showFilter = localStorage.getItem("showFilter");
-        }
+        this.showFilter = localStorage.getItem("adminEmployee") == "true" ? true : false;
     },
 };
 </script>
