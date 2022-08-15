@@ -196,12 +196,14 @@ trait SettingAble
         return true;
     }
 
-    public function getSeo(){
+    public function getSeo()
+    {
         $seo = Seo::all();
         return $seo;
     }
 
-    public function updateSeoContent($request, $seo){
+    public function updateSeoContent($request, $seo)
+    {
         $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -217,7 +219,8 @@ trait SettingAble
         return true;
     }
 
-    public function updateBrandInfo($request){
+    public function updateBrandInfo($request)
+    {
         $request->validate([
             'app_name' => 'required',
             'app_email' => 'required|email',
@@ -255,7 +258,8 @@ trait SettingAble
         return true;
     }
 
-    public function updateSocialMedia($request){
+    public function updateSocialMedia($request)
+    {
         $request->validate([
             'facebook' => 'nullable|url',
             'twitter' => 'nullable|url',
@@ -275,7 +279,8 @@ trait SettingAble
         ]);
     }
 
-    public function updateCmsData($data){
+    public function updateCmsData($data)
+    {
         $cms = Cms::first();
 
         switch ($data->type) {
@@ -365,7 +370,8 @@ trait SettingAble
         }
     }
 
-    public function getCurrencyData(){
+    public function getCurrencyData()
+    {
         $data['currencies'] = Currency::all();
         $path = base_path('resources/json/currency.json');
         $data['currencyInfos'] = json_decode(file_get_contents($path), true);
@@ -374,7 +380,8 @@ trait SettingAble
         return $data;
     }
 
-    public function storeCurrencyData($request){
+    public function storeCurrencyData($request)
+    {
         $request->validate([
             'name' => 'required|unique:currencies,name',
             'code' => 'required',
@@ -391,7 +398,8 @@ trait SettingAble
         ]);
     }
 
-    public function updateCurrencyData($request, $currency){
+    public function updateCurrencyData($request, $currency)
+    {
         $request->validate([
             'name' => "required|unique:currencies,name,$currency->id",
             'code' => 'required',
@@ -408,11 +416,13 @@ trait SettingAble
         ]);
     }
 
-    public function deleteCurrencyData($currency){
+    public function deleteCurrencyData($currency)
+    {
         $currency->delete();
     }
 
-    public function statusUpdateCurrencyData($currency){
+    public function statusUpdateCurrencyData($currency)
+    {
         if ($currency->status) {
             $currency->update(['status' => 0]);
         } else {
@@ -420,9 +430,16 @@ trait SettingAble
         }
     }
 
-    public function setDefaultCurrency($currency){
+    public function setDefaultCurrency($currency)
+    {
         checkSetEnv('APP_CURRENCY', $currency->code);
         checkSetEnv('APP_CURRENCY_SYMBOL', $currency->symbol);
         checkSetEnv('APP_CURRENCY_SYMBOL_POSITION', $currency->symbol_position);
+    }
+
+    public function getSmsSettings()
+    {
+        // $data['vonage_'] = ;
+        return 54456456465654;
     }
 }

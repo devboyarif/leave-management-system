@@ -19,11 +19,13 @@ class SettingController extends Controller
     public function general()
     {
         $setting = Setting::first();
+        return $sms_settings = $this->getSmsSettings();
 
         return inertia('admin/setting/general', compact('setting'));
     }
 
-    public function generalSettingUpdate(Request $request){
+    public function generalSettingUpdate(Request $request)
+    {
         switch ($request->type) {
             case 'brand_info':
                 $this->updateBrandInfo($request);
@@ -53,7 +55,7 @@ class SettingController extends Controller
     {
         $update = $this->updateCmsData($request);
 
-       if ($update) {
+        if ($update) {
             session()->flash('success', 'CMS content updated successfully');
             return back();
         } else {
@@ -143,7 +145,7 @@ class SettingController extends Controller
 
     public function seoUpdate(Request $request, Seo $seo)
     {
-        $seo_data = $this->updateSeoContent($request,$seo);
+        $seo_data = $this->updateSeoContent($request, $seo);
 
         if ($seo_data) {
             session()->flash('success', 'Seo content updated successfully');

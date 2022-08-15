@@ -67,5 +67,12 @@ export default {
             this.form.post(route("settings.general.update"));
         },
     },
+    mounted() {
+        console.log(1255);
+        // this.form.processing = false;
+        // this.form.errors = {};
+        // this.form.messages = {};
+        // this.form.submitButtonDisabled = false;
+    },
 };
 </script>
