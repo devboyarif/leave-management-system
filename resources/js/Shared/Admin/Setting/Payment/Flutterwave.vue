@@ -33,6 +33,9 @@
                         {{ __('Save') }}
                     </span>
                 </button>
+
+                {{ this.data.flw_active }}
+                {{ form.flw_active }}
             </form>
         </div>
     </div>

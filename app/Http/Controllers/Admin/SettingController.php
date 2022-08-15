@@ -19,19 +19,23 @@ class SettingController extends Controller
     public function general()
     {
         $setting = Setting::first();
-        return $sms_settings = $this->getSmsSettings();
+        $sms_settings = $this->getSmsSetting();
 
-        return inertia('admin/setting/general', compact('setting'));
+        return inertia('admin/setting/general', compact('setting', 'sms_settings'));
     }
 
     public function generalSettingUpdate(Request $request)
     {
+        // return $request;
         switch ($request->type) {
             case 'brand_info':
                 $this->updateBrandInfo($request);
                 break;
             case 'social_media':
                 $this->updateSocialMedia($request);
+                break;
+            case 'sms':
+                $this->updateSmsSetting($request);
                 break;
 
             default:

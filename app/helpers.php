@@ -313,7 +313,7 @@ if (!function_exists('sendSms')) {
 
                 $client = new TwilioClient($account_sid, $auth_token);
                 $client->messages->create($to, [
-                    'from' => $twilio_number,
+                    'from' => '+' . $twilio_number,
                     'body' => $message
                 ]);
             } catch (Exception $e) {

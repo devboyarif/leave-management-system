@@ -27,17 +27,15 @@
             </div>
         </div>
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-body tab-content">
-                    <div class="tab-pane fade" :class="{'show active': currentTab == 'brand_info'}">
-                        <BrandInfo :setting="setting" />
-                    </div>
-                    <div class="tab-pane fade" :class="{'show active': currentTab == 'social_media'}">
-                        <SocialMedia :setting="setting" />
-                    </div>
-                    <div class="tab-pane fade" :class="{'show active': currentTab == 'sms'}">
-                        <SMS :setting="setting" />
-                    </div>
+            <div class=" tab-content">
+                <div class="tab-pane fade" :class="{'show active': currentTab == 'brand_info'}">
+                    <BrandInfo :setting="setting" />
+                </div>
+                <div class="tab-pane fade" :class="{'show active': currentTab == 'social_media'}">
+                    <SocialMedia :setting="setting" />
+                </div>
+                <div class="tab-pane fade" :class="{'show active': currentTab == 'sms'}">
+                    <SMS :data="sms_settings"/>
                 </div>
             </div>
         </div>
@@ -56,6 +54,7 @@ export default {
     layout: "Setting",
     props: {
         setting: Object,
+        sms_settings: Object,
     },
     components: {
         BrandInfo,

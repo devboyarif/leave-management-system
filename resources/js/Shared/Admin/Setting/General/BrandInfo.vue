@@ -1,4 +1,6 @@
 <template>
+ <div class="card">
+    <div class="card-body">
     <form @submit.prevent="saveData">
         <div class="mb-3 row">
             <div class="col-md-6 form-group">
@@ -81,6 +83,8 @@
             </span>
         </button>
     </form>
+    </div>
+    </div>
 </template>
 
 
