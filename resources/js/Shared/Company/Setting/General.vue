@@ -31,6 +31,22 @@
                 :class="{'is-invalid':form.errors.email}">
             <ErrorMessage :name="form.errors.email" />
         </div>
+         <div class="form-group">
+            <Label :name="__('Country')"/>
+            <select @change="changeCountry" v-model="form.country" class="form-control" :class="{'is-invalid':form.errors.country}">
+                <option value="" class="d-none">{{ __('Select Country') }}</option>
+                <option :value="country.id" v-for="country in countries" :key="country.id">
+                    {{ country.name }}
+                </option>
+            </select>
+            <ErrorMessage :name="form.errors.country"/>
+        </div>
+        <div class="icheck-primary" v-if="showChangeHolidayCheckbox">
+            <input @change="checkboxChange" v-model="form.change_holidays" type="checkbox" :checked="form.change_holidays" id="holiday">
+            <label for="holiday" class="ml-2 text-dark">
+                {{ __('Also Change Holidays ?') }}
+            </label>
+        </div>
         <button :disabled="form.processing" type="submit" class="btn btn-primary">
             <Loading v-if="form.processing" />
             <span v-else>
@@ -46,6 +62,7 @@
 export default {
     props: {
         user: Object,
+        countries: Array,
     },
     data() {
         return {
@@ -53,9 +70,12 @@ export default {
                 name: this.user.name,
                 email: this.user.email,
                 avatar: null,
+                country: this.user.company ? this.user.company.country_id : "",
+                change_holidays: false,
             }),
 
             previewImage: this.user.avatar,
+            showChangeHolidayCheckbox: false,
         };
     },
     methods: {
@@ -82,6 +102,13 @@ export default {
                     this.$inertia.delete(route("user.account.delete"));
                 }
             });
+        },
+        changeCountry() {
+            if (this.user.company.country_id == this.form.country) {
+                this.showChangeHolidayCheckbox = false;
+            } else {
+                this.showChangeHolidayCheckbox = true;
+            }
         },
     },
     watch: {

@@ -29,7 +29,7 @@
           <div class="card">
             <div class="card-body tab-content">
                 <div class="tab-pane fade" :class="{'show active': currentTab == 'profile'}">
-                    <General :user="user"/>
+                    <General :user="user" :countries="countries"/>
                 </div>
                 <div class="tab-pane fade" :class="{'show active': currentTab == 'themes'}">
                     <Theme :theme="theme"/>
@@ -56,6 +56,7 @@ export default {
         user: Object,
         workingdays: Object,
         theme: Object,
+        countries: Object,
     },
     components: {
         General,

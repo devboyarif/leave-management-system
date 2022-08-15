@@ -20,427 +20,518 @@ use Illuminate\Support\Facades\Artisan;
 use Twilio\Rest\Client as TwilioClient;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
-function uploadFileToPublic(string $path, $file)
-{
-    if ($file && $path) {
-        $url = $file->move('uploads/' . $path, $file->hashName());
-    } else {
-        $url = null;
-    }
-
-    return $url;
-}
-
-function currentUser()
-{
-    return auth()->user();
-}
-
-function currentUserRole()
-{
-    return auth()->user()->role;
-}
-
-function currentUserId()
-{
-    return auth()->id();
-}
-
-function currentCompany()
-{
-    return auth()->user()->company;
-}
-
-function currentEmployee()
-{
-    return auth()->user()->employee;
-}
-
-function getCompanyUserByEmployeeUser($user_id)
-{
-    $company_id = Employee::where('user_id', $user_id)->value('company_id');
-    return Company::findOrFail($company_id)->user;
-}
-
-function getCompany($user_id)
-{
-    return Company::where('user_id', $user_id)->firstOrFail();
-}
-
-function getEmployee($user_id)
-{
-    return Employee::where('user_id', $user_id)->firstOrFail();
-}
-
-function getUserByCompanyId($id)
-{
-    return Company::where('id', $id)->firstOrFail()->user;
-}
-
-function getUserByEmployeeId($id)
-{
-    return Employee::where('id', $id)->firstOrFail()->user;
-}
-
-function strSlug($name)
-{
-    return Str::slug($name);
-}
-
-function redirect_to($name)
-{
-    return redirect()->route($name);
-}
-
-function addDays($date, $days, $format = 'Y-m-d')
-{
-    $date = Carbon::createFromFormat($format, $date);
-    $daysToAdd = $days;
-    return $date->addDays($daysToAdd)->format($format);
-}
-
-function formatDateTime($date, $format = 'Y-m-d')
-{
-    return Carbon::createFromFormat($format, $date);
-}
-
-function changeCurrentYear($date, $format = 'Y-m-d')
-{
-    return Carbon::parse($date)->year(now()->format('Y'))->format($format);
-}
-
-function getHolidays($country_code = 'bd')
-{
-    $api = config('kodebazar.google_api');
-    $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.$country_code%23holiday%40group.v.calendar.google.com/events?key=$api";
-
-    $response = Http::get($calendar_api);
-    $holidays_list = $response->json()['items'];
-
-    $current_year_holidays = [];
-
-    foreach ($holidays_list as $holiday) {
-        if (currentYearData($holiday['start']['date'])) {
-            $current_year_holidays[] = [
-                'title' => $holiday['summary'],
-                'start' => $holiday['start']['date'],
-                'end' => subDays($holiday['end']['date'])
-            ];
-        }
-    }
-
-    return $current_year_holidays;
-}
-
-function currentYearData($data, $format = 'Y-m-d')
-{
-    $date = Carbon::createFromFormat($format, $data)->format('Y');
-
-    return $date == now()->format('Y') ? 1 : 0;
-}
-
-function translations($json)
-{
-    if (!file_exists($json)) {
-        return [];
-    }
-    return json_decode(file_get_contents($json), true);
-}
-
-function translateIt(String $text, $code)
-{
-    return GoogleTranslate::trans($text, $code, 'en');
-}
-
-function getAdminTheme()
-{
-    if (!session()->has('theme')) {
-        $theme = Theme::first();
-        session(['theme' => $theme]);
-    }
-
-    return session('theme');
-}
-
-function storeCompanyCurrentSubscription()
-{
-    session()->forget('current_subscription');
-
-    if (auth()->check() && auth()->user()->role == 'company') {
-        $subscription = currentCompany()->subscription->load(['plan' => function ($query) {
-            $query->with('planFeatures');
-        }]) ?? [];
-
-        session(['current_subscription' => $subscription]);
-    }
-}
-
-function getCurrentSubscription()
-{
-    // session()->forget('current_subscription');
-    if (auth()->check() && auth()->user()->role == 'company') {
-        if (!session()->has('current_subscription')) {
-            storeCompanyCurrentSubscription();
+if (!function_exists('uploadFileToPublic')) {
+    function uploadFileToPublic(string $path, $file)
+    {
+        if ($file && $path) {
+            $url = $file->move('uploads/' . $path, $file->hashName());
+        } else {
+            $url = null;
         }
 
-        return session('current_subscription');
+        return $url;
     }
 }
 
-function getCurrentSubscriptionFeatures()
-{
-    return getCurrentSubscription()->plan->planFeatures ?? [];
+if (!function_exists('currentUser')) {
+    function currentUser()
+    {
+        return auth()->user();
+    }
 }
 
-function currencyConversion($amount, $from = null, $to = null, $round = 2)
-{
-    $from = $from ?? config('kodebazar.currency');
-    $to = $to ?? 'USD';
-
-    return Currency::convert()
-        ->from($from)
-        ->to($to)
-        ->amount($amount)
-        ->round($round)
-        ->get();
+if (!function_exists('currentUserRole')) {
+    function currentUserRole()
+    {
+        return auth()->user()->role;
+    }
 }
 
-function checkMailConfig()
-{
-    $status = config('mail.mailers.smtp.transport') && config('mail.mailers.smtp.host') && config('mail.mailers.smtp.port') && config('mail.mailers.smtp.username') && config('mail.mailers.smtp.password') && config('mail.mailers.smtp.encryption') && config('mail.from.address') && config('mail.from.name');
-
-    return $status ? 1 : 0;
+if (!function_exists('currentUserId')) {
+    function currentUserId()
+    {
+        return auth()->id();
+    }
 }
 
-function setting($fields = null, $append = false)
-{
-    if ($fields) {
-        $type = gettype($fields);
+if (!function_exists('currentCompany')) {
+    function currentCompany()
+    {
+        return auth()->user()->company;
+    }
+}
 
-        if ($type == 'string') {
-            $data = $append ? Setting::first($fields) : Setting::value($fields);
-        } elseif ($type == 'array') {
-            $data = Setting::first($fields);
+if (!function_exists('currentEmployee')) {
+    function currentEmployee()
+    {
+        return auth()->user()->employee;
+    }
+}
+
+if (!function_exists('getCompanyUserByEmployeeUser')) {
+    function getCompanyUserByEmployeeUser($user_id)
+    {
+        $company_id = Employee::where('user_id', $user_id)->value('company_id');
+        return Company::findOrFail($company_id)->user;
+    }
+}
+
+if (!function_exists('getCompany')) {
+    function getCompany($user_id)
+    {
+        return Company::where('user_id', $user_id)->firstOrFail();
+    }
+}
+
+if (!function_exists('getEmployee')) {
+    function getEmployee($user_id)
+    {
+        return Employee::where('user_id', $user_id)->firstOrFail();
+    }
+}
+
+if (!function_exists('getUserByCompanyId')) {
+    function getUserByCompanyId($id)
+    {
+        return Company::where('id', $id)->firstOrFail()->user;
+    }
+}
+
+if (!function_exists('getUserByEmployeeId')) {
+    function getUserByEmployeeId($id)
+    {
+        return Employee::where('id', $id)->firstOrFail()->user;
+    }
+}
+
+if (!function_exists('strSlug')) {
+    function strSlug($name)
+    {
+        return Str::slug($name);
+    }
+}
+
+if (!function_exists('redirect_to')) {
+    function redirect_to($name)
+    {
+        return redirect()->route($name);
+    }
+}
+
+if (!function_exists('addDays')) {
+    function addDays($date, $days, $format = 'Y-m-d')
+    {
+        $date = Carbon::createFromFormat($format, $date);
+        $daysToAdd = $days;
+        return $date->addDays($daysToAdd)->format($format);
+    }
+}
+
+if (!function_exists('formatDateTime')) {
+    function formatDateTime($date, $format = 'Y-m-d')
+    {
+        return Carbon::createFromFormat($format, $date);
+    }
+}
+
+if (!function_exists('changeCurrentYear')) {
+    function changeCurrentYear($date, $format = 'Y-m-d')
+    {
+        return Carbon::parse($date)->year(now()->format('Y'))->format($format);
+    }
+}
+
+if (!function_exists('getHolidays')) {
+    function getHolidays($country_code = 'bd')
+    {
+        $api = config('kodebazar.google_api');
+        $calendar_api = "https://www.googleapis.com/calendar/v3/calendars/en.$country_code%23holiday%40group.v.calendar.google.com/events?key=$api";
+
+        $response = Http::get($calendar_api);
+        $holidays_list = $response->json()['items'];
+
+        $current_year_holidays = [];
+
+        foreach ($holidays_list as $holiday) {
+            if (currentYearData($holiday['start']['date'])) {
+                $current_year_holidays[] = [
+                    'title' => $holiday['summary'],
+                    'start' => $holiday['start']['date'],
+                    'end' => subDays($holiday['end']['date'])
+                ];
+            }
         }
-    } else {
-        $data = Setting::first();
-    }
 
-    if ($append) {
-        $data = $data->makeHidden(['logo_image_url', 'logo_image2_url', 'favicon_image_url']);
+        return $current_year_holidays;
     }
-
-    return $data;
 }
 
-function sendSms($provider, $to, $message)
-{
-    if ($provider == 'nexmo') {
-        try {
-            $basic  = new Basic(config('kodebazar.nexmo_key'), config('kodebazar.nexmo_secret'));
-            $client = new NexmoClient($basic);
+if (!function_exists('currentYearData')) {
+    function currentYearData($data, $format = 'Y-m-d')
+    {
+        $date = Carbon::createFromFormat($format, $data)->format('Y');
 
-            $message = $client->message()->send([
-                'to' => $to,
-                'from' => config('kodebazar.nexmo_from_name'),
-                'text' => $message
-            ]);
-        } catch (Exception $e) {
-            dd("Error: " . $e->getMessage());
+        return $date == now()->format('Y') ? 1 : 0;
+    }
+}
+
+if (!function_exists('translations')) {
+    function translations($json)
+    {
+        if (!file_exists($json)) {
+            return [];
         }
-    } else if ($provider == 'twilio') {
-        try {
-            $account_sid = config('kodebazar.twilio_secret');
-            $auth_token = config('kodebazar.twilio_token');
-            $twilio_number = config('kodebazar.twilio_from');
-
-            $client = new TwilioClient($account_sid, $auth_token);
-            $client->messages->create($to, [
-                'from' => $twilio_number,
-                'body' => $message
-            ]);
-        } catch (Exception $e) {
-            dd("Error: " . $e->getMessage());
-        }
+        return json_decode(file_get_contents($json), true);
     }
 }
 
-function setEnv($key, $value)
-{
-    if ($key && $value) {
-        $env = new Env();
-        $env->setValue($key, $value);
-    }
-
-    if (file_exists(App::getCachedConfigPath())) {
-        Artisan::call("config:cache");
+if (!function_exists('translateIt')) {
+    function translateIt(String $text, $code)
+    {
+        return GoogleTranslate::trans($text, $code, 'en');
     }
 }
 
-function checkSetEnv($key, $value)
-{
-    if ((env($key) != $value)) {
-        setEnv($key, $value);
-    }
-}
-
-function metaContent($page)
-{
-    return Seo::where('page_slug', $page)->first();
-}
-
-function importHolidays($company_id, $country_code)
-{
-    try {
-        $holidays = getHolidays($country_code);
-    } catch (\Throwable $th) {
-        // throw $th;
-    }
-
-    if (isset($holidays) && count($holidays)) {
-        for ($i = 0; $i < count($holidays); $i++) {
-            $holiday_data[] = [
-                'company_id' => $company_id,
-                'title' => $holidays[$i]['title'],
-                'start' => $holidays[$i]['start'],
-                'end' => $holidays[$i]['end'],
-                'days' => diffBetweenDays($holidays[$i]['start'], $holidays[$i]['end']),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+if (!function_exists('getAdminTheme')) {
+    function getAdminTheme()
+    {
+        if (!session()->has('theme')) {
+            $theme = Theme::first();
+            session(['theme' => $theme]);
         }
 
-        $holiday_chunks = array_chunk($holiday_data, ceil(count($holiday_data) / 3));
-
-        foreach ($holiday_chunks as $country) {
-            Holiday::insert($country);
-        }
+        return session('theme');
     }
 }
 
-function diffBetweenDays($start_date, $end_date)
-{
-    $days = CarbonPeriod::since($start_date)->days(1)->until($end_date);
-    return count($days);
+if (!function_exists('storeCompanyCurrentSubscription')) {
+    function storeCompanyCurrentSubscription()
+    {
+        session()->forget('current_subscription');
 
-    // $start_date = Carbon::parse(date('Y-m-d', strtotime($start_date)));
-    // $end_date = Carbon::parse(date('Y-m-d', strtotime($end_date)));
+        if (auth()->check() && auth()->user()->role == 'company') {
+            if (!function_exists('get_file_size')) {
+                $subscription = currentCompany()->subscription->load(['plan' => function ($query) {
+                    $query->with('planFeatures');
+                }]) ?? [];
 
-    // return $start_date->diffInDays($end_date);
-}
-
-function daysPeriods($start_date, $end_date)
-{
-    $days_periods = CarbonPeriod::create($start_date, $end_date)->map(fn ($date) => $date->toDateString());
-    return iterator_to_array($days_periods);
-}
-
-function subDays($date, $days = 1, $format = 'Y-m-d')
-{
-    return Carbon::parse($date)->subDay($days)->format($format);
-}
-
-function formatTime($date, $format = 'Y-m-d')
-{
-    return Carbon::parse($date)->format($format);
-}
-
-function weekly_holidays($company_holidays)
-{
-    $week_days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-
-    $weekly_holidays = [];
-
-    if ($week_days && $company_holidays) {
-        foreach ($week_days as $week_day) {
-            if (!$company_holidays->$week_day) {
-                $weekly_holidays[] = $week_day;
+                session(['current_subscription' => $subscription]);
             }
         }
     }
-
-    return $weekly_holidays;
 }
 
-function official_holidays($company_id ,$start_date, $end_date){
-    $holidays = [];
-    $holidays_between_days = Holiday::where('company_id', $company_id)
+if (!function_exists('getCurrentSubscription')) {
+    function getCurrentSubscription()
+    {
+        // session()->forget('current_subscription');
+        if (auth()->check() && auth()->user()->role == 'company') {
+            if (!session()->has('current_subscription')) {
+                storeCompanyCurrentSubscription();
+            }
+
+            return session('current_subscription');
+        }
+    }
+}
+
+if (!function_exists('getCurrentSubscriptionFeatures')) {
+    function getCurrentSubscriptionFeatures()
+    {
+        return getCurrentSubscription()->plan->planFeatures ?? [];
+    }
+}
+
+if (!function_exists('currencyConversion')) {
+    function currencyConversion($amount, $from = null, $to = null, $round = 2)
+    {
+        $from = $from ?? config('kodebazar.currency');
+        $to = $to ?? 'USD';
+
+        return Currency::convert()
+            ->from($from)
+            ->to($to)
+            ->amount($amount)
+            ->round($round)
+            ->get();
+    }
+}
+
+if (!function_exists('checkMailConfig')) {
+    function checkMailConfig()
+    {
+        $status = config('mail.mailers.smtp.transport') && config('mail.mailers.smtp.host') && config('mail.mailers.smtp.port') && config('mail.mailers.smtp.username') && config('mail.mailers.smtp.password') && config('mail.mailers.smtp.encryption') && config('mail.from.address') && config('mail.from.name');
+
+        return $status ? 1 : 0;
+    }
+}
+
+if (!function_exists('setting')) {
+    function setting($fields = null, $append = false)
+    {
+        if ($fields) {
+            $type = gettype($fields);
+
+            if ($type == 'string') {
+                $data = $append ? Setting::first($fields) : Setting::value($fields);
+            } elseif ($type == 'array') {
+                $data = Setting::first($fields);
+            }
+        } else {
+            $data = Setting::first();
+        }
+
+        if ($append) {
+            $data = $data->makeHidden(['logo_image_url', 'logo_image2_url', 'favicon_image_url']);
+        }
+
+        return $data;
+    }
+}
+
+if (!function_exists('sendSms')) {
+    function sendSms($provider, $to, $message)
+    {
+        if ($provider == 'nexmo') {
+            try {
+                $basic  = new Basic(config('kodebazar.nexmo_key'), config('kodebazar.nexmo_secret'));
+                $client = new NexmoClient($basic);
+
+                $message = $client->message()->send([
+                    'to' => $to,
+                    'from' => config('kodebazar.nexmo_from_name'),
+                    'text' => $message
+                ]);
+            } catch (Exception $e) {
+                dd("Error: " . $e->getMessage());
+            }
+        } else if ($provider == 'twilio') {
+            try {
+                $account_sid = config('kodebazar.twilio_secret');
+                $auth_token = config('kodebazar.twilio_token');
+                $twilio_number = config('kodebazar.twilio_from');
+
+                $client = new TwilioClient($account_sid, $auth_token);
+                $client->messages->create($to, [
+                    'from' => $twilio_number,
+                    'body' => $message
+                ]);
+            } catch (Exception $e) {
+                dd("Error: " . $e->getMessage());
+            }
+        }
+    }
+}
+
+if (!function_exists('setEnv')) {
+    function setEnv($key, $value)
+    {
+        if ($key && $value) {
+            $env = new Env();
+            $env->setValue($key, $value);
+        }
+
+        if (file_exists(App::getCachedConfigPath())) {
+            Artisan::call("config:cache");
+        }
+    }
+}
+
+if (!function_exists('checkSetEnv')) {
+    function checkSetEnv($key, $value)
+    {
+        if ((env($key) != $value)) {
+            setEnv($key, $value);
+        }
+    }
+}
+
+if (!function_exists('metaContent')) {
+    function metaContent($page)
+    {
+        return Seo::where('page_slug', $page)->first();
+    }
+}
+
+if (!function_exists('importHolidays')) {
+    function importHolidays($company_id, $country_code)
+    {
+        try {
+            $holidays = getHolidays($country_code);
+        } catch (\Throwable $th) {
+            // throw $th;
+        }
+
+        if (isset($holidays) && count($holidays)) {
+            for ($i = 0; $i < count($holidays); $i++) {
+                $holiday_data[] = [
+                    'company_id' => $company_id,
+                    'title' => $holidays[$i]['title'],
+                    'start' => $holidays[$i]['start'],
+                    'end' => $holidays[$i]['end'],
+                    'days' => diffBetweenDays($holidays[$i]['start'], $holidays[$i]['end']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+
+            $holiday_chunks = array_chunk($holiday_data, ceil(count($holiday_data) / 3));
+
+            foreach ($holiday_chunks as $country) {
+                Holiday::insert($country);
+            }
+        }
+    }
+}
+
+if (!function_exists('diffBetweenDays')) {
+    function diffBetweenDays($start_date, $end_date)
+    {
+        $days = CarbonPeriod::since($start_date)->days(1)->until($end_date);
+        return count($days);
+
+        // $start_date = Carbon::parse(date('Y-m-d', strtotime($start_date)));
+        // $end_date = Carbon::parse(date('Y-m-d', strtotime($end_date)));
+
+        // return $start_date->diffInDays($end_date);
+    }
+}
+
+if (!function_exists('daysPeriods')) {
+    function daysPeriods($start_date, $end_date)
+    {
+        $days_periods = CarbonPeriod::create($start_date, $end_date)->map(fn ($date) => $date->toDateString());
+        return iterator_to_array($days_periods);
+    }
+}
+
+if (!function_exists('subDays')) {
+    function subDays($date, $days = 1, $format = 'Y-m-d')
+    {
+        return Carbon::parse($date)->subDay($days)->format($format);
+    }
+}
+
+if (!function_exists('formatTime')) {
+    function formatTime($date, $format = 'Y-m-d')
+    {
+        return Carbon::parse($date)->format($format);
+    }
+}
+
+if (!function_exists('weekly_holidays')) {
+    function weekly_holidays($company_holidays)
+    {
+        $week_days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+
+        $weekly_holidays = [];
+
+        if ($week_days && $company_holidays) {
+            foreach ($week_days as $week_day) {
+                if (!$company_holidays->$week_day) {
+                    $weekly_holidays[] = $week_day;
+                }
+            }
+        }
+
+        return $weekly_holidays;
+    }
+}
+
+if (!function_exists('official_holidays')) {
+    function official_holidays($company_id, $start_date, $end_date)
+    {
+        $holidays = [];
+        $holidays_between_days = Holiday::where('company_id', $company_id)
             ->whereDate('start', '>=', $start_date)
             ->whereDate('end', '<=', $end_date)
-            ->get(['start','end']);
+            ->get(['start', 'end']);
 
-    foreach ($holidays_between_days as $holiday) {
-        $holidays = array_merge($holidays, iterator_to_array(CarbonPeriod::create($holiday->start, $holiday->end)->map(fn ($date) => $date->toDateString())));
-    }
-
-    $holidays = array_values(array_unique($holidays));
-
-    return $holidays;
-}
-
-function sumWeekendDays($days_periods,$weekly_holidays){
-    $total_days = 0;
-
-    foreach ($days_periods as $day) {
-        $day_name = mb_strtolower(Carbon::parse($day)->format('l'));
-
-        if (in_array($day_name, $weekly_holidays)) {
-            $total_days++;
+        foreach ($holidays_between_days as $holiday) {
+            $holidays = array_merge($holidays, iterator_to_array(CarbonPeriod::create($holiday->start, $holiday->end)->map(fn ($date) => $date->toDateString())));
         }
-    }
 
-    return $total_days;
+        $holidays = array_values(array_unique($holidays));
+
+        return $holidays;
+    }
 }
 
-function sumOfficialHolidays($days_periods,$holidays){
-    $total_days = 0;
+if (!function_exists('sumWeekendDays')) {
+    function sumWeekendDays($days_periods, $weekly_holidays)
+    {
+        $total_days = 0;
 
-    foreach ($days_periods as $day) {
-        if (in_array($day, $holidays)) {
-            $total_days++;
+        foreach ($days_periods as $day) {
+            $day_name = mb_strtolower(Carbon::parse($day)->format('l'));
+
+            if (in_array($day_name, $weekly_holidays)) {
+                $total_days++;
+            }
         }
+
+        return $total_days;
     }
-
-    return $total_days;
 }
 
-function sumDaysBetweenDates($company_id, $start_date, $end_date){
-    $start_date = $start_date;
-    $end_date = $end_date;
-    $days_periods = daysPeriods($start_date, $end_date);
-    $total_days = count($days_periods);
+if (!function_exists('sumOfficialHolidays')) {
+    function sumOfficialHolidays($days_periods, $holidays)
+    {
+        $total_days = 0;
 
-    // Holidays
-    $holidays = official_holidays($company_id,$start_date, $end_date);
-    $official_holidays = sumOfficialHolidays($days_periods, $holidays);
+        foreach ($days_periods as $day) {
+            if (in_array($day, $holidays)) {
+                $total_days++;
+            }
+        }
 
-    // Weekly Off days
-    $company_holidays = WorkingDay::where('company_id', $company_id)->first();
-    $weekly_holidays = weekly_holidays($company_holidays);
-    $weekend_days = sumWeekendDays($days_periods, $weekly_holidays);
-
-    return [
-        'days_count' => $total_days,
-        'official_holidays_count' => $official_holidays,
-        'weekend_days_count' => $weekend_days,
-        'final_days_count' => $total_days - $official_holidays - $weekend_days,
-    ];
+        return $total_days;
+    }
 }
 
-function sumFinalDays($company_id, $start_date, $end_date){
-    $start_date = $start_date;
-    $end_date = $end_date;
-    $days_periods = daysPeriods($start_date, $end_date);
-    $total_days = count($days_periods);
+if (!function_exists('sumDaysBetweenDates')) {
+    function sumDaysBetweenDates($company_id, $start_date, $end_date)
+    {
+        $start_date = $start_date;
+        $end_date = $end_date;
+        $days_periods = daysPeriods($start_date, $end_date);
+        $total_days = count($days_periods);
 
-    // Holidays
-    $holidays = official_holidays($company_id,$start_date, $end_date);
-    $official_holidays = sumOfficialHolidays($days_periods, $holidays);
+        // Holidays
+        $holidays = official_holidays($company_id, $start_date, $end_date);
+        $official_holidays = sumOfficialHolidays($days_periods, $holidays);
 
-    // Weekly Off days
-    $company_holidays = WorkingDay::where('company_id', $company_id)->first();
-    $weekly_holidays = weekly_holidays($company_holidays);
-    $weekend_days = sumWeekendDays($days_periods, $weekly_holidays);
+        // Weekly Off days
+        $company_holidays = WorkingDay::where('company_id', $company_id)->first();
+        $weekly_holidays = weekly_holidays($company_holidays);
+        $weekend_days = sumWeekendDays($days_periods, $weekly_holidays);
 
-    return $total_days - $official_holidays - $weekend_days;
+        return [
+            'days_count' => $total_days,
+            'official_holidays_count' => $official_holidays,
+            'weekend_days_count' => $weekend_days,
+            'final_days_count' => $total_days - $official_holidays - $weekend_days,
+        ];
+    }
+}
+
+if (!function_exists('sumFinalDays')) {
+    function sumFinalDays($company_id, $start_date, $end_date)
+    {
+        $start_date = $start_date;
+        $end_date = $end_date;
+        $days_periods = daysPeriods($start_date, $end_date);
+        $total_days = count($days_periods);
+
+        // Holidays
+        $holidays = official_holidays($company_id, $start_date, $end_date);
+        $official_holidays = sumOfficialHolidays($days_periods, $holidays);
+
+        // Weekly Off days
+        $company_holidays = WorkingDay::where('company_id', $company_id)->first();
+        $weekly_holidays = weekly_holidays($company_holidays);
+        $weekend_days = sumWeekendDays($days_periods, $weekly_holidays);
+
+        return $total_days - $official_holidays - $weekend_days;
+    }
 }

@@ -55,10 +55,8 @@
                             <ErrorMessage :name="form.errors.email"/>
                         </div>
                         <div class="form-group">
-                            <Label :name="__('Country')">
-                                <InfoTip title="If you change country, your holiday data will change"/>
-                            </Label>
-                            <select v-model="form.country" class="form-control" :class="{'is-invalid':form.errors.country}">
+                            <Label :name="__('Country')"/>
+                            <select @change="changeCountry" v-model="form.country" class="form-control" :class="{'is-invalid':form.errors.country}">
                                 <option value="" class="d-none">{{ __('Select Country') }}</option>
                                 <option :value="country.id" v-for="country in countries" :key="country.id">
                                     {{ country.name }}
@@ -66,7 +64,13 @@
                             </select>
                             <ErrorMessage :name="form.errors.country"/>
                         </div>
-                        <button :disabled="form.processing" type="submit" class="btn btn-primary">
+                        <div class="icheck-primary" v-if="showChangeHolidayCheckbox">
+                            <input @change="checkboxChange" v-model="form.change_holidays" type="checkbox" :checked="form.change_holidays" id="holiday">
+                            <label for="holiday" class="ml-2 text-dark">
+                                {{ __('Also Change Holidays ?') }}
+                            </label>
+                        </div>
+                        <button :disabled="form.processing" type="submit" class="btn btn-primary mt-3">
                             <Loading v-if="form.processing"/>
                             <span v-else>
                                 <i class="fa-solid fa-check mr-1"></i>
@@ -165,6 +169,7 @@ export default {
                 email: this.user.email,
                 avatar: null,
                 country: this.user.company ? this.user.company.country_id : "",
+                change_holidays: false,
             }),
 
             passwordForm: this.$inertia.form({
@@ -174,6 +179,7 @@ export default {
             }),
 
             previewImage: this.user.avatar,
+            showChangeHolidayCheckbox: false,
         };
     },
     methods: {
@@ -205,6 +211,13 @@ export default {
                     this.$inertia.delete(route("user.account.delete"));
                 }
             });
+        },
+        changeCountry() {
+            if (this.user.company.country_id == this.form.country) {
+                this.showChangeHolidayCheckbox = false;
+            } else {
+                this.showChangeHolidayCheckbox = true;
+            }
         },
     },
 };

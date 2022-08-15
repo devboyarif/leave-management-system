@@ -41,6 +41,7 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <h5 v-if="holidays.length">Total Holidays - {{ holidays.length }}</h5>
                     <div class="d-flex flex-wrap col-12">
                          <template v-if="holidays && holidays.length">
                             <div v-for="holiday in holidays" :key="holiday.id"
