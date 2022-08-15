@@ -2,7 +2,7 @@
 
     <Head :title="__('All Notification')" />
 
-    <div class="row justify-content-center mt-4">
+    <div class="row justify-content-center pt-4">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">

@@ -2,7 +2,7 @@
 
     <Head :title="__('Report List')" />
 
-    <div class="row justify-content-center mt-4">
+    <div class="row justify-content-center pt-4">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -65,17 +65,13 @@
 
 
 <script>
-    export default {
-        data() {
-            return {
-
-            };
-        },
-        methods: {
-
-        },
-         mounted(){
-            this.checkPagePermission('company')
-        }
-    };
+export default {
+    data() {
+        return {};
+    },
+    methods: {},
+    mounted() {
+        this.checkPagePermission("company");
+    },
+};
 </script>

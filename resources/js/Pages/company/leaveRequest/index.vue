@@ -2,7 +2,7 @@
 
     <Head :title="__('Leave Request List')" />
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center pt-3">
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-0">
@@ -122,7 +122,7 @@ export default {
     },
     components: {
         Pagination,
-        Actions
+        Actions,
     },
     data() {
         return {
@@ -150,9 +150,9 @@ export default {
             return dayjs(date).format("DD MMM, YYYY");
         },
         filteringData() {
-            console.log(this.showFilter)
+            console.log(this.showFilter);
             this.showFilter = !this.showFilter;
-            console.log(this.showFilter)
+            console.log(this.showFilter);
             localStorage.setItem("companyLeaveRequestList", this.showFilter);
         },
         filterData() {
@@ -170,10 +170,13 @@ export default {
             );
         },
     },
-     mounted(){
-        this.checkPagePermission('company')
-        this.showFilter = localStorage.getItem("companyLeaveRequestList") == "true" ? true : false;
-    }
+    mounted() {
+        this.checkPagePermission("company");
+        this.showFilter =
+            localStorage.getItem("companyLeaveRequestList") == "true"
+                ? true
+                : false;
+    },
 };
 </script>
 
