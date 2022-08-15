@@ -1,10 +1,10 @@
 <template>
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="index3.html" class="brand-link">
+        <Link :href="route('dashboard')" class="brand-link">
             <img :src="employeeCompanyUser.avatar" alt="logo"
                 class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-bold">{{ employeeCompanyUser.name }}</span>
-        </a>
+        </Link>
         <div class="sidebar" style="overflow-y: auto;">
 
             <nav class="sidebar-main-nav mt-3">

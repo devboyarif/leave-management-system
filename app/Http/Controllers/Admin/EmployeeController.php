@@ -24,7 +24,7 @@ class EmployeeController extends Controller
         $search = request('search') ?? '';
         $company = request('company') ?? '';
 
-        $employees = Employee::with('user:id,name,email,phone', 'company.user:id,name')
+        $employees = Employee::with('user:id,name,email', 'company.user:id,name')
             ->when($search, function ($query, $search) {
                 $query->whereHas('user', function ($query) use ($search) {
                     $query->where('name', 'LIKE', '%' . $search . '%')
@@ -43,7 +43,7 @@ class EmployeeController extends Controller
                 'name' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $employee->user->name) : $employee->user->name,
                 'email' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $employee->user->email) : $employee->user->email,
                 'avatar' => $employee->user->avatar,
-                'phone' => $employee->user->phone ?? '',
+                'phone' => $employee->phone ?? '',
                 'company' => $employee->company->user->name,
                 'company_id' => $employee->company_id,
             ]);

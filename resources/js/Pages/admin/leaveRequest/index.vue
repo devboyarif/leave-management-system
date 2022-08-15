@@ -2,7 +2,7 @@
 
     <Head :title="__('Company List')" />
 
-    <div class="row justify-content-center" v-if="leaveRequests && leaveRequests.data.length">
+    <div class="row justify-content-center mt-3">
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-0">
@@ -27,25 +27,25 @@
                     </div>
                 </div>
                  <div class="card-body border-bottom d-flex justify-content-between" v-if="showFilter">
-                        <div class=" w-25">
-                            <label>Company</label>
-                            <select class="form-control" v-model="form.company" @change="filterData">
-                                <option value="">{{ __('All') }}</option>
-                                <option :value="company.id" v-for="company in companies" :key="company.id">
-                                    {{ company.user.name }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="ml-auto w-25">
-                            <label>Status</label>
-                            <select class="form-control" v-model="form.status" @change="filterData">
-                                <option value="">{{ __('All') }}</option>
-                                <option value="pending">{{ __('Pending') }}</option>
-                                <option value="approved">{{ __('Approved') }}</option>
-                                <option value="rejected">{{ __('Rejected') }}</option>
-                            </select>
-                        </div>
+                    <div class=" w-25">
+                        <label>Company</label>
+                        <select class="form-control" v-model="form.company" @change="filterData">
+                            <option value="">{{ __('All') }}</option>
+                            <option :value="company.id" v-for="company in companies" :key="company.id">
+                                {{ company.user.name }}
+                            </option>
+                        </select>
                     </div>
+                    <div class="ml-auto w-25">
+                        <label>Status</label>
+                        <select class="form-control" v-model="form.status" @change="filterData">
+                            <option value="">{{ __('All') }}</option>
+                            <option value="pending">{{ __('Pending') }}</option>
+                            <option value="approved">{{ __('Approved') }}</option>
+                            <option value="rejected">{{ __('Rejected') }}</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-valign-middle">
                         <thead>
@@ -78,7 +78,7 @@
                                     <td>
                                         {{ startDate(leaveRequest.start) }} - {{ endDate(leaveRequest.end) }}
 
-                                         (<span class="text-danger ml-1">
+                                        (<span class="text-danger ml-1">
                                         {{ leaveRequest.days }} {{ pluralize(leaveRequest.days, __('Day')) }}
                                     </span>)
 
@@ -89,7 +89,7 @@
                                         </span>
                                     </td>
                                     <td class="d-flex">
-                                       <Actions :leaveRequest="leaveRequest" />
+                                    <Actions :leaveRequest="leaveRequest" />
                                     </td>
                                 </tr>
                             </template>
@@ -100,16 +100,9 @@
                             </tr>
                         </tbody>
                     </table>
-
-                     <!-- Pagination  -->
                     <Pagination :links="leaveRequests.links" />
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row justify-content-center" v-else>
-        <div class="col-12 text-center mt-5 pt-5">
-            <h3>{{ __('No Data Found') }}</h3>
         </div>
     </div>
 </template>

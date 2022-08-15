@@ -1,12 +1,5 @@
 <template>
     <Head :title="__('Admin List')"/>
-    <nav class="main-breadcrumb pt-3">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-            <li class="breadcrumb-item active">Profile Settings</li>
-        </ol>
-    </nav>
 
     <div class="row justify-content-center">
         <div class="col-12">
