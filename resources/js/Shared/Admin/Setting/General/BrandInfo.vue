@@ -1,6 +1,8 @@
 <template>
  <div class="card">
     <div class="card-body">
+         <h6>Brand </h6>
+        <hr>
     <form @submit.prevent="saveData">
         <div class="mb-3 row">
             <div class="col-md-6 form-group">

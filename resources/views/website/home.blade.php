@@ -16,7 +16,7 @@
                         <ul class="ud-hero-buttons mb-5 pb-5">
                             <li>
                                 <a href="{{ $cms->home_banner_button_url }}" rel="nofollow noopener"
-                                     class="ud-main-btn ud-white-btn">
+                                    class="ud-main-btn ud-white-btn">
                                     {{ $cms->home_banner_button_text }}
                                 </a>
                             </li>
@@ -50,11 +50,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach ($features as $feature)
+                    @foreach ($features as $key => $feature)
                         <div class="col-xl-3 col-lg-3 col-sm-6">
                             <div class="ud-single-feature wow fadeInUp" data-wow-delay=".1s">
                                 <div class="ud-feature-icon">
-                                    <i class="{{ $feature->icon }}"></i>
+                                    {{ $key + 1 }}
                                 </div>
                                 <div class="ud-feature-content">
                                     <h3 class="ud-feature-title">{{ $feature->title }}</h3>
@@ -80,7 +80,7 @@
                         <span class="tag">{{ $cms->about_title }}</span>
                         <h2>{{ $cms->about_subtitle }}</h2>
                         <p>
-                           {!! $cms->about_description !!}
+                            {!! $cms->about_description !!}
                         </p>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
                         <div class="ud-contact-title">
                             <span>{{ $cms->contact_title }}</span>
                             <h2>
-                               {{ $cms->contact_subtitle }}
+                                {{ $cms->contact_subtitle }}
                             </h2>
                         </div>
                         <div class="ud-contact-info-wrapper">
