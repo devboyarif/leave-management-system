@@ -26,15 +26,10 @@
                 <div class="card-footer">
                     <div class=" d-flex justify-content-between">
                         <template v-if="subscription.plan_id == plan.id">
-                        <button type="button" class="btn btn-success">
+                        <a :href="route('website.plan.details', plan.slug)" type="button" class="btn btn-success">
                             {{ __('Current Plan') }}
                             <i class="fas fa-arrow-right"></i>
-                        </button>
-                        <button type="submit" class="btn btn-danger w-100-p" v-if="plan.type != 'free'">
-                            {{ __('Cancel Plan') }}
-                            <i class="fas fa-times"></i>
-                        </button>
-
+                        </a>
                         </template>
                         <a v-else :href="route('website.plan.details', plan.slug)" class="btn btn-primary">
                             {{ __('Select Plan') }}
@@ -65,8 +60,8 @@ export default {
             subscription: this.$page.props.current_subscription,
         };
     },
-     mounted(){
-        this.checkPagePermission('company')
-    }
+    mounted() {
+        this.checkPagePermission("company");
+    },
 };
 </script>

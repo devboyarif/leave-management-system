@@ -198,8 +198,7 @@
                         </table>
                     </div>
                      <div class="row justify-content-between">
-                         <button class="btn btn-danger btn-sm" v-if="subscribed_plan.plan && subscribed_plan.plan.type != 'free'">{{ __('Cancel Plan') }}</button>
-                            <button class="btn btn-primary">{{ __('Upgrade Plan') }}</button>
+                            <Link :href="route('company.plan')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>
                        </div>
                 </div>
                 <div class="card-body mx-auto" v-else>
@@ -376,7 +375,7 @@ export default {
                 response.data.recent_approved_requests;
             this.subscribed_plan = response.data.subscribed_plan;
             this.loading = false;
-        }
+        },
     },
     async mounted() {
         await this.loadData();
