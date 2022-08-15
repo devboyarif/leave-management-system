@@ -439,7 +439,7 @@ trait SettingAble
 
     public function getSmsSettings()
     {
-        // $data['vonage_'] = ;
+        $data['vonage_'] = ;
         return 54456456465654;
     }
 }

@@ -53,7 +53,7 @@ return [
     'twilio_token' => env('TWILIO_TOKEN'),
     'twilio_from' => env('TWILIO_FROM'),
 
-    'nexmo_key' => env('NEXMO_KEY'),
-    'nexmo_secret' => env('NEXMO_SECRET'),
-    'nexmo_from_name' => env('NEXMO_FROM_NAME'),
+    'vonage_key' => env('VONAGE_KEY'),
+    'vonage_secret' => env('VONAGE_SECRET'),
+    'vonage_from_name' => env('VONAGE_FROM_NAME'),
 ];

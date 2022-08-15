@@ -33,7 +33,7 @@ class CreateSettingsTable extends Migration
             $table->string('pinterest')->nullable();
 
             // sms
-            $table->enum('default_sms', ['nexmo', 'twilio', 'none'])->default('none');
+            $table->enum('default_sms', ['vonage', 'twilio', 'none'])->default('none');
             $table->timestamps();
         });
     }

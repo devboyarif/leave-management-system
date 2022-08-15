@@ -292,14 +292,14 @@ if (!function_exists('setting')) {
 if (!function_exists('sendSms')) {
     function sendSms($provider, $to, $message)
     {
-        if ($provider == 'nexmo') {
+        if ($provider == 'vonage') {
             try {
-                $basic  = new Basic(config('kodebazar.nexmo_key'), config('kodebazar.nexmo_secret'));
+                $basic  = new Basic(config('kodebazar.vonage_key'), config('kodebazar.vonage_secret'));
                 $client = new NexmoClient($basic);
 
                 $message = $client->message()->send([
                     'to' => $to,
-                    'from' => config('kodebazar.nexmo_from_name'),
+                    'from' => config('kodebazar.vonage_from_name'),
                     'text' => $message
                 ]);
             } catch (Exception $e) {
