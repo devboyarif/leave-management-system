@@ -104,6 +104,11 @@
                             <i class="fa-solid fa-question nav-icon"></i>
                         </template>
                     </NavLink>
+                    <NavLink title="Features" :href="route('features.index')" :active="$page.component == ' admin/others/features'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-key nav-icon"></i>
+                        </template>
+                    </NavLink>
                     <NavLink title="Contact Messages" :href="route('contact.messages')"
                         :active="$page.component == ' admin/others/faq'">
                         <template v-slot:icon>

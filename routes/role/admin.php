@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -96,6 +97,7 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     Route::resource('/posts', BlogController::class);
     Route::resource('/faqs', FaqController::class);
     Route::resource('/testimonials', TestimonialController::class);
+    Route::resource('/features', FeatureController::class);
     Route::get('/contact/messages', [GlobalController::class, 'contactMessages'])->name('contact.messages');
     Route::delete('/contact/message/{message}', [GlobalController::class, 'contactMessageDelete'])->name('contact.messages.destroy');
 
