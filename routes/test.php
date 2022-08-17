@@ -1,12 +1,17 @@
 <?php
 
+use App\Http\Controllers\TestController;
 use Carbon\Carbon;
+use App\Models\Team;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Company;
 use App\Models\Holiday;
 use App\Models\Setting;
 use Twilio\Rest\Client;
+use App\Models\Employee;
 use App\Models\WeekDays;
+use App\Traits\HasAdmin;
 use Carbon\CarbonPeriod;
 use App\Models\WorkingDay;
 use App\Models\LeaveRequest;
@@ -14,7 +19,57 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/testt', [TestController::class, 'index']);
+
 Route::get('/test', function () {
+    // $total_income = currencyConversion(Order::sum('usd_amount'), 'USD', config('kodebazar.currency')) ?? 0;
+    // $total_companies = Company::count();
+    // $total_teams = Team::count();
+    // $total_employees = Employee::count();
+
+    // return [
+    //     'total_income' => $total_income,
+    //     'total_companies' => $total_companies,
+    //     'total_teams' => $total_teams,
+    //     'total_employees' => $total_employees,
+    // ];
+
+    $months = Order::select(
+        \DB::raw('MIN(created_at) AS created_at'),
+        \DB::raw('sum(usd_amount) as `amount`'),
+        \DB::raw("DATE_FORMAT(created_at,'%M') as month")
+    )
+        ->where("created_at", ">", \Carbon\Carbon::now()->startOfYear())
+        ->orderBy('created_at')
+        ->groupBy('month')
+        ->get();
+
+    $amountArray = [];
+    $monthArray = [];
+
+    foreach ($months as $value) {
+        array_push($amountArray, currencyConversion($value->amount, 'USD', config('kodebazar.currency')));
+        array_push($monthArray, $value->month);
+    }
+
+    return ['amount' => $amountArray, 'months' => $monthArray];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

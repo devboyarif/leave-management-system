@@ -60,7 +60,7 @@
                             </template>
                             <tr v-else>
                                 <td colspan="5" class="text-center">
-                                    <h3>{{ __('No Data Found') }}</h3>
+                                    <h6>{{ __('No Data Found') }}</h6>
                                 </td>
                             </tr>
                         </tbody>

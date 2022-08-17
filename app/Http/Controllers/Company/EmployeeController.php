@@ -28,16 +28,16 @@ class EmployeeController extends Controller
 
     public function store(EmployeeCreateRequest $request)
     {
-        return $request;
         // Check if the user is limited to create employees
         if ($this->checkEmployeesLimitation()) {
             session()->flash('error', __('You have reached the maximum number of employees'));
             return back();
         }
 
-        $data = $request->all();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
         $data['role'] = User::ROLE_EMPLOYEE;
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = bcrypt($request->password);
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $request->validate([
@@ -49,7 +49,7 @@ class EmployeeController extends Controller
 
         $user = User::create($data);
 
-        $user->employee()->create([
+       $user->employee()->create([
             'user_id' => $user->id,
             'company_id' => currentCompany()->id,
             'team_id' => $request->team_id,
@@ -74,10 +74,11 @@ class EmployeeController extends Controller
     {
         $user = $employee->user;
 
-        $data = $request->all();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
         $data['role'] = User::ROLE_EMPLOYEE;
         if ($request->password) {
-            $data['password'] = bcrypt($data['password']);
+            $data['password'] = bcrypt($request->password);
         }
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {

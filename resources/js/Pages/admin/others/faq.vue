@@ -13,8 +13,11 @@
                         </button>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" v-if="faqs && faqs.length">
                     <SingleAccordian v-for="faq in faqs" :key="faq.id" :faq="faq" @edit="editData"/>
+                </div>
+                <div class="card-body text-center" v-else>
+                    <h6>{{ __('No Data Found') }}</h6>
                 </div>
             </div>
         </div>

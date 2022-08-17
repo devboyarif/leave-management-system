@@ -121,7 +121,6 @@
 
 <script>
 import Pagination from "../../Shared/Pagination.vue";
-import debounce from "lodash/debounce";
 import InviteEmployeeModal from "../../Shared/Company/Modal/InviteEmployeeModal.vue";
 import CreateEmployeeModal from "../../Shared/Company/Modal/CreateEmployeeModal.vue";
 import EditEmployeeModal from "../../Shared/Company/Modal/EditEmployeeModal.vue";

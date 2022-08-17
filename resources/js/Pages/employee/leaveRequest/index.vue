@@ -2,7 +2,7 @@
 
     <Head :title="__('Leave Requests')" />
 
-    <div class="row justify-content-center" v-if="leaveRequests && leaveRequests.data.length">
+    <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
                  <div class="card-header border-0">
@@ -274,7 +274,7 @@ export default {
     }
 
 
-    
+
 
 };
 </script>

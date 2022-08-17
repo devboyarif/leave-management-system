@@ -68,7 +68,6 @@ class InviteController extends Controller
         $request->validate([
             'name' => 'required|string',
             'password' => 'required|confirmed|min:8',
-            'terms_confirmed' => 'required',
         ]);
 
         $invite = Invite::whereToken(request('token'))->firstOrFail();
