@@ -15,5 +15,4 @@ yarn-error.log
 /.idea
 /.vscode
 /resources/lang/*.json
-!/resources/lang/bn.json
 !/resources/lang/en.json
