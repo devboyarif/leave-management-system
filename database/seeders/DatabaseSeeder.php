@@ -35,7 +35,6 @@ class DatabaseSeeder extends Seeder
             ThemeSeeder::class,
             CountrySeeder::class,
             FeatureSeeder::class,
-            LanguageSeeder::class,
             SettingSeeder::class,
             SeoSeeder::class,
             CmsSeeder::class,

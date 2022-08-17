@@ -31,14 +31,6 @@ class MasterSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        // Leave Type Create
-        $types = [
-            ['name' => 'Casual Leave','color' => '#00D084','balance' => 14],
-            ['name' => 'Paid Leave','color' => '#EB144C','balance' => 14],
-            ['name' => 'Sick Leave','color' => '#FF9F43','balance' => 7],
-        ];
-        LeaveType::create($types);
-
         // Language Create
         Language::create(['name' => 'English', 'code' => 'en','direction' => 'ltr']);
 
