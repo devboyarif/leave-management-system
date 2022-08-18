@@ -35,6 +35,13 @@ class EmployeeController extends Controller
             return back();
         }
 
+        $company = currentCompany();
+
+        if ($company->leaveTypes->count() == 0) {
+            session()->flash('error', 'Please add leave types first');
+            return redirect_to(route('leaveTypes.create'));
+        }
+
         $data['name'] = $request->name;
         $data['email'] = $request->email;
         $data['role'] = User::ROLE_EMPLOYEE;
@@ -49,7 +56,7 @@ class EmployeeController extends Controller
         }
 
         $user = User::create($data);
-        $company = currentCompany();
+
 
        $employee = $user->employee()->create([
             'user_id' => $user->id,

@@ -25,6 +25,13 @@ class InviteController extends Controller
             return back();
         }
 
+        $company = currentCompany();
+
+        if ($company->leaveTypes->count() == 0) {
+            session()->flash('error', 'Please add leave types first');
+            return redirect_to(route('leaveTypes.create'));
+        }
+
         $request->validate([
             'email' => 'required|email',
             'team_id' => 'required|exists:teams,id',
@@ -34,7 +41,7 @@ class InviteController extends Controller
 
         $data = $request->only(['team_id', 'email']);
         $data['token'] = Str::random(60);
-        $data['company_id'] = currentCompany()->id;
+        $data['company_id'] = $company->id;
 
         if (!Invite::whereToken($data['token'])->exists()) {
             $invite = Invite::create($data);

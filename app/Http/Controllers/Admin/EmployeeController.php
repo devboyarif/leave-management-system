@@ -91,6 +91,11 @@ class EmployeeController extends Controller
     {
         $company = Company::findOrFail($request->company_id);
 
+        if ($company->leaveTypes->count() == 0) {
+            session()->flash('error', 'Please add leave types first');
+            return redirect_to(route('leaveTypes.create'));
+        }
+
         // Check if the user is limited to create employees
         if ($this->checkEmployeesLimitation($company)) {
             session()->flash('error', __('You have reached the maximum number of employees'));
