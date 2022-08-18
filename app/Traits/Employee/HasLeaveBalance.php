@@ -23,4 +23,20 @@ trait HasLeaveBalance
 
         return true;
     }
+
+    public function attachLeaveTypeToAllEmployees($company, $leave_type)
+    {
+        $employees = $company->employees;
+
+        foreach ($employees as $employee) {
+            LeaveBalance::create([
+                'employee_id' => $employee->id,
+                'leave_type_id' => $leave_type->id,
+                'total_days' => $leave_type->balance,
+                'used_days' => 0,
+            ]);
+        }
+
+        return true;
+    }
 }

@@ -7,14 +7,15 @@ use App\Models\Company;
 use App\Models\LeaveType;
 use App\Models\LeaveBalance;
 use Illuminate\Http\Request;
+use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
+use App\Traits\Employee\HasLeaveBalance;
 use App\Http\Requests\LeaveTypeSaveRequest;
 use App\Notifications\Employee\NewLeaveTypeAdded;
-use App\Traits\HasSubscription;
 
 class LeaveTypeController extends Controller
 {
-    use HasSubscription;
+    use HasSubscription, HasLeaveBalance;
 
     public function index()
     {
@@ -42,13 +43,16 @@ class LeaveTypeController extends Controller
 
         $company = currentCompany();
 
-        $company->leaveTypes()->create([
+        $leave_type = $company->leaveTypes()->create([
             'name' => $request->name,
             'color' => $request->color,
             'balance' => $request->balance,
             'auto_approve' => $request->auto_approve ? 1 : 0,
             'status' => $request->status ? 1 : 0,
         ]);
+
+        // Create leave balance for the employee
+        $this->attachLeaveTypeToAllEmployees($company, $leave_type);
 
         // Notification for company
         $company->employees->each(function ($employee) {
