@@ -68,6 +68,8 @@ class LeaveRequestController extends Controller
         try {
             $employee = currentEmployee();
             $final_days_count = sumFinalDays($employee->company_id,$request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
+            $leave_type = LeaveType::findOrFail($request->leave_type_id);
+            $status = $leave_type->auto_approve ? 'approved' : 'pending';
 
             LeaveRequest::create([
                 'company_id' => $employee->company_id,
@@ -77,6 +79,7 @@ class LeaveRequestController extends Controller
                 'end' => $request->end,
                 'days' => $final_days_count,
                 'reason' => $request->reason,
+                'status' => $status,
             ]);
 
             // Notification for company
