@@ -82,15 +82,22 @@ class LeaveTypeController extends Controller
 
     public function update(LeaveTypeSaveRequest $request, LeaveType $leaveType)
     {
-        $company = Company::where('user_id', $request->user_id)->firstOrFail();
+        $is_changed_leave_balance = $leaveType->balance != $request->balance;
 
-        $company->leaveTypes()->update([
+        $leaveType->update([
             'name' => $request->name,
             'color' => $request->color,
             'balance' => $request->balance,
             'auto_approve' => $request->auto_approve ? 1 : 0,
             'status' => $request->status ? 1 : 0,
         ]);
+
+        // Update leave balance for the employee
+        if ($is_changed_leave_balance) {
+            $leaveType->leaveBalances()->update([
+                'total_days' => $request->balance,
+            ]);
+        }
 
         session()->flash('success', 'Leave type updated successfully!');
         return redirect_to('leaveTypes.index');

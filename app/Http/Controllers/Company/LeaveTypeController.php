@@ -75,6 +75,7 @@ class LeaveTypeController extends Controller
     public function update(Request $request, LeaveType $leaveType)
     {
         $request->validate(['name' => 'required|string|max:255']);
+        $is_changed_leave_balance = $leaveType->balance != $request->balance;
 
         $leaveType->update([
             'name' => $request->name,
@@ -83,6 +84,13 @@ class LeaveTypeController extends Controller
             'auto_approve' => $request->auto_approve ? 1 : 0,
             'status' => $request->status ? 1 : 0,
         ]);
+
+        // Update leave balance for the employee
+        if ($is_changed_leave_balance) {
+            $leaveType->leaveBalances()->update([
+                'total_days' => $request->balance,
+            ]);
+        }
 
         session()->flash('success', 'Leave type updated successfully!');
         return redirect_to('company.leaveTypes.index');
