@@ -10,6 +10,7 @@ use App\Models\Holiday;
 use App\Models\Setting;
 use Twilio\Rest\Client;
 use App\Models\Employee;
+use App\Models\LeaveBalance;
 use App\Models\WeekDays;
 use App\Traits\HasAdmin;
 use Carbon\CarbonPeriod;
@@ -22,6 +23,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/testt', [TestController::class, 'index']);
 
 Route::get('/test', function () {
+
+    $company = Company::find(1);
+    $leave_types = $company->leaveTypes;
+
+    foreach ($leave_types as $leave_type) {
+        LeaveBalance::create([
+            'employee_id' =>$employee->id,
+            'leave_type_id' => $leave_type->id,
+            'total_days' => $leave_type->balance,
+            'used_days' => 0,
+        ]);
+    }
+
+
+
     // $total_income = currencyConversion(Order::sum('usd_amount'), 'USD', config('kodebazar.currency')) ?? 0;
     // $total_companies = Company::count();
     // $total_teams = Team::count();

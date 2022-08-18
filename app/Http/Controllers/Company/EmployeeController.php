@@ -6,14 +6,15 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
+use App\Traits\Employee\HasLeaveBalance;
 use App\Http\Requests\EmployeeUpdateRequest;
 use App\Http\Requests\Company\EmployeeCreateRequest;
-use App\Traits\HasSubscription;
 
 class EmployeeController extends Controller
 {
-    use HasSubscription;
+    use HasSubscription, HasLeaveBalance;
 
     public function index()
     {
@@ -48,13 +49,17 @@ class EmployeeController extends Controller
         }
 
         $user = User::create($data);
+        $company = currentCompany();
 
-       $user->employee()->create([
+       $employee = $user->employee()->create([
             'user_id' => $user->id,
-            'company_id' => currentCompany()->id,
+            'company_id' => $company->id,
             'team_id' => $request->team_id,
             'phone' => $request->phone ?? '',
         ]);
+
+        // Create leave balance for the employee
+        $this->employeeLeaveBalanceCreate($company->id, $employee->id);
 
         session()->flash('success', 'Employee created successfully!');
         return back();

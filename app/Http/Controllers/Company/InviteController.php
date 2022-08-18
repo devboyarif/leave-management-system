@@ -11,10 +11,11 @@ use App\Http\Controllers\Controller;
 use App\Mail\Company\InviteSendMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Traits\Employee\HasLeaveBalance;
 
 class InviteController extends Controller
 {
-    use HasSubscription;
+    use HasSubscription, HasLeaveBalance;
 
     public function sendInvite(Request $request)
     {
@@ -86,9 +87,8 @@ class InviteController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-
         // create the employee
-        $user->employee()->create([
+        $employee = $user->employee()->create([
             'company_id' => $invite->company_id,
             'team_id' => $invite->team_id,
             'phone' => $invite->phone ?? '',
@@ -96,6 +96,9 @@ class InviteController extends Controller
 
         // mark as accepted the invite
         $invite->update(['status' => Invite::STATUS_ACCEPTED]);
+
+        // Create leave balance for the employee
+        $this->employeeLeaveBalanceCreate($invite->company_id, $employee->id);
 
         // login the user
         if (Auth::attempt(['email' => $user->email, 'password' => $request->password])) {

@@ -44,56 +44,6 @@
             </div>
         </div>
     </div>
-
-    <div class="card-body">
-        <form @submit.prevent="createData">
-            <!-- <div class="input-group mb-3">
-                <input v-model="form.name" type="text" class="form-control" :class="{'is-invalid':form.errors.name}"
-                    :placeholder="__('Full Name')">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-user"></span>
-                    </div>
-                </div>
-                <ErrorMessage :name="form.errors.name" />
-            </div> -->
-            <!-- <div class="input-group mb-3">
-                <input v-model="form.password" type="password" class="form-control" placeholder="Password"
-                    :class="{'is-invalid':form.errors.password}">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
-                    </div>
-                </div>
-                <ErrorMessage :name="form.errors.password" />
-            </div> -->
-            <!-- <div class="input-group mb-3">
-                <input v-model="form.password_confirmation" type="password" class="form-control"
-                    :placeholder="__('Confirm password')" :class="{'is-invalid':form.errors.password_confirmation}">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
-                    </div>
-                </div>
-                <ErrorMessage :name="form.errors.password_confirmation" />
-            </div> -->
-            <!-- <div class="input-group mb-3">
-                  <vue-tel-input v-model="form.phone" mode="international"/>
-            </div> -->
-            <!-- <div class="row">
-                <div class="col-8">
-                    <div class="icheck-primary">
-                        <input v-model="form.terms_confirmed" type="checkbox" id="agreeTerms" name="terms" value="agree">
-                        <label for="agreeTerms" class="ml-2">
-                            {{ __('I agree to the') }} <a href="#">{{ __('terms & condition') }}</a>
-                        </label>
-                    </div>
-                    <ErrorMessage :name="form.errors.terms_confirmed" class="d-block" />
-                </div>
-            </div> -->
-        </form>
-    </div>
-
 </template>
 
 <script>
