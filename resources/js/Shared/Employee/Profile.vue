@@ -54,6 +54,11 @@
                                 class="form-control " placeholder="Enter New Email" :class="{'is-invalid':form.errors.email}">
                             <ErrorMessage :name="form.errors.email"/>
                         </div>
+                        <div class="form-group">
+                            <Label :name="__('Phone Number')" :required="false"/>
+                            <vue-tel-input v-model="form.phone" mode="international"/>
+                            <ErrorMessage :name="form.errors.email"/>
+                        </div>
                         <button :disabled="form.processing" type="submit" class="btn btn-primary">
                             <Loading v-if="form.processing"/>
                             <span v-else>
@@ -121,6 +126,8 @@ import CogIcon from "../Icons/CogIcon.vue";
 import GuardIcon from "../Icons/GuardIcon.vue";
 import NotificationIcon from "../Icons/NotificationIcon.vue";
 import CardIcon from "../Icons/CardIcon.vue";
+import { VueTelInput } from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 
 export default {
     props: {
@@ -135,6 +142,7 @@ export default {
         GuardIcon,
         NotificationIcon,
         CardIcon,
+        VueTelInput
     },
     data() {
         return {
@@ -144,6 +152,7 @@ export default {
                 name: this.user.name,
                 email: this.user.email,
                 avatar: null,
+                phone: this.user.employee ? this.user.employee.phone: '',
             }),
 
             passwordForm: this.$inertia.form({
