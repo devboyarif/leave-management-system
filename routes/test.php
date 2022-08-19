@@ -24,6 +24,10 @@ Route::get('/testt', [TestController::class, 'index']);
 
 Route::get('/test', function () {
 
+    return currentCompany()->subscription->load('plan.planFeatures');
+
+
+
     $company = Company::find(1);
     $leave_types = $company->leaveTypes;
 

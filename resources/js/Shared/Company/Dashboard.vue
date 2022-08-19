@@ -67,6 +67,59 @@
         </div>
         <!-- /.col-md-6 -->
         <div class="col-lg-4">
+        <!-- Currently Subscribed -->
+            <div class="card">
+                <div class="card-header border-0">
+                    <h3 class="card-title">{{ __('Currently Subscribed') }}</h3>
+                </div>
+                <div class="card-body" v-if="!loading">
+                    <div class="d-flex flex-wrap col-12">
+                        <table class="table">
+                            <tbody>
+                                <tr v-if="subscribed_plan.plan">
+                                    <th>{{ __('Plan') }}</th>
+                                    <td>{{ subscribed_plan.plan.name }}</td>
+                                </tr>
+                                <tr v-if="subscribed_plan.plan">
+                                    <th>{{ __('Subscription Type') }}</th>
+                                    <td>
+                                        <span v-if="subscribed_plan.plan.interval == 'custom_days'">
+                                        {{ subscribed_plan.plan.custom_interval_days }} {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
+                                        </span>
+                                        <span v-else class="text-capitalize">{{ subscribed_plan.plan.interval }}</span>
+                                    </td>
+                                </tr>
+                                <tr v-if="subscribed_plan.plan && subscribed_plan.plan.interval != 'lifetime'">
+                                   <th>{{ __('Expiration Remaining') }}</th>
+                                    <td>{{ subscribed_plan.remaining_days }}
+                                    <span v-if="subscribed_plan.remaining_days != 'Lifetime'">
+                                        {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
+                                    </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                   <th width="100%">{{ __('Plan Features') }}</th>
+                                </tr>
+                            </tbody>
+                            <div v-if="subscribed_plan.plan && subscribed_plan.plan.plan_features">
+                                   <Feature name="Unlimited Employees" :checked="!subscribed_plan.plan.plan_features.is_limited_employee"/>
+                                        <Feature name="Max Employees" :checked="true" :value="subscribed_plan.plan.plan_features.is_limited_employee ? subscribed_plan.plan.plan_features.max_employees : '∞'"/>
+                                        <Feature name="Max Teams" :checked="true" :value="subscribed_plan.plan.plan_features.max_teams"/>
+                                        <Feature name="Max Leave Types" :checked="true" :value="subscribed_plan.plan.plan_features.max_leave_types"/>
+                                        <Feature name="Custom Theme Look" :checked="subscribed_plan.plan.plan_features.custom_theme_look"/>
+                            </div>
+                        </table>
+                    </div>
+                     <div class="row justify-content-between">
+                            <Link :href="route('company.plan')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>
+                       </div>
+                </div>
+                <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
+                </div>
+            </div>
+
+            <!-- Pending Request  -->
             <div class="card">
                 <div class="card-header border-0">
                     <h3 class="card-title">{{ __('Pending Request') }}</h3>
@@ -119,6 +172,8 @@
                     <Loading :messageShow="false" size="fa-2x" />
                 </div>
             </div>
+
+            <!-- Recent Approved Leaves -->
             <div class="card">
                 <div class="card-header border-0">
                     <h3 class="card-title">{{ __('Recent Approved Leaves') }}</h3>
@@ -160,46 +215,6 @@
                         </template>
                         <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
                     </div>
-                </div>
-                <div class="card-body mx-auto" v-else>
-                    <Loading :messageShow="false" size="fa-2x" />
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header border-0">
-                    <h3 class="card-title">{{ __('Currently Subscribed') }}</h3>
-                </div>
-                <div class="card-body" v-if="!loading">
-                    <div class="d-flex flex-wrap col-12">
-                        <table class="table">
-                            <tbody>
-                                <tr v-if="subscribed_plan.plan">
-                                    <th>{{ __('Plan') }}</th>
-                                    <td>{{ subscribed_plan.plan.name }}</td>
-                                </tr>
-                                <tr v-if="subscribed_plan.plan">
-                                    <th>{{ __('Subscription Type') }}</th>
-                                    <td>
-                                        <span v-if="subscribed_plan.plan.interval == 'custom_days'">
-                                        {{ subscribed_plan.plan.custom_interval_days }} {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
-                                        </span>
-                                        <span v-else>{{ subscribed_plan.plan.interval }}</span>
-                                    </td>
-                                </tr>
-                                <tr v-if="subscribed_plan.plan && subscribed_plan.plan.interval != 'lifetime'">
-                                   <th>{{ __('Expiration Remaining') }}</th>
-                                    <td>{{ subscribed_plan.remaining_days }}
-                                    <span v-if="subscribed_plan.remaining_days != 'Lifetime'">
-                                        {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
-                                    </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                     <div class="row justify-content-between">
-                            <Link :href="route('company.plan')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>
-                       </div>
                 </div>
                 <div class="card-body mx-auto" v-else>
                     <Loading :messageShow="false" size="fa-2x" />
@@ -283,6 +298,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import CheckIcon from "../Icons/CheckIcon.vue";
 import dayjs from "dayjs";
+import Feature from "../Admin/Plan/Feature.vue";
 
 export default {
     components: {
@@ -290,6 +306,7 @@ export default {
         apexchart: VueApexCharts,
         FullCalendar,
         CheckIcon,
+        Feature,
     },
     data() {
         return {
