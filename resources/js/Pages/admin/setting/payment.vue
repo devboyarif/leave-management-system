@@ -12,32 +12,32 @@
                         <div class="col-12 col-sm-12 col-md-3">
                             <ul class="nav nav-pills flex-column">
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'paypal'}" @click="changeTab('paypal')">Paypal</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'paypal'}" @click="changeTab('paypal')">{{ __('Paypal') }}</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'stripe'}" @click="changeTab('stripe')">Stripe</a>
-                                </li>
-
-                                <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'razorpay'}" @click="changeTab('razorpay')">Razorpay</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'stripe'}" @click="changeTab('stripe')">{{ __('Stripe') }}</a>
                                 </li>
 
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'flutterwave'}" @click="changeTab('flutterwave')">Flutterwave</a>
-                                </li>
-                                <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'mollie'}" @click="changeTab('mollie')">Mollie</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'razorpay'}" @click="changeTab('razorpay')">{{ __('Razorpay') }}</a>
                                 </li>
 
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'paystack'}" @click="changeTab('paystack')">PayStack</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'flutterwave'}" @click="changeTab('flutterwave')">{{ __('Flutterwave') }}</a>
+                                </li>
+                                <li class="nav-item border rounded mb-1">
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'mollie'}" @click="changeTab('mollie')">{{ __('Mollie') }}</a>
                                 </li>
 
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'instamojo'}" @click="changeTab('instamojo')">Instamojo</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'paystack'}" @click="changeTab('paystack')">{{ __('PayStack') }}</a>
+                                </li>
+
+                                <li class="nav-item border rounded mb-1">
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'instamojo'}" @click="changeTab('instamojo')">{{ __('Instamojo') }}</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'midtrans'}" @click="changeTab('midtrans')">Midtrans</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'midtrans'}" @click="changeTab('midtrans')">{{ __('Midtrans') }}</a>
                                 </li>
                             </ul>
                         </div>

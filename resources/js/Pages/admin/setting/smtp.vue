@@ -39,14 +39,14 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <Label :name="__(' Mail Username')" />
+                                    <Label :name="__('Mail Username')" />
                                     <input v-model="form.username" type="text" class="form-control" :class="{'is-invalid':form.errors.username}">
                                     <ErrorMessage :name="form.errors.username" />
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <Label :name="__(' Mail Password')" />
+                                    <Label :name="__('Mail Password')" />
                                     <input v-model="form.password" type="text" class="form-control" :class="{'is-invalid':form.errors.password}">
                                     <ErrorMessage :name="form.errors.password" />
                                 </div>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <Label :name="__(' Mail From Address')" />
+                                    <Label :name="__('Mail From Address')" />
                                     <input v-model="form.from_address" type="email" class="form-control" :class="{'is-invalid':form.errors.from_address}">
                                     <ErrorMessage :name="form.errors.from_address" />
                                 </div>
@@ -95,38 +95,22 @@
                     <h3 class="card-title">{{ __('Send Test Mail') }}</h3>
                 </div>
                 <div class="card-body">
-                     <form @submit.prevent="testMailSend">
-                    <div class="d-flex justify-content-center">
-                         <div class="form-group mx-sm-3 mb-2">
-                                <input v-model="testMailForm.email" type="email" class="form-control mail-address-width" :class="{'is-invalid':testMailForm.errors.email}">
-                                <ErrorMessage :name="testMailForm.errors.email" />
-                            </div>
+                    <form @submit.prevent="testMailSend">
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group mx-sm-3 mb-2">
+                                    <input v-model="testMailForm.email" type="email" class="form-control mail-address-width" :class="{'is-invalid':testMailForm.errors.email}">
+                                    <ErrorMessage :name="testMailForm.errors.email" />
+                                </div>
 
-                            <button @click="testMailSend" :disabled="testMailForm.processing" type="submit" class="btn btn-primary mb-2">
-                                <Loading v-if="testMailForm.processing" message="Sending..." />
-                                <span v-else>
-                                    <i class="fa-solid fa-check mr-1"></i>
-                                    {{ __('Send Email') }}
-                                </span>
-                            </button>
-                        <!-- <div class="form-group mx-sm-3 mb-2">
-                            <input v-model="testMailForm.email" type="email" class="form-control mail-address-width">
+                                <button @click="testMailSend" :disabled="testMailForm.processing" type="submit" class="btn btn-primary mb-2">
+                                    <Loading v-if="testMailForm.processing" message="Sending..." />
+                                    <span v-else>
+                                        <i class="fa-solid fa-check mr-1"></i>
+                                        {{ __('Send Email') }}
+                                    </span>
+                                </button>
                         </div>
-                        <button type="button" class="btn btn-primary mb-2"><i class="far fa-paper-plane"></i>
-                            {{ __('Send Email') }}
-                        </button>
-                        <button @click="testMailSend" :disabled="testMailForm.processing" type="button" class="btn btn-primary">
-                            <Loading v-if="testMailForm.processing" message="Sending..." />
-                            <span v-else>
-                                <i class="fa-solid fa-check mr-1"></i>
-                                {{ __('Send Email') }}
-                            </span>
-                        </button> -->
-
-
-
-                    </div>
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <template>
  <div class="card">
     <div class="card-body">
-        <h6>Twilio Setting</h6>
+        <h6>{{ __('Twilio Setting') }}</h6>
         <hr>
         <form @submit.prevent="saveData('twilio')">
             <div class="form-group">
@@ -42,7 +42,7 @@
 </div>
  <div class="card">
     <div class="card-body">
-        <h6>Vonage Setting</h6>
+        <h6>{{ __('Vonage Setting') }}</h6>
         <hr>
         <form @submit.prevent="saveData('vonage')">
             <div class="form-group">

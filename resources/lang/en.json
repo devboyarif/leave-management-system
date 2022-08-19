@@ -72,6 +72,311 @@
     "Team Create": "Team Create",
     "Team Delete": "Team Delete",
     "Select Team": "Select Team",
+    "Blog": "Blog",
+    "Testimonial": "Testimonial",
+    "Faq": "Faq",
+    "Features": "Features",
+    "Contact Messages": "Contact Messages",
+    "Reports": "Reports",
+    "Quick Actions": "Quick Actions",
+    "Create Plan": "Create Plan",
+    "Create Company": "Create Company",
+    "Create Employee": "Create Employee",
+    "Appearance": "Appearance",
+    "Notification": "Notification",
+    "Profile": "Profile",
+    "Currency": "Currency",
+    "SEO": "SEO",
+    "SMTP": "SMTP",
+    "Payment Gateway": "Payment Gateway",
+    "Brand Information": "Brand Information",
+    "Social Media": "Social Media",
+    "SMS": "SMS",
+    "App Name": "App Name",
+    "App Email": "App Email",
+    "App Contact Number": "App Contact Number",
+    "App Copyright": "App Copyright",
+    "App Location": "App Location",
+    "App Dark Logo": "App Dark Logo",
+    "App Light Logo": "App Light Logo",
+    "App Favicon": "App Favicon",
+    "Preview": "Preview",
+    "Recommended Size": "Recommended Size",
+    "Facebook": "Facebook",
+    "Twitter": "Twitter",
+    "Linkedin": "Linkedin",
+    "Youtube": "Youtube",
+    "Instagram": "Instagram",
+    "Pinterest": "Pinterest",
+    "Twilio Setting": "Twilio Setting",
+    "Twilio Secret": "Twilio Secret",
+    "Twilio Token": "Twilio Token",
+    "Twilio From Number": "Twilio From Number",
+    "Twilio Status": "Twilio Status",
+    "Vonage Setting": "Vonage Setting",
+    "Vonage Key": "Vonage Key",
+    "Vonage Secret": "Vonage Secret",
+    "Vonage From Name": "Vonage From Name",
+    "Vonage Status": "Vonage Status",
+    "Home Page": "Home Page",
+    "About Page": "About Page",
+    "Pricing Page": "Pricing Page",
+    "Contact Page": "Contact Page",
+    "Testimonial Section": "Testimonial Section",
+    "FAQ Section": "FAQ Section",
+    "Terms & Condition Page": "Terms & Condition Page",
+    "Privacy Policy Page": "Privacy Policy Page",
+    "Banner Title": "Banner Title",
+    "Banner Description": "Banner Description",
+    "Banner Button Text": "Banner Button Text",
+    "Banner Button Url": "Banner Button Url",
+    "Banner Button 2 Text": "Banner Button 2 Text",
+    "Banner Button 2 Url": "Banner Button 2 Url",
+    "Feature Title": "Feature Title",
+    "Feature Subtitle": "Feature Subtitle",
+    "Feature Description": "Feature Description",
+    "About Title": "About Title",
+    "About Subtitle": "About Subtitle",
+    "About Description": "About Description",
+    "About Image": "About Image",
+    "Pricing Plan Title": "Pricing Plan Title",
+    "Pricing Plan Description": "Pricing Plan Description",
+    "Contact Title": "Contact Title",
+    "Contact Subtitle": "Contact Subtitle",
+    "Testimonial Title": "Testimonial Title",
+    "Testimonial Subtitle": "Testimonial Subtitle",
+    "Testimonial Description": "Testimonial Description",
+    "FAQ Title": "FAQ Title",
+    "FAQ Subtitle": "FAQ Subtitle",
+    "FAQ Description": "FAQ Description",
+    "Privacy Policy Content": "Privacy Policy Content",
+    "Terms Content": "Terms Content",
+    "Set Default Language": "Set Default Language",
+    "Set Default Currency": "Set Default Currency",
+    "Currency List": "Currency List",
+    "Currency Create": "Currency Create",
+    "Select One": "Select One",
+    "Symbol": "Symbol",
+    "Symbol Position": "Symbol Position",
+    "Admin Theme":"Admin Theme",
+    "Primary Color":"Primary Color",
+    "Hover Color":"Hover Color",
+    "Secondary Color":"Secondary Color",
+    "Success Color":"Success Color",
+    "Info Color":"Info Color",
+    "Warning Color":"Warning Color",
+    "Danger Color":"Danger Color",
+    "Website Theme":"Website Theme",
+    "Body Text Color":"Body Text Color",
+    "Body Heading Color":"Body Heading Color",
+    "Keywords":"Keywords",
+    "Description":"Description",
+    "Mail Settings":"Mail Settings",
+    "Mail Driver":"Mail Driver",
+    "Mail Host":"Mail Host",
+    "Mail Port":"Mail Port",
+    "Mail Username":"Mail Username",
+    "Mail Password":"Mail Password",
+    "Mail Encryption":"Mail Encryption",
+    "Mail From Address":" Mail From Address",
+    "Mail From Name":"Mail From Name",
+    "Send Test Mail":"Send Test Mail",
+
+
+
+
+    "Payment Settings":"Payment Setting",
+    "Paypal":"Paypal",
+    "Stripe":"Stripe",
+    "Razorpay":"Razorpay",
+    "Flutterwave":"Flutterwave",
+    "Mollie":"Mollie",
+    "PayStack":"PayStack",
+    "Instamojo":"Instamojo",
+    "Midtrans":"Midtrans",
+    "Paypal Live Mode":"Paypal Live Mode",
+    "Paypal Client ID":"Paypal Client ID",
+    "Paypal Secret Key":"Paypal Secret Key",
+    "Paypal Client Id":"Paypal Client Id",
+    "Paypal Status":"Paypal Status",
+    "Stripe Key":"Stripe Key",
+    "Stripe Secret":"Stripe Secret",
+    "Stripe Status":"Stripe Status",
+    "Razorpay Key":"Razorpay Key",
+    "Razorpay Secret":"Razorpay Secret",
+    "Razorpay Status":"Razorpay Status",
+    "Flutterwave Key":"Flutterwave Key",
+    "Flutterwave Secret":"Flutterwave Secret",
+    "Flutterwave Secret Hash":"Flutterwave Secret Hash",
+    "Flutterwave Status":"Flutterwave Status",
+    "Mollie Key":"Mollie Key",
+    "Mollie Status":"Mollie Status",
+    "Paystack Key":"Paystack Key",
+    "Paystack Secret":"Paystack Secret",
+    "Paystack Status":"Paystack Status",
+    "Instamojo Key":"Instamojo Key",
+    "Instamojo Secret":"Instamojo Secret",
+    "Instamojo Status":"Instamojo Status",
+    "Midtrans ID":"Midtrans ID",
+    "Midtrans Key":"Midtrans Key",
+    "Midtrans Secret":"Midtrans Secret",
+    "Midtrans Status":"Midtrans Status",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     "Send Request": "Send Request",
     "Accept Request": "Accept Request",
