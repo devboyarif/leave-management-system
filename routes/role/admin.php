@@ -90,7 +90,6 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
         Route::delete('/requested/holiday/reject/{holiday}', 'requestedHolidaysReject')->name('request.holidays.reject');
     });
 
-
     // =========================================================================
     // ===================Others Routes========================================
     // ========================================================================
@@ -177,4 +176,5 @@ Route::controller(GlobalController::class)->group(function () {
     Route::get('/all/countries', 'allCountries')->name('all.countries');
     Route::get('/app/setting', 'appSetting')->name('app.setting');
     Route::get('/userid/wise/company', 'useridWiseCompany')->name('userid.wise.company');
+    Route::get('/language/{language}', 'switchLanguage')->name('language');
 });

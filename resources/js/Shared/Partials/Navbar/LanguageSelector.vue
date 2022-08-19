@@ -23,6 +23,7 @@ export default {
     },
     methods: {
         changeLanguage() {
+            alert("Language changed to " + this.lang);
             this.$inertia.get(route("language", [this.lang]));
         },
     },

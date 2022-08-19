@@ -68,4 +68,11 @@ class GlobalController extends Controller
     {
         return getCompany($request->user_id);
     }
+
+    public function switchLanguage($language)
+    {
+        session()->put('current_lang', $language);
+
+        return back();
+    }
 }
