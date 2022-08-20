@@ -98,17 +98,27 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                   <th width="100%">{{ __('Plan Features') }}</th>
+                                   <th width="40%">{{ __('Plan Features') }}</th>
+                                    <td>
+                                        <Feature :span-text="true" name="Unlimited Employees" :checked="!subscribed_plan.plan.plan_features.is_limited_employee"/>
+                                        <Feature :span-text="true" name="Max Employees" :checked="true" :value="subscribed_plan.plan.plan_features.is_limited_employee ? subscribed_plan.plan.plan_features.max_employees : '∞'"/>
+                                        <Feature :span-text="true" name="Max Teams" :checked="true" :value="subscribed_plan.plan.plan_features.max_teams"/>
+                                        <Feature :span-text="true" name="Max Leave Types" :checked="true" :value="subscribed_plan.plan.plan_features.max_leave_types"/>
+                                        <Feature :span-text="true" name="Custom Theme Look" :checked="subscribed_plan.plan.plan_features.custom_theme_look"/>
+                                    </td>
                                 </tr>
                             </tbody>
-                            <div v-if="subscribed_plan.plan && subscribed_plan.plan.plan_features">
-                                   <Feature name="Unlimited Employees" :checked="!subscribed_plan.plan.plan_features.is_limited_employee"/>
-                                        <Feature name="Max Employees" :checked="true" :value="subscribed_plan.plan.plan_features.is_limited_employee ? subscribed_plan.plan.plan_features.max_employees : '∞'"/>
-                                        <Feature name="Max Teams" :checked="true" :value="subscribed_plan.plan.plan_features.max_teams"/>
-                                        <Feature name="Max Leave Types" :checked="true" :value="subscribed_plan.plan.plan_features.max_leave_types"/>
-                                        <Feature name="Custom Theme Look" :checked="subscribed_plan.plan.plan_features.custom_theme_look"/>
-                            </div>
+
                         </table>
+<!--
+                        <div v-if="subscribed_plan.plan && subscribed_plan.plan.plan_features">
+                            <h4>{{ __('Plan Features') }}</h4>
+                            <Feature name="Unlimited Employees" :checked="!subscribed_plan.plan.plan_features.is_limited_employee"/>
+                            <Feature name="Max Employees" :checked="true" :value="subscribed_plan.plan.plan_features.is_limited_employee ? subscribed_plan.plan.plan_features.max_employees : '∞'"/>
+                            <Feature name="Max Teams" :checked="true" :value="subscribed_plan.plan.plan_features.max_teams"/>
+                            <Feature name="Max Leave Types" :checked="true" :value="subscribed_plan.plan.plan_features.max_leave_types"/>
+                            <Feature name="Custom Theme Look" :checked="subscribed_plan.plan.plan_features.custom_theme_look"/>
+                        </div> -->
                     </div>
                      <div class="row justify-content-between">
                             <Link :href="route('company.plan')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>

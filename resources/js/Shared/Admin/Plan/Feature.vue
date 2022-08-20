@@ -17,6 +17,7 @@
             </h5>
         </div>
         <h5 class="mb-0" v-if="value">{{ value }}</h5>
+        {{ spanText }}
     </div>
 </template>
 
@@ -34,6 +35,10 @@ export default {
         value: {
             type: String,
             required: false,
+        },
+        spanText: {
+            type: Boolean,
+            default: false,
         },
     },
 };
