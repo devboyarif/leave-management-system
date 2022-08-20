@@ -11,10 +11,11 @@ use App\Http\Controllers\Controller;
 use App\Mail\Company\InviteSendMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Traits\Employee\HasLeaveBalance;
 
 class InviteController extends Controller
 {
-    use HasSubscription;
+    use HasSubscription, HasLeaveBalance;
 
     public function sendInvite(Request $request)
     {
@@ -22,6 +23,13 @@ class InviteController extends Controller
         if ($this->checkEmployeesLimitation()) {
             session()->flash('error', __('You have reached the maximum number of employees'));
             return back();
+        }
+
+        $company = currentCompany();
+
+        if ($company->leaveTypes->count() == 0) {
+            session()->flash('error', 'Please add leave types first');
+            return redirect_to(route('leaveTypes.create'));
         }
 
         $request->validate([
@@ -33,7 +41,7 @@ class InviteController extends Controller
 
         $data = $request->only(['team_id', 'email']);
         $data['token'] = Str::random(60);
-        $data['company_id'] = currentCompany()->id;
+        $data['company_id'] = $company->id;
 
         if (!Invite::whereToken($data['token'])->exists()) {
             $invite = Invite::create($data);
@@ -68,7 +76,6 @@ class InviteController extends Controller
         $request->validate([
             'name' => 'required|string',
             'password' => 'required|confirmed|min:8',
-            'terms_confirmed' => 'required',
         ]);
 
         $invite = Invite::whereToken(request('token'))->firstOrFail();
@@ -87,9 +94,8 @@ class InviteController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-
         // create the employee
-        $user->employee()->create([
+        $employee = $user->employee()->create([
             'company_id' => $invite->company_id,
             'team_id' => $invite->team_id,
             'phone' => $invite->phone ?? '',
@@ -97,6 +103,9 @@ class InviteController extends Controller
 
         // mark as accepted the invite
         $invite->update(['status' => Invite::STATUS_ACCEPTED]);
+
+        // Create leave balance for the employee
+        $this->employeeLeaveBalanceCreate($invite->company_id, $employee->id);
 
         // login the user
         if (Auth::attempt(['email' => $user->email, 'password' => $request->password])) {

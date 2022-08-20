@@ -3,7 +3,7 @@
         <div class="card-body">
             <form @submit.prevent="updateData">
                 <div class="form-group">
-                    <Label :name="__('Privacy Policy Content')" />
+                    <Label :name="__('Terms Content')" />
                      <QuillEditor theme="snow" v-model:content="form.terms_description" contentType="html" class="h-250"/>
                     <ErrorMessage :name="form.errors.terms_description" />
                 </div>

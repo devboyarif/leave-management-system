@@ -1,7 +1,7 @@
 <template>
  <div class="card">
     <div class="card-body">
-        <h6>Social Media</h6>
+        <h6>{{ __('Social Media') }}</h6>
         <hr>
         <form @submit.prevent="saveData">
             <div class="mb-3 row">

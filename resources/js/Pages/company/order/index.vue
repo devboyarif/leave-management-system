@@ -168,14 +168,14 @@
                                             </td>
                                         </tr>
                                         <tr v-if="form.plan.plan_features">
-                                            <td width="40%">{{ __('Plan Features') }}</td>
-                                            <td width="60%">
-                                               <Feature name="Unlimited Employees" :checked="!form.plan.plan_features.is_limited_employee"/>
-                                                <Feature name="Max Employees" :checked="true" :value="form.plan.plan_features.is_limited_employee ? form.plan.plan_features.max_employees : '∞'"/>
-                                                <Feature name="Max Teams" :checked="true" :value="form.plan.plan_features.max_teams"/>
-                                                <Feature name="Max Leave Types" :checked="true" :value="form.plan.plan_features.max_leave_types"/>
-                                                <Feature name="Custom Theme Look" :checked="form.plan.plan_features.custom_theme_look"/>
-                                            </td>
+                                                <td width="40%">{{ __('Plan Features') }}</td>
+                                                <td width="60%">
+                                                <Feature name="Unlimited Employees" :checked="!form.plan.plan_features.is_limited_employee"/>
+                                                    <Feature name="Max Employees" :checked="true" :value="form.plan.plan_features.is_limited_employee ? form.plan.plan_features.max_employees : '∞'"/>
+                                                    <Feature name="Max Teams" :checked="true" :value="form.plan.plan_features.max_teams"/>
+                                                    <Feature name="Max Leave Types" :checked="true" :value="form.plan.plan_features.max_leave_types"/>
+                                                    <Feature name="Custom Theme Look" :checked="form.plan.plan_features.custom_theme_look"/>
+                                                </td>
                                         </tr>
                                     </tbody>
                                 </table>

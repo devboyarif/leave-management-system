@@ -16,8 +16,9 @@
                     <i class="fa-solid fa-globe fa-2"></i>
                 </a>
             </li>
-            Url - {{ $page.url }} <br>
-            Component - {{ $page.component }} <br> -->
+            <br> -->
+             Url - {{ $page.url }} <br>
+            Component - {{ $page.component }}
         </ul>
 
         <!-- Right navbar links -->

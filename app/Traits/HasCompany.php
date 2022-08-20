@@ -88,6 +88,6 @@ trait HasCompany
 
     public function companyDashboardSubscribedPlan()
     {
-        return currentCompany()->subscription->load('plan');
+        return currentCompany()->subscription->load('plan.planFeatures');
     }
 }

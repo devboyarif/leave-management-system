@@ -13,7 +13,7 @@ trait HasAdmin
 {
     public function adminDashboardSummary()
     {
-        $total_income = currencyConversion(Order::sum('usd_amount'), 'USD', config('kodebazar.currency'));
+        $total_income = currencyConversion(Order::sum('usd_amount'), 'USD', config('kodebazar.currency')) ?? 0;
         $total_companies = Company::count();
         $total_teams = Team::count();
         $total_employees = Employee::count();
@@ -38,7 +38,7 @@ trait HasAdmin
             'id' => $item->id,
             'name' => $item->user->name,
             'usd_amount' => $item->expense_amount,
-            'amount' => currencyConversion($item->expense_amount, 'USD', config('kodebazar.currency')),
+            'amount' => $item->expense_amount ? currencyConversion($item->expense_amount, 'USD', config('kodebazar.currency')) : 0,
         ]);
 
         $amount = $expense_per_company->pluck('amount')->toArray();

@@ -76,9 +76,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="leaveTypeBalance in leaveTypeBalances" :key="leaveTypeBalance.id">
-                                            <td>{{ leaveTypeBalance.leave_type.name }}</td>
-                                            <td>{{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</td>
+                                        <template v-if="leaveTypeBalances && leaveTypeBalances.length">
+                                            <tr v-for="leaveTypeBalance in leaveTypeBalances" :key="leaveTypeBalance.id">
+                                                <td>{{ leaveTypeBalance.leave_type.name }}</td>
+                                                <td>{{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</td>
+                                            </tr>
+                                        </template>
+                                         <tr v-else>
+                                            <td colspan="5" class="text-center">
+                                                <h6>{{ __('No Data Found') }}</h6>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

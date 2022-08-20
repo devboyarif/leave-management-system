@@ -10,17 +10,17 @@
                         <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded"
                             :class="{'active': currentTab == 'brand_info'}" @click="changeTab('brand_info')">
                             <RingIcon class="mr-2" />
-                            Brand Information
+                            {{ __('Brand Information') }}
                         </a>
                         <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded"
                             :class="{'active': currentTab == 'social_media'}" @click="changeTab('social_media')">
                             <TwitterIcon class="mr-2" />
-                            Social Media
+                            {{ __('Social Media') }}
                         </a>
                         <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded"
                             :class="{'active': currentTab == 'sms'}" @click="changeTab('sms')">
                             <PhoneIcon class="mr-2" />
-                            SMS
+                            {{ __('SMS') }}
                         </a>
                     </nav>
                 </div>

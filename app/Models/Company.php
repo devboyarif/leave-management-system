@@ -19,6 +19,7 @@ class Company extends Model
     protected static function booted()
     {
         static::created(function ($company) {
+            // Attach subscription to company
             $company->subscription()->create([
                 'plan_id'  => 1,
                 'expired_date' => now()->addMonth(),
@@ -27,6 +28,8 @@ class Company extends Model
             $company->subscriptionHistory()->create([
                 'plan_id'  => 1,
             ]);
+
+            // Attach working days to company
             $company->workingDays()->create([
                 'monday' => true,
                 'tuesday' => true,
@@ -35,6 +38,18 @@ class Company extends Model
                 'friday' => true,
                 'saturday' => true,
                 'sunday' => false
+            ]);
+
+            // Attach leave types to company
+            $company->leaveTypes()->create([
+                'name' => 'Casual Leave',
+                'color' => '#00D084',
+                'balance' => 14,
+            ]);
+            $company->leaveTypes()->create([
+                'name' => 'Paid Leave',
+                'color' => '#EB144C',
+                'balance' => 14,
             ]);
         });
     }

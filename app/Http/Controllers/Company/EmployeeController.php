@@ -6,14 +6,15 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
+use App\Traits\Employee\HasLeaveBalance;
 use App\Http\Requests\EmployeeUpdateRequest;
 use App\Http\Requests\Company\EmployeeCreateRequest;
-use App\Traits\HasSubscription;
 
 class EmployeeController extends Controller
 {
-    use HasSubscription;
+    use HasSubscription, HasLeaveBalance;
 
     public function index()
     {
@@ -28,16 +29,23 @@ class EmployeeController extends Controller
 
     public function store(EmployeeCreateRequest $request)
     {
-        return $request;
         // Check if the user is limited to create employees
         if ($this->checkEmployeesLimitation()) {
             session()->flash('error', __('You have reached the maximum number of employees'));
             return back();
         }
 
-        $data = $request->all();
+        $company = currentCompany();
+
+        if ($company->leaveTypes->count() == 0) {
+            session()->flash('error', 'Please add leave types first');
+            return redirect_to(route('leaveTypes.create'));
+        }
+
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
         $data['role'] = User::ROLE_EMPLOYEE;
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = bcrypt($request->password);
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $request->validate([
@@ -49,12 +57,16 @@ class EmployeeController extends Controller
 
         $user = User::create($data);
 
-        $user->employee()->create([
+
+       $employee = $user->employee()->create([
             'user_id' => $user->id,
-            'company_id' => currentCompany()->id,
+            'company_id' => $company->id,
             'team_id' => $request->team_id,
             'phone' => $request->phone ?? '',
         ]);
+
+        // Create leave balance for the employee
+        $this->employeeLeaveBalanceCreate($company->id, $employee->id);
 
         session()->flash('success', 'Employee created successfully!');
         return back();
@@ -74,10 +86,11 @@ class EmployeeController extends Controller
     {
         $user = $employee->user;
 
-        $data = $request->all();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
         $data['role'] = User::ROLE_EMPLOYEE;
         if ($request->password) {
-            $data['password'] = bcrypt($data['password']);
+            $data['password'] = bcrypt($request->password);
         }
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {

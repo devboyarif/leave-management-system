@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use App\Traits\HasSubscription;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\EmployeeCreateRequest;
-use App\Http\Requests\EmployeeUpdateRequest;
 use App\Models\Company;
 use App\Models\Employee;
+use Illuminate\Http\Response;
+use App\Traits\HasSubscription;
+use App\Http\Controllers\Controller;
+use App\Traits\Employee\HasLeaveBalance;
+use App\Http\Requests\EmployeeCreateRequest;
+use App\Http\Requests\EmployeeUpdateRequest;
 
 class EmployeeController extends Controller
 {
-    use HasSubscription;
+    use HasSubscription, HasLeaveBalance;
 
     /**
      * Display a listing of the resource.
@@ -89,32 +91,41 @@ class EmployeeController extends Controller
     {
         $company = Company::findOrFail($request->company_id);
 
+        if ($company->leaveTypes->count() == 0) {
+            session()->flash('error', 'Please add leave types first');
+            return redirect_to(route('leaveTypes.create'));
+        }
+
         // Check if the user is limited to create employees
         if ($this->checkEmployeesLimitation($company)) {
             session()->flash('error', __('You have reached the maximum number of employees'));
             return back();
         }
 
-        $data = $request->all();
-        $data['role'] = User::ROLE_EMPLOYEE;
-        $data['password'] = bcrypt($data['password']);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => User::ROLE_EMPLOYEE,
+            'password' => bcrypt($request->password),
+        ]);
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $request->validate([
                 'avatar' => ['image', 'mimes:jpeg,png,jpg'],
             ]);
             $url = uploadFileToPublic('avatars', $request->avatar);
-            $data['avatar'] = $url;
+            $user->update(['avatar' => $url]);
         }
 
-        $user = User::create($data);
-
-        $user->employee()->create([
+        $employee = $user->employee()->create([
             'user_id' => $user->id,
             'company_id' => $company->id,
             'team_id' => $request->team_id,
             'phone' => $request->phone ?? '',
         ]);
+
+        // Create leave balance for the employee
+        $this->employeeLeaveBalanceCreate($company->id, $employee->id);
 
         session()->flash('success', 'Employee created successfully!');
         return redirect_to('employees.index');

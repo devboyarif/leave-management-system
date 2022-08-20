@@ -6,7 +6,7 @@
             {{ __('Create') }}
         </button>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-3" v-if="testimonials && testimonials.length">
         <div class="col-md-3" v-for="testimonial in testimonials" :key="testimonial.id">
             <div class="card text-center">
                 <img :src="testimonial.avatar" class="card-img-top"
@@ -26,6 +26,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row justify-content-center text-center" v-else>
+        <h4>{{ __('No Data Found') }}</h4>
     </div>
 
     <!-- Create or Edit Testimonial Modal  -->

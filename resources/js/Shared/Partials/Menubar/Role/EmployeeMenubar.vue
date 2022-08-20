@@ -28,7 +28,7 @@
                             <i class="fa-solid fa-chart-pie nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Reports" :href="route('employee.reports')" :active="$page.component == 'company/reports'">
+                    <NavLink title="Reports" :href="route('employee.reports')" :active="$page.url == '/employee/reports'">
                         <template v-slot:icon>
                             <i class="fa-regular fa-calendar-days nav-icon"></i>
                         </template>

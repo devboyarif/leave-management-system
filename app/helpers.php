@@ -292,7 +292,7 @@ if (!function_exists('setting')) {
 if (!function_exists('sendSms')) {
     function sendSms($provider, $to, $message)
     {
-        if ($provider == 'vonage') {
+        if ($provider == 'vonage' && config('kodebazar.vonage_active') && $to && $message) {
             try {
                 $basic  = new Basic(config('kodebazar.vonage_key'), config('kodebazar.vonage_secret'));
                 $client = new NexmoClient($basic);
@@ -305,7 +305,7 @@ if (!function_exists('sendSms')) {
             } catch (Exception $e) {
                 dd("Error: " . $e->getMessage());
             }
-        } else if ($provider == 'twilio') {
+        } else if ($provider == 'twilio' && config('kodebazar.twilio_active') && $to && $message) {
             try {
                 $account_sid = config('kodebazar.twilio_secret');
                 $auth_token = config('kodebazar.twilio_token');

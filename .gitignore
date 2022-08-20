@@ -1,7 +1,6 @@
 /node_modules
 /public/hot
 /public/storage
-/public/admin/js/compiled
 /storage/*.key
 /vendor
 .env
@@ -16,3 +15,4 @@ yarn-error.log
 /.vscode
 /resources/lang/*.json
 !/resources/lang/en.json
+/public/uploads

@@ -1,7 +1,7 @@
 <template>
  <div class="card">
     <div class="card-body">
-         <h6>Brand </h6>
+         <h6>{{ __('Brand Information') }} </h6>
         <hr>
     <form @submit.prevent="saveData">
         <div class="mb-3 row">

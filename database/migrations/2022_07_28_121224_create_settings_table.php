@@ -31,9 +31,6 @@ class CreateSettingsTable extends Migration
             $table->string('youtube')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('pinterest')->nullable();
-
-            // sms
-            $table->enum('default_sms', ['vonage', 'twilio', 'none'])->default('none');
             $table->timestamps();
         });
     }

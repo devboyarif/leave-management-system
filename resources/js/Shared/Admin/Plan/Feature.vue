@@ -12,11 +12,19 @@
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </span>
-            <h5 class="mb-0">
-                {{ __(name) }}
-            </h5>
+            <template v-if="spanText">
+                <span class="mb-0">{{ __(name) }}</span>
+            </template>
+            <template v-else>
+                <h5 class="mb-0">{{ __(name) }}</h5>
+            </template>
         </div>
-        <h5 class="mb-0" v-if="value">{{ value }}</h5>
+        <template v-if="spanText">
+            <span class="mb-0" v-if="value">{{ value }}</span>
+        </template>
+        <template v-else>
+            <hs class="mb-0" v-if="value">{{ value }}</hs>
+        </template>
     </div>
 </template>
 
@@ -34,6 +42,10 @@ export default {
         value: {
             type: String,
             required: false,
+        },
+        spanText: {
+            type: Boolean,
+            default: false,
         },
     },
 };

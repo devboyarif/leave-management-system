@@ -79,7 +79,7 @@ class LeaveRequestController extends Controller
     public function store(LeaveRequestSaveRequest $request)
     {
         $company = currentCompany();
-        $final_days_count = sumFinalDays($company->id,$request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
+        $final_days_count = sumFinalDays($company->id, $request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
 
         $leave_request = LeaveRequest::create([
             'company_id' => $company->id,
@@ -105,14 +105,19 @@ class LeaveRequestController extends Controller
         // Notification and mail sending
         if ($leave_request->status == 'pending') {
             $leave_request->employee->user->notify(new PendingLeaveRequest($leave_request));
+            $message = "Your leave request has been submitted. Please wait for approval.";
         } elseif ($leave_request->status == 'approved') {
             $leave_request->employee->user->notify(new ApprovedLeaveRequest($leave_request));
-
-            setting('default_sms');
+            $message = "Your leave request has been approved";
         } elseif ($leave_request->status == 'rejected') {
             $leave_request->employee->user->notify(new RejectedLeaveRequest($leave_request));
-            setting('default_sms');
+            $message = "Your leave request has been rejected";
         }
+
+        // Sms sending
+        $to = $leave_request->employee->phone;
+        sendSms('twilio', $to, $message);
+        sendSms('vonage', $to, $message);
 
         session()->flash('success', 'Leave request created successfully!');
         return redirect_to('company.leaveRequests.index');
@@ -158,7 +163,7 @@ class LeaveRequestController extends Controller
     public function update(LeaveRequestSaveRequest $request, LeaveRequest $leaveRequest)
     {
         $company = currentCompany();
-        $final_days_count = sumFinalDays($company->id,$request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
+        $final_days_count = sumFinalDays($company->id, $request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
 
         $leaveRequest->update([
             'company_id' => currentCompany()->id,
@@ -174,11 +179,19 @@ class LeaveRequestController extends Controller
         // Notification and mail sending
         if ($leaveRequest->status == 'pending') {
             $leaveRequest->employee->user->notify(new PendingLeaveRequest($leaveRequest));
+            $message = "Your leave request has been submitted. Please wait for approval.";
         } elseif ($leaveRequest->status == 'approved') {
             $leaveRequest->employee->user->notify(new ApprovedLeaveRequest($leaveRequest));
+            $message = "Your leave request has been approved";
         } elseif ($leaveRequest->status == 'rejected') {
             $leaveRequest->employee->user->notify(new RejectedLeaveRequest($leaveRequest));
+            $message = "Your leave request has been rejected";
         }
+
+        // Sms sending
+        $to = $leaveRequest->employee->phone;
+        sendSms('twilio', $to, $message);
+        sendSms('vonage', $to, $message);
 
         session()->flash('success', 'Leave request updated successfully!');
         return redirect_to('company.leaveRequests.index');
@@ -204,7 +217,7 @@ class LeaveRequestController extends Controller
 
         if ($leave_request->status == 'pending' && $request->status == 'approved') {
 
-            $final_days_count = sumFinalDays($leave_request->company_id,$leave_request->start, $leave_request->end) ?? diffBetweenDays($leave_request->start, $leave_request->end);
+            $final_days_count = sumFinalDays($leave_request->company_id, $leave_request->start, $leave_request->end) ?? diffBetweenDays($leave_request->start, $leave_request->end);
 
             $leave_balance = LeaveBalance::where('leave_type_id', $leave_request->leave_type_id)
                 ->where('employee_id', $leave_request->employee_id)

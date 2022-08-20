@@ -48,7 +48,7 @@
                             </div>
                         </template>
                         <div v-else class="col-12 text-center">
-                            <h5 class="text-center">{{ __('No Data Found') }}</h5>
+                            <h6 class="text-center">{{ __('No Data Found') }}</h6>
                         </div>
                     </div>
                 </div>

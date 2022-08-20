@@ -1,12 +1,12 @@
 <template>
-    <li class="nav-item dropdown show" v-click-outside="()=> showNotification = false">
-        <a v-tooltip="'Notification'" class="nav-link" href="#" @click="showNotification = !showNotification">
+    <li class="nav-item dropdown show" v-click-outside="()=> show = false">
+        <a v-tooltip="__('Notification')" class="nav-link" href="#" @click="showNotification">
             <i class="far fa-bell"></i>
-            <span class="badge badge-danger navbar-badge">
+            <span class="badge badge-danger navbar-badge" v-if="unreadNotificationsCount">
                 {{ unreadNotificationsCount }}
             </span>
         </a>
-        <div v-show="showNotification" class="dropdown-menu dropdown-menu-lg dropdown-menu-right show" style="left: inherit; right: 0px;">
+        <div v-show="show" class="dropdown-menu dropdown-menu-lg dropdown-menu-right show" style="left: inherit; right: 0px;">
             <template v-if="notifications.length">
                 <a href="#" class="dropdown-item" v-for="(notification, index) in notifications" :key="index">
                     <div class="media">
@@ -32,10 +32,20 @@
 export default {
     data() {
         return {
-            showNotification: false,
+            show: false,
             notifications: this.$page.props.notifications,
             unreadNotificationsCount: this.$page.props.unreadNotificationsCount,
         };
+    },
+    methods: {
+        showNotification() {
+            this.show = !this.show;
+            if (this.unreadNotificationsCount) {
+                axios.get(route("markasread.notifications"));
+
+                this.unreadNotificationsCount = 0;
+            }
+        },
     },
 };
 </script>

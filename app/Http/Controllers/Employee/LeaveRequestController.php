@@ -67,7 +67,9 @@ class LeaveRequestController extends Controller
 
         try {
             $employee = currentEmployee();
-            $final_days_count = sumFinalDays($employee->company_id,$request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
+            $final_days_count = sumFinalDays($employee->company_id, $request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
+            $leave_type = LeaveType::findOrFail($request->leave_type_id);
+            $status = $leave_type->auto_approve ? 'approved' : 'pending';
 
             LeaveRequest::create([
                 'company_id' => $employee->company_id,
@@ -77,12 +79,22 @@ class LeaveRequestController extends Controller
                 'end' => $request->end,
                 'days' => $final_days_count,
                 'reason' => $request->reason,
+                'status' => $status,
             ]);
 
             // Notification for company
             $user = $employee->company->user ?? null;
             isset($user) ? $user->notify(new NewLeaveRequest()) : '';
+            if ($status == 'pending') {
+                $message = "Your leave request has been submitted. Please wait for approval.";
+            } elseif ($status == 'approved') {
+                $message = "Your leave request has been approved";
+            }
 
+            // Sms sending
+            $to = $employee->phone;
+            sendSms('twilio', $to, $message);
+            sendSms('vonage', $to, $message);
 
             session()->flash('success', 'Leave request sent successfully!');
             return back();
@@ -117,7 +129,7 @@ class LeaveRequestController extends Controller
         ]);
 
         try {
-            $final_days_count = sumFinalDays($leave_request->company_id,$request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
+            $final_days_count = sumFinalDays($leave_request->company_id, $request->start, $request->end) ?? diffBetweenDays($request->start, $request->end);
 
             $leave_request->update([
                 'leave_type_id' => $request->leave_type_id,

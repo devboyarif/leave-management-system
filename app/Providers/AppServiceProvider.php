@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Cms;
 use App\Models\Setting;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,5 +38,10 @@ class AppServiceProvider extends ServiceProvider
             $cms = Cms::first();
             view()->share('cms', $cms);
         }
+
+        // DB::listen(function ($query) {
+        //     info($query->sql);     // the query being executed
+        //     info($query->time);    // query time in milliseconds
+        // });
     }
 }

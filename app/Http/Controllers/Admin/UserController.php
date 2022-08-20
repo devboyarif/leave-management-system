@@ -155,11 +155,14 @@ class UserController extends Controller
 
     public function profile()
     {
-        $role = auth()->user()->role;
-        $data['user'] = auth()->user();
+        $user = auth()->user();
+        $role = $user->role;
+        $data['user'] = $user;
 
         if ($role == 'company') {
             $data['countries'] = Country::all(['id', 'name']);
+        }else if($role == 'employee'){
+            $data['user'] = $user->load('employee');
         }
 
         return inertia('profile', $data);
@@ -225,6 +228,8 @@ class UserController extends Controller
                     }
                 }
             }
+        }else if($role == 'employee' && $request->phone){
+            $user->employee->update(['phone' => $request->phone]);
         }
 
         session()->flash('success', 'Profile updated successfully!');
