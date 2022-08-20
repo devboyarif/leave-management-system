@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,6 +12,10 @@ class UpgradeController extends Controller
 {
     public function updateSystem(Request $request)
     {
+        $time_start = microtime(true);
+
+
+
         if ($request->hasFile('update_zip')) {
             if (class_exists('ZipArchive')) {
 
@@ -29,14 +34,18 @@ class UpgradeController extends Controller
                 $res = $zip->open(storage_path('app/' . $path));
 
                 if ($res === true) {
-                    $res = $zip->extractTo(base_path());
-                    // $res = $zip->extractTo(base_path()."/unzip");
+                    // $res = $zip->extractTo(base_path());
+                    $res = $zip->extractTo(base_path() . "/unzip");
                     $zip->close();
 
                     // Delete zip file.
                     if (file_exists(storage_path('app/' . $path))) {
                         unlink(storage_path('app/' . $path));
                     }
+
+                    $time_end = microtime(true);
+                    $execution_time = ($time_end - $time_start);
+                    return '<b>Total Execution Time:</b> ' . ($execution_time * 1000) . 'Milliseconds';
 
                     return 'success';
                 } else {
@@ -49,6 +58,10 @@ class UpgradeController extends Controller
             }
         }
 
+
+        $time_end = microtime(true);
+        $execution_time = ($time_end - $time_start);
+        return '<b>Total Execution Time:</b> ' . ($execution_time * 1000) . 'Milliseconds';
 
         return 'no file';
     }
