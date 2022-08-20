@@ -15,7 +15,7 @@ class GlobalController extends Controller
         $start = $request->start;
         $end = $request->end;
 
-        return sumDaysBetweenDates($company_id,$start, $end);
+        return sumDaysBetweenDates($company_id, $start, $end);
 
         // return diffBetweenDays($start, $end);
     }
@@ -74,5 +74,10 @@ class GlobalController extends Controller
         session()->put('current_lang', $language);
 
         return back();
+    }
+
+    public function markAsReadNotification()
+    {
+        auth()->user()->unreadNotifications->markAsRead();
     }
 }

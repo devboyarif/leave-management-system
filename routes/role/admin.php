@@ -177,4 +177,5 @@ Route::controller(GlobalController::class)->group(function () {
     Route::get('/app/setting', 'appSetting')->name('app.setting');
     Route::get('/userid/wise/company', 'useridWiseCompany')->name('userid.wise.company');
     Route::get('/language/{language}', 'switchLanguage')->name('language');
+    Route::get('/mark/read/notification', 'markAsReadNotification')->name('markasread.notifications');
 });
