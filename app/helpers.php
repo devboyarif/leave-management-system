@@ -535,3 +535,10 @@ if (!function_exists('sumFinalDays')) {
         return $total_days - $official_holidays - $weekend_days;
     }
 }
+
+if (!function_exists('currentLanguage')) {
+    function currentLanguage()
+    {
+        return session('current_lang');
+    }
+}
