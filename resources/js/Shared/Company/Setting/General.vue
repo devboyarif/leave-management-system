@@ -1,5 +1,5 @@
 <template>
-    <h6>Profile Information</h6>
+    <h6>{{ __('Profile Information') }}</h6>
     <hr>
     <form class="form-horizontal" autocomplete="off" @submit.prevent="profileUpdate">
         <div class="form-group position-relative">

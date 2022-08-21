@@ -73,7 +73,7 @@
                         <h3 class="card-title">{{ __('Pending Leave Request') }}</h3>
                         <Link v-tooltip="'Show all leave requests'" :href="route('employee.leave.request.index')" class="btn btn-primary btn-sm">
                             <i class="fa-regular fa-eye"></i>
-                            Show all
+                            {{ __('Show all') }}
                         </Link>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">{{ __('Leave Balance') }}</h3>
-                        <Link v-tooltip="'Apply for leave new request'" :href="route('employee.leave.request.create')" class="btn btn-danger btn-sm">
+                        <Link v-tooltip="__('Apply for Leave')" :href="route('employee.leave.request.create')" class="btn btn-danger btn-sm">
                             <i class="fa-regular fa-calendar-check"></i>
                             {{ __('Apply for Leave') }}
                         </Link>
@@ -212,11 +212,14 @@ export default {
                 confirmButtonText: "Yes, delete it!",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.$inertia.delete(route("employee.leave.request.delete", id), {
-                        onSuccess: () => {
-                            this.loadData();
-                        },
-                    });
+                    this.$inertia.delete(
+                        route("employee.leave.request.delete", id),
+                        {
+                            onSuccess: () => {
+                                this.loadData();
+                            },
+                        }
+                    );
                 }
             });
         },

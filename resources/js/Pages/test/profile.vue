@@ -12,7 +12,7 @@
                 </a>
                 <a href="#account" class="nav-item nav-link has-icon nav-link-faded">
                     <CogIcon/>
-                 Account Settings
+                 {{ __('Account Settings') }}
                 </a>
                 <a href="#security" class="nav-item nav-link has-icon nav-link-faded">
                     <GuardIcon/>
@@ -91,10 +91,10 @@
                   </div>
                   <hr>
                   <div class="form-group">
-                    <label class="d-block text-danger">Delete Account</label>
-                    <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain.</p>
+                    <label class="d-block text-danger">{{ __('Delete Account') }}</label>
+                    <p class="text-muted font-size-sm">{{ __('Once you delete your account, there is no going back. Please be certain') }}</p>
                   </div>
-                  <button class="btn btn-danger" type="button">Delete Account</button>
+                  <button class="btn btn-danger" type="button">{{ __('Delete Account') }}</button>
                 </form>
               </div>
               <div class="tab-pane active" id="security">
@@ -215,11 +215,11 @@
 </template>
 
 <script>
-import UserIcon from '../../Shared/Icons/UserIcon.vue'
-import CogIcon from '../../Shared/Icons/CogIcon.vue'
-import GuardIcon from '../../Shared/Icons/GuardIcon.vue'
-import NotificationIcon from '../../Shared/Icons/NotificationIcon.vue'
-import CardIcon from '../../Shared/Icons/CardIcon.vue'
+import UserIcon from "../../Shared/Icons/UserIcon.vue";
+import CogIcon from "../../Shared/Icons/CogIcon.vue";
+import GuardIcon from "../../Shared/Icons/GuardIcon.vue";
+import NotificationIcon from "../../Shared/Icons/NotificationIcon.vue";
+import CardIcon from "../../Shared/Icons/CardIcon.vue";
 
 export default {
     components: {
@@ -229,7 +229,7 @@ export default {
         NotificationIcon,
         CardIcon,
     },
-}
+};
 </script>
 
 <style scoped>

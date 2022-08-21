@@ -181,10 +181,6 @@
     "Mail From Address":" Mail From Address",
     "Mail From Name":"Mail From Name",
     "Send Test Mail":"Send Test Mail",
-
-
-
-
     "Payment Settings":"Payment Setting",
     "Paypal":"Paypal",
     "Stripe":"Stripe",
@@ -221,15 +217,29 @@
     "Midtrans Key":"Midtrans Key",
     "Midtrans Secret":"Midtrans Secret",
     "Midtrans Status":"Midtrans Status",
+    "Show all":"Show all",
+    "Get Report":"Get Report",
+    "Date Range":"Date Range",
+    "Select Date Range":"Select Date Range",
+    "Leave History":"Leave History",
+    "Employee Leave History":"Employee Leave History",
+    "Click on the reports to view the leave history of an employee":"Click on the reports to view the leave history of an employee",
+    "Team Leave Balance":"Team Leave Balance",
+    "Team Leave History":"Team Leave History",
+    "Employees Leave Balance":"Employees Leave Balance",
+    "Click to view the employees leave balance":"Click to view the employees leave balance",
+    "Click to view the leave balance of all employees in a team":"Click to view the leave balance of all employees in a team",
+    "Click to view the leave history of all employees in a team":"Click to view the leave history of all employees in a team",
 
 
 
 
 
-
-
-
-
+    "Profile Information" : "Profile Information",
+    "Account Settings" : "Account Settings",
+    "Security" : "Security",
+    "Delete Account" : "Delete Account",
+    "Once you delete your account, there is no going back. Please be certain" : "Once you delete your account, there is no going back. Please be certain",
 
 
 
@@ -390,7 +400,7 @@
     "Reject": "Reject",
     "Status": "Status",
     "Color": "Color",
-    "Apply for leave": "Apply for leave",
+    "Apply for Leave": "Apply for Leave",
     "Options": "Options",
     "Leave Request": "Leave Request",
     "Leave Request List": "Leave Request List",

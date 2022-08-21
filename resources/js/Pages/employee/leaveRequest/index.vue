@@ -2,7 +2,7 @@
 
     <Head :title="__('Leave Requests')" />
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center pt-5">
         <div class="col-12">
             <div class="card">
                  <div class="card-header border-0">
@@ -11,7 +11,7 @@
                         <div>
                             <Link :href="route('employee.leave.request.create')" class="btn btn-primary">
                                 <i class="fa-solid fa-plus"></i>
-                                 {{ __('Apply for leave') }}
+                                 {{ __('Apply for Leave') }}
                             </Link>
                             <button class="btn btn-secondary ml-2" @click="filteringData">
                                 <i class="fa-solid fa-filter"></i>
@@ -176,12 +176,12 @@ import { Inertia } from "@inertiajs/inertia";
 export default {
     props: {
         leaveRequests: Array,
-         leaveTypes: Array,
+        leaveTypes: Array,
         filters: Object,
     },
     components: {
         Pagination,
-        Inertia
+        Inertia,
     },
     data() {
         return {
@@ -230,7 +230,9 @@ export default {
                 confirmButtonText: "Yes, delete it!",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.$inertia.delete(route("employee.leave.request.delete", id));
+                    this.$inertia.delete(
+                        route("employee.leave.request.delete", id)
+                    );
                 }
             });
         },
@@ -250,7 +252,7 @@ export default {
             this.form.reason = request.reason;
             this.showModal = true;
         },
-         filteringData() {
+        filteringData() {
             this.showFilter = !this.showFilter;
             localStorage.setItem("employeeLeaveRequest", this.showFilter);
         },
@@ -268,14 +270,13 @@ export default {
             );
         },
     },
-    mounted(){
-        this.checkPagePermission('employee')
-        this.showFilter = localStorage.getItem("employeeLeaveRequest") == "true" ? true : false;
-    }
-
-
-
-
+    mounted() {
+        this.checkPagePermission("employee");
+        this.showFilter =
+            localStorage.getItem("employeeLeaveRequest") == "true"
+                ? true
+                : false;
+    },
 };
 </script>
 
