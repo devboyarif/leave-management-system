@@ -228,7 +228,7 @@ class SettingController extends Controller
             'upgrade_zip' => 'required|mimes:zip',
         ]);
 
-        if ($request->hasFile('update_zip')) {
+        if ($request->hasFile('upgrade_zip')) {
             $time_start = microtime(true);
 
             if (class_exists('ZipArchive')) {
@@ -238,18 +238,18 @@ class SettingController extends Controller
                 if (!is_dir($dir))
                     mkdir($dir, 0777, true);
 
-                $path = Storage::disk('local')->put('updates', $request->update_zip);
-                uploadFileToPublic('system', $request->update_zip);
+                $path = Storage::disk('local')->put('updates', $request->upgrade_zip);
+                uploadFileToPublic('system', $request->upgrade_zip);
 
-                // $zipped_file_name = $request->update_zip->getClientOriginalName();
+                // $zipped_file_name = $request->upgrade_zip->getClientOriginalName();
 
                 //Unzip uploaded update file and remove zip file.
                 $zip = new ZipArchive();
                 $res = $zip->open(storage_path('app/' . $path));
 
                 if ($res === true) {
-                    // $res = $zip->extractTo(base_path());
-                    $res = $zip->extractTo(base_path() . "/unzip");
+                    $res = $zip->extractTo(base_path());
+                    // $res = $zip->extractTo(base_path() . "/unzip");
                     $zip->close();
 
                     // Delete zip file.
@@ -273,7 +273,8 @@ class SettingController extends Controller
                     return back();
                 }
 
-                return redirect()->route('update.step1');
+                session()->flash('error', 'Something went wrong.');
+                return back();
             } else {
                 session()->flash('error', 'Please enable ZipArchive extension from server');
                 return back();
