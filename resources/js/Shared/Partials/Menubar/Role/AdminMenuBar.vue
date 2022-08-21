@@ -176,11 +176,6 @@ export default {
                 pageComponent == "admin/employee/edit"
             );
         },
-
-        // $page.url == '/admin/admins/*' || $page.url == '/admin/companies/*' || $page.url == '/admin/employees/*'
-    },
-    mounted() {
-        console.log(this.$page.props.setting);
     },
 };
 </script>

@@ -148,6 +148,10 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
         Route::put('/smtp/update', 'smtpUpdate')->name('settings.smtp.update');
         Route::post('/send/test-email', 'testEmailSend')->name('settings.send.test.email');
 
+        // Upgrade application
+        Route::get('/upgrade', 'upgrade')->name('settings.upgrade');
+        Route::post('/upgrade/system', 'upgradeSystem')->name('settings.upgrade.system');
+
         // Currency Routes
         Route::prefix('currency')->prefix('currency')->name('settings.')->group(function () {
             Route::get('/', 'currency')->name('currency');
