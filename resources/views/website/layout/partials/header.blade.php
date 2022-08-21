@@ -16,23 +16,23 @@
                         <ul id="nav" class="navbar-nav mx-auto">
                             <li class="nav-item">
                                 <a class="ud-menu-scroll {{ request()->routeIs('website.home') ? 'active' : '' }}"
-                                    href="{{ route('website.home') }}">Home</a>
+                                    href="{{ route('website.home') }}">{{ __('Home') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="ud-menu-scroll {{ request()->routeIs('website.about') ? 'active' : '' }}"
-                                    href="{{ route('website.about') }}">About</a>
+                                    href="{{ route('website.about') }}">{{ __('About') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="ud-menu-scroll {{ request()->routeIs('website.pricing') ? 'active' : '' }}"
-                                    href="{{ route('website.pricing') }}">Pricing</a>
+                                    href="{{ route('website.pricing') }}">{{ __('Pricing') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="ud-menu-scroll {{ request()->routeIs('website.blog') ? 'active' : '' }}"
-                                    href="{{ route('website.blog') }}">Blog</a>
+                                    href="{{ route('website.blog') }}">{{ __('Blog') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="ud-menu-scroll {{ request()->routeIs('website.contact') ? 'active' : '' }}"
-                                    href="{{ route('website.contact') }}">Contact</a>
+                                    href="{{ route('website.contact') }}">{{ __('Contact') }}</a>
                             </li>
                         </ul>
                     </div>
@@ -44,10 +44,10 @@
                             </a>
                         @else
                             <a href="{{ route('login') }}" class="ud-main-btn ud-login-btn">
-                                Sign In
+                                {{ __('Sign In') }}
                             </a>
                             <a class="ud-main-btn ud-white-btn" href="{{ route('register') }}">
-                                Sign Up
+                                {{ __('Sign Up') }}
                             </a>
                         @endif
 

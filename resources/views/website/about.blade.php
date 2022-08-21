@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ud-banner-content">
-                        <h1>About Page</h1>
+                        <h1>{{ __('About Page') }}</h1>
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                         <span class="tag">{{ $cms->about_title }}</span>
                         <h2>{{ $cms->about_subtitle }}</h2>
                         <p>
-                           {!! $cms->about_description !!}
+                            {!! $cms->about_description !!}
                         </p>
                     </div>
                 </div>

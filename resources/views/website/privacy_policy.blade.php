@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ud-banner-content">
-                        <h1>Privacy Policy</h1>
+                        <h1>{{ __('Privacy Policy') }}</h1>
                     </div>
                 </div>
             </div>

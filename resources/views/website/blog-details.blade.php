@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ud-banner-content">
-                        <h1>Blog Page</h1>
+                        <h1>{{ __('Blog Page') }}</h1>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                                 <div class="ud-blog-author">
                                     <img src="{{ $post->user->avatar }}" alt="author" />
                                     <span>
-                                        By <a href="javascript:void(0)">{{ $post->user->name }}</a>
+                                        {{ __('By') }} <a href="javascript:void(0)">{{ $post->user->name }}</a>
                                     </span>
                                 </div>
 
@@ -53,22 +53,8 @@
                 @if ($popular_posts && count($popular_posts))
                     <div class="col-lg-4">
                         <div class="ud-blog-sidebar">
-                            <div class="ud-newsletter-box">
-                                <img src="{{ asset('website') }}/images/blog/dotted-shape.svg" alt="shape"
-                                    class="shape shape-1" />
-                                <img src="{{ asset('website') }}/images/blog/dotted-shape.svg" alt="shape"
-                                    class="shape shape-2" />
-                                <h3 class="ud-newsletter-title">Join our newsletter!</h3>
-                                <p>Enter your email to receive our latest newsletter.</p>
-                                <form class="ud-newsletter-form">
-                                    <input type="email" name="email" placeholder="Your Email address" />
-                                    <button class="ud-main-btn">Subscribe Now</button>
-                                    <p class="ud-newsletter-note">Don't worry, we don't spam</p>
-                                </form>
-                            </div>
-
                             <div class="ud-articles-box">
-                                <h3 class="ud-articles-box-title">Popular Articles</h3>
+                                <h3 class="ud-articles-box-title">{{ __('Popular Articles') }}</h3>
                                 <ul class="ud-articles-list">
                                     @foreach ($popular_posts as $post)
                                         <li>
@@ -103,7 +89,7 @@
             <div class="container">
                 <div class="row col-lg-12">
                     <div class="ud-related-title">
-                        <h2 class="ud-related-articles-title">Latest Articles</h2>
+                        <h2 class="ud-related-articles-title">{{ __('Latest Articles') }}</h2>
                     </div>
                 </div>
                 <div class="row">

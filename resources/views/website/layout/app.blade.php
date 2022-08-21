@@ -9,7 +9,7 @@
     <!-- ===== All Tags ===== -->
     @include('website.layout.partials.meta')
 
-    <title>Home | {{ config('app.name') }}</title>
+    <title>{{ __('Home') }} | {{ config('app.name') }}</title>
 
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="{{ $setting->app_favicon }}" type="image/svg" />
