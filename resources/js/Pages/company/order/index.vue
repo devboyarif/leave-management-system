@@ -80,7 +80,7 @@
                                         <small v-else>{{ order.plan.custom_interval_days }} {{ __('Days') }}</small>
                                     </td>
                                     <td class="d-flex">
-                                        <button @click="showDetails(order)" v-tooltip="'Order Details'" class="btn btn-sm pl-0">
+                                        <button @click="showDetails(order)" v-tooltip="__('Order Details')" class="btn btn-sm pl-0">
                                             <EyeIcon/>
                                         </button>
                                     </td>
@@ -242,12 +242,13 @@ export default {
             localStorage.setItem("companyOrder", this.showFilter);
         },
         filterData() {
-            Inertia.get(route('company.orders.index'),
+            Inertia.get(
+                route("company.orders.index"),
                 {
                     company: this.filterForm.company,
                     search: this.filterForm.search,
                     payment: this.filterForm.payment,
-                    plan: this.filterForm.plan
+                    plan: this.filterForm.plan,
                 },
                 {
                     preserveState: true,
@@ -256,9 +257,10 @@ export default {
             );
         },
     },
-     watch: {
-        'filterForm.search': debounce((value) => {
-            Inertia.get(route('company.orders.index'),
+    watch: {
+        "filterForm.search": debounce((value) => {
+            Inertia.get(
+                route("company.orders.index"),
                 { search: value },
                 {
                     preserveState: true,
@@ -267,10 +269,11 @@ export default {
             );
         }, 500),
     },
-     mounted(){
-        this.checkPagePermission('company')
-        this.showFilter = localStorage.getItem("companyOrder") == "true" ? true : false;
-    }
+    mounted() {
+        this.checkPagePermission("company");
+        this.showFilter =
+            localStorage.getItem("companyOrder") == "true" ? true : false;
+    },
 };
 </script>
 

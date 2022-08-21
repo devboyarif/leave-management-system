@@ -8,7 +8,7 @@
               <nav class="nav flex-column nav-pills nav-gap-y-1">
                 <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded" :class="{'active': currentTab == 'profile'}" @click="changeTab('profile')">
                   <UserIcon class="mr-2"/>
-                  General
+                  {{ __('General') }}
                 </a>
                 <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded" :class="{'active': currentTab == 'themes'}" @click="changeTab('themes')">
                   <PenIcon class="mr-2"/>
@@ -19,7 +19,7 @@
                 </a>
                 <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded" :class="{'active': currentTab == 'week_days'}" @click="changeTab('week_days')">
                   <CalendarIcon class="mr-2"/>
-                  Working Days
+                  {{ __('Working Days') }}
                 </a>
               </nav>
             </div>

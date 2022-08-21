@@ -5,6 +5,8 @@
     "Remember Me": "Remember Me",
     "Sign In": "Sign In",
     "Sign Up": "Sign Up",
+    "Forget Password": "Forget Password",
+    "Reset Password": "Reset Password",
     "Forgot password": "Forgot password ?",
     "Create company account": "Create company account",
     "Don't have an account": "Don't have an account",
@@ -235,13 +237,26 @@
     "Security" : "Security",
     "Delete Account" : "Delete Account",
     "Once you delete your account, there is no going back. Please be certain" : "Once you delete your account, there is no going back. Please be certain",
-
-
-
-
-
-
-
+    "Details" : "Details",
+    "Edit" : "Edit",
+    "Delete" : "Delete",
+    "Delete All Holidays" : "Delete All Holidays",
+    "Import Holidays" : "Import Holidays",
+    "Order Details": "Order Details",
+    "Order ID": "Order ID",
+    "Transaction ID": "Transaction ID",
+    "Amount": "Amount",
+    "Payment Method": "Payment Method",
+    "Subscription": "Subscription",
+    "Themes": "Themes",
+    "Working Days": "Working Days",
+    "Sunday": "Sunday",
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday",
+    "Thursday": "Thursday",
+    "Friday": "Friday",
+    "Saturday": "Saturday",
 
 
 
@@ -388,9 +403,6 @@
     "Send Request": "Send Request",
     "Accept Request": "Accept Request",
     "Reject Request": "Reject Request",
-    "Edit Request": "Edit Request",
-    "Delete Request": "Delete Request",
-    "Show Request Details": "Show Request Details",
     "Reason": "Reason",
     "Pending": "Pending",
     "Approve": "Approve",
@@ -408,7 +420,6 @@
     "Leave Type List": "Leave Type List",
     "Leave Type": "Leave Type",
     "Edit Leave Type": "Edit Leave Type",
-    "Delete Leave Type": "Delete Leave Type",
     "Leave Balance Day": "Leave Balance Day",
     "Leave Request Details": "Leave Request Details",
     "Recent Approved Leaves": "Recent Approved Leaves",
@@ -491,7 +502,6 @@
     "Employee Adding Type": "Employee Adding Type",
     "Orders": "Orders",
     "Order List": "Order List",
-    "Order Details": "Order Details",
     "Companies": "Companies",
     "Recent Orders": "Recent Orders",
     "View All": "View All",

@@ -65,10 +65,10 @@
                                             </span>
                                         </td>
                                         <td class="d-flex">
-                                            <Link :href="route('leaveTypes.edit',leave_type.id)" v-tooltip="__('Edit Leave Type')" class="btn btn-sm  pl-0">
+                                            <Link :href="route('leaveTypes.edit',leave_type.id)" v-tooltip="__('Edit')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </Link>
-                                            <button @click="deleteData(leave_type.id)" v-tooltip="__('Delete Leave Type')" class="btn btn-sm">
+                                            <button @click="deleteData(leave_type.id)" v-tooltip="__('Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -147,7 +147,8 @@ export default {
     },
     mounted() {
         this.checkPagePermission("admin");
-        this.showFilter = localStorage.getItem("adminLeaveType") == "true" ? true : false;
+        this.showFilter =
+            localStorage.getItem("adminLeaveType") == "true" ? true : false;
     },
 };
 </script>

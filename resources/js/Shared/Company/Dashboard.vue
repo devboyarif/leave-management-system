@@ -169,7 +169,7 @@
                                     <button @click="statusChange('rejected', request.id)" v-tooltip="'Reject Request'" class="btn btn-sm px-0">
                                         <CrossIcon />
                                     </button>
-                                     <button @click="showDetails(request)" v-tooltip="'Show Request Details'" class="btn btn-sm">
+                                     <button @click="showDetails(request)" v-tooltip="__('Details')" class="btn btn-sm">
                                         <EyeIcon />
                                     </button>
                                 </div>
@@ -217,7 +217,7 @@
                                 </span>
                             </div>
                             <div>
-                                <button @click="showDetails(request)" v-tooltip="'Show Request Details'" class="btn btn-sm  pl-0">
+                                <button @click="showDetails(request)" v-tooltip="__('Details')" class="btn btn-sm  pl-0">
                                     <EyeIcon />
                                 </button>
                             </div>

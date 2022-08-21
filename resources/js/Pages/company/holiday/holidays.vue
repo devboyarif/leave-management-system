@@ -25,11 +25,11 @@
                                     </Link>
                                     <a @click="deleteHolidays" class="dropdown-item" href="javascript:void(0)" v-tooltip="'Remove all holidays'">
                                         <i class="fa-solid fa-times"></i>
-                                        {{ __('Remove holidays') }}
+                                        {{ __('Delete All Holidays') }}
                                     </a>
                                     <a @click="showImportHolidayModal" class="dropdown-item" href="javascript:void(0)" v-tooltip="'Remove all holidays'">
                                         <i class="fa-solid fa-plus"></i>
-                                        {{ __('Import holidays') }}
+                                        {{ __('Import Holidays') }}
                                     </a>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <h5 v-if="holidays.length">Total Holidays - {{ holidays.length }}</h5>
+                    <h5 v-if="holidays.length">{{ __('Total Holidays') }} - {{ holidays.length }}</h5>
                     <div class="d-flex flex-wrap col-12">
                          <template v-if="holidays && holidays.length">
                             <div v-for="holiday in holidays" :key="holiday.id"

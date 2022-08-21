@@ -44,10 +44,10 @@
                                             </span>
                                         </td>
                                         <td class="d-flex">
-                                            <Link :href="route('company.leaveTypes.edit',leave_type.id)" v-tooltip="'Edit Leave Type'" class="btn btn-sm  pl-0">
+                                            <Link :href="route('company.leaveTypes.edit',leave_type.id)" v-tooltip="'Edit'" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </Link>
-                                            <button @click="deleteData(leave_type.id)" v-tooltip="'Delete Leave Type'" class="btn btn-sm">
+                                            <button @click="deleteData(leave_type.id)" v-tooltip="'Delete'" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -97,14 +97,16 @@ export default {
                 confirmButtonText: "Yes, delete it!",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.$inertia.delete(route("company.leaveTypes.destroy", id));
+                    this.$inertia.delete(
+                        route("company.leaveTypes.destroy", id)
+                    );
                 }
             });
         },
     },
-     mounted(){
-        this.checkPagePermission('company')
-    }
+    mounted() {
+        this.checkPagePermission("company");
+    },
 };
 </script>
 

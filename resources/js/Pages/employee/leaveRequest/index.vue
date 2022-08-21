@@ -77,14 +77,14 @@
                                         </span>
                                     </td>
                                     <td class="d-flex">
-                                        <button @click="showDetails(leaveRequest)" v-tooltip="'Show Request Details'" class="btn btn-sm">
+                                        <button @click="showDetails(leaveRequest)" v-tooltip="__('Details')" class="btn btn-sm">
                                                 <EyeIcon/>
                                         </button>
                                         <template v-if="leaveRequest.status == 'pending'">
-                                            <Link :href="route('employee.leave.request.edit', leaveRequest.id)" v-tooltip="'Edit Request'" class="btn btn-sm">
+                                            <Link :href="route('employee.leave.request.edit', leaveRequest.id)" v-tooltip="__('Edit')" class="btn btn-sm">
                                             <EditIcon/>
                                             </Link>
-                                            <button @click="deleteData(leaveRequest.id)" v-tooltip="'Delete Request'" class="btn btn-sm">
+                                            <button @click="deleteData(leaveRequest.id)" v-tooltip="__('Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </template>

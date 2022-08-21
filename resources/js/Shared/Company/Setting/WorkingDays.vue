@@ -1,5 +1,5 @@
 <template>
-    <h6>Working Days</h6>
+    <h6>{{ __('Working Days') }}</h6>
     <hr>
     <form @submit.prevent="saveData">
         <div class="d-flex flex-wrap flex-column">
@@ -7,43 +7,43 @@
                 <div class="col-12 col-sm-3">
                     <label>
                         <input v-model="form.sunday" :checked="form.sunday" type="checkbox">
-                        Sunday
+                        {{ __('Sunday') }}
                     </label>
                 </div>
                 <div class="col-12 col-sm-3">
                     <label>
                         <input v-model="form.monday" :checked="form.monday" type="checkbox">
-                        Monday
+                        {{ __('Monday') }}
                     </label>
                 </div>
                 <div class="col-12 col-sm-3">
                     <label>
                         <input v-model="form.tuesday" :checked="form.tuesday" type="checkbox">
-                        Tuesday
+                        {{ __('Tuesday') }}
                     </label>
                 </div>
                 <div class="col-12 col-sm-3">
                     <label>
                         <input v-model="form.wednesday" :checked="form.wednesday" type="checkbox">
-                        Wednesday
+                        {{ __('Wednesday') }}
                     </label>
                 </div>
                 <div class="col-12 col-sm-3">
                     <label>
                         <input v-model="form.thursday" :checked="form.thursday" type="checkbox">
-                        Thursday
+                        {{ __('Thursday') }}
                     </label>
                 </div>
                 <div class="col-12 col-sm-3">
                     <label>
                         <input v-model="form.friday" :checked="form.friday" type="checkbox">
-                        Friday
+                        {{ __('Friday') }}
                     </label>
                 </div>
                 <div class="col-12 col-sm-3">
                     <label>
                         <input v-model="form.saturday" :checked="form.saturday" type="checkbox">
-                        Saturday
+                        {{ __('Saturday') }}
                     </label>
                 </div>
 
