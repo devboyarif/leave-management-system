@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ud-banner-content">
-                        <h1>Pricing Page</h1>
+                        <h1>{{ __('Pricing Page') }}</h1>
                     </div>
                 </div>
             </div>
@@ -48,26 +48,26 @@
                                     <li>
                                         <i
                                             class="lni {{ !$plan->planFeatures->is_limited_employee ? 'lni-checkmark-circle text-success' : 'lni-cross-circle text-danger' }}"></i>
-                                        Unlimited Employees
+                                        {{ __('Unlimited Employees') }}
 
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>
-                                        Max Employees -
+                                        {{ __('Max Employees') }} -
                                         <b>{{ $plan->planFeatures->is_limited_employee ? $plan->planFeatures->max_employees : '∞' }}</b>
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>
-                                        Max Teams - <b>{{ $plan->planFeatures->max_teams }}</b>
+                                        {{ __('Max Teams') }} - <b>{{ $plan->planFeatures->max_teams }}</b>
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>
-                                        Max Leave Types - <b>{{ $plan->planFeatures->max_leave_types }}</b>
+                                        {{ __('Max Leave Types') }} - <b>{{ $plan->planFeatures->max_leave_types }}</b>
                                     </li>
                                     <li>
                                         <i
                                             class="lni {{ $plan->planFeatures->custom_theme_look ? 'lni-checkmark-circle text-success' : 'lni-cross-circle text-danger' }}"></i>
-                                        Custom Theme Look
+                                        {{ __('Custom Theme Look') }}
                                     </li>
                                 </ul>
                             </div>
@@ -84,14 +84,11 @@
                                 @else
                                     <a class="btn primary-btn rounded-full price-btn {{ !auth()->check() ? 'login_required' : '' }} {{ auth()->check() && auth()->user()->role == 'admin' ? 'not_acceptable' : '' }}"
                                         href="javascript:void(0)">
-                                        GET STARTED
+                                        {{ __('Get Started') }}
                                     </a>
                                 @endif
-
-                                {{-- session('current_subscription') --}}
                             </div>
                         </div>
-                        <!-- single pricing -->
                     </div>
                 @endforeach
             </div>

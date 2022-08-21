@@ -37,7 +37,7 @@
                     </NavLink>
 
                     <NavLink title="Holidays" :href="route('company.holidays.index')"
-                        :active="$page.url == '/company/holidays' || $page.url == '/company/holidays/*'">
+                        :active="$page.url == '/company/holidays' || $page.url == '/company/holidays/*' || $page.component == 'company/holiday/holidayRequest'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-h nav-icon"></i>
                         </template>
@@ -81,7 +81,7 @@
 
                     <!-- Settings Part  -->
                     <li class="nav-header">{{ __('Settings') }}</li>
-                    <NavLink title="Settings" :href="route('company.settings.general')">
+                    <NavLink title="Settings" :href="route('company.settings.general')" :active="$page.component == 'company/settings'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-gear nav-icon"></i>
                         </template>

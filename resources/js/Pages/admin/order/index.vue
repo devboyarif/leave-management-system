@@ -10,8 +10,11 @@
                         <div>
                             <button class="btn btn-secondary ml-2" @click="filteringData">
                                 <i class="fa-solid fa-filter"></i>
+                                &nbsp;
+                                <span v-if="!showFilter">{{ __('Show Filter') }}</span>
+                                <span v-else>{{ __('Hide Filter') }}</span>
                             </button>
-                            <Link :href="'admins'" class="btn btn-danger ml-2">
+                            <Link v-if="filterForm.company || filterForm.search || filterForm.payment || filterForm.plan" :href="route('orders.index')" class="btn btn-danger ml-2">
                                 <i class="fa-solid fa-times"></i>
                                 {{ __('Clear') }}
                             </Link>
@@ -20,11 +23,11 @@
                 </div>
                 <div class="card-body border-bottom row" v-if="showFilter">
                 <div class="col-3">
-                    <label>Search</label>
+                    <label>{{ __('Search') }}</label>
                     <input @keyup="searchData" v-model="filterForm.search" type="text" placeholder="Search order id, transaction id" class="form-control">
                 </div>
                 <div class="col-3">
-                    <label>Company</label>
+                    <label>{{ __('Company') }}</label>
                    <select class="form-control" v-model="filterForm.company" @change="filterData">
                         <option value="">{{ __('All') }}</option>
                         <option :value="company.id" v-for="company in companies" :key="company.id">
@@ -90,7 +93,7 @@
                                         <small v-else>{{ order.plan.custom_interval_days }} {{ __('Days') }}</small>
                                     </td>
                                     <td class="d-flex">
-                                        <button @click="showDetails(order)" v-tooltip="'Order Details'" class="btn btn-sm pl-0">
+                                        <button @click="showDetails(order)" v-tooltip="__('Order Details')" class="btn btn-sm pl-0">
                                             <EyeIcon/>
                                         </button>
                                     </td>
@@ -225,7 +228,7 @@ export default {
     components: {
         Pagination,
         Feature,
-        Inertia
+        Inertia,
     },
     data() {
         return {
@@ -261,16 +264,17 @@ export default {
         },
         filteringData() {
             this.showFilter = !this.showFilter;
-            localStorage.setItem("showFilter", this.showFilter);
+            localStorage.setItem("adminOrder", this.showFilter);
         },
         filterData() {
             console.log(this.filterForm);
-            Inertia.get(route('orders.index'),
+            Inertia.get(
+                route("orders.index"),
                 {
                     company: this.filterForm.company,
                     search: this.filterForm.search,
                     payment: this.filterForm.payment,
-                    plan: this.filterForm.plan
+                    plan: this.filterForm.plan,
                 },
                 {
                     preserveState: true,
@@ -279,9 +283,10 @@ export default {
             );
         },
     },
-     watch: {
-        'filterForm.search': debounce((value) => {
-            Inertia.get(route('orders.index'),
+    watch: {
+        "filterForm.search": debounce((value) => {
+            Inertia.get(
+                route("orders.index"),
                 { search: value },
                 {
                     preserveState: true,
@@ -292,9 +297,8 @@ export default {
     },
     mounted() {
         this.checkPagePermission("admin");
-        if (localStorage.getItem("showFilter")) {
-            this.showFilter = localStorage.getItem("showFilter");
-        }
+        this.showFilter =
+            localStorage.getItem("adminOrder") == "true" ? true : false;
     },
 };
 </script>

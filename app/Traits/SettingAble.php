@@ -196,12 +196,14 @@ trait SettingAble
         return true;
     }
 
-    public function getSeo(){
+    public function getSeo()
+    {
         $seo = Seo::all();
         return $seo;
     }
 
-    public function updateSeoContent($request, $seo){
+    public function updateSeoContent($request, $seo)
+    {
         $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -217,7 +219,8 @@ trait SettingAble
         return true;
     }
 
-    public function updateBrandInfo($request){
+    public function updateBrandInfo($request)
+    {
         $request->validate([
             'app_name' => 'required',
             'app_email' => 'required|email',
@@ -255,7 +258,8 @@ trait SettingAble
         return true;
     }
 
-    public function updateSocialMedia($request){
+    public function updateSocialMedia($request)
+    {
         $request->validate([
             'facebook' => 'nullable|url',
             'twitter' => 'nullable|url',
@@ -275,7 +279,8 @@ trait SettingAble
         ]);
     }
 
-    public function updateCmsData($data){
+    public function updateCmsData($data)
+    {
         $cms = Cms::first();
 
         switch ($data->type) {
@@ -365,7 +370,8 @@ trait SettingAble
         }
     }
 
-    public function getCurrencyData(){
+    public function getCurrencyData()
+    {
         $data['currencies'] = Currency::all();
         $path = base_path('resources/json/currency.json');
         $data['currencyInfos'] = json_decode(file_get_contents($path), true);
@@ -374,7 +380,8 @@ trait SettingAble
         return $data;
     }
 
-    public function storeCurrencyData($request){
+    public function storeCurrencyData($request)
+    {
         $request->validate([
             'name' => 'required|unique:currencies,name',
             'code' => 'required',
@@ -391,7 +398,8 @@ trait SettingAble
         ]);
     }
 
-    public function updateCurrencyData($request, $currency){
+    public function updateCurrencyData($request, $currency)
+    {
         $request->validate([
             'name' => "required|unique:currencies,name,$currency->id",
             'code' => 'required',
@@ -408,11 +416,13 @@ trait SettingAble
         ]);
     }
 
-    public function deleteCurrencyData($currency){
+    public function deleteCurrencyData($currency)
+    {
         $currency->delete();
     }
 
-    public function statusUpdateCurrencyData($currency){
+    public function statusUpdateCurrencyData($currency)
+    {
         if ($currency->status) {
             $currency->update(['status' => 0]);
         } else {
@@ -420,9 +430,54 @@ trait SettingAble
         }
     }
 
-    public function setDefaultCurrency($currency){
+    public function setDefaultCurrency($currency)
+    {
         checkSetEnv('APP_CURRENCY', $currency->code);
         checkSetEnv('APP_CURRENCY_SYMBOL', $currency->symbol);
         checkSetEnv('APP_CURRENCY_SYMBOL_POSITION', $currency->symbol_position);
+    }
+
+    public function getSmsSetting()
+    {
+        $data['twilio_secret'] = config('kodebazar.twilio_secret');
+        $data['twilio_token'] = config('kodebazar.twilio_token');
+        $data['twilio_from'] = config('kodebazar.twilio_from');
+        $data['twilio_active'] = config('kodebazar.twilio_active');
+
+        $data['vonage_key'] = config('kodebazar.vonage_key');
+        $data['vonage_secret'] = config('kodebazar.vonage_secret');
+        $data['vonage_from_name'] = config('kodebazar.vonage_from_name');
+        $data['vonage_active'] = config('kodebazar.vonage_active');
+
+        return $data;
+    }
+
+    public function updateSmsSetting($request)
+    {
+        if ($request->provider == 'twilio') {
+            $this->validate($request, [
+                'twilio_secret' => 'required',
+                'twilio_token' => 'required',
+                'twilio_from' => 'required',
+            ]);
+
+            checkSetEnv('TWILIO_SID', $request->twilio_secret);
+            checkSetEnv('TWILIO_TOKEN', $request->twilio_token);
+            setEnv('TWILIO_FROM', $request->twilio_from);
+            setEnv('TWILIO_ACTIVE', $request->twilio_active ? 'true' : 'false');
+        } else {
+            $this->validate($request, [
+                'vonage_key' => 'required',
+                'vonage_secret' => 'required',
+                'vonage_from_name' => 'required',
+            ]);
+
+            checkSetEnv('VONAGE_KEY', $request->vonage_key);
+            checkSetEnv('VONAGE_SECRET', $request->vonage_secret);
+            checkSetEnv('VONAGE_FROM_NAME', $request->vonage_from_name);
+            setEnv('VONAGE_ACTIVE', $request->vonage_active ? 'true' : 'false');
+        }
+
+        return true;
     }
 }

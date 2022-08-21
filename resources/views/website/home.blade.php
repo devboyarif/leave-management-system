@@ -16,7 +16,7 @@
                         <ul class="ud-hero-buttons mb-5 pb-5">
                             <li>
                                 <a href="{{ $cms->home_banner_button_url }}" rel="nofollow noopener"
-                                     class="ud-main-btn ud-white-btn">
+                                    class="ud-main-btn ud-white-btn">
                                     {{ $cms->home_banner_button_text }}
                                 </a>
                             </li>
@@ -50,11 +50,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach ($features as $feature)
+                    @foreach ($features as $key => $feature)
                         <div class="col-xl-3 col-lg-3 col-sm-6">
                             <div class="ud-single-feature wow fadeInUp" data-wow-delay=".1s">
                                 <div class="ud-feature-icon">
-                                    <i class="{{ $feature->icon }}"></i>
+                                    {{ $key + 1 }}
                                 </div>
                                 <div class="ud-feature-content">
                                     <h3 class="ud-feature-title">{{ $feature->title }}</h3>
@@ -80,7 +80,7 @@
                         <span class="tag">{{ $cms->about_title }}</span>
                         <h2>{{ $cms->about_subtitle }}</h2>
                         <p>
-                           {!! $cms->about_description !!}
+                            {!! $cms->about_description !!}
                         </p>
                     </div>
                 </div>
@@ -125,26 +125,25 @@
                                     <li>
                                         <i
                                             class="lni {{ !$plan->planFeatures->is_limited_employee ? 'lni-checkmark-circle text-success' : 'lni-cross-circle text-danger' }}"></i>
-                                        Unlimited Employees
-
+                                        {{ __('Unlimited Employees') }}
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>
-                                        Max Employees -
+                                        {{ __('Max Employees') }} -
                                         <b>{{ $plan->planFeatures->is_limited_employee ? $plan->planFeatures->max_employees : '∞' }}</b>
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>
-                                        Max Teams - <b>{{ $plan->planFeatures->max_teams }}</b>
+                                        {{ __('Max Teams') }} - <b>{{ $plan->planFeatures->max_teams }}</b>
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>
-                                        Max Leave Types - <b>{{ $plan->planFeatures->max_leave_types }}</b>
+                                        {{ __('Max Leave Types') }} - <b>{{ $plan->planFeatures->max_leave_types }}</b>
                                     </li>
                                     <li>
                                         <i
                                             class="lni {{ $plan->planFeatures->custom_theme_look ? 'lni-checkmark-circle text-success' : 'lni-cross-circle text-danger' }}"></i>
-                                        Custom Theme Look
+                                        {{ __('Custom Theme Look') }}
                                     </li>
                                 </ul>
                             </div>
@@ -153,7 +152,7 @@
                                     <a class="btn primary-btn rounded-full price-btn"
                                         href="{{ $plan->id == session('current_subscription')->plan_id ? 'javascript:void(0)' : route('website.plan.details', $plan->slug) }}">
                                         @if ($plan->id == session('current_subscription')->plan_id)
-                                            Current Plan
+                                            {{ __('Current Plan') }}
                                         @else
                                             {{ __('Select Plan') }}
                                         @endif
@@ -161,7 +160,7 @@
                                 @else
                                     <a class="btn primary-btn rounded-full price-btn {{ !auth()->check() ? 'login_required' : '' }} {{ auth()->check() && auth()->user()->role == 'admin' ? 'not_acceptable' : '' }}"
                                         href="javascript:void(0)">
-                                        GET STARTED
+                                        {{ __('Get Started') }}
                                     </a>
                                 @endif
                             </div>
@@ -193,7 +192,7 @@
                         <div class="ud-contact-title">
                             <span>{{ $cms->contact_title }}</span>
                             <h2>
-                               {{ $cms->contact_subtitle }}
+                                {{ $cms->contact_subtitle }}
                             </h2>
                         </div>
                         <div class="ud-contact-info-wrapper">
@@ -202,7 +201,7 @@
                                     <i class="lni lni-map-marker"></i>
                                 </div>
                                 <div class="ud-info-meta">
-                                    <h5>Our Location</h5>
+                                    <h5>{{ __('Our Location') }}</h5>
                                     <p>{{ $setting->app_location }}</p>
                                 </div>
                             </div>
@@ -211,7 +210,7 @@
                                     <i class="lni lni-envelope"></i>
                                 </div>
                                 <div class="ud-info-meta">
-                                    <h5>How Can We Help?</h5>
+                                    <h5>{{ __('How Can We Help') }}</h5>
                                     <p>{{ $setting->app_email }}</p>
                                 </div>
                             </div>
@@ -220,7 +219,7 @@
                 </div>
                 <div class="col-xl-4 col-lg-5">
                     <div class="ud-contact-form-wrapper wow fadeInUp" data-wow-delay=".2s">
-                        <h3 class="ud-contact-form-title">Send us a Message</h3>
+                        <h3 class="ud-contact-form-title">{{ __('Send us a Message') }}</h3>
                         @livewire('contact-form')
                     </div>
                 </div>

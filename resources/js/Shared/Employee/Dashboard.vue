@@ -73,7 +73,7 @@
                         <h3 class="card-title">{{ __('Pending Leave Request') }}</h3>
                         <Link v-tooltip="'Show all leave requests'" :href="route('employee.leave.request.index')" class="btn btn-primary btn-sm">
                             <i class="fa-regular fa-eye"></i>
-                            Show all
+                            {{ __('Show all') }}
                         </Link>
                     </div>
                 </div>
@@ -88,25 +88,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="leave_request in pending_leave_requests" :key="leave_request.id">
-                                <td>
-                                    <span :style="{ background: leave_request.color, border: '2px solid '+leave_request.color }" class="leave-type-color">
-                                        {{ leave_request.name }}
-                                    </span>
-                                </td>
-                                <td>{{ leave_request.start }} - {{ leave_request.end }} (<span class="text-danger ml-1">
-                                        {{ leave_request.days }} {{ pluralize(leave_request.days, 'Day') }}
-                                    </span>)</td>
-                                <td>
-                                    <span class="badge badge-warning">{{ __('Pending') }}</span>
-                                </td>
-                                <td>
-                                    <Link :href="route('employee.leave.request.edit', leave_request.id)" v-tooltip="__('Edit Leave Request')" class="btn btn-sm">
-                                        <EditIcon/>
-                                    </Link>
-                                    <button @click="deleteData(leave_request.id)" v-tooltip="__('Leave Request Delete')" class="btn btn-sm">
-                                        <DeleteIcon/>
-                                    </button>
+                            <template v-if="pending_leave_requests && pending_leave_requests.length">
+                                <tr v-for="leave_request in pending_leave_requests" :key="leave_request.id">
+                                    <td>
+                                        <span :style="{ background: leave_request.color, border: '2px solid '+leave_request.color }" class="leave-type-color">
+                                            {{ leave_request.name }}
+                                        </span>
+                                    </td>
+                                    <td>{{ leave_request.start }} - {{ leave_request.end }} (<span class="text-danger ml-1">
+                                            {{ leave_request.days }} {{ pluralize(leave_request.days, 'Day') }}
+                                        </span>)</td>
+                                    <td>
+                                        <span class="badge badge-warning">{{ __('Pending') }}</span>
+                                    </td>
+                                    <td>
+                                        <Link :href="route('employee.leave.request.edit', leave_request.id)" v-tooltip="__('Edit Leave Request')" class="btn btn-sm">
+                                            <EditIcon/>
+                                        </Link>
+                                        <button @click="deleteData(leave_request.id)" v-tooltip="__('Leave Request Delete')" class="btn btn-sm">
+                                            <DeleteIcon/>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </template>
+                            <tr v-else>
+                                <td colspan="5" class="text-center">
+                                    <h6>{{ __('No Data Found') }}</h6>
                                 </td>
                             </tr>
                         </tbody>
@@ -124,27 +131,32 @@
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">{{ __('Leave Balance') }}</h3>
-                        <Link v-tooltip="'Apply for leave new request'" :href="route('employee.leave.request.create')" class="btn btn-danger btn-sm">
+                        <Link v-tooltip="__('Apply for Leave')" :href="route('employee.leave.request.create')" class="btn btn-danger btn-sm">
                             <i class="fa-regular fa-calendar-check"></i>
                             {{ __('Apply for Leave') }}
                         </Link>
                     </div>
                 </div>
                 <div class="card-body" v-if="!loading">
-                    <div v-for="(leave_balance, index) in leave_balances" :key="index">
-                        <PieChart :title="leave_balance.title" :series="leavePercentage(leave_balance)"/>
-                        <ul class="list-group list-group-horizontal my-2 d-flex justify-content-center">
-                            <li class="list-group-item">
-                                {{ __('Total') }} - <span>{{ leave_balance.total_days }}</span>
-                            </li>
-                            <li class="list-group-item">
-                                {{ __('Used') }} - <span>{{ leave_balance.used_days }}</span>
-                            </li>
-                            <li class="list-group-item">
-                                {{ __('Remaining') }} - <span>{{ leave_balance.remaining_days }}</span>
-                            </li>
-                        </ul>
-                        <hr v-if="index+1 != leave_balances.length">
+                    <template v-if="leave_balances && leave_balances.length">
+                        <div v-for="(leave_balance, index) in leave_balances" :key="index">
+                            <PieChart :title="leave_balance.title" :series="leavePercentage(leave_balance)"/>
+                            <ul class="list-group list-group-horizontal my-2 d-flex justify-content-center">
+                                <li class="list-group-item">
+                                    {{ __('Total') }} - <span>{{ leave_balance.total_days }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    {{ __('Used') }} - <span>{{ leave_balance.used_days }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    {{ __('Remaining') }} - <span>{{ leave_balance.remaining_days }}</span>
+                                </li>
+                            </ul>
+                            <hr v-if="index+1 != leave_balances.length">
+                        </div>
+                    </template>
+                    <div class="text-center">
+                        <h6>{{ __('No Data Found') }}</h6>
                     </div>
                 </div>
                  <div class="card-body mx-auto" v-else>
@@ -200,11 +212,14 @@ export default {
                 confirmButtonText: "Yes, delete it!",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.$inertia.delete(route("employee.leave.request.delete", id), {
-                        onSuccess: () => {
-                            this.loadData();
-                        },
-                    });
+                    this.$inertia.delete(
+                        route("employee.leave.request.delete", id),
+                        {
+                            onSuccess: () => {
+                                this.loadData();
+                            },
+                        }
+                    );
                 }
             });
         },

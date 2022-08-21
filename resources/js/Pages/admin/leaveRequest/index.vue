@@ -2,7 +2,7 @@
 
     <Head :title="__('Company List')" />
 
-    <div class="row justify-content-center" v-if="leaveRequests && leaveRequests.data.length">
+    <div class="row justify-content-center mt-3">
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-0">
@@ -15,8 +15,11 @@
                             </Link>
                             <button class="btn btn-secondary ml-2" @click="filteringData">
                                 <i class="fa-solid fa-filter"></i>
+                                &nbsp;
+                                <span v-if="!showFilter">{{ __('Show Filter') }}</span>
+                                <span v-else>{{ __('Hide Filter') }}</span>
                             </button>
-                            <Link :href="'admins'" class="btn btn-danger ml-2">
+                            <Link v-if="form.company || form.status" :href="route('leaveRequests.index')" class="btn btn-danger ml-2">
                                 <i class="fa-solid fa-times"></i>
                                 {{ __('Clear') }}
                             </Link>
@@ -24,25 +27,25 @@
                     </div>
                 </div>
                  <div class="card-body border-bottom d-flex justify-content-between" v-if="showFilter">
-                        <div class=" w-25">
-                            <label>Company</label>
-                            <select class="form-control" v-model="form.company" @change="filterData">
-                                <option value="">{{ __('All') }}</option>
-                                <option :value="company.id" v-for="company in companies" :key="company.id">
-                                    {{ company.user.name }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="ml-auto w-25">
-                            <label>Status</label>
-                            <select class="form-control" v-model="form.status" @change="filterData">
-                                <option value="">{{ __('All') }}</option>
-                                <option value="pending">{{ __('Pending') }}</option>
-                                <option value="approved">{{ __('Approved') }}</option>
-                                <option value="rejected">{{ __('Rejected') }}</option>
-                            </select>
-                        </div>
+                    <div class=" w-25">
+                        <label>Company</label>
+                        <select class="form-control" v-model="form.company" @change="filterData">
+                            <option value="">{{ __('All') }}</option>
+                            <option :value="company.id" v-for="company in companies" :key="company.id">
+                                {{ company.user.name }}
+                            </option>
+                        </select>
                     </div>
+                    <div class="ml-auto w-25">
+                        <label>Status</label>
+                        <select class="form-control" v-model="form.status" @change="filterData">
+                            <option value="">{{ __('All') }}</option>
+                            <option value="pending">{{ __('Pending') }}</option>
+                            <option value="approved">{{ __('Approved') }}</option>
+                            <option value="rejected">{{ __('Rejected') }}</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-valign-middle">
                         <thead>
@@ -75,7 +78,7 @@
                                     <td>
                                         {{ startDate(leaveRequest.start) }} - {{ endDate(leaveRequest.end) }}
 
-                                         (<span class="text-danger ml-1">
+                                        (<span class="text-danger ml-1">
                                         {{ leaveRequest.days }} {{ pluralize(leaveRequest.days, __('Day')) }}
                                     </span>)
 
@@ -86,7 +89,7 @@
                                         </span>
                                     </td>
                                     <td class="d-flex">
-                                       <Actions :leaveRequest="leaveRequest" />
+                                    <Actions :leaveRequest="leaveRequest" />
                                     </td>
                                 </tr>
                             </template>
@@ -97,16 +100,9 @@
                             </tr>
                         </tbody>
                     </table>
-
-                     <!-- Pagination  -->
                     <Pagination :links="leaveRequests.links" />
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row justify-content-center" v-else>
-        <div class="col-12 text-center mt-5 pt-5">
-            <h3>{{ __('No Data Found') }}</h3>
         </div>
     </div>
 </template>
@@ -114,7 +110,6 @@
 
 <script>
 import Pagination from "../../../Shared/Pagination.vue";
-import debounce from "lodash/debounce";
 import Actions from "../../../Shared/Admin/LeaveRequest/Status.vue";
 import dayjs from "dayjs";
 import { Inertia } from "@inertiajs/inertia";
@@ -158,7 +153,7 @@ export default {
         },
         filteringData() {
             this.showFilter = !this.showFilter;
-            localStorage.setItem("showFilter", this.showFilter);
+            localStorage.setItem("adminOrder", this.showFilter);
         },
         getBadgeType(status) {
             if (status == "pending") {
@@ -191,9 +186,7 @@ export default {
     },
     mounted() {
         this.checkPagePermission("admin");
-        if (localStorage.getItem("showFilter")) {
-            this.showFilter = localStorage.getItem("showFilter");
-        }
+        this.showFilter = localStorage.getItem("adminOrder") == "true" ? true : false;
     },
 };
 </script>

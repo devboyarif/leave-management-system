@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ud-banner-content">
-                        <h1>Blog Page</h1>
+                        <h1>{{ __('Blog Page') }}</h1>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 @empty
-                    <h3 class="text-center">No posts found</h3>
+                    <h3 class="text-center">{{ __('No Data Found') }}</h3>
                 @endforelse
             </div>
             {{ $posts->links() }}

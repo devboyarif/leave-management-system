@@ -99,13 +99,18 @@
                             <i class="fa-solid fa-star nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Faq" :href="route('faqs.index')" :active="$page.component == ' admin/others/faq'">
+                    <NavLink title="Faq" :href="route('faqs.index')" :active="$page.component == 'admin/others/faq'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-question nav-icon"></i>
                         </template>
                     </NavLink>
+                    <NavLink title="Features" :href="route('features.index')" :active="$page.component == 'admin/others/features'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-key nav-icon"></i>
+                        </template>
+                    </NavLink>
                     <NavLink title="Contact Messages" :href="route('contact.messages')"
-                        :active="$page.component == ' admin/others/faq'">
+                        :active="$page.component == 'admin/others/messages'">
                         <template v-slot:icon>
                             <i class="fa-regular fa-address-book nav-icon"></i>
                         </template>
@@ -171,11 +176,6 @@ export default {
                 pageComponent == "admin/employee/edit"
             );
         },
-
-        // $page.url == '/admin/admins/*' || $page.url == '/admin/companies/*' || $page.url == '/admin/employees/*'
-    },
-    mounted() {
-        console.log(this.$page.props.setting);
     },
 };
 </script>

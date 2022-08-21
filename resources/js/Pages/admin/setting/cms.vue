@@ -7,28 +7,28 @@
                         <div class="col-12 col-sm-12 col-md-3">
                             <ul class="nav nav-pills flex-column">
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'home_page'}" @click="changeTab('home_page')">Home Page</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'home_page'}" @click="changeTab('home_page')">{{ __('Home Page') }}</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'about_page'}" @click="changeTab('about_page')">About Page</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'about_page'}" @click="changeTab('about_page')">{{ __('About Page') }}</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'plan_page'}" @click="changeTab('plan_page')">Pricing Page</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'plan_page'}" @click="changeTab('plan_page')">{{ __('Pricing Page') }}</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'contact_page'}" @click="changeTab('contact_page')">Contact Page</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'contact_page'}" @click="changeTab('contact_page')">{{ __('Contact Page') }}</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'testimonial_section'}" @click="changeTab('testimonial_section')">Testimonial Section</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'testimonial_section'}" @click="changeTab('testimonial_section')">{{ __('Testimonial Section') }}</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'faq_section'}" @click="changeTab('faq_section')">FAQ Section</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'faq_section'}" @click="changeTab('faq_section')">{{ __('FAQ Section') }}</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'terms_page'}" @click="changeTab('terms_page')">Terms & Condition Page</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'terms_page'}" @click="changeTab('terms_page')">{{ __('Terms & Condition Page') }}</a>
                                 </li>
                                 <li class="nav-item border rounded mb-1">
-                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'privacy_page'}" @click="changeTab('privacy_page')">Privacy Policy Page</a>
+                                    <a href="javascript:void(0)" class="nav-link"  :class="{'active': currentTab == 'privacy_page'}" @click="changeTab('privacy_page')">{{ __('Privacy Policy Page') }}</a>
                                 </li>
 
                             </ul>

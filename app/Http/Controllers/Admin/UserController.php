@@ -155,11 +155,14 @@ class UserController extends Controller
 
     public function profile()
     {
-        $role = auth()->user()->role;
-        $data['user'] = auth()->user();
+        $user = auth()->user();
+        $role = $user->role;
+        $data['user'] = $user;
 
         if ($role == 'company') {
             $data['countries'] = Country::all(['id', 'name']);
+        }else if($role == 'employee'){
+            $data['user'] = $user->load('employee');
         }
 
         return inertia('profile', $data);
@@ -190,10 +193,10 @@ class UserController extends Controller
 
         if ($role == 'company' && $request->country) {
             $company = $user->company;
+            $country_id = $company->country_id;
+            $company->update(['country_id' => $request->country]);
 
-            if ($company->country_id != $request->country) {
-                $company->update(['country_id' => $request->country]);
-
+            if (($country_id != $request->country) && $request->change_holidays) {
                 // store & delete official holidays
                 $company->holidays()->delete();
                 $country = Country::findOrFail($request->country);
@@ -225,9 +228,9 @@ class UserController extends Controller
                     }
                 }
             }
+        }else if($role == 'employee' && $request->phone){
+            $user->employee->update(['phone' => $request->phone]);
         }
-
-
 
         session()->flash('success', 'Profile updated successfully!');
         return back();
@@ -249,7 +252,8 @@ class UserController extends Controller
         return back();
     }
 
-    public function accountDelete(){
+    public function accountDelete()
+    {
         User::find(auth()->id())->delete();
 
         session()->flash('success', 'Account deleted successfully!');

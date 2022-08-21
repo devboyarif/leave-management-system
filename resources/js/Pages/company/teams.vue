@@ -36,10 +36,10 @@
                                             <small v-else>{{ __('No Employee Found') }}</small>
                                         </td>
                                         <td class="d-flex">
-                                            <button @click="editTeam(team)" v-tooltip="__('Edit Leave Type')" class="btn btn-sm  pl-0">
+                                            <button @click="editTeam(team)" v-tooltip="__('Edit')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </button>
-                                            <button @click="deleteData(team.id)" v-tooltip="__('Delete Leave Type')" class="btn btn-sm">
+                                            <button @click="deleteData(team.id)" v-tooltip="__('Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -180,9 +180,9 @@ export default {
             this.form.emails.splice(index, 1);
         },
     },
-     mounted(){
-        this.checkPagePermission('company')
-    }
+    mounted() {
+        this.checkPagePermission("company");
+    },
 };
 </script>
 

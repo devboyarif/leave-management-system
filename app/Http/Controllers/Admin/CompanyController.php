@@ -80,7 +80,7 @@ class CompanyController extends Controller
      */
     public function store(CompanyCreateRequest $request)
     {
-        $data = $request->all();
+        $data = $request->except(['country', 'password_confirmation']);
         $data['password'] = bcrypt($data['password']);
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
@@ -141,7 +141,7 @@ class CompanyController extends Controller
     {
         $user = $company;
 
-        $data = $request->all();
+        $data = $request->except(['country', 'password_confirmation']);
         if ($request->password) {
             $data['password'] = bcrypt($data['password']);
         }

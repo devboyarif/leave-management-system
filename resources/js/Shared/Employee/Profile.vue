@@ -7,15 +7,15 @@
               <nav class="nav flex-column nav-pills nav-gap-y-1">
                 <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded" :class="{'active': currentTab == 'profile'}" @click="changeTab('profile')">
                   <UserIcon class="mr-2"/>
-                  Profile Information
+                  {{ __('Profile Information') }}
                 </a>
                 <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded" :class="{'active': currentTab == 'account_setting'}" @click="changeTab('account_setting')">
                     <CogIcon class="mr-2"/>
-                 Account Settings
+                 {{ __('Account Settings') }}
                 </a>
                 <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded" :class="{'active': currentTab == 'security'}" @click="changeTab('security')">
                     <GuardIcon class="mr-2"/>
-                 Security
+                 {{ __('Security') }}
                 </a>
               </nav>
             </div>
@@ -25,7 +25,7 @@
           <div class="card">
             <div class="card-body tab-content">
                 <div class="tab-pane fade" :class="{'show active': currentTab == 'profile'}">
-                    <h6>Profile Information</h6>
+                    <h6>{{ __('Profile Information') }}</h6>
                     <hr>
                      <form class="form-horizontal" autocomplete="off" @submit.prevent="profileUpdate">
                         <div class="form-group position-relative">
@@ -54,6 +54,11 @@
                                 class="form-control " placeholder="Enter New Email" :class="{'is-invalid':form.errors.email}">
                             <ErrorMessage :name="form.errors.email"/>
                         </div>
+                        <div class="form-group">
+                            <Label :name="__('Phone Number')" :required="false"/>
+                            <vue-tel-input v-model="form.phone" mode="international"/>
+                            <ErrorMessage :name="form.errors.email"/>
+                        </div>
                         <button :disabled="form.processing" type="submit" class="btn btn-primary">
                             <Loading v-if="form.processing"/>
                             <span v-else>
@@ -64,7 +69,7 @@
                     </form>
                 </div>
                 <div class="tab-pane fade" :class="{'show active': currentTab == 'account_setting'}">
-                    <h6>Account Settings</h6>
+                    <h6>{{ __('Account Settings') }}</h6>
                     <hr>
                      <form class="form-horizontal" autocomplete="off" @submit.prevent="passwordUpdate">
                         <div id="password_visibility">
@@ -99,13 +104,13 @@
                     </form>
                 </div>
                 <div class="tab-pane fade" :class="{'show active': currentTab == 'security'}">
-                    <h6>Security</h6>
+                    <h6>{{ __('Security') }}</h6>
                     <hr>
-                    <div class="form-group">
-                        <label class="d-block text-danger">Delete Account</label>
-                        <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain.</p>
+                     <div class="form-group">
+                        <label class="d-block text-danger">{{ __('Delete Account') }}</label>
+                        <p class="text-muted font-size-sm">{{ __('Once you delete your account, there is no going back. Please be certain') }}</p>
                     </div>
-                    <button @click="deleteAccount" class="btn btn-danger" type="button">Delete Account</button>
+                     <button @click="deleteAccount" class="btn btn-danger" type="button">{{ __('Delete Account') }}</button>
                 </div>
             </div>
           </div>
@@ -121,6 +126,8 @@ import CogIcon from "../Icons/CogIcon.vue";
 import GuardIcon from "../Icons/GuardIcon.vue";
 import NotificationIcon from "../Icons/NotificationIcon.vue";
 import CardIcon from "../Icons/CardIcon.vue";
+import { VueTelInput } from "vue-tel-input";
+import "vue-tel-input/dist/vue-tel-input.css";
 
 export default {
     props: {
@@ -135,6 +142,7 @@ export default {
         GuardIcon,
         NotificationIcon,
         CardIcon,
+        VueTelInput,
     },
     data() {
         return {
@@ -144,6 +152,7 @@ export default {
                 name: this.user.name,
                 email: this.user.email,
                 avatar: null,
+                phone: this.user.employee ? this.user.employee.phone : "",
             }),
 
             passwordForm: this.$inertia.form({

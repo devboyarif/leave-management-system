@@ -63,8 +63,7 @@ trait PaymentAble
 
         if ($redirect) {
             session()->flash('success', 'Plan purchased successfully.');
-            return redirect()->route('website.home')->send();
-            // return redirect()->route('company.plan')->send();
+            return redirect()->route('company.orders.index')->send();
         }
     }
 

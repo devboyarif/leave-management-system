@@ -26,7 +26,8 @@
                                 alt="">
                         </div>
                         <div class="card-body">
-                            <button id="paypal_btn" type="button" class="ud-main-btn ud-white-btn">Pay via Paypal</button>
+                            <button id="paypal_btn" type="button"
+                                class="ud-main-btn ud-white-btn">{{ __('Pay via Paypal') }}</button>
                         </div>
                     </div>
                 </div>
@@ -37,8 +38,8 @@
                                 alt="">
                         </div>
                         <div class="card-body">
-                            <button id="stripe_btn" type="button" class="ud-main-btn ud-white-btn">Pay
-                                via Stripe</button>
+                            <button id="stripe_btn" type="button"
+                                class="ud-main-btn ud-white-btn">{{ __('Pay via Stripe') }}</button>
                         </div>
                     </div>
                 </div>
@@ -49,8 +50,8 @@
                                 src="{{ asset('website/images/payment/razorpay.png') }}" alt="">
                         </div>
                         <div class="card-body">
-                            <button id="razorpay_btn" type="button" class="ud-main-btn ud-white-btn">Pay
-                                via Razorpay</button>
+                            <button id="razorpay_btn" type="button"
+                                class="ud-main-btn ud-white-btn">{{ __('Pay via Razorpay') }}</button>
 
                         </div>
                     </div>
@@ -62,8 +63,8 @@
                                 src="{{ asset('website/images/payment/flutterwave.png') }}" alt="">
                         </div>
                         <div class="card-body border-0">
-                            <button id="flutter_btn" type="button" class="ud-main-btn ud-white-btn">Pay
-                                via Flutterwave</button>
+                            <button id="flutter_btn" type="button"
+                                class="ud-main-btn ud-white-btn">{{ __('Pay via Flutterwave') }}</button>
                         </div>
                     </div>
                 </div>
@@ -74,8 +75,8 @@
                                 alt="">
                         </div>
                         <div class="card-body">
-                            <button id="mollie_btn" type="button" class="ud-main-btn ud-white-btn">Pay
-                                via Mollie</button>
+                            <button id="mollie_btn" type="button"
+                                class="ud-main-btn ud-white-btn">{{ __('Pay via Mollie') }}</button>
                         </div>
                     </div>
                 </div>
@@ -86,8 +87,8 @@
                                 src="{{ asset('website/images/payment/paystack.png') }}" alt="">
                         </div>
                         <div class="card-body">
-                            <button id="paystack_btn" type="button" class="ud-main-btn ud-white-btn">Pay
-                                via Paystack</button>
+                            <button id="paystack_btn" type="button"
+                                class="ud-main-btn ud-white-btn">{{ __('Pay via Paystack') }}</button>
                         </div>
                     </div>
                 </div>
@@ -98,8 +99,8 @@
                                 src="{{ asset('website/images/payment/instamojo.png') }}" alt="">
                         </div>
                         <div class="card-body">
-                            <button id="instamojo_btn" type="button" class="ud-main-btn ud-white-btn">Pay
-                                via Instamojo</button>
+                            <button id="instamojo_btn" type="button"
+                                class="ud-main-btn ud-white-btn">{{ __('Pay via Instamojo') }}</button>
                         </div>
                     </div>
                 </div>
@@ -111,38 +112,23 @@
 
                         </div>
                         <div class="card-body">
-                            <button id="midtrans_btn" type="button" class="ud-main-btn ud-white-btn">Pay
-                                via Midtrans</button>
+                            <button id="midtrans_btn" type="button"
+                                class="ud-main-btn ud-white-btn">{{ __('Pay via Midtrans') }}</button>
                         </div>
                     </div>
                 </div>
             </div>
-            {{-- <div class="row">
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Paypal</h4>
-                        </div>
-                        <div class="card-body">
-                            <button class="ud-main-btn ud-white-btn btn-block">Pay Now</button>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </section>
 
     {{-- Paypal Form --}}
     <form action="{{ route('paypal.post') }}" method="POST" class="d-none" id="paypal-form">
         @csrf
-
     </form>
 
     {{-- Stripe Form --}}
     <form action="{{ route('stripe.post') }}" method="POST" class="d-none">
         @csrf
-
-
         <script id="stripe_script" src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{{ config('kodebazar.stripe_key') }}" data-amount="{{ session('stripe_amount') }}"
             data-name="{{ config('app.name') }}" data-description="Money pay with stripe"

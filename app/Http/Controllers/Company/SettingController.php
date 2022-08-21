@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,7 @@ class SettingController extends Controller
         $data['user'] = auth()->user();
         $data['workingdays'] = $data['user']->company->workingDays;
         $data['theme'] = $data['user']->company->theme;
+        $data['countries'] = Country::all(['id', 'name']);
 
         return inertia('company/settings', $data);
     }

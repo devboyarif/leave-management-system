@@ -14,8 +14,11 @@
                                 </Link>
                                 <button class="btn btn-secondary ml-2" @click="filteringData">
                                     <i class="fa-solid fa-filter"></i>
+                                    &nbsp;
+                                    <span v-if="!showFilter">{{ __('Show Filter') }}</span>
+                                    <span v-else>{{ __('Hide Filter') }}</span>
                                 </button>
-                                 <Link :href="'admins'" class="btn btn-danger ml-2" v-if="search && search.length">
+                                 <Link :href="route('leaveTypes.index')" class="btn btn-danger ml-2" v-if="company">
                                     <i class="fa-solid fa-times"></i>
                                     {{ __('Clear') }}
                                 </Link>
@@ -62,10 +65,10 @@
                                             </span>
                                         </td>
                                         <td class="d-flex">
-                                            <Link :href="route('leaveTypes.edit',leave_type.id)" v-tooltip="__('Edit Leave Type')" class="btn btn-sm  pl-0">
+                                            <Link :href="route('leaveTypes.edit',leave_type.id)" v-tooltip="__('Edit')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </Link>
-                                            <button @click="deleteData(leave_type.id)" v-tooltip="__('Delete Leave Type')" class="btn btn-sm">
+                                            <button @click="deleteData(leave_type.id)" v-tooltip="__('Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -105,7 +108,7 @@ export default {
     },
     data() {
         return {
-            company: this.filters.company,
+            company: this.filters.company ?? "",
             showFilter: false,
         };
     },
@@ -127,7 +130,7 @@ export default {
         },
         filteringData() {
             this.showFilter = !this.showFilter;
-            localStorage.setItem("showFilter", this.showFilter);
+            localStorage.setItem("adminLeaveType", this.showFilter);
         },
     },
     watch: {
@@ -144,9 +147,8 @@ export default {
     },
     mounted() {
         this.checkPagePermission("admin");
-        if (localStorage.getItem("showFilter")) {
-            this.showFilter = localStorage.getItem("showFilter");
-        }
+        this.showFilter =
+            localStorage.getItem("adminLeaveType") == "true" ? true : false;
     },
 };
 </script>

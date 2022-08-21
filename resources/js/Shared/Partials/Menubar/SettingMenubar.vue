@@ -54,6 +54,11 @@
                             <i class="fa-solid fa-credit-card nav-icon"></i>
                         </template>
                     </NavLink>
+                     <NavLink title="Upgrade" :href="route('settings.upgrade')" :active="$page.component == 'admin/setting/upgrade'">
+                        <template v-slot:icon>
+                            <i class="fa-solid fa-upload nav-icon"></i>
+                        </template>
+                    </NavLink>
 
                      <li class="nav-item">
                         <Link href="/logout" class="nav-link" method="post">

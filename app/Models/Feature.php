@@ -12,8 +12,12 @@ class Feature extends Model
     protected $fillable = [
         'title',
         'slug',
-        'icon',
-        'short_description',
-        'long_description',
+        'description',
     ];
+
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = $value;
+        $this->attributes['slug'] = strSlug($value);
+    }
 }

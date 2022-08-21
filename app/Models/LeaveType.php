@@ -29,4 +29,9 @@ class LeaveType extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function leaveBalances()
+    {
+        return $this->hasMany(LeaveBalance::class, 'leave_type_id');
+    }
 }

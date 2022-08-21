@@ -11,6 +11,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Cms;
 use App\Models\Currency;
 use Illuminate\Support\Facades\Mail;
+use ZipArchive;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -19,17 +21,23 @@ class SettingController extends Controller
     public function general()
     {
         $setting = Setting::first();
+        $sms_settings = $this->getSmsSetting();
 
-        return inertia('admin/setting/general', compact('setting'));
+        return inertia('admin/setting/general', compact('setting', 'sms_settings'));
     }
 
-    public function generalSettingUpdate(Request $request){
+    public function generalSettingUpdate(Request $request)
+    {
+        // return $request;
         switch ($request->type) {
             case 'brand_info':
                 $this->updateBrandInfo($request);
                 break;
             case 'social_media':
                 $this->updateSocialMedia($request);
+                break;
+            case 'sms':
+                $this->updateSmsSetting($request);
                 break;
 
             default:
@@ -53,7 +61,7 @@ class SettingController extends Controller
     {
         $update = $this->updateCmsData($request);
 
-       if ($update) {
+        if ($update) {
             session()->flash('success', 'CMS content updated successfully');
             return back();
         } else {
@@ -143,7 +151,7 @@ class SettingController extends Controller
 
     public function seoUpdate(Request $request, Seo $seo)
     {
-        $seo_data = $this->updateSeoContent($request,$seo);
+        $seo_data = $this->updateSeoContent($request, $seo);
 
         if ($seo_data) {
             session()->flash('success', 'Seo content updated successfully');
@@ -207,5 +215,73 @@ class SettingController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error', 'Invalid email configuration. Mail send failed.');
         }
+    }
+
+    public function upgrade()
+    {
+        return inertia('admin/setting/upgrade');
+    }
+
+    public function upgradeSystem(Request $request)
+    {
+        $request->validate([
+            'upgrade_zip' => 'required|mimes:zip',
+        ]);
+
+        if ($request->hasFile('upgrade_zip')) {
+            $time_start = microtime(true);
+
+            if (class_exists('ZipArchive')) {
+
+                // Create update directory.
+                $dir = 'updates';
+                if (!is_dir($dir))
+                    mkdir($dir, 0777, true);
+
+                $path = Storage::disk('local')->put('updates', $request->upgrade_zip);
+                uploadFileToPublic('system', $request->upgrade_zip);
+
+                // $zipped_file_name = $request->upgrade_zip->getClientOriginalName();
+
+                //Unzip uploaded update file and remove zip file.
+                $zip = new ZipArchive();
+                $res = $zip->open(storage_path('app/' . $path));
+
+                if ($res === true) {
+                    $res = $zip->extractTo(base_path());
+                    // $res = $zip->extractTo(base_path() . "/unzip");
+                    $zip->close();
+
+                    // Delete zip file.
+                    if (file_exists(storage_path('app/' . $path))) {
+                        unlink(storage_path('app/' . $path));
+                    }
+
+                    $time_end = microtime(true);
+                    $execution_time = ($time_end - $time_start);
+                    info('Execution time: ' . $execution_time . ' seconds');
+
+                    if ($res) {
+                        session()->flash('success', 'Update successfully installed.');
+                        return back();
+                    } else {
+                        session()->flash('error', 'Something went wrong.');
+                        return back();
+                    }
+                } else {
+                    session()->flash('error', 'Could not open the updates zip file');
+                    return back();
+                }
+
+                session()->flash('error', 'Something went wrong.');
+                return back();
+            } else {
+                session()->flash('error', 'Please enable ZipArchive extension from server');
+                return back();
+            }
+        }
+
+        session()->flash('error', 'no file selected');
+        return back();
     }
 }

@@ -17,7 +17,6 @@ class CreateFeaturesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->string('icon');
             $table->string('description');
             $table->timestamps();
         });

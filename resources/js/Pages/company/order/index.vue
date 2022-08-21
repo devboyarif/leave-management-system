@@ -10,8 +10,11 @@
                         <div>
                             <button class="btn btn-secondary ml-2" @click="filteringData">
                                 <i class="fa-solid fa-filter"></i>
+                                &nbsp;
+                                <span v-if="!showFilter">{{ __('Show Filter') }}</span>
+                                <span v-else>{{ __('Hide Filter') }}</span>
                             </button>
-                            <Link :href="'admins'" class="btn btn-danger ml-2">
+                            <Link v-if="filterForm.search || filterForm.payment || filterForm.plan" :href="route('company.orders.index')" class="btn btn-danger ml-2">
                                 <i class="fa-solid fa-times"></i>
                                 {{ __('Clear') }}
                             </Link>
@@ -77,7 +80,7 @@
                                         <small v-else>{{ order.plan.custom_interval_days }} {{ __('Days') }}</small>
                                     </td>
                                     <td class="d-flex">
-                                        <button @click="showDetails(order)" v-tooltip="'Order Details'" class="btn btn-sm pl-0">
+                                        <button @click="showDetails(order)" v-tooltip="__('Order Details')" class="btn btn-sm pl-0">
                                             <EyeIcon/>
                                         </button>
                                     </td>
@@ -165,14 +168,14 @@
                                             </td>
                                         </tr>
                                         <tr v-if="form.plan.plan_features">
-                                            <td width="40%">{{ __('Plan Features') }}</td>
-                                            <td width="60%">
-                                               <Feature name="Unlimited Employees" :checked="!form.plan.plan_features.is_limited_employee"/>
-                                                <Feature name="Max Employees" :checked="true" :value="form.plan.plan_features.is_limited_employee ? form.plan.plan_features.max_employees : '∞'"/>
-                                                <Feature name="Max Teams" :checked="true" :value="form.plan.plan_features.max_teams"/>
-                                                <Feature name="Max Leave Types" :checked="true" :value="form.plan.plan_features.max_leave_types"/>
-                                                <Feature name="Custom Theme Look" :checked="form.plan.plan_features.custom_theme_look"/>
-                                            </td>
+                                                <td width="40%">{{ __('Plan Features') }}</td>
+                                                <td width="60%">
+                                                <Feature name="Unlimited Employees" :checked="!form.plan.plan_features.is_limited_employee"/>
+                                                    <Feature name="Max Employees" :checked="true" :value="form.plan.plan_features.is_limited_employee ? form.plan.plan_features.max_employees : '∞'"/>
+                                                    <Feature name="Max Teams" :checked="true" :value="form.plan.plan_features.max_teams"/>
+                                                    <Feature name="Max Leave Types" :checked="true" :value="form.plan.plan_features.max_leave_types"/>
+                                                    <Feature name="Custom Theme Look" :checked="form.plan.plan_features.custom_theme_look"/>
+                                                </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -236,15 +239,16 @@ export default {
         },
         filteringData() {
             this.showFilter = !this.showFilter;
-            localStorage.setItem("showFilter", this.showFilter);
+            localStorage.setItem("companyOrder", this.showFilter);
         },
         filterData() {
-            Inertia.get(route('company.orders.index'),
+            Inertia.get(
+                route("company.orders.index"),
                 {
                     company: this.filterForm.company,
                     search: this.filterForm.search,
                     payment: this.filterForm.payment,
-                    plan: this.filterForm.plan
+                    plan: this.filterForm.plan,
                 },
                 {
                     preserveState: true,
@@ -253,9 +257,10 @@ export default {
             );
         },
     },
-     watch: {
-        'filterForm.search': debounce((value) => {
-            Inertia.get(route('company.orders.index'),
+    watch: {
+        "filterForm.search": debounce((value) => {
+            Inertia.get(
+                route("company.orders.index"),
                 { search: value },
                 {
                     preserveState: true,
@@ -264,12 +269,11 @@ export default {
             );
         }, 500),
     },
-     mounted(){
-        this.checkPagePermission('company')
-        if (localStorage.getItem("showFilter")) {
-            this.showFilter = localStorage.getItem("showFilter");
-        }
-    }
+    mounted() {
+        this.checkPagePermission("company");
+        this.showFilter =
+            localStorage.getItem("companyOrder") == "true" ? true : false;
+    },
 };
 </script>
 

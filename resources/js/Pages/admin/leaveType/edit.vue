@@ -1,6 +1,7 @@
 <template>
 
     <Head :title="__('Edit Leave Type')" />
+
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
@@ -114,9 +115,9 @@ export default {
             this.form.status = event.target.checked;
         },
     },
-     mounted(){
-        this.checkPagePermission('admin')
-    }
+    mounted() {
+        this.checkPagePermission("admin");
+    },
 };
 </script>
 

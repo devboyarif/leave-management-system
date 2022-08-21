@@ -1,6 +1,6 @@
 <template>
 
-    <Head :title="__('Sign in')" />
+    <Head :title="__('Sign In')" />
     <div class="mt-5 pt-2 row align-items-center justify-content-center">
         <div class="auth-card-width">
             <div class="card card-outline card-primary card-width">
@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                     <form @submit.prevent="login">
-                        <h2 class="title">{{ __('Sign in') }}</h2>
+                        <h2 class="title">{{ __('Sign In') }}</h2>
                         <p class="subtitle">{{ __("Don't have an account") }}
                             <Link :href="route('register.form')">{{ __('Sign Up') }}</Link>
                         </p>

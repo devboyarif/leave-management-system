@@ -10,7 +10,7 @@
 
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in lokalise-menu" :class="{'show':show}">
-              <Link :href="route('user.profile')" class="dropdown-item" v-tooltip="'Profile'">
+              <Link :href="route('user.profile')" class="dropdown-item" v-tooltip="__('Profile')">
                 <i class="fa-solid fa-user"></i>
                 {{ __('Profile') }}
             </Link>

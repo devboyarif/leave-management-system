@@ -101,6 +101,7 @@ class TeamController extends Controller
         ]);
 
         session()->flash('success', 'Team updated successfully!');
+        return back();
     }
 
     public function destroy(Team $team)

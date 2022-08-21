@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ud-banner-content">
-                        <h1>Terms & Condition</h1>
+                        <h1>{{ __('Terms & Condition') }}</h1>
                     </div>
                 </div>
             </div>

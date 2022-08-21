@@ -2,7 +2,7 @@
 
     <Head :title="__('Team Members')" />
 
-    <div class="row justify-content-center mt-4">
+    <div class="row justify-content-center pt-5">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -86,9 +86,9 @@ export default {
             this.employees = response.data.employees;
         },
     },
-    mounted(){
-        this.checkPagePermission('employee')
-    }
+    mounted() {
+        this.checkPagePermission("employee");
+    },
 };
 </script>
 

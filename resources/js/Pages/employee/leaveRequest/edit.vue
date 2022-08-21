@@ -3,7 +3,7 @@
     <Head :title="__('Edit Leave Request')" />
     <div class="row justify-content-center">
         <div class="col-12">
-            <div class="card mt-3">
+            <div class="card mt-5">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3>{{ __('Edit Leave Request') }}</h3>
@@ -76,9 +76,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="leaveTypeBalance in leaveTypeBalances" :key="leaveTypeBalance.id">
-                                            <td>{{ leaveTypeBalance.leave_type.name }}</td>
-                                            <td>{{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</td>
+                                        <template v-if="leaveTypeBalances && leaveTypeBalances.length">
+                                            <tr v-for="leaveTypeBalance in leaveTypeBalances" :key="leaveTypeBalance.id">
+                                                <td>{{ leaveTypeBalance.leave_type.name }}</td>
+                                                <td>{{ leaveTypeBalance.remaining_days }}/{{ leaveTypeBalance.total_days }}</td>
+                                            </tr>
+                                        </template>
+                                         <tr v-else>
+                                            <td colspan="5" class="text-center">
+                                                <h6>{{ __('No Data Found') }}</h6>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -106,7 +113,7 @@ export default {
             type: Object,
             required: true,
         },
-         leaveTypeBalances: {
+        leaveTypeBalances: {
             type: Array,
             required: true,
         },
@@ -163,7 +170,7 @@ export default {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
             this.form.end = formatTime;
         },
-         async checkLeaveTypeBalance() {
+        async checkLeaveTypeBalance() {
             let response = await axios.get(
                 route("employee.leave.type.balance", this.form.leave_type_id)
             );
@@ -204,9 +211,9 @@ export default {
             }
         },
     },
-    mounted(){
-        this.checkPagePermission('employee')
-    }
+    mounted() {
+        this.checkPagePermission("employee");
+    },
 };
 </script>
 

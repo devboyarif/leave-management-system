@@ -2,7 +2,7 @@
 
     <Head :title="__('Leave Request List')" />
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center pt-3">
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-0">
@@ -15,8 +15,11 @@
                             </Link>
                             <button class="btn btn-secondary ml-2" @click="filteringData">
                                 <i class="fa-solid fa-filter"></i>
+                                &nbsp;
+                                <span v-if="!showFilter">{{ __('Show Filter') }}</span>
+                                <span v-else>{{ __('Hide Filter') }}</span>
                             </button>
-                            <Link :href="'admins'" class="btn btn-danger ml-2">
+                            <Link v-if="form.status || form.leave_type" :href="route('company.leaveRequests.index')" class="btn btn-danger ml-2">
                                 <i class="fa-solid fa-times"></i>
                                 {{ __('Clear') }}
                             </Link>
@@ -119,7 +122,7 @@ export default {
     },
     components: {
         Pagination,
-        Actions
+        Actions,
     },
     data() {
         return {
@@ -147,9 +150,9 @@ export default {
             return dayjs(date).format("DD MMM, YYYY");
         },
         filteringData() {
-            console.log(this.showFilter)
+            console.log(this.showFilter);
             this.showFilter = !this.showFilter;
-            console.log(this.showFilter)
+            console.log(this.showFilter);
             localStorage.setItem("companyLeaveRequestList", this.showFilter);
         },
         filterData() {
@@ -167,10 +170,13 @@ export default {
             );
         },
     },
-     mounted(){
-        this.checkPagePermission('company')
-        this.showFilter = localStorage.getItem("companyLeaveRequestList") == "true" ? true : false;
-    }
+    mounted() {
+        this.checkPagePermission("company");
+        this.showFilter =
+            localStorage.getItem("companyLeaveRequestList") == "true"
+                ? true
+                : false;
+    },
 };
 </script>
 
