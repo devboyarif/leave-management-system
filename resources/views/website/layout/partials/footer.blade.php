@@ -102,21 +102,17 @@
                         <h5 class="ud-widget-title">{{ __('Quick Links') }}</h5>
                         <ul class="ud-widget-links">
                             <li>
-                                <a href="https://lineicons.com/" rel="nofollow noopner"
-                                    target="_blank">{{ __('Pricing') }}
+                                <a href="{{ route('website.pricing') }}" rel="nofollow noopner">{{ __('Pricing') }}
                                 </a>
                             </li>
                             <li>
-                                <a href="https://ecommercehtml.com/" rel="nofollow noopner"
-                                    target="_blank">{{ __('Blog') }}</a>
+                                <a href="{{ route('website.blog') }}" rel="nofollow noopner">{{ __('Blog') }}</a>
                             </li>
                             <li>
-                                <a href="https://ecommercehtml.com/" rel="nofollow noopner"
-                                    target="_blank">{{ __('Login') }}</a>
+                                <a href="{{ route('login') }}" rel="nofollow noopner">{{ __('Login') }}</a>
                             </li>
                             <li>
-                                <a href="https://ecommercehtml.com/" rel="nofollow noopner"
-                                    target="_blank">{{ __('Register') }}</a>
+                                <a href="{{ route('register') }}" rel="nofollow noopner">{{ __('Register') }}</a>
                             </li>
                         </ul>
                     </div>
