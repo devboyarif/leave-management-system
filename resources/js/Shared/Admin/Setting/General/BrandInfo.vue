@@ -40,7 +40,8 @@
                     <InfoTip :title="__('Recommended Size') +' - 155 x 55'"/>
                 </Label> <br>
                 <input accept="image/jpeg, image/jpg/ image/png, image/svg" type="file"
-                    @input="form.app_dark_logo = $event.target.files[0]"
+                @change="onDarkLogoChange"
+
                     :class="{'is-invalid':form.errors.app_dark_logo}">
                 <ErrorMessage :name="form.errors.app_dark_logo" />
                 <div class="mt-4 bg-light">
@@ -52,11 +53,9 @@
                 <Label :name="__('App Light Logo')" :required="false" >
                     <InfoTip :title="__('Recommended Size') +' - 155 x 55'"/>
                 </Label> <br>
-                <input accept="image/jpeg, image/jpg/ image/png, image/svg" type="file"
-                    @input="form.app_light_logo = $event.target.files[0]"
+                <input accept="image/jpeg, image/jpg/ image/png, image/svg" type="file" @change="onLightLogoChange"
                     :class="{'is-invalid':form.errors.app_light_logo}">
-                <ErrorMessage :name="form.errors.app_light_logo" />
-
+                    <ErrorMessage :name="form.errors.app_light_logo" />
                     <div class="mt-4">
                     <Label :name="__('Preview')" :required="false" /> <br>
                     <img :src="app_light_logo_preview" alt="logo" height="50" width="150" class="object-cover-fit bg-dark">
@@ -66,12 +65,10 @@
                 <Label :name="__('App Favicon')" :required="false">
                     <InfoTip :title="__('Recommended Size') +' - 32 x 32'"/>
                 </Label> <br>
-                <input accept="image/jpeg, image/jpg/ image/png, image/svg" type="file"
-                    @input="form.app_favicon = $event.target.files[0]"
+                <input accept="image/jpeg, image/jpg/ image/png, image/svg" type="file" @change="onFaviconChange"
                     :class="{'is-invalid':form.errors.app_favicon}">
                 <ErrorMessage :name="form.errors.app_favicon" />
-
-                    <div class="mt-4">
+                <div class="mt-4">
                     <Label :name="__('Preview')" :required="false" /> <br>
                     <img :src="app_favicon_preview" alt="logo" height="32" width="32" class="object-cover-fit">
                 </div>
@@ -115,6 +112,21 @@ export default {
     methods: {
         saveData() {
             this.form.post(route("settings.general.update"));
+        },
+        onDarkLogoChange(e) {
+            const file = e.target.files[0];
+            this.app_dark_logo_preview = URL.createObjectURL(file);
+            this.form.app_dark_logo = file;
+        },
+        onLightLogoChange(e) {
+            const file = e.target.files[0];
+            this.app_light_logo_preview = URL.createObjectURL(file);
+            this.form.app_light_logo = file;
+        },
+        onFaviconChange(e) {
+            const file = e.target.files[0];
+            this.app_favicon_preview = URL.createObjectURL(file);
+            this.form.app_favicon = file;
         },
     },
     watch: {
