@@ -10,6 +10,8 @@
                     <i class="fa-solid fa-globe fa-2"></i>
                 </a>
             </li>
+
+            Component - {{ $page.component }}
         </ul>
 
         <!-- Right navbar links -->

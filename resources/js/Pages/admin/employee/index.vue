@@ -27,11 +27,11 @@
                     </div>
                      <div class="card-body border-bottom d-flex justify-content-between" v-if="showFilter">
                         <div class="w-25">
-                            <label>Search</label>
+                            <label>{{ __('Search') }}</label>
                             <input v-model="form.search" type="text" placeholder="Search..." class="form-control">
                         </div>
                         <div class="ml-auto w-15">
-                            <label>Company</label>
+                            <label>{{ __('Company') }}</label>
                             <select class="form-control" v-model="form.company">
                                 <option value="">{{ __('All') }}</option>
                                 <option :value="company.id" v-for="company in companies" :key="company.id">

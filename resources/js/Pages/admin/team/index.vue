@@ -189,18 +189,6 @@ export default {
      mounted(){
         this.checkPagePermission('admin')
     }
-    // watch: {
-    //     search: debounce((value) => {
-    //         Inertia.get(
-    //             "users",
-    //             { search: value },
-    //             {
-    //                 preserveState: true,
-    //                 replace: true,
-    //             }
-    //         );
-    //     }, 500),
-    // },
 };
 </script>
 

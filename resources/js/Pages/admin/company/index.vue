@@ -61,7 +61,10 @@
                                         <td v-html="user.email"></td>
                                         <td>{{ user.country }}</td>
                                         <td class="d-flex">
-                                            <Link :href="route('companies.edit',user.id)" v-tooltip="__('Company Edit')" class="btn btn-sm  pl-0">
+                                            <Link :href="route('companies.show',user.id)" v-tooltip="'Details'" class="btn btn-sm pl-0">
+                                                <EyeIcon/>
+                                            </Link>
+                                            <Link :href="route('companies.edit',user.id)" v-tooltip="__('Company Edit')" class="btn btn-sm">
                                                 <EditIcon/>
                                             </Link>
                                             <button @click="deleteCompany(user.id)" v-tooltip="__('Company Delete')" class="btn btn-sm">

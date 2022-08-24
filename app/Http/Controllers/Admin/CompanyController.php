@@ -107,9 +107,32 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $company)
     {
-        //
+        $user = $company;
+        $userCompany = $user->company;
+        $user->load('company.country:id,name');
+
+        // Working days
+        $working_days = $userCompany->workingDays;
+
+        // Company summary
+        $leave_requests = $userCompany->leaveRequests;
+        $summary = [
+            'total_teams' => $userCompany->teams()->count(),
+            'total_employees' => $userCompany->employees()->count(),
+            'total_holidays' => $userCompany->holidays()->count(),
+            'total_leave_types' => $userCompany->leaveTypes()->count(),
+            'total_rejected_leave_requests' => $leave_requests->where('status','rejected')->count(),
+            'total_pending_leave_requests' => $leave_requests->where('status','pending')->count(),
+            'total_approved_leave_requests' => $leave_requests->where('status','approved')->count(),
+        ];
+
+        return inertia('admin/company/show', [
+            'user' => $company,
+            'working_days' => $working_days,
+            'summary' => $summary,
+        ]);
     }
 
     /**

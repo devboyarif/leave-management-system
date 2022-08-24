@@ -62,13 +62,10 @@
 
 <script>
 import Pagination from "../../../Shared/Pagination.vue";
-import debounce from "lodash/debounce";
 
 export default {
     props: {
-        // users: Array,
         users: Array,
-        // filters: Object || Array,
     },
     components: {
         Pagination,

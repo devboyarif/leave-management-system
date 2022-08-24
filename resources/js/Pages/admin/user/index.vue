@@ -3,7 +3,7 @@
 
     <div class="row justify-content-center">
         <div class="col-12">
-            <div class="card mt-2">
+            <div class="card mt-5">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">{{ __('Admin List') }}</h3>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="card-body border-bottom" v-if="showFilter">
-                    <label>Search</label>
+                    <label>{{ __('Search') }}</label>
                     <input v-model="search" type="text" placeholder="Search.." class="form-control w-25">
                 </div>
                 <div class="card-body table-responsive p-0">
@@ -47,13 +47,16 @@
                                         <span v-html="user.name"></span>
                                     </td>
                                     <td>
-                                            <span v-html="user.email"></span>
+                                        <span v-html="user.email"></span>
                                     </td>
                                     <td class="d-flex">
-                                        <Link :href="route('admins.edit',user.id)" v-tooltip="'Edit Admin'" class="btn btn-sm pl-0">
+                                        <Link :href="route('admins.show',user.id)" v-tooltip="'Details'" class="btn btn-sm pl-0">
+                                            <EyeIcon/>
+                                        </Link>
+                                        <Link :href="route('admins.edit',user.id)" v-tooltip="'Edit'" class="btn btn-sm">
                                             <EditIcon/>
                                         </Link>
-                                        <button @click="deleteStudent(user.id)" v-tooltip="'Delete Admin'" class="btn btn-sm">
+                                        <button @click="deleteData(user.id)" v-tooltip="'Delete'" class="btn btn-sm">
                                             <DeleteIcon/>
                                         </button>
                                     </td>
@@ -97,7 +100,7 @@ export default {
         };
     },
     methods: {
-        deleteStudent(id) {
+        deleteData(id) {
             this.$swal({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",

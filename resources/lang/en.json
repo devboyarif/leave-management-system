@@ -293,11 +293,14 @@
 
     "Quick Links":"Quick Links",
     "Upgrade":"Upgrade",
-
-
-
-
-
+    "Role":"Role",
+    "Joining Date":"Joining Date",
+    "Last Profile Update":"Last Profile Update",
+    "Total Leave Types":"Total Leave Types",
+    "Total Leave Requests":"Total Leave Requests",
+    "Pending Leave Requests":"Pending Leave Requests",
+    "Approved Leave Requests":"Approved Leave Requests",
+    "Rejected Leave Requests":"Rejected Leave Requests",
 
 
 

@@ -21,14 +21,6 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\LeaveRequestController;
 
 Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function () {
-    Route::get('/about', function () {
-        return inertia('about');
-    })->name('about');
-
-    Route::get('/contact', function () {
-        return inertia('contact');
-    })->name('contact');
-
     // =========================================================================
     // ===================Users Routes========================================
     // ========================================================================
