@@ -22,6 +22,14 @@
                     <li class="list-group-item flex-wrap">
                         <a @click="details('team')" href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
                             <h5 class="mb-0">
+                                {{ __('Total Expense') }}
+                            </h5>
+                            <b>{{ currencyPosition(summary.total_expense) }}</b>
+                        </a>
+                    </li>
+                    <li class="list-group-item flex-wrap">
+                        <a @click="details('team')" href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
+                            <h5 class="mb-0">
                                 {{ __('Total Teams') }}
                             </h5>
                             <b>{{ summary.total_teams }}</b>
@@ -161,40 +169,50 @@
                 <div class="col-sm-6 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h6 class="d-flex align-items-center mb-3"><i
-                                    class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                            <small>Web Design</small>
-                            <div class="progress mb-3" style="height: 5px">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
-                                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <small>Website Markup</small>
-                            <div class="progress mb-3" style="height: 5px">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
-                                    aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <small>One Page</small>
-                            <div class="progress mb-3" style="height: 5px">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
-                                    aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <small>Mobile Template</small>
-                            <div class="progress mb-3" style="height: 5px">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
-                                    aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <small>Backend API</small>
-                            <div class="progress mb-3" style="height: 5px">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
-                                    aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span>{{ __('Currently Subscribed') }}</span>
+                                <Link @click="details('order')" class="btn btn-primary">{{ __('Order List') }}</Link>
+                            </h4>
+                            <table class="table border-0">
+                                <tbody>
+                                    <tr v-if="subscribed_plan.plan">
+                                        <th>{{ __('Plan') }}</th>
+                                        <td>{{ subscribed_plan.plan.name }}</td>
+                                    </tr>
+                                    <tr v-if="subscribed_plan.plan">
+                                        <th>{{ __('Subscription Type') }}</th>
+                                        <td>
+                                            <span v-if="subscribed_plan.plan.interval == 'custom_days'">
+                                            {{ subscribed_plan.plan.custom_interval_days }} {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
+                                            </span>
+                                            <span v-else class="text-capitalize">{{ subscribed_plan.plan.interval }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="subscribed_plan.plan && subscribed_plan.plan.interval != 'lifetime'">
+                                    <th>{{ __('Expiration Remaining') }}</th>
+                                        <td>{{ subscribed_plan.remaining_days }}
+                                        <span v-if="subscribed_plan.remaining_days != 'Lifetime'">
+                                            {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
+                                        </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <th width="40%">{{ __('Plan Features') }}</th>
+                                        <td>
+                                            <Feature :span-text="true" name="Unlimited Employees" :checked="!subscribed_plan.plan.plan_features.is_limited_employee"/>
+                                            <Feature :span-text="true" name="Max Employees" :checked="true" :value="subscribed_plan.plan.plan_features.is_limited_employee ? subscribed_plan.plan.plan_features.max_employees : '∞'"/>
+                                            <Feature :span-text="true" name="Max Teams" :checked="true" :value="subscribed_plan.plan.plan_features.max_teams"/>
+                                            <Feature :span-text="true" name="Max Leave Types" :checked="true" :value="subscribed_plan.plan.plan_features.max_leave_types"/>
+                                            <Feature :span-text="true" name="Custom Theme Look" :checked="subscribed_plan.plan.plan_features.custom_theme_look"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </template>
@@ -208,6 +226,7 @@
             user: Object,
             working_days: Object,
             summary: Object,
+            subscribed_plan: Object,
         },
         components: {
             Feature
@@ -246,28 +265,34 @@
                         })
                         break;
                     case 'holiday':
-                        this.$inertia.get(route('teams.index'), {
-                            'user_id': this.user.id
-                        })
+                        this.$inertia.get(route('holidays.show',this.user.id))
                         break;
                     case 'leave_type':
-                        this.$inertia.get(route('teams.index'), {
-                            'user_id': this.user.id
+                        this.$inertia.get(route('leaveTypes.index'), {
+                            'company': this.user.company.id
                         })
                         break;
                     case 'pending_leave':
-                        this.$inertia.get(route('teams.index'), {
-                            'user_id': this.user.id
+                        this.$inertia.get(route('leaveRequests.index'), {
+                            'company': this.user.company.id,
+                            'status': 'pending'
                         })
                         break;
                     case 'approve_leave':
-                        this.$inertia.get(route('teams.index'), {
-                            'user_id': this.user.id
+                        this.$inertia.get(route('leaveRequests.index'), {
+                            'company': this.user.company.id,
+                            'status': 'approved'
                         })
                         break;
                     case 'reject_leave':
-                        this.$inertia.get(route('teams.index'), {
-                            'user_id': this.user.id
+                        this.$inertia.get(route('leaveRequests.index'), {
+                            'company': this.user.company.id,
+                            'status': 'rejected'
+                        })
+                        break;
+                    case 'order':
+                        this.$inertia.get(route("orders.index"), {
+                            'company': this.user.company.id,
                         })
                         break;
 
@@ -275,10 +300,7 @@
                         break;
                 }
             },
-        },
-        mounted() {
-            // this.checkPagePermission("admin");
-        },
+        }
     };
 </script>
 

@@ -267,7 +267,6 @@ export default {
             localStorage.setItem("adminOrder", this.showFilter);
         },
         filterData() {
-            console.log(this.filterForm);
             Inertia.get(
                 route("orders.index"),
                 {

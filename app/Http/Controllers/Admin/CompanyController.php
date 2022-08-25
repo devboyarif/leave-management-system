@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Company;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -119,6 +120,7 @@ class CompanyController extends Controller
         // Company summary
         $leave_requests = $userCompany->leaveRequests;
         $summary = [
+            'total_expense' => currencyConversion(Order::where('company_id', $userCompany->id)->sum('usd_amount'), 'USD', $userCompany->currency) ?? 0,
             'total_teams' => $userCompany->teams()->count(),
             'total_employees' => $userCompany->employees()->count(),
             'total_holidays' => $userCompany->holidays()->count(),
@@ -128,10 +130,14 @@ class CompanyController extends Controller
             'total_approved_leave_requests' => $leave_requests->where('status','approved')->count(),
         ];
 
+        // Currently Subscription
+       $subscribed_plan = $userCompany->subscription->load('plan.planFeatures');
+
         return inertia('admin/company/show', [
             'user' => $company,
             'working_days' => $working_days,
             'summary' => $summary,
+            'subscribed_plan' => $subscribed_plan,
         ]);
     }
 
