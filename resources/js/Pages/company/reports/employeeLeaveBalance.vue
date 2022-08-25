@@ -36,7 +36,7 @@
                     </tr>
                     <tr v-for="employee in employees" :key="employee.id">
                         <td v-if="employee.user">
-                            <img :src="employee.user.avatar" alt="Product 1"
+                            <img :src="employee.user.avatar" alt="img"
                                 class="img-circle img-size-32 mr-1">
                             <span v-html="employee.user.name"></span>
                         </td>

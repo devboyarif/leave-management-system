@@ -101,7 +101,7 @@
                             <template v-if="leave_requests && leave_requests.length">
                                 <tr v-for="(leaveRequest,index) in leave_requests" :key="index">
                                     <td>
-                                        <img :src="leaveRequest.employee.user.avatar" alt="Product 1"
+                                        <img :src="leaveRequest.employee.user.avatar" alt="img"
                                             class="img-circle img-size-32 mr-2">
                                         {{ leaveRequest.employee.user.name }}
                                         (<small v-tooltip="'Company Name'">{{ leaveRequest.company.user.name }}</small>)

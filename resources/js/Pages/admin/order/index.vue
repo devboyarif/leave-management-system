@@ -78,7 +78,12 @@
                                     <td>#<span v-html="order.order_id"></span></td>
                                     <td><span v-html="order.transaction_id"></span></td>
                                     <td>
-                                        <b>{{ order.company_name }} ({{ order.company_email }})</b>
+                                        <b>
+                                            <Link :href="route('companies.show',order.company_id)">
+                                                {{ order.company_name }}
+                                            </Link>
+                                            ({{ order.company_email }})
+                                        </b>
                                     </td>
                                     <td>
                                         {{ order.currency_symbol }}&nbsp;{{ order.amount }}

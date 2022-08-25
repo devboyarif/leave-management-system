@@ -26,7 +26,7 @@
                                         <td>
                                             <ul class="list-inline" v-if="team.employees && team.employees.length">
                                                 <li class="list-inline-item" v-for="(employee, key) in team.employees" :key="employee.id" v-tooltip="employee.user.name">
-                                                    <img v-if="employee.user && key <= 4" alt="Avatar" class="table-avatar" :src="employee.user.avatar">
+                                                    <img v-if="employee.user && key <= 4" alt="img" class="table-avatar" :src="employee.user.avatar">
                                                 </li>
                                                 <li class="list-inline-item m-0 p-0" v-if="team.employees.length > 5">
                                                         +{{ team.employees.length - 5 }}

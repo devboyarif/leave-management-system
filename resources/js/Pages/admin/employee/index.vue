@@ -55,9 +55,11 @@
                                 <template v-if="employees && employees.data.length">
                                     <tr v-for="(employee,index) in employees.data" :key="index">
                                         <td>
-                                            <img :src="employee.avatar" alt="Product 1"
+                                            <Link :href="route('employees.show',employee.user_id)">
+                                                <img :src="employee.avatar" alt="img"
                                                 class="img-circle img-size-32 mr-2">
-                                            <span v-html="employee.name"></span>
+                                                <span v-html="employee.name"></span>
+                                            </Link>
                                         </td>
                                         <td v-html="employee.email"></td>
                                         <td>{{ employee.phone ? employee.phone: '-' }}</td>

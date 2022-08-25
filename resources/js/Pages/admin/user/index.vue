@@ -42,9 +42,11 @@
                             <template v-if="admins && admins.data.length">
                                 <tr v-for="(user,index) in admins.data" :key="index">
                                     <td>
-                                        <img :src="user.avatar" alt="Product 1"
+                                        <Link :href="route('admins.show',user.id)">
+                                            <img :src="user.avatar" alt="img"
                                             class="img-circle img-size-32 mr-2">
-                                        <span v-html="user.name"></span>
+                                            <span v-html="user.name"></span>
+                                        </Link>
                                     </td>
                                     <td>
                                         <span v-html="user.email"></span>

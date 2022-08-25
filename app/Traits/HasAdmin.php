@@ -37,6 +37,7 @@ trait HasAdmin
         ->transform(fn($item) => [
             'id' => $item->id,
             'name' => $item->user->name,
+            'user_id' => $item->user->id,
             'usd_amount' => $item->expense_amount,
             'amount' => $item->expense_amount ? currencyConversion($item->expense_amount, 'USD', config('kodebazar.currency')) : 0,
         ]);
@@ -104,6 +105,7 @@ trait HasAdmin
             'email' => $company->user->email,
             'avatar' => $company->user->avatar,
             'country' => $company->country->name,
+            'user_id' => $company->user_id,
         ]);
     }
 
@@ -117,7 +119,7 @@ trait HasAdmin
         ->transform(fn($order) => [
             'id' => $order->id,
             'order_id' => $order->order_id,
-            'company_name' => $order->company->user->name,
+            'company' => $order->company->user,
             'amount' => $order->currency_symbol.' '.$order->amount,
             'plan' => $order->plan->name,
         ]);

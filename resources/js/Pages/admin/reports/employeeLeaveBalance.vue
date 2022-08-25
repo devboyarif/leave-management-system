@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">{{ __('Employee Leave Balance') }}</h3>
-                        <Link :href="route('company.reports.index')" class="btn btn-primary">
+                        <Link :href="route('reports.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         {{ __('Back') }}
                         </Link>
@@ -64,8 +64,10 @@
                         </tr>
                         <tr v-for="employee in employees" :key="employee.id">
                             <td v-if="employee.user">
-                                <img :src="employee.user.avatar" alt="Product 1" class="img-circle img-size-32 mr-1">
-                                <span v-html="employee.user.name"></span>
+                                <Link :href="route('employees.show',employee.user.id)">
+                                     <img :src="employee.user.avatar" alt="img" class="img-circle img-size-32 mr-1">
+                                    <span v-html="employee.user.name"></span>
+                                </Link>
                             </td>
                             <template v-if="employee.leave_balances">
                                 <template v-for="leave_balance in employee.leave_balances" :key="leave_balance.id">

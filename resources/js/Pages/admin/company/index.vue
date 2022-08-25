@@ -54,9 +54,11 @@
                                 <template v-if="companies && companies.data.length">
                                     <tr v-for="(user,index) in companies.data" :key="index">
                                         <td>
-                                            <img :src="user.avatar" alt="Product 1"
+                                            <Link :href="route('companies.show',user.id)">
+                                                 <img :src="user.avatar" alt="img"
                                                 class="img-circle img-size-32 mr-2">
-                                            <span v-html="user.name"></span>
+                                                <span v-html="user.name"></span>
+                                            </Link>
                                         </td>
                                         <td v-html="user.email"></td>
                                         <td>{{ user.country }}</td>
