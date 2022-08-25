@@ -40,6 +40,7 @@ class OrderController extends Controller
             'transaction_id' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $order->transaction_id) : $order->transaction_id,
             'company_name' => $order->company->user->name,
             'company_email' => $order->company->user->email,
+            'company_id' => $order->company->id,
             'currency_symbol' => $order->currency_symbol,
             'amount' => $order->amount,
             'payment_provider' => $order->payment_provider,

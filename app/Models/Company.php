@@ -74,6 +74,11 @@ class Company extends Model
         return $this->hasMany(LeaveType::class, 'company_id');
     }
 
+    public function leaveRequests()
+    {
+        return $this->hasMany(LeaveRequest::class, 'company_id');
+    }
+
     public function holidays()
     {
         return $this->hasMany(Holiday::class, 'company_id');

@@ -27,11 +27,11 @@
                     </div>
                      <div class="card-body border-bottom d-flex justify-content-between" v-if="showFilter">
                         <div class="w-25">
-                            <label>Search</label>
+                            <label>{{ __('Search') }}</label>
                             <input v-model="form.search" type="text" placeholder="Search..." class="form-control">
                         </div>
                         <div class="ml-auto w-15">
-                            <label>Company</label>
+                            <label>{{ __('Company') }}</label>
                             <select class="form-control" v-model="form.company">
                                 <option value="">{{ __('All') }}</option>
                                 <option :value="company.id" v-for="company in companies" :key="company.id">
@@ -55,15 +55,20 @@
                                 <template v-if="employees && employees.data.length">
                                     <tr v-for="(employee,index) in employees.data" :key="index">
                                         <td>
-                                            <img :src="employee.avatar" alt="Product 1"
+                                            <Link :href="route('employees.show',employee.user_id)">
+                                                <img :src="employee.avatar" alt="img"
                                                 class="img-circle img-size-32 mr-2">
-                                            <span v-html="employee.name"></span>
+                                                <span v-html="employee.name"></span>
+                                            </Link>
                                         </td>
                                         <td v-html="employee.email"></td>
                                         <td>{{ employee.phone ? employee.phone: '-' }}</td>
                                         <td>{{ employee.company }}</td>
                                         <td class="d-flex">
-                                            <Link :href="route('employees.edit',employee.user_id)" v-tooltip="__('Employee Edit')" class="btn btn-sm  pl-0">
+                                            <Link :href="route('employees.show',employee.user_id)" v-tooltip="'Details'" class="btn btn-sm pl-0">
+                                                <EyeIcon/>
+                                            </Link>
+                                            <Link :href="route('employees.edit',employee.user_id)" v-tooltip="__('Employee Edit')" class="btn btn-sm">
                                                 <EditIcon/>
                                             </Link>
                                             <button @click="deleteData(employee.user_id)" v-tooltip="__('Employee Delete')" class="btn btn-sm">

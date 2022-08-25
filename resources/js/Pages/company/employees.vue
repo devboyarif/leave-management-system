@@ -57,6 +57,9 @@
                                             <p class="mt-0 p-0">
                                                 {{ employee.phone }}
                                             </p>
+                                            <Link :href="route('company.employees.show',employee.user_id)" v-tooltip="'Details'" class="btn btn-sm team-member-show">
+                                                <EyeIcon/>
+                                            </Link>
                                             <button @click="editData(employee)" class="btn btn-sm team-member-edit">
                                                 <EditIcon/>
                                             </button>
@@ -189,24 +192,29 @@ export default {
 </script>
 
 <style scoped>
-.avatar-img {
-    height: 60px;
-    width: 60px;
-    object-fit: cover;
-}
+    .avatar-img {
+        height: 60px;
+        width: 60px;
+        object-fit: cover;
+    }
 
-.employee-add-dropdown{
-    position: absolute;
-    transform: translate3d(0px, 38px, 0px);
-    top: 0px;
-    left: 0px;
-    will-change: transform;
-}
+    .employee-add-dropdown{
+        position: absolute;
+        transform: translate3d(0px, 38px, 0px);
+        top: 0px;
+        left: 0px;
+        will-change: transform;
+    }
 
+   .team-member-show{
+        position: absolute;
+        top: 0;
+        right: 80px;
+    }
    .team-member-edit{
         position: absolute;
         top: 0;
-        right: 30px;
+        right: 40px;
     }
     .team-member-delete{
         position: absolute;

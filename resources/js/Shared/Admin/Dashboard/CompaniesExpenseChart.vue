@@ -11,7 +11,9 @@
             <div class="card-body" v-if="companies_amount && companies_amount.length">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center" v-for="data in companies_amount" :key="data.id" >
+                        <Link :href="route('companies.show',data.user_id)">
                             {{ data.name }}
+                        </Link>
                         <span class="badge badge-primary badge-pill">
                              {{ currencyPosition(data.amount) }}
                         </span>

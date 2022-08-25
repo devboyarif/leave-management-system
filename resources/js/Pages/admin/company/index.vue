@@ -54,14 +54,19 @@
                                 <template v-if="companies && companies.data.length">
                                     <tr v-for="(user,index) in companies.data" :key="index">
                                         <td>
-                                            <img :src="user.avatar" alt="Product 1"
+                                            <Link :href="route('companies.show',user.id)">
+                                                 <img :src="user.avatar" alt="img"
                                                 class="img-circle img-size-32 mr-2">
-                                            <span v-html="user.name"></span>
+                                                <span v-html="user.name"></span>
+                                            </Link>
                                         </td>
                                         <td v-html="user.email"></td>
                                         <td>{{ user.country }}</td>
                                         <td class="d-flex">
-                                            <Link :href="route('companies.edit',user.id)" v-tooltip="__('Company Edit')" class="btn btn-sm  pl-0">
+                                            <Link :href="route('companies.show',user.id)" v-tooltip="'Details'" class="btn btn-sm pl-0">
+                                                <EyeIcon/>
+                                            </Link>
+                                            <Link :href="route('companies.edit',user.id)" v-tooltip="__('Company Edit')" class="btn btn-sm">
                                                 <EditIcon/>
                                             </Link>
                                             <button @click="deleteCompany(user.id)" v-tooltip="__('Company Delete')" class="btn btn-sm">

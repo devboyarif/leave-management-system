@@ -23,7 +23,11 @@
                         <tbody>
                             <template v-if="users && users.data.length">
                                 <tr v-for="(user,index) in users.data" :key="index">
-                                    <td>{{ user.name }}</td>
+                                    <td>
+                                        <Link :href="route('companies.show',user.id)">
+                                            {{ user.name }}
+                                        </Link>
+                                    </td>
                                     <td v-if="user.company.country">
                                         {{ user.company.country.name }}
                                     </td>
@@ -62,13 +66,10 @@
 
 <script>
 import Pagination from "../../../Shared/Pagination.vue";
-import debounce from "lodash/debounce";
 
 export default {
     props: {
-        // users: Array,
         users: Array,
-        // filters: Object || Array,
     },
     components: {
         Pagination,

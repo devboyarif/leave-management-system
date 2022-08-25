@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Traits\Employee\HasLeaveBalance;
 use App\Http\Requests\EmployeeCreateRequest;
 use App\Http\Requests\EmployeeUpdateRequest;
+use App\Models\LeaveBalance;
 
 class EmployeeController extends Controller
 {
@@ -137,9 +138,28 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $employee)
     {
-        //
+        $user = $employee;
+        $userEmployee = $user->employee;
+        $user->load('employee.team:id,name');
+
+        // Company summary
+        $leave_requests = $userEmployee->leaveRequests;
+        $summary = [
+             'total_rejected_leave_requests' => $leave_requests->where('status','rejected')->count(),
+             'total_pending_leave_requests' => $leave_requests->where('status','pending')->count(),
+             'total_approved_leave_requests' => $leave_requests->where('status','approved')->count(),
+         ];
+
+        // Leave balance
+        $leave_balances = $userEmployee->leaveBalances->load('leaveType:id,name');
+
+        return inertia('admin/employee/show',[
+            'user' => $user,
+            'summary' => $summary,
+            'leave_balances' => $leave_balances,
+        ]);
     }
 
     /**

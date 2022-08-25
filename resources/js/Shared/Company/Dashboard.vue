@@ -110,15 +110,6 @@
                             </tbody>
 
                         </table>
-<!--
-                        <div v-if="subscribed_plan.plan && subscribed_plan.plan.plan_features">
-                            <h4>{{ __('Plan Features') }}</h4>
-                            <Feature name="Unlimited Employees" :checked="!subscribed_plan.plan.plan_features.is_limited_employee"/>
-                            <Feature name="Max Employees" :checked="true" :value="subscribed_plan.plan.plan_features.is_limited_employee ? subscribed_plan.plan.plan_features.max_employees : '∞'"/>
-                            <Feature name="Max Teams" :checked="true" :value="subscribed_plan.plan.plan_features.max_teams"/>
-                            <Feature name="Max Leave Types" :checked="true" :value="subscribed_plan.plan.plan_features.max_leave_types"/>
-                            <Feature name="Custom Theme Look" :checked="subscribed_plan.plan.plan_features.custom_theme_look"/>
-                        </div> -->
                     </div>
                      <div class="row justify-content-between">
                             <Link :href="route('company.plan')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>
@@ -254,7 +245,9 @@
                                         <tr>
                                             <td width="30%">{{ __('Employee') }}</td>
                                             <td width="70%">
-                                                {{ form.name }}
+                                                <Link :href="route('company.employees.show',form.user_id)">
+                                                    {{ form.name }}
+                                                </Link>
                                             </td>
                                         </tr>
                                         <tr>
@@ -332,6 +325,7 @@ export default {
             subscribed_plan: {},
             form: {
                 name: "",
+                user_id: "",
                 type: "",
                 color: "",
                 status: "",
@@ -368,6 +362,7 @@ export default {
         },
         showDetails(request) {
             this.form.name = request.title;
+            this.form.user_id = request.user_id;
             this.form.type = request.type;
             this.form.color = request.color;
             this.form.status = request.status;

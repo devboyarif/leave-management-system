@@ -28,16 +28,21 @@
                             <tbody>
                                 <template v-if="teams && teams.data.length">
                                     <tr v-for="(team,index) in teams.data" :key="index">
-                                        <td>{{ team.company.user.name }}</td>
+                                        <td>
+                                            <Link :href="route('companies.show',team.company.user.id)">
+                                                {{ team.company.user.name }}
+                                            </Link>
+                                        </td>
                                         <td>{{ team.name }}</td>
                                         <td>
                                             <ul class="list-inline" v-if="team.employees && team.employees.length">
                                                 <li class="list-inline-item" v-for="(employee, key) in team.employees" :key="employee.id" v-tooltip="employee.user.name">
-                                                    <img v-if="employee.user && key <= 4" alt="Avatar" class="table-avatar" :src="employee.user.avatar">
+                                                    <img v-if="employee.user && key <= 4" alt="img" class="table-avatar" :src="employee.user.avatar">
                                                 </li>
                                                 <li class="list-inline-item m-0 p-0" v-if="team.employees.length > 5">
-                                                        +{{ team.employees.length - 5 }}
-
+                                                    <span class="badge badge-pill badge-primary">
+                                                         +{{ team.employees.length - 5 }}
+                                                    </span>
                                                 </li>
                                             </ul>
                                             <small v-else>{{ __('No Employee Found') }}</small>
@@ -189,18 +194,6 @@ export default {
      mounted(){
         this.checkPagePermission('admin')
     }
-    // watch: {
-    //     search: debounce((value) => {
-    //         Inertia.get(
-    //             "users",
-    //             { search: value },
-    //             {
-    //                 preserveState: true,
-    //                 replace: true,
-    //             }
-    //         );
-    //     }, 500),
-    // },
 };
 </script>
 

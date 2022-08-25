@@ -62,7 +62,7 @@
                     <!-- Users Manage  -->
                     <li class="nav-header">{{ __('User Manage') }}</li>
                     <NavLink title="Admin" :href="route('admins.index')"
-                        :active="$page.component == 'admin/user/index' || $page.component == 'admin/user/create' || $page.component == 'admin/user/edit'">
+                        :active="$page.component == 'admin/user/index' || $page.component == 'admin/user/create' || $page.component == 'admin/user/edit' || $page.component == 'admin/user/show'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-user-secret nav-icon"></i>
                         </template>

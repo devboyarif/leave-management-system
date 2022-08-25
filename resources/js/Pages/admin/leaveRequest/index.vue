@@ -61,11 +61,11 @@
                             <template v-if="leaveRequests && leaveRequests.data.length">
                                 <tr v-for="(leaveRequest,index) in leaveRequests.data" :key="index">
                                     <td>
-                                        <img v-if="leaveRequest.employee && leaveRequest.employee.user" :src="leaveRequest.employee.user.avatar" alt="Product 1"
+                                        <Link :href="route('employees.show',leaveRequest.employee.user.id)">
+                                            <img v-if="leaveRequest.employee && leaveRequest.employee.user" :src="leaveRequest.employee.user.avatar" alt="image"
                                             class="img-circle img-size-32 mr-2">
-                                        {{ leaveRequest.employee.user.name }}
-                                        <template v-if="leaveRequest.company && leaveRequest.company.user">
-                                        </template>
+                                            {{ leaveRequest.employee.user.name }}
+                                        </Link>
                                     </td>
                                     <td>
                                         <span :style="{ background: leaveRequest.leave_type.color, border: '2px solid '+leaveRequest.leave_type.color }" class="leave-type-color">

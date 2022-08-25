@@ -28,7 +28,7 @@
                 </div>
                  <div class="card-body border-bottom d-flex justify-content-between" v-if="showFilter">
                     <div class="w-25">
-                        <label>Leave Type</label>
+                        <label>{{ __('Leave Type') }}</label>
                         <select class="form-control" v-model="form.leave_type" @change="filterData">
                             <option value="">{{ __('All') }}</option>
                             <option :value="leave_type.id" v-for="leave_type in leaveTypes" :key="leave_type.id">
@@ -37,7 +37,7 @@
                         </select>
                     </div>
                     <div class="ml-auto w-25">
-                        <label>Status</label>
+                        <label>{{ __('Status') }}</label>
                         <select class="form-control" v-model="form.status" @change="filterData">
                             <option value="">{{ __('All') }}</option>
                             <option value="pending">{{ __('Pending') }}</option>
@@ -62,9 +62,11 @@
                             <template v-if="leaveRequests && leaveRequests.data.length">
                                 <tr v-for="(leaveRequest,index) in leaveRequests.data" :key="index">
                                     <td>
-                                        <img :src="leaveRequest.employee.user.avatar" alt="Product 1"
+                                        <Link :href="route('company.employees.show',leaveRequest.employee.user_id)">
+                                            <img :src="leaveRequest.employee.user.avatar" alt="img"
                                             class="img-circle img-size-32 mr-2">
-                                        {{ leaveRequest.employee.user.name }}
+                                            {{ leaveRequest.employee.user.name }}
+                                        </Link>
                                         (<small v-tooltip="'Company Name'">{{ leaveRequest.company.user.name }}</small>)
                                     </td>
                                     <td>
@@ -73,7 +75,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="#">{{ leaveRequest.employee.team.name }}</a>
+                                        {{ leaveRequest.employee.team.name }}
                                     </td>
                                     <td>
                                         {{ startDate(leaveRequest.start) }} - {{ endDate(leaveRequest.end) }}

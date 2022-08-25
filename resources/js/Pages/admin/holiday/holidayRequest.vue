@@ -33,7 +33,7 @@
                             <template v-if="holidays && holidays.data.length">
                                 <tr v-for="(holiday,index) in holidays.data" :key="index">
                                     <td v-if="holiday.employee.user">
-                                        <img :src="holiday.employee.user.avatar" alt="Product 1"
+                                        <img :src="holiday.employee.user.avatar" alt="img"
                                             class="img-circle img-size-32 mr-2">
                                         <a href="#">{{ holiday.employee.user.name }}</a>
                                     </td>

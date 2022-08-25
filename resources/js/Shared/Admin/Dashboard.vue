@@ -82,9 +82,11 @@
                                     <template v-if="recent_companies && recent_companies.length">
                                         <tr v-for="company in recent_companies" :key="company.id">
                                             <td>
-                                                <img :src="company.avatar" alt="Product 1"
-                                                    class="img-circle img-size-32 mr-2">
-                                                {{ company.name }}
+                                                <Link :href="route('companies.show',company.user_id)">
+                                                    <img :src="company.avatar" alt="img"
+                                                        class="img-circle img-size-32 mr-2">
+                                                    {{ company.name }}
+                                                </Link>
                                             </td>
                                             <td>{{ company.email }}</td>
                                             <td>
@@ -132,7 +134,11 @@
                                             <td>
                                                 #{{ order.id }}
                                             </td>
-                                            <td>{{ order.company_name }}</td>
+                                            <td>
+                                                 <Link :href="route('companies.show',order.company.id)">
+                                                    {{ order.company.name }}
+                                                </Link>
+                                            </td>
                                             <td>{{ order.plan }}</td>
                                             <td>{{ order.amount }}</td>
                                         </tr>
