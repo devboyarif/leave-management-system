@@ -75,7 +75,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="#">{{ leaveRequest.employee.team.name }}</a>
+                                        {{ leaveRequest.employee.team.name }}
                                     </td>
                                     <td>
                                         {{ startDate(leaveRequest.start) }} - {{ endDate(leaveRequest.end) }}
