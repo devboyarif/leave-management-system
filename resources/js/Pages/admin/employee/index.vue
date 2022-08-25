@@ -63,7 +63,10 @@
                                         <td>{{ employee.phone ? employee.phone: '-' }}</td>
                                         <td>{{ employee.company }}</td>
                                         <td class="d-flex">
-                                            <Link :href="route('employees.edit',employee.user_id)" v-tooltip="__('Employee Edit')" class="btn btn-sm  pl-0">
+                                            <Link :href="route('employees.show',employee.user_id)" v-tooltip="'Details'" class="btn btn-sm pl-0">
+                                                <EyeIcon/>
+                                            </Link>
+                                            <Link :href="route('employees.edit',employee.user_id)" v-tooltip="__('Employee Edit')" class="btn btn-sm">
                                                 <EditIcon/>
                                             </Link>
                                             <button @click="deleteData(employee.user_id)" v-tooltip="__('Employee Delete')" class="btn btn-sm">

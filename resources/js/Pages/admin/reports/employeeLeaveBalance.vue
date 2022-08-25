@@ -46,21 +46,21 @@
                 <template v-if="leave_types.length && employees.length">
                     <table style="width:100%" class="table table-bordered">
                         <tr class="h5">
-                            <th width="20%" rowspan="2">Employee</th>
+                            <th width="20%" rowspan="2">{{ __('Employee') }}</th>
                             <th colspan="2" v-for="leave_type in leave_types" :key="leave_type.id">
                                 {{ leave_type.name }}
                             </th>
                             <th colspan="2">
-                                Total Leave
+                                {{ __('Total Leave') }}
                             </th>
                         </tr>
                         <tr class="h5">
                             <template v-for="i in leave_types.length" :key="i">
-                                <th>Used</th>
-                                <th>Total</th>
+                                <th>{{ __('Used') }}</th>
+                                <th>{{ __('Total') }}</th>
                             </template>
-                            <th>Used</th>
-                            <th>Total</th>
+                            <th>{{ __('Used') }}</th>
+                            <th>{{ __('Total') }}</th>
                         </tr>
                         <tr v-for="employee in employees" :key="employee.id">
                             <td v-if="employee.user">

@@ -1,5 +1,4 @@
 <template>
-
     <Head :title="user.name" />
 
     <div class="row gutters-sm p-4">
@@ -140,8 +139,7 @@
                             <Link :href="route('companies.edit',user.id)" v-tooltip="'Edit'" class="btn pl-0">
                             <EditIcon />
                             </Link>
-                            <button @click="deleteCompany(user.id)" v-tooltip="'Delete'" class="btn"
-                                v-if="user.id != auth_user.id">
+                            <button @click="deleteCompany(user.id)" v-tooltip="'Delete'" class="btn">
                                 <DeleteIcon />
                             </button>
                         </div>
@@ -230,11 +228,6 @@
         },
         components: {
             Feature
-        },
-        data() {
-            return {
-                auth_user: this.$page.props.authenticatedUser
-            };
         },
         methods: {
             deleteCompany(id) {

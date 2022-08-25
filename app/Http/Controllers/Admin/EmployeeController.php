@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Traits\Employee\HasLeaveBalance;
 use App\Http\Requests\EmployeeCreateRequest;
 use App\Http\Requests\EmployeeUpdateRequest;
+use App\Models\LeaveBalance;
 
 class EmployeeController extends Controller
 {
@@ -137,9 +138,59 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $employee)
     {
-        //
+        $user = $employee;
+        $userEmployee = $user->employee;
+        $user->load('employee.team:id,name');
+
+        // Company summary
+        $leave_requests = $userEmployee->leaveRequests;
+        $summary = [
+             'total_rejected_leave_requests' => $leave_requests->where('status','rejected')->count(),
+             'total_pending_leave_requests' => $leave_requests->where('status','pending')->count(),
+             'total_approved_leave_requests' => $leave_requests->where('status','approved')->count(),
+         ];
+
+        // Leave balance
+        // return $leave_balances = LeaveBalance::where('employee_id', $userEmployee->id)->get();
+        $leave_balances = $userEmployee->leaveBalances->load('leaveType:id,name');
+
+        return inertia('admin/employee/show',[
+            'user' => $user,
+            'summary' => $summary,
+            'leave_balances' => $leave_balances,
+        ]);
+
+
+    //     $userCompany = $user->company;
+    //     $user->load('company.country:id,name');
+
+    //     // Working days
+    //     $working_days = $userCompany->workingDays;
+
+    //     // Company summary
+    //     $leave_requests = $userCompany->leaveRequests;
+    //     $summary = [
+    //         'total_expense' => currencyConversion(Order::where('company_id', $userCompany->id)->sum('usd_amount'), 'USD', $userCompany->currency) ?? 0,
+    //         'total_teams' => $userCompany->teams()->count(),
+    //         'total_employees' => $userCompany->employees()->count(),
+    //         'total_holidays' => $userCompany->holidays()->count(),
+    //         'total_leave_types' => $userCompany->leaveTypes()->count(),
+    //         'total_rejected_leave_requests' => $leave_requests->where('status','rejected')->count(),
+    //         'total_pending_leave_requests' => $leave_requests->where('status','pending')->count(),
+    //         'total_approved_leave_requests' => $leave_requests->where('status','approved')->count(),
+    //     ];
+
+    //     // Currently Subscription
+    //    $subscribed_plan = $userCompany->subscription->load('plan.planFeatures');
+
+        // return inertia('admin/company/show', [
+        //     'user' => $company,
+        //     'working_days' => $working_days,
+        //     'summary' => $summary,
+        //     'subscribed_plan' => $subscribed_plan,
+        // ]);
     }
 
     /**
