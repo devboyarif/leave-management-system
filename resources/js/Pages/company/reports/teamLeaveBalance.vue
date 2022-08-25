@@ -16,33 +16,34 @@
                 </div>
             </div>
             <div class="card" v-for="(team_employee, key) in team_employees" :key="key">
-                <!-- {{ team_employee[0].user }} -->
                 <div class="card-body">
                     <h5>{{ team_employee[0].team.name }}</h5>
                     <hr>
                     <table style="width:100%" class="table table-bordered">
                         <tr class="h5">
-                            <th width="20%" rowspan="2">Employee</th>
+                            <th width="20%" rowspan="2">{{ __('Employee') }}</th>
                             <th colspan="2" v-for="leave_type in leave_types" :key="leave_type.id">
                                 {{ leave_type.name }}
                             </th>
                             <th colspan="2">
-                                Total Leave
+                                {{ __('Total Leave') }}
                             </th>
                         </tr>
                         <tr class="h5">
                             <template v-for="i in leave_types.length" :key="i">
-                                <th>Used</th>
-                                <th>Total</th>
+                                <th>{{ __('Used') }}</th>
+                                <th>{{ __('Total') }}</th>
                             </template>
-                            <th>Used</th>
-                            <th>Total</th>
+                            <th>{{ __('Used') }}</th>
+                            <th>{{ __('Total') }}</th>
                         </tr>
                         <tr v-for="employee in team_employee" :key="employee.id">
                             <td v-if="employee.user">
-                                <img :src="employee.user.avatar" alt="img"
-                                    class="img-circle img-size-32 mr-1">
-                                <span v-html="employee.user.name"></span>
+                                <Link :href="route('company.employees.show',employee.user_id)">
+                                    <img :src="employee.user.avatar" alt="img"
+                                        class="img-circle img-size-32 mr-1">
+                                    <span v-html="employee.user.name"></span>
+                                </Link>
                             </td>
                             <template v-if="employee.leave_balances">
                                 <template v-for="leave_balance in employee.leave_balances" :key="leave_balance.id">

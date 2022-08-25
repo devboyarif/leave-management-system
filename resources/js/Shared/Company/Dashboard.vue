@@ -245,7 +245,9 @@
                                         <tr>
                                             <td width="30%">{{ __('Employee') }}</td>
                                             <td width="70%">
-                                                {{ form.name }}
+                                                <Link :href="route('company.employees.show',form.user_id)">
+                                                    {{ form.name }}
+                                                </Link>
                                             </td>
                                         </tr>
                                         <tr>
@@ -323,6 +325,7 @@ export default {
             subscribed_plan: {},
             form: {
                 name: "",
+                user_id: "",
                 type: "",
                 color: "",
                 status: "",
@@ -359,6 +362,7 @@ export default {
         },
         showDetails(request) {
             this.form.name = request.title;
+            this.form.user_id = request.user_id;
             this.form.type = request.type;
             this.form.color = request.color;
             this.form.status = request.status;

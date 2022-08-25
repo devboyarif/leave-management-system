@@ -4,7 +4,7 @@
 </template>
 
 <script>
-    import EmployeeDetails from "../../../Shared/Employee/Details.vue"
+    import EmployeeDetails from "../../Shared/Employee/Details.vue"
 
     export default {
         props: {
@@ -16,7 +16,7 @@
             EmployeeDetails
         },
         mounted() {
-            this.checkPagePermission("admin");
+            this.checkPagePermission("company")
         },
     };
 </script>

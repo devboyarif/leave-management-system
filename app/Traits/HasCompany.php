@@ -28,6 +28,7 @@ trait HasCompany
             ->transform(function ($leaveRequest) {
                 return [
                     'title' => $leaveRequest->employee->user->name,
+                    'user_id' => $leaveRequest->employee->user_id,
                     'end' => $leaveRequest->end,
                     'start' => $leaveRequest->start,
                     'color' => $leaveRequest->leaveType->color,
@@ -42,6 +43,7 @@ trait HasCompany
             ->transform(function ($leaveRequest) {
                 return [
                     'id' => $leaveRequest->id,
+                    'user_id' => $leaveRequest->employee->user_id,
                     'title' => $leaveRequest->employee->user->name,
                     'type' => $leaveRequest->leaveType->name,
                     'start' => $leaveRequest->start,
@@ -60,6 +62,7 @@ trait HasCompany
             ->transform(function ($leaveRequest) {
                 return [
                     'title' => $leaveRequest->employee->user->name,
+                    'user_id' => $leaveRequest->employee->user_id,
                     'type' => $leaveRequest->leaveType->name,
                     'start' => $leaveRequest->start,
                     'end' => $leaveRequest->end,
