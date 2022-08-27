@@ -8,10 +8,6 @@
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">{{ __('Company List') }}</h3>
                             <div>
-                                <Link :href="route('companies.create')" class="btn btn-primary">
-                                    <i class="fa-solid fa-plus"></i>
-                                    {{ __('Company Create') }}
-                                </Link>
                                 <button class="btn btn-secondary ml-2" @click="filteringData">
                                     <i class="fa-solid fa-filter"></i>
                                     &nbsp;
@@ -63,12 +59,6 @@
                                         <td v-html="user.email"></td>
                                         <td>{{ user.country }}</td>
                                         <td class="d-flex">
-                                            <Link :href="route('companies.show',user.id)" v-tooltip="'Details'" class="btn btn-sm pl-0">
-                                                <EyeIcon/>
-                                            </Link>
-                                            <Link :href="route('companies.edit',user.id)" v-tooltip="__('Company Edit')" class="btn btn-sm">
-                                                <EditIcon/>
-                                            </Link>
                                             <button @click="deleteCompany(user.id)" v-tooltip="__('Company Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>

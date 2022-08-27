@@ -165,12 +165,6 @@ export default {
                 onSuccess: () => this.form.reset(),
             });
         },
-        async loadTeams() {
-            let response = await axios.get(
-                route("companies.teams", this.form.user_id)
-            );
-            this.teams = response.data.teams;
-        },
         statusChange(event) {
             this.form.status = event.target.checked;
         },

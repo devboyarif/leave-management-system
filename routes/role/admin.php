@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\PlanController;
-use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ThemeController;
@@ -13,12 +12,9 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\LanguageController;
-use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\TestimonialController;
-use App\Http\Controllers\Admin\LeaveRequestController;
 
 Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function () {
     // =========================================================================
@@ -31,10 +27,8 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     // Companies
     Route::resource('/companies', CompanyController::class);
     Route::controller(CompanyController::class)->group(function () {
-        Route::get('/companies/teams/{company}', 'companiesTeams')->name('companies.teams');
         Route::get('/companies/leaveTypes/{user}', 'companiesLeaveTypes')->name('companies.leaveTypes');
         Route::get('/companies/employees/{user}', 'companiesEmployees')->name('companies.employees');
-        Route::get('/company/wise/employees/{company}', 'companiesWiseEmployees')->name('company.wise.employees');
     });
 
     // =========================================================================
@@ -55,12 +49,6 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     // Reports
     Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/leave/balance', 'employeeLeaveBalance')->name('employee.leave.balance');
-        Route::get('/leave/history', 'employeeLeaveHistory')->name('employee.leave.history');
-        Route::get('/leave/history/report', 'employeeLeaveHistoryReport')->name('employee.leave.history.report');
-        Route::get('/team/leave/balance', 'teamLeaveBalance')->name('team.leave.balance');
-        Route::get('/team/leave/history', 'teamLeaveHistory')->name('team.leave.history');
-        Route::get('/team/leave/history/report', 'teamLeaveHistoryReport')->name('team.leave.history.report');
     });
 
     // Holidays

@@ -19,7 +19,7 @@
             <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item flex-wrap">
-                        <a @click="details('team')" href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
+                        <a href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
                             <h5 class="mb-0">
                                 {{ __('Total Expense') }}
                             </h5>
@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li class="list-group-item flex-wrap">
-                        <a @click="details('team')" href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
+                        <a href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
                             <h5 class="mb-0">
                                 {{ __('Total Teams') }}
                             </h5>
@@ -35,7 +35,7 @@
                         </a>
                     </li>
                     <li class="list-group-item flex-wrap">
-                        <a @click="details('employee')" href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
+                        <a href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
                             <h5 class="mb-0">
                                 {{ __('Total Employees') }}
                             </h5>
@@ -43,7 +43,7 @@
                         </a>
                     </li>
                     <li class="list-group-item flex-wrap">
-                        <a @click="details('holiday')" href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
+                        <a href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
                             <h5 class="mb-0">
                                 {{ __('Total Holidays') }}
                             </h5>
@@ -51,7 +51,7 @@
                         </a>
                     </li>
                     <li class="list-group-item flex-wrap">
-                        <a @click="details('leave_type')" href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
+                        <a href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
                             <h5 class="mb-0">
                                 {{ __('Total Leave Types') }}
                             </h5>
@@ -59,7 +59,7 @@
                         </a>
                     </li>
                     <li class="list-group-item flex-wrap">
-                        <a @click="details('pending_leave')" href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
+                        <a href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
                             <h5 class="mb-0">
                                 {{ __('Pending Leave Requests') }}
                             </h5>
@@ -67,7 +67,7 @@
                         </a>
                     </li>
                     <li class="list-group-item flex-wrap">
-                        <a @click="details('approve_leave')" href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
+                        <a href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
                             <h5 class="mb-0">
                                 {{ __('Approved Leave Requests') }}
                             </h5>
@@ -75,7 +75,7 @@
                         </a>
                     </li>
                     <li class="list-group-item flex-wrap">
-                        <a @click="details('reject_leave')" href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
+                        <a href="javascript:void(0)" class="d-flex justify-content-between align-items-center text-dark">
                             <h5 class="mb-0">
                                 {{ __('Rejected Leave Requests') }}
                             </h5>
@@ -247,42 +247,6 @@
             },
             details(value) {
                 switch (value) {
-                    case 'team':
-                        this.$inertia.get(route('teams.index'), {
-                            'user_id': this.user.id
-                        })
-                        break;
-                    case 'employee':
-                        this.$inertia.get(route('employees.index'), {
-                            'company': this.user.company.id
-                        })
-                        break;
-                    case 'holiday':
-                        this.$inertia.get(route('holidays.show',this.user.id))
-                        break;
-                    case 'leave_type':
-                        this.$inertia.get(route('leaveTypes.index'), {
-                            'company': this.user.company.id
-                        })
-                        break;
-                    case 'pending_leave':
-                        this.$inertia.get(route('leaveRequests.index'), {
-                            'company': this.user.company.id,
-                            'status': 'pending'
-                        })
-                        break;
-                    case 'approve_leave':
-                        this.$inertia.get(route('leaveRequests.index'), {
-                            'company': this.user.company.id,
-                            'status': 'approved'
-                        })
-                        break;
-                    case 'reject_leave':
-                        this.$inertia.get(route('leaveRequests.index'), {
-                            'company': this.user.company.id,
-                            'status': 'rejected'
-                        })
-                        break;
                     case 'order':
                         this.$inertia.get(route("orders.index"), {
                             'company': this.user.company.id,
