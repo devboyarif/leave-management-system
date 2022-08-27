@@ -68,4 +68,8 @@ class OrderController extends Controller
             ],
         ]);
     }
+
+    public function orderDetails(){
+        return inertia('admin/order/show');
+    }
 }

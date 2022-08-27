@@ -36,7 +36,7 @@
                     </select>
                 </div>
                 <div class="col-3">
-                    <label>Plan</label>
+                    <label>{{ __('Plan') }}</label>
                     <select v-model="filterForm.plan" class="form-control" @change="filterData">
                         <option value="">{{ __('All') }}</option>
                         <option v-for="plan in plans" :key="plan.id" :value="plan.id">
@@ -45,7 +45,7 @@
                     </select>
                 </div>
                 <div class="col-3">
-                    <label>Payment</label>
+                    <label>{{ __('Payment') }}</label>
                     <select class="form-control" v-model="filterForm.payment" @change="filterData">
                         <option value="">{{ __('All') }}</option>
                         <option value="paypal">Paypal</option>
@@ -98,6 +98,9 @@
                                         <small v-else>{{ order.plan.custom_interval_days }} {{ __('Days') }}</small>
                                     </td>
                                     <td class="d-flex">
+                                        <Link :href="route('orders.show',order.id)" v-tooltip="__('Order Details')" class="btn btn-sm pl-0">
+                                            <EyeIcon/>
+                                        </Link>
                                         <button @click="showDetails(order)" v-tooltip="__('Order Details')" class="btn btn-sm pl-0">
                                             <EyeIcon/>
                                         </button>

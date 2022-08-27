@@ -56,6 +56,7 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
 
     // Order
     Route::get('/admin/orders', [OrderController::class, 'orders'])->name('orders.index');
+    Route::get('/admin/orders/{order}', [OrderController::class, 'orderDetails'])->name('orders.show');
 
     // Leave Types & Request
     Route::resource('/leaveTypes', LeaveTypeController::class);
