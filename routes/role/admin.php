@@ -37,12 +37,6 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
         Route::get('/company/wise/employees/{company}', 'companiesWiseEmployees')->name('company.wise.employees');
     });
 
-    // Employees
-    Route::resource('/employees', EmployeeController::class);
-
-    // Teams
-    Route::resource('/teams', TeamController::class);
-
     // =========================================================================
     // ===================Leave and Subscription Routes========================
     // ========================================================================
@@ -57,12 +51,6 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     // Order
     Route::get('/admin/orders', [OrderController::class, 'orders'])->name('orders.index');
     Route::get('/admin/orders/{order}', [OrderController::class, 'orderDetails'])->name('orders.show');
-
-    // Leave Types & Request
-    Route::resource('/leaveTypes', LeaveTypeController::class);
-    Route::resource('/leaveRequests', LeaveRequestController::class);
-    Route::post('/status/change', [LeaveRequestController::class, 'statusChange'])->name('leaveRequests.status');
-    Route::get('/companies/employee/leave/balance', [LeaveTypeController::class, 'leaveTypeBalance'])->name('companies.employee.leave.type.balance');
 
     // Reports
     Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {

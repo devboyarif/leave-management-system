@@ -20,13 +20,6 @@
                         <span class="w-100 d-block text-muted">{{ __('Create Plan') }}</span>
                     </Link>
                 </div>
-                <div class="col-6 p-0 border-bottom border-right">
-                    <Link :href="route('leaveRequests.create')"
-                        class="d-block text-center py-3 bg-hover-light">
-                        <i class="fa-solid fa-file-pen"></i>
-                        <span class="w-100 d-block text-muted">{{ __('Create Leave Request') }}</span>
-                    </Link>
-                </div>
             </div>
             <div class="row row-paddingless">
                 <div class="col-6 p-0 border-bottom border-right">
@@ -34,13 +27,6 @@
                         class="d-block text-center py-3 bg-hover-light">
                         <i class="fa-solid fa-building-user "></i>
                         <span class="w-100 d-block text-muted">{{ __('Create Company') }}</span>
-                    </Link>
-                </div>
-                <div class="col-6 p-0 border-bottom border-right">
-                    <Link :href="route('employees.create')"
-                        class="d-block text-center py-3 bg-hover-light">
-                        <i class="fa-solid fa-user-tie"></i>
-                        <span class="w-100 d-block text-muted">{{ __('Create Employee') }}</span>
                     </Link>
                 </div>
                 <div class="col-12 p-0 border-bottom border-right">

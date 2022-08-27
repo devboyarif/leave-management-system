@@ -18,25 +18,6 @@
                     </NavLink>
 
                     <!-- Leave Manage  -->
-                    <li class="nav-header">{{ __('Leave Manage') }}</li>
-                    <NavLink title="Leave Type" :href="route('leaveTypes.index')"
-                        :active="$page.component == 'admin/leaveType/index' || $page.component == 'admin/leaveType/create' || $page.component == 'admin/leaveType/edit'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-list nav-icon"></i>
-                        </template>
-                    </NavLink>
-                    <NavLink title="Leave Request" :href="route('leaveRequests.index')"
-                        :active="$page.component == 'admin/leaveRequest/index' || $page.component == 'admin/leaveRequest/create' || $page.component == 'admin/leaveRequest/edit'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-file-pen nav-icon"></i>
-                        </template>
-                    </NavLink>
-                    <NavLink title="Holidays" :href="route('holidays.index')"
-                        :active="$page.component == 'admin/holiday/index' || $page.component == 'admin/holiday/show' || $page.component == 'admin/holiday/holidayRequest'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-h nav-icon"></i>
-                        </template>
-                    </NavLink>
                     <NavLink title="Reports" :href="route('reports.index')"
                         :active="$page.component == 'admin/reports/index' || $page.component == 'admin/reports/employeeLeaveBalance' || $page.component == 'admin/reports/employeeLeaveHistory' || $page.component == 'admin/reports/teamLeaveBalance' || $page.component == 'admin/reports/teamLeaveHistory'">
                         <template v-slot:icon>
@@ -71,17 +52,6 @@
                         :active="$page.component == 'admin/company/index' || $page.component == 'admin/company/create' || $page.component == 'admin/company/edit'">
                         <template v-slot:icon>
                             <i class="fa-solid fa-building-user nav-icon"></i>
-                        </template>
-                    </NavLink>
-                    <NavLink title="Employee" :href="route('employees.index')"
-                        :active="$page.component == 'admin/employee/index' || $page.component == 'admin/employee/create' || $page.component == 'admin/employee/edit'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-user-tie nav-icon"></i>
-                        </template>
-                    </NavLink>
-                    <NavLink title="Team" :href="route('teams.index')" :active="$page.component == 'admin/team/index'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
                     </NavLink>
 
