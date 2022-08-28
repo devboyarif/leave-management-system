@@ -3,7 +3,7 @@ $user = auth()->user();
 
 if ($user->role == 'owner') {
     if (!session()->has('company_theme')) {
-        session(['company_theme' => auth()->user()->company->theme]);
+        session(['company_theme' => auth()->user()->companies->theme]);
     }
 
     $company_theme = session('company_theme');

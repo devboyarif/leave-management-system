@@ -41,7 +41,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <button @click="roleLogin('admin@mail.com','password')" class="btn btn-secondary">Login Via Admin</button>
-                        <button @click="roleLogin('company@mail.com', 'password')" class="btn btn-secondary mx-1">Login Via Company</button>
+                        <button @click="roleLogin('owner@mail.com', 'password')" class="btn btn-secondary mx-1">Login Via Company</button>
                         <button @click="roleLogin('employee@mail.com', 'password')" class="btn btn-secondary">Login Via
                             Employee</button>
                     </div>

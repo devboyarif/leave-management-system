@@ -19,6 +19,11 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Country::class)->constrained()->cascadeOnDelete();
+            $table->string('company_name')->nullable();
+            $table->string('company_email')->nullable();
+            $table->string('company_phone')->nullable();
+            $table->string('company_logo')->nullable();
+            $table->string('company_website')->nullable();
             $table->timestamps();
         });
     }

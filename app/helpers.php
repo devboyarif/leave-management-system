@@ -57,7 +57,8 @@ if (!function_exists('currentUserId')) {
 if (!function_exists('currentCompany')) {
     function currentCompany()
     {
-        return auth()->user()->company;
+       return Company::find(auth()->user()->current_company_id);
+        // return auth()->user()->companies;
     }
 }
 
