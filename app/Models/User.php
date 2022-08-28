@@ -15,7 +15,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public const ROLE_EMPLOYEE = 'employee';
-    public const ROLE_COMPANY = 'company';
+    public const ROLE_COMPANY = 'owner';
 
     /**
      * The attributes that are mass assignable.
@@ -59,7 +59,7 @@ class User extends Authenticatable
 
     public function scopeRoleCompany()
     {
-        return $this->where('role', 'company');
+        return $this->where('role', 'owner');
     }
 
     public function scopeRoleEmployee()

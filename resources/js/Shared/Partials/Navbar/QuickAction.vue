@@ -1,6 +1,6 @@
 <template>
     <AdminQuickAction v-if="role == 'admin'"/>
-    <CompanyQuickAction v-else-if="role == 'company'"/>
+    <CompanyQuickAction v-else-if="role == 'owner'"/>
 </template>
 
 <script>

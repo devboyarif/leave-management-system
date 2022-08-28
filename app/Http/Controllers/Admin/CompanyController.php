@@ -25,7 +25,7 @@ class CompanyController extends Controller
         $country = request('country') ?? '';
 
         $companies = User::query()
-            ->where('role', 'company')
+            ->where('role', 'owner')
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', '%' . $search . '%')
                     ->orWhere('email', 'LIKE', '%' . $search . '%');

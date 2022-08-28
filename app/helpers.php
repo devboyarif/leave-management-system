@@ -209,7 +209,7 @@ if (!function_exists('storeCompanyCurrentSubscription')) {
     {
         session()->forget('current_subscription');
 
-        if (auth()->check() && auth()->user()->role == 'company') {
+        if (auth()->check() && auth()->user()->role == 'owner') {
             if (!function_exists('get_file_size')) {
                 $subscription = currentCompany()->subscription->load(['plan' => function ($query) {
                     $query->with('planFeatures');
@@ -225,7 +225,7 @@ if (!function_exists('getCurrentSubscription')) {
     function getCurrentSubscription()
     {
         // session()->forget('current_subscription');
-        if (auth()->check() && auth()->user()->role == 'company') {
+        if (auth()->check() && auth()->user()->role == 'owner') {
             if (!session()->has('current_subscription')) {
                 storeCompanyCurrentSubscription();
             }

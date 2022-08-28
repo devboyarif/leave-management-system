@@ -15,7 +15,7 @@ class AddFieldsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('avatar')->nullable();
-            $table->enum('role', ['admin', 'company', 'employee'])->default('company');
+            $table->enum('role', ['admin', 'owner', 'employee'])->default('owner');
             $table->boolean('status')->default(true);
             $table->integer('code')->nullable();
         });
