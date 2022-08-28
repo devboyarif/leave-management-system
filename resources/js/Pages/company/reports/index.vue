@@ -71,7 +71,7 @@ export default {
     },
     methods: {},
     mounted() {
-        this.checkPagePermission("company");
+        this.checkPagePermission("owner");
     },
 };
 </script>

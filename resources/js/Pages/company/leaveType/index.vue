@@ -105,7 +105,7 @@ export default {
         },
     },
     mounted() {
-        this.checkPagePermission("company");
+        this.checkPagePermission("owner");
     },
 };
 </script>

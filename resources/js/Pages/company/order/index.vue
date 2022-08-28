@@ -270,7 +270,7 @@ export default {
         }, 500),
     },
     mounted() {
-        this.checkPagePermission("company");
+        this.checkPagePermission("owner");
         this.showFilter =
             localStorage.getItem("companyOrder") == "true" ? true : false;
     },

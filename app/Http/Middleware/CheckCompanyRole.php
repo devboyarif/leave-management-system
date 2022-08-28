@@ -16,7 +16,7 @@ class CheckCompanyRole
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && currentUserRole() != 'company') {
+        if (auth()->check() && currentUserRole() != 'owner') {
             return inertia('errors/403');
         }
 

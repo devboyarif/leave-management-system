@@ -2,8 +2,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <Link :href="route('dashboard')" class="brand-link">
-        <img :src="setting.app_favicon" alt="logo" class="brand-image img-circle" style="opacity: .8">
-        <span class="brand-text font-weight-bold">{{ setting.app_name }}</span>
+            <img :src="setting.app_favicon" alt="logo" class="brand-image img-circle" style="opacity: .8">
+            <span class="brand-text font-weight-bold">{{ setting.app_name }}</span>
         </Link>
 
         <!-- Sidebar -->
@@ -146,6 +146,11 @@ export default {
                 pageComponent == "admin/employee/edit"
             );
         },
+    },
+    watch: {
+        role: function(){
+            this.role = this.$page.props.authenticatedUser.role
+        }
     },
 };
 </script>
