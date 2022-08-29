@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/testt', [TestController::class, 'index']);
 
 Route::get('/test', function () {
+    return auth()->user()->companies;
     return Language::where('status', 1)->get(['id', 'name', 'code']);
     return view('system.app_status');
 })->name('test');

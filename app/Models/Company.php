@@ -54,6 +54,15 @@ class Company extends Model
         });
     }
 
+    public function getCompanyLogoAttribute($logo)
+    {
+        if (!$logo) {
+            return asset('admin/img/default-user.png');
+        }
+
+        return asset($logo);
+    }
+
     public function teams()
     {
         return $this->hasMany(Team::class, 'company_id');

@@ -3,37 +3,46 @@
         <a @click="show = !show" v-click-outside="()=> show = false" class="nav-link d-inline-flex py-0 align-items-center" href="javascript:void(0)" id="userDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <div class="profile-details d-none d-lg-inline mr-1 text-right">
-                <div class="mr-1 d-block font-weight-medium">{{ $page.props.authenticatedUser.name }}</div>
+                <div class="mr-1 d-block font-weight-medium">
+                    <b>{{ currentCompany.company_name }}</b>
+                    <!-- <b>{{ $page.props.authenticatedUser.name }}</b> -->
+                    <p>{{ currentCompany.company_email }}</p>
+                </div>
             </div>
-            <img height="32" width="32" class="img-profile rounded-circle user-image elevation-2" :src="$page.props.authenticatedUser.avatar">
+            <img height="32" width="32" class="img-profile rounded-circle user-image elevation-2" :src="currentCompany.company_logo">
         </a>
 
         <!-- Dropdown - User Information -->
-        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in lokalise-menu " :class="{'show':show}"
+        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in lokalise-menu font-weight-bold" :class="{'show':show}"
             aria-labelledby="userDropdown">
             <Link class="dropdown-item" :href="route('user.profile')">{{ __('Profile') }}</Link>
-            <Link class="dropdown-item" :href="route('company.settings.general')">{{ __('Settings') }}</Link>
-                <a href="" class="dropdown-item"
-                    target="_blank">Support</a>
+            <template v-if="role == 'owner'">
+                <Link class="dropdown-item" :href="route('company.settings.general')">{{ __('Settings') }}</Link>
+                <a href="" class="dropdown-item" target="_blank">Support</a>
                 <a href="" class="dropdown-item bug-item"
                 data-toggle="bug-dialog">Usage & Billing</a>
-                 <Link href="/logout" method="post" class="dropdown-item logout-item">{{ __('Logout') }}</Link>
-                <!-- <a href="" class="dropdown-item"
-                target="_blank">Switch organization</a> -->
-                <li class="dropdown-submenu">
-                    <a class="dropdown-item dropdown-toggle" href="http://google.com">Switch organization</a>
+                <li class="dropdown-submenu" >
+                    <a class="dropdown-item dropdown-toggle" href="http://google.com">Switch Company</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Kodebazar</a></li>
-                        <li><a class="dropdown-item" href="#">Templatecookie</a></li>
+                        <template v-if="ownerCompanies && ownerCompanies.length">
+                            <li v-for="ownerCompany in ownerCompanies" :key="ownerCompany.id">
+                                <a @click.prevent="switchCompany(ownerCompany.id)" href="javascript:void(0)" class="dropdown-item">
+                                    <img :src="ownerCompany.company_logo" alt="img" class="switch-company-img mr-2">
+                                   <b v-if="currentCompany.id == ownerCompany.id">{{ ownerCompany.company_name }}</b>
+                                   <template v-else>{{ ownerCompany.company_name }}</template>
+                                </a>
+                            </li>
+                        </template>
+                        <hr>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <b>Create Company</b>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-            <!-- <div class="border-top border-bottom my-2">
-            </div>
-             -->
-             <!-- <br>
-             <br> -->
-
-
+            </template>
+            <Link href="/logout" method="post" class="dropdown-item logout-item">{{ __('Logout') }}</Link>
         </div>
     </li>
 </template>
@@ -44,8 +53,21 @@ export default {
     data() {
         return {
             show: false,
+            role: this.$page.props.authenticatedUser.role,
+            currentCompany: this.$page.props.currentCompany,
+            ownerCompanies: this.$page.props.ownerCompanies,
+
         };
     },
+    methods:{
+        async switchCompany(id) {
+            await this.$inertia.post(route('company.switch', id), null,{
+                onSuccess: () => {
+                    window.location.reload()
+                }
+            })
+        }
+    }
 };
 </script>
 
@@ -70,8 +92,6 @@ export default {
     display: block;
 }
 .dropdown-submenu {
-    position:absolute;
-
     display: block;
     width: 100%;
     /* padding: 0.25 1rem; */
@@ -96,5 +116,10 @@ export default {
     transform: rotate(-90deg);
 }
 
+.switch-company-img {
+    height: 25px;
+    width: 25px;
+    object-fit: cover;
+}
 
 </style>

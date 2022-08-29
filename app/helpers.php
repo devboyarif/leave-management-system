@@ -62,6 +62,14 @@ if (!function_exists('currentCompany')) {
     }
 }
 
+if (!function_exists('currentCompany')) {
+    function ownerCompanies()
+    {
+       return Company::find(auth()->user()->current_company_id);
+        // return auth()->user()->companies;
+    }
+}
+
 if (!function_exists('currentEmployee')) {
     function currentEmployee()
     {

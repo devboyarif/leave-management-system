@@ -63,6 +63,8 @@ Route::middleware(['auth', 'check.company.role'])->prefix('company')->name('comp
         Route::get('/general', 'general')->name('general');
         Route::post('/general/setting/update', 'generalSettingUpdate')->name('general.update');
     });
+
+    Route::post('switch/{id}', [CompanyController::class, 'switchCompany'])->name('switch');
 });
 
 Route::controller(InviteController::class)->prefix('company')->name('company.')->group(function () {

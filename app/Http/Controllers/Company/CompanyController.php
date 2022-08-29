@@ -61,4 +61,14 @@ class CompanyController extends Controller
             'plans' => $plans,
         ]);
     }
+
+    public function switchCompany($id)
+    {
+        auth()->user()->update([
+            'current_company_id' => $id,
+        ]);
+
+        session()->flash('success', 'Company Switched');
+        return back();
+    }
 }
