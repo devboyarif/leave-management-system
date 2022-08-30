@@ -23,10 +23,14 @@ const data = JSON.parse(el.dataset.page);
 import Layout from "./Shared/Layout/Default.vue";
 import AuthLayout from "./Shared/Layout/Auth.vue";
 import SettingLayout from "./Shared/Layout/Setting.vue";
+import CompanySetupLayout from "./Shared/Layout/CompanySetup.vue";
+
 import ErrorMessage from "./Shared/Forms/ErrorMessage.vue";
+import AuthErrorMessage from "./Shared/Forms/AuthErrorMessage.vue";
 import Info from "./Shared/Forms/Info.vue";
 import InfoTip from "./Shared/InfoTip.vue";
 import Label from "./Shared/Forms/Label.vue";
+import AuthLabel from "./Shared/Forms/AuthLabel.vue";
 import Loading from "./Shared/Loading.vue";
 import EditIcon from "./Shared/Icons/EditIcon.vue";
 import EyeIcon from "./Shared/Icons/EyeIcon.vue";
@@ -55,9 +59,10 @@ const app = createApp({
                 page.layout = Layout;
             } else if (page.layout === 'Auth') {
                 page.layout = AuthLayout;
-
             }else if (page.layout === 'Setting') {
                 page.layout = SettingLayout;
+            }else if (page.layout === 'CompanySetup') {
+                page.layout = CompanySetupLayout;
             }
 
             console.log(page.layout);
@@ -91,8 +96,10 @@ app.use(InertiaPlugin)
     .component('Head', Head)
     .component('Link', Link)
     .component('ErrorMessage', ErrorMessage)
+    .component('AuthErrorMessage', AuthErrorMessage)
     .component('Info', Info)
     .component('Label', Label)
+    .component('AuthLabel', AuthLabel)
     .component('Loading', Loading)
     .component('EditIcon', EditIcon)
     .component('DeleteIcon', DeleteIcon)

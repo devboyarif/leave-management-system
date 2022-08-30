@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
     private function developmentVersion()
     {
         $this->call([
+            TeamSizeSeeder::class,
             PlanSeeder::class,
             AdminSeeder::class,
             ThemeSeeder::class,

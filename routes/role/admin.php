@@ -147,6 +147,7 @@ Route::controller(GlobalController::class)->group(function () {
     Route::get('/get/translated/message', 'getTranslatedMessage')->name('get.translated.text');
     Route::get('/error/403', 'error403')->name('error.403');
     Route::get('/all/countries', 'allCountries')->name('all.countries');
+    Route::get('/all/team/sizes', 'allTeamSizes')->name('all.team.sizes');
     Route::get('/app/setting', 'appSetting')->name('app.setting');
     Route::get('/userid/wise/company', 'useridWiseCompany')->name('userid.wise.company');
     Route::get('/language/{language}', 'switchLanguage')->name('language');

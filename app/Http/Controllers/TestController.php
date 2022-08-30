@@ -11,7 +11,7 @@ class TestController extends Controller
 
     public function index(){
 
-
+        return inertia('company/setup/index');
         return view('test.progress');
 
 

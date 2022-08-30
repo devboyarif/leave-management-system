@@ -13,9 +13,10 @@ class SettingController extends Controller
 
     public function general()
     {
+        $company = currentCompany();
         $data['user'] = auth()->user();
-        $data['workingdays'] = $data['user']->company->workingDays;
-        $data['theme'] = $data['user']->company->theme;
+        $data['workingdays'] = $company->workingDays;
+        $data['theme'] = $company->theme;
         $data['countries'] = Country::all(['id', 'name']);
 
         return inertia('company/settings', $data);
