@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Company\AccountSetupController;
 use App\Http\Controllers\Company\CompanyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Company\TeamController;
@@ -11,7 +12,7 @@ use App\Http\Controllers\Company\LeaveTypeController;
 use App\Http\Controllers\Company\LeaveRequestController;
 use App\Http\Controllers\Company\ReportController;
 
-Route::middleware(['auth', 'check.company.role'])->prefix('company')->name('company.')->group(function () {
+Route::middleware(['auth', 'check.company.role','check.company.setup'])->prefix('company')->name('company.')->group(function () {
     // Employee routes
     Route::resource('/employees', EmployeeController::class);
     Route::post('/employees/invite', [EmployeeController::class, 'inviteEmployee'])->name('employees.invite');
@@ -71,4 +72,8 @@ Route::controller(InviteController::class)->prefix('company')->name('company.')-
     Route::post('/invite', 'sendInvite')->name('invite.send')->middleware('auth');
     Route::get('invite/accept/{token}', 'acceptInvite')->name('invite.accept');
     Route::post('store/employee/', 'storeEmployee')->name('store.employee');
+});
+
+Route::controller(AccountSetupController::class)->prefix('account/setup')->group(function(){
+    Route::get('/', 'accountSetup')->name('company.account.setup');
 });

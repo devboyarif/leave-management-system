@@ -1,14 +1,14 @@
 <template>
     <div>
-        <div>Step {{ current_step }} / 6</div>
+        <div>Step {{ current_step }} / 5</div>
         <div class="progress mt-1 mb-2">
             <template v-for="i in current_step" :key="i">
-                <div class="progress-bar bg-progress" role="progressbar" style="width: 15.665%"></div>
+                <div class="progress-bar bg-progress" role="progressbar" style="width: 20%"></div>
                 <div class="progress-bar bg-transparent" role="progressbar" style="width: 1.2%"></div>
             </template>
-            <template v-for="i in (6-current_step)" :key="i">
+            <template v-for="i in (5-current_step)" :key="i">
                 <div class="progress-bar bg-transparent" role="progressbar" style="width: 1.2%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 15.665%"></div>
+                <div class="progress-bar" role="progressbar" style="width: 20%"></div>
             </template>
         </div>
     </div>
@@ -28,9 +28,6 @@
         <div class="col-12 p-0 mb-md-7" v-else-if="current_step == 5">
             <Step5 @step="changeStep"/>
         </div>
-        <div class="col-12 p-0 mb-md-7" v-else-if="current_step == 6">
-            <Step6 @step="changeStep"/>
-        </div>
     </div>
 </template>
 
@@ -40,7 +37,6 @@
     import Step3 from './step3.vue';
     import Step4 from './step4.vue';
     import Step5 from './step5.vue';
-    import Step6 from './step6.vue';
 
     export default {
         layout: "CompanySetup",
@@ -50,7 +46,6 @@
             Step3,
             Step4,
             Step5,
-            Step6,
         },
         data() {
             return {

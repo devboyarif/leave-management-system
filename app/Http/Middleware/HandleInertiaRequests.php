@@ -65,7 +65,7 @@ class HandleInertiaRequests extends Middleware
         $data['unreadNotificationsCount'] = auth()->check() ? auth()->user()->unreadNotifications->count() : 0;
 
         // Subscription
-        if (auth()->check() && auth()->user()->role == 'owner') {
+        if (auth()->check() && auth()->user()->role == 'owner' && auth()->user()->current_company_id) {
             session()->forget('current_subscription');
             if (!session()->has('current_subscription')) {
                 storeCompanyCurrentSubscription();
