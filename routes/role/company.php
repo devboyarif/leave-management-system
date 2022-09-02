@@ -74,6 +74,17 @@ Route::controller(InviteController::class)->prefix('company')->name('company.')-
     Route::post('store/employee/', 'storeEmployee')->name('store.employee');
 });
 
-Route::controller(AccountSetupController::class)->prefix('account/setup')->group(function(){
+Route::get('fetch/company/teams', [CompanyController::class, 'fetchTeams'])->name('fetch.company.teams');
+Route::delete('delete/company/{team}', [CompanyController::class, 'deleteTeam'])->name('delete.company.teams');
+
+// Account Setup
+Route::controller(AccountSetupController::class)->prefix('account/setup')->middleware('auth')->group(function(){
     Route::get('/', 'accountSetup')->name('company.account.setup');
+    Route::name('company.account.setup.')->group(function(){
+        Route::post('/step1', 'step1')->name('step1');
+        Route::post('/step2', 'step2')->name('step2');
+        Route::post('/step3', 'step3')->name('step3');
+        Route::post('/step4', 'step4')->name('step4');
+        Route::post('/step5', 'step5')->name('step5');
+    });
 });

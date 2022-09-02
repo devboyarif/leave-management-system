@@ -26,7 +26,6 @@ class CreateCompaniesTable extends Migration
             $table->string('company_phone')->nullable();
             $table->string('company_logo')->nullable();
             $table->string('company_website')->nullable();
-            $table->boolean('is_opening_setup_complete')->default(0);
             $table->timestamps();
         });
     }

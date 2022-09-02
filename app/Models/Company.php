@@ -11,10 +11,7 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'country_id'
-    ];
+    protected $guarded = [];
 
     protected static function booted()
     {

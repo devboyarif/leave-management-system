@@ -17,10 +17,8 @@ class CheckCompanySetup
     public function handle(Request $request, Closure $next)
     {
         // Please note here complete = 1 means company has completed his profile
-        if (auth()->check() && auth()->user()->role == 'owner') {
-            if (!isset(currentCompany()) || !currentCompany()->is_opening_setup_complete) {
-                return redirect()->route('company.account.setup');
-            }
+        if (auth()->check() && auth()->user()->role == 'owner' && !auth()->user()->is_opening_setup_complete) {
+            return redirect()->route('company.account.setup');
             // return inertia('company/setup/index');
         }
 

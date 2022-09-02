@@ -6,6 +6,7 @@ use App\Models\Plan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Team;
 
 class CompanyController extends Controller
 {
@@ -69,6 +70,19 @@ class CompanyController extends Controller
         ]);
 
         session()->flash('success', 'Company Switched');
+        return back();
+    }
+
+    public function fetchTeams()
+    {
+        return currentCompany()->teams;
+    }
+
+    public function deleteTeam(Team $team)
+    {
+        $team->delete();
+
+        session()->flash('success', 'Team deleted');
         return back();
     }
 }

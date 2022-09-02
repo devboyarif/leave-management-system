@@ -56,6 +56,16 @@
             changeStep(step){
                 this.current_step = step;
             }
+        },
+        mounted(){
+            let step = localStorage.getItem('step')
+
+            if(step){
+                this.current_step = step
+            }
+            // localStorage.setItem('step', 2)
+
+            // console.log(localStorage.getItem('step'))
         }
     };
 </script>

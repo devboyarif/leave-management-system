@@ -17,6 +17,7 @@ class AddFieldsToUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->enum('role', ['admin', 'owner', 'employee'])->default('owner');
             $table->unsignedBigInteger('current_company_id')->nullable();
+            $table->boolean('is_opening_setup_complete')->default(0);
             $table->boolean('status')->default(true);
             $table->integer('code')->nullable();
         });
