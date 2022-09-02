@@ -1,6 +1,6 @@
 <template>
     <AdminMenuBar v-if="role == 'admin'"/>
-    <CompanyMenuBar v-else-if="role == 'company'"/>
+    <CompanyMenuBar v-else-if="role == 'owner'"/>
     <EmployeeMenuBar v-else/>
 </template>
 

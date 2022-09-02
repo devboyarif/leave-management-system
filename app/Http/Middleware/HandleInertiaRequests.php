@@ -43,6 +43,10 @@ class HandleInertiaRequests extends Middleware
         if (auth()->check() && currentUser()->role == 'employee') {
             $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
         }
+        if (auth()->check() && currentUser()->role == 'owner') {
+            $data['currentCompany'] = currentCompany();
+            $data['ownerCompanies'] = auth()->user()->companies;
+        }
 
         // Flash messages
         $data['flash'] = [
@@ -61,7 +65,7 @@ class HandleInertiaRequests extends Middleware
         $data['unreadNotificationsCount'] = auth()->check() ? auth()->user()->unreadNotifications->count() : 0;
 
         // Subscription
-        if (auth()->check() && auth()->user()->role == 'company') {
+        if (auth()->check() && auth()->user()->role == 'owner' && auth()->user()->current_company_id) {
             session()->forget('current_subscription');
             if (!session()->has('current_subscription')) {
                 storeCompanyCurrentSubscription();
@@ -78,7 +82,6 @@ class HandleInertiaRequests extends Middleware
 
         // Settings
         $data['setting'] = auth()->check() ? Setting::first() : [];
-        // $data['setting'] = auth()->check() && currentUser()->role == 'admin' ? Setting::first() : [];
 
         return array_merge(parent::share($request), $data);
     }

@@ -161,7 +161,7 @@ class UserController extends Controller
         $role = $user->role;
         $data['user'] = $user;
 
-        if ($role == 'company') {
+        if ($role == 'owner') {
             $data['countries'] = Country::all(['id', 'name']);
         }else if($role == 'employee'){
             $data['user'] = $user->load('employee');
@@ -193,7 +193,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        if ($role == 'company' && $request->country) {
+        if ($role == 'owner' && $request->country) {
             $company = $user->company;
             $country_id = $company->country_id;
             $company->update(['country_id' => $request->country]);

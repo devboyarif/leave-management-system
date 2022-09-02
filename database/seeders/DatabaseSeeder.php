@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // For Packaging
-        // $this->packagingVersion();
+        $this->packagingVersion();
 
         // For Development
-        $this->developmentVersion();
+        // $this->developmentVersion();
     }
 
     private function packagingVersion()
@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
     private function developmentVersion()
     {
         $this->call([
+            TeamSizeSeeder::class,
             PlanSeeder::class,
             AdminSeeder::class,
             ThemeSeeder::class,

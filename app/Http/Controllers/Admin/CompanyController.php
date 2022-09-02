@@ -25,7 +25,7 @@ class CompanyController extends Controller
         $country = request('country') ?? '';
 
         $companies = User::query()
-            ->where('role', 'company')
+            ->where('role', 'owner')
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', '%' . $search . '%')
                     ->orWhere('email', 'LIKE', '%' . $search . '%');
@@ -59,48 +59,7 @@ class CompanyController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $countries = Country::all(['id', 'name']);
 
-        return inertia('admin/company/create', [
-            'countries' => $countries,
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  UserCreateRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CompanyCreateRequest $request)
-    {
-        $data = $request->except(['country', 'password_confirmation']);
-        $data['password'] = bcrypt($data['password']);
-
-        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            $request->validate([
-                'avatar' => ['image', 'mimes:jpeg,png,jpg'],
-            ]);
-            $url = uploadFileToPublic('avatars', $request->avatar);
-            $data['avatar'] = $url;
-        }
-
-        $user = User::create($data);
-
-        $user->company()->create([
-            'country_id' => $request->country,
-        ]);
-
-        session()->flash('success', 'Company created successfully!');
-        return redirect()->route('companies.index');
-    }
 
     /**
      * Display the specified resource.
@@ -139,72 +98,6 @@ class CompanyController extends Controller
             'summary' => $summary,
             'subscribed_plan' => $subscribed_plan,
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $company)
-    {
-        $user = $company;
-        $countries = Country::all(['id', 'name']);
-
-        return inertia('admin/company/edit', [
-            'user' => $user,
-            'country_id' => $user->company->country_id,
-            'countries' => $countries,
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CompanyUpdateRequest $request, User $company)
-    {
-        $user = $company;
-
-        $data = $request->except(['country', 'password_confirmation']);
-        if ($request->password) {
-            $data['password'] = bcrypt($data['password']);
-        }
-
-        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            $request->validate([
-                'avatar' => ['image', 'mimes:jpeg,png,jpg'],
-            ]);
-            $url = uploadFileToPublic('avatars', $request->avatar);
-            $data['avatar'] = $url;
-        }
-
-        $user->update($data);
-
-        $user->company()->update([
-            'country_id' => $request->country,
-        ]);
-
-        session()->flash('success', 'Company updated successfully!');
-        return redirect()->route('companies.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $company)
-    {
-        $company->delete();
-
-        session()->flash('success', 'Company deleted successfully!');
-        return back();
     }
 
     public function companiesTeams(Company $company)

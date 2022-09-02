@@ -17,7 +17,6 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <LanguageSelector/>
-            <QuickAction />
             <Appearance />
             <Notification />
             <UserMenu />
@@ -26,7 +25,6 @@
 </template>
 
 <script>
-import QuickAction from "./QuickAction.vue";
 import Appearance from "./Appearance.vue";
 import UserMenu from "./UserMenu.vue";
 import Notification from "./Notification.vue";
@@ -34,7 +32,6 @@ import LanguageSelector from "./LanguageSelector.vue";
 
 export default {
     components: {
-        QuickAction,
         Appearance,
         UserMenu,
         Notification,

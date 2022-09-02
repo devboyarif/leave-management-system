@@ -6,7 +6,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">{{ __('Post Create') }}</h3>
-                        <Link :href="route('employees.index')" class="btn btn-primary">
+                        <Link :href="route('posts.index')" class="btn btn-primary">
                         <i class="fa-solid fa-arrow-left"></i>
                         {{ __('Back') }}
                         </Link>

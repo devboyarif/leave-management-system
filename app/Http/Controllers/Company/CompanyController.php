@@ -6,6 +6,7 @@ use App\Models\Plan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Team;
 
 class CompanyController extends Controller
 {
@@ -60,5 +61,15 @@ class CompanyController extends Controller
         return inertia('company/plan', [
             'plans' => $plans,
         ]);
+    }
+
+    public function switchCompany($id)
+    {
+        auth()->user()->update([
+            'current_company_id' => $id,
+        ]);
+
+        session()->flash('success', 'Company Switched');
+        return back();
     }
 }

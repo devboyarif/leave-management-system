@@ -1,7 +1,7 @@
 <template>
     <Head :title="__('Profile')" />
     <AdminProfile :user="user" v-if="role == 'admin'"/>
-    <CompanyProfile :user="user" :countries="countries" v-else-if="role == 'company'"/>
+    <CompanyProfile :user="user" :countries="countries" v-else-if="role == 'owner'"/>
     <EmployeeProfile :user="user" v-else/>
 </template>
 

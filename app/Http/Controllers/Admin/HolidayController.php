@@ -14,7 +14,7 @@ class HolidayController extends Controller
 {
     public function index()
     {
-        $users = User::roleCompany()->with('company.country')->withCount('holidays')->latest()->paginate(10);
+        $users = User::roleOwner()->with('company.country')->withCount('holidays')->latest()->paginate(10);
 
         return inertia('admin/holiday/index', [
             'users' => $users,

@@ -11,10 +11,7 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'country_id'
-    ];
+    protected $guarded = [];
 
     protected static function booted()
     {
@@ -52,6 +49,15 @@ class Company extends Model
                 'balance' => 14,
             ]);
         });
+    }
+
+    public function getCompanyLogoAttribute($logo)
+    {
+        if (!$logo) {
+            return asset('admin/img/default-user.png');
+        }
+
+        return asset($logo);
     }
 
     public function teams()

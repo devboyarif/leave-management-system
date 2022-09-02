@@ -39,19 +39,21 @@ class InviteController extends Controller
             'team_id.required' => 'The team field is required.',
         ]);
 
-        $data = $request->only(['team_id', 'email']);
-        $data['token'] = Str::random(60);
-        $data['company_id'] = $company->id;
+        sendInvite($company->id,$request->email, $request->team_id);
 
-        if (!Invite::whereToken($data['token'])->exists()) {
-            $invite = Invite::create($data);
-        } else {
-            $data['token'] = Str::random(100);
-            $invite = Invite::create($data);
-        }
+        // $data = $request->only(['team_id', 'email']);
+        // $data['token'] = Str::random(60);
+        // $data['company_id'] = $company->id;
 
-        // send the email
-        Mail::to($request->email)->send(new InviteSendMail($invite));
+        // if (!Invite::whereToken($data['token'])->exists()) {
+        //     $invite = Invite::create($data);
+        // } else {
+        //     $data['token'] = Str::random(100);
+        //     $invite = Invite::create($data);
+        // }
+
+        // // send the email
+        // Mail::to($request->email)->send(new InviteSendMail($invite));
 
         session()->flash('success', 'Invite sent successfully');
         return back();

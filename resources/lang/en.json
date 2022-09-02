@@ -303,7 +303,12 @@
     "Rejected Leave Requests":"Rejected Leave Requests",
     "Total Leave":"Total Leave",
     "Remaining Days":"Total Leave",
-    "Used Days":"Total Leave",
+    "Used Days":"Used Days",
+    "Team Size":"Team Size",
+    "Select Team Size":"Select Team Size",
+    "Company Email":"Company Email",
+    "Go to Dashboard":"Go to Dashboard",
+    "Invite Sent":"Invite Sent",
 
 
 

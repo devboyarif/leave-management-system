@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Company\AccountSetupController;
 use App\Http\Controllers\Company\CompanyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Company\TeamController;
@@ -11,7 +12,7 @@ use App\Http\Controllers\Company\LeaveTypeController;
 use App\Http\Controllers\Company\LeaveRequestController;
 use App\Http\Controllers\Company\ReportController;
 
-Route::middleware(['auth', 'check.company.role'])->prefix('company')->name('company.')->group(function () {
+Route::middleware(['auth', 'check.company.role','check.company.setup'])->prefix('company')->name('company.')->group(function () {
     // Employee routes
     Route::resource('/employees', EmployeeController::class);
     Route::post('/employees/invite', [EmployeeController::class, 'inviteEmployee'])->name('employees.invite');
@@ -63,10 +64,27 @@ Route::middleware(['auth', 'check.company.role'])->prefix('company')->name('comp
         Route::get('/general', 'general')->name('general');
         Route::post('/general/setting/update', 'generalSettingUpdate')->name('general.update');
     });
+
+    Route::post('switch/{id}', [CompanyController::class, 'switchCompany'])->name('switch');
 });
 
 Route::controller(InviteController::class)->prefix('company')->name('company.')->group(function () {
     Route::post('/invite', 'sendInvite')->name('invite.send')->middleware('auth');
     Route::get('invite/accept/{token}', 'acceptInvite')->name('invite.accept');
     Route::post('store/employee/', 'storeEmployee')->name('store.employee');
+});
+
+Route::get('fetch/company/teams', [AccountSetupController::class, 'fetchTeams'])->name('fetch.company.teams');
+Route::delete('delete/company/{team}', [AccountSetupController::class, 'deleteTeam'])->name('delete.company.teams');
+
+// Account Setup
+Route::controller(AccountSetupController::class)->prefix('account/setup')->middleware('auth')->group(function(){
+    Route::get('/', 'accountSetup')->name('company.account.setup');
+    Route::name('company.account.setup.')->group(function(){
+        Route::post('/step1', 'step1')->name('step1');
+        Route::post('/step2', 'step2')->name('step2');
+        Route::post('/step3', 'step3')->name('step3');
+        Route::post('/step4', 'step4')->name('step4');
+        Route::post('/step5', 'step5')->name('step5');
+    });
 });

@@ -173,7 +173,7 @@ export default {
         },
     },
     mounted() {
-        this.checkPagePermission("company");
+        this.checkPagePermission("owner");
         this.showFilter =
             localStorage.getItem("companyLeaveRequestList") == "true"
                 ? true

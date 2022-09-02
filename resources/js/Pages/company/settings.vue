@@ -80,7 +80,7 @@ export default {
         },
     },
     mounted() {
-        this.checkPagePermission("company");
+        this.checkPagePermission("owner");
         let tab = localStorage.getItem("companySettingTab") || "profile";
         this.currentTab = tab;
         this.changeTab(tab);
