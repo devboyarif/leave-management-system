@@ -4,8 +4,8 @@
         <h3 class="text-center mb-3">Setup your company's working days</h3>
         <p class="h5 text-center mb-3">Please check the working days you want to add for the application</p>
     </div>
-    <div class="email-login mt-4">
-        <form @submit.prevent="saveData">
+    <form @submit.prevent="saveData">
+        <div class="email-login mt-4">
             <div class="d-flex flex-wrap flex-column">
                 <div class="d-flex flex-wrap row">
                     <div class="col-12 col-sm-3">
@@ -52,11 +52,12 @@
                     </div>
                 </div>
             </div>
-        </form>
-        <button type="button" class="cta-btn bg-primary w-25 ml-auto" @click="$emit('step', 5)">
-            {{ __('Next') }}
-        </button>
-    </div>
+            <button :disabled="form.processing" type="submit" class="cta-btn bg-primary btn-sm w-25 ml-auto">
+                <Loading v-if="form.processing" :messageShow="false" />
+                <span v-else>{{ __('Next') }}</span>
+            </button>
+        </div>
+    </form>
 </template>
 
 
@@ -64,8 +65,6 @@
     export default {
     data() {
         return {
-            errors: {},
-
             form: this.$inertia.form({
                 sunday: false,
                 monday: true,
@@ -79,7 +78,12 @@
     },
     methods: {
         saveData() {
-            this.form.put(route("company.workingdays.update"));
+            this.form.post(route("company.account.setup.step4"), {
+                onSuccess: () => {
+                    this.$emit('step', 5)
+                    localStorage.setItem('step', 5)
+                }
+            });
         },
     },
     mounted() {

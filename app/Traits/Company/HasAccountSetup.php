@@ -75,27 +75,18 @@ trait HasAccountSetup
                 }
             }
         }
-
-
-        // return [
-        //     $emails,
-        //     $teams,
-        // ];
-
-        // sendInvite($company->id,$request->email, $request->team_id);
-
-        // $social_medias = $request->social_media;
-        // $urls = $request->url;
-
-
-
     }
 
     public function saveStep4($request){
-        //
-    }
-
-    public function saveStep5($request){
-        //
+        $company = currentCompany();
+        $company->workingDays()->update([
+            "monday" => $request->monday ? true : false,
+            "tuesday" => $request->tuesday ? true : false,
+            "wednesday" => $request->wednesday ? true : false,
+            "thursday" => $request->thursday ? true : false,
+            "friday" => $request->friday ? true : false,
+            "saturday" => $request->saturday ? true : false,
+            "sunday" => $request->sunday ? true : false,
+        ]);
     }
 }

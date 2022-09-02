@@ -48,11 +48,24 @@ class AccountSetupController extends Controller
     }
 
     public function step4(Request $request){
-        //
+        try {
+            $this->saveStep4($request);
+            return back();
+        } catch (\Throwable $th) {
+            session()->flash('error', config('app.debug') ? $th->getMessage():'Something went wrong');
+            return back();
+        }
     }
 
-    public function step5(Request $request){
-        //
+    public function step5(){
+        try {
+            $user = auth()->user();
+            $user->update(['is_opening_setup_complete' => 1]);
+            return redirect_to('dashboard');
+        } catch (\Throwable $th) {
+            session()->flash('error', config('app.debug') ? $th->getMessage():'Something went wrong');
+            return back();
+        }
     }
 
     public function fetchTeams()

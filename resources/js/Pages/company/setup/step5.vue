@@ -7,7 +7,7 @@
         </div>
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
             <div class="cta-btn col-12 col-md-6 col-md-7 p-0 text-center">
-                <button type="button" class="cta-btn bg-primary w-50">
+                <button @click="goTODashboard" type="button" class="cta-btn bg-primary w-50">
                     {{ __('Go to Dashboard') }}
                 </button>
             </div>
@@ -21,6 +21,12 @@
         data(){
             return {
                 settings: {}
+            }
+        },
+        methods:{
+            goTODashboard(){
+                localStorage.setItem('step', 1)
+                this.$inertia.post(route("company.account.setup.step5"));
             }
         },
         async mounted(){
