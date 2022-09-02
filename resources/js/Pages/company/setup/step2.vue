@@ -5,11 +5,8 @@
         <p class="h5 text-center mb-3">To manage and organize employees and leaves, you can divide your employees into teams.</p>
     </div>
     <div class="email-login mt-4">
-        <div class="row my-1 justify-content-center">
-            <div class="card-header">
-                <h5>{{ __('Team List') }}</h5>
-            </div>
-            <div class="card-body row">
+        <template v-if="teams && teams.length">
+            <div class="card-body row justify-content-center">
                 <div class="col-lg-6 my-1" v-for="team in teams" :key="team.id">
                     <li class="list-group-item d-flex justify-content-between">
                         <h3 class="mt-2">{{ team.name }}</h3>
@@ -21,7 +18,7 @@
                     </li>
                 </div>
             </div>
-        </div>
+        </template>
         <form @submit.prevent="saveData">
             <div class="row my-1 justify-content-center" v-for="(name, index) in form.names" :key="index">
                 <div class="col-lg-8">

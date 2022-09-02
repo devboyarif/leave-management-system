@@ -166,6 +166,7 @@
     }
 
     .onboarding input[type="text"],
+    .onboarding input[type="email"],
     select,
     input[type="password"] {
         padding: 15px 20px;

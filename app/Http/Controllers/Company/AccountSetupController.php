@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Models\Team;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\Company\HasAccountSetup;
-use Illuminate\Http\Request;
 
 class AccountSetupController extends Controller
 {
@@ -36,7 +37,14 @@ class AccountSetupController extends Controller
     }
 
     public function step3(Request $request){
-        //
+        try {
+            $this->saveStep3($request);
+            session()->flash('success', 'Invite Sent');
+            return back();
+        } catch (\Throwable $th) {
+            session()->flash('error', config('app.debug') ? $th->getMessage():'Something went wrong');
+            return back();
+        }
     }
 
     public function step4(Request $request){
@@ -45,5 +53,26 @@ class AccountSetupController extends Controller
 
     public function step5(Request $request){
         //
+    }
+
+    public function fetchTeams()
+    {
+        return currentCompany()->teams;
+    }
+
+    public function deleteTeam(Team $team)
+    {
+        $team->delete();
+
+        session()->flash('success', 'Team deleted');
+        return back();
+    }
+
+    public function inviteEmployee(Request $request)
+    {
+        return $request;
+
+        session()->flash('success', 'Team deleted');
+        return back();
     }
 }

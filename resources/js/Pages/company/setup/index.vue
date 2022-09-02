@@ -57,12 +57,23 @@
                 this.current_step = step;
             }
         },
-        mounted(){
-            let step = localStorage.getItem('step')
+        watch:{
+            current_step: function(val){
+                let step = localStorage.getItem('step')
 
-            if(step){
-                this.current_step = step
-            }
+                if(step){
+                    this.current_step = step
+                }
+            },
+        },
+        mounted(){
+            setTimeout(() => {
+                let step = localStorage.getItem('step')
+
+                if(step){
+                    this.current_step = step
+                }
+            }, 500);
             // localStorage.setItem('step', 2)
 
             // console.log(localStorage.getItem('step'))

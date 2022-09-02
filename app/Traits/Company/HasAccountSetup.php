@@ -59,7 +59,36 @@ trait HasAccountSetup
     }
 
     public function saveStep3($request){
-        //
+        $request->validate([
+            'emails.*' => 'required',
+            'teams.*' => 'required',
+        ]);
+
+        $company = currentCompany();
+        $emails = $request->emails;
+        $teams = $request->teams;
+
+        if ($emails && $teams) {
+            foreach ($emails as $key => $email) {
+                if ($email && $teams[$key]) {
+                    sendInvite($company->id,$email, $teams[$key]);
+                }
+            }
+        }
+
+
+        // return [
+        //     $emails,
+        //     $teams,
+        // ];
+
+        // sendInvite($company->id,$request->email, $request->team_id);
+
+        // $social_medias = $request->social_media;
+        // $urls = $request->url;
+
+
+
     }
 
     public function saveStep4($request){

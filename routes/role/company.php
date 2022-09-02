@@ -74,8 +74,8 @@ Route::controller(InviteController::class)->prefix('company')->name('company.')-
     Route::post('store/employee/', 'storeEmployee')->name('store.employee');
 });
 
-Route::get('fetch/company/teams', [CompanyController::class, 'fetchTeams'])->name('fetch.company.teams');
-Route::delete('delete/company/{team}', [CompanyController::class, 'deleteTeam'])->name('delete.company.teams');
+Route::get('fetch/company/teams', [AccountSetupController::class, 'fetchTeams'])->name('fetch.company.teams');
+Route::delete('delete/company/{team}', [AccountSetupController::class, 'deleteTeam'])->name('delete.company.teams');
 
 // Account Setup
 Route::controller(AccountSetupController::class)->prefix('account/setup')->middleware('auth')->group(function(){
