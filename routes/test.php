@@ -8,6 +8,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/testt', [TestController::class, 'index']);
 
 Route::get('/test', function () {
+
+    return currentCompany()->subscription->plan->planFeatures->max_teams;
+    if ($company) {
+        $features = $company->subscription->plan->planFeatures;
+    }else{
+        $features = getCurrentSubscriptionFeatures();
+        $company = currentCompany();
+    }
+
+    $total_teams = $company->teams->count() ?? 0;
+
+    if ($total_teams >= $features->max_teams) {
+        return true;
+    }
+
+
+
     if (auth()->check() && auth()->user()->current_company_id) {
        return 'ase';
     }

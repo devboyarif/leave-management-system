@@ -49,34 +49,22 @@
         },
         data() {
             return {
-                current_step: 1
+                current_step: 1,
             };
         },
         methods: {
             changeStep(step){
                 this.current_step = step;
+                this.updateProgress(step)
+            },
+            async updateProgress(step) {
+                await axios.put(route("company.account.setup.progress.update", step));
             }
         },
-        watch:{
-            current_step: function(val){
-                let step = localStorage.getItem('step')
-
-                if(step){
-                    this.current_step = step
-                }
-            },
-        },
-        mounted(){
-            setTimeout(() => {
-                let step = localStorage.getItem('step')
-
-                if(step){
-                    this.current_step = step
-                }
-            }, 500);
-            // localStorage.setItem('step', 2)
-
-            // console.log(localStorage.getItem('step'))
+        async mounted(){
+            let response = await axios.get(route('company.account.setup.progress.fetch'))
+            this.current_step = response.data;
+            console.log(response)
         }
     };
 </script>

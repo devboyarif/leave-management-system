@@ -86,5 +86,7 @@ Route::controller(AccountSetupController::class)->prefix('account/setup')->middl
         Route::post('/step3', 'step3')->name('step3');
         Route::post('/step4', 'step4')->name('step4');
         Route::post('/step5', 'step5')->name('step5');
+        Route::get('/progress', 'progressFetch')->name('progress.fetch');
+        Route::put('/progress/{step}', 'progressUpdate')->name('progress.update');
     });
 });

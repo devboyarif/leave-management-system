@@ -75,8 +75,7 @@
             })
         },
         changeStep(){
-            this.$emit('step', 4)
-            localStorage.setItem('step', 4)
+            this.$emit('step',4)
         }
     },
     async mounted() {

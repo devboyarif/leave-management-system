@@ -57,6 +57,7 @@
     data() {
         return {
             teams: [],
+            limitation: 0,
             form: this.$inertia.form({
                 names: [""],
             }),
@@ -65,7 +66,9 @@
     methods: {
         async getTeams(){
             let response = await axios.get(route('fetch.company.teams'))
-            this.teams = response.data
+            console.log(response)
+            this.teams = response.data.teams
+            this.limitation = response.data.team_limitation
         },
         addMore() {
             this.form.names.push("");
@@ -99,8 +102,11 @@
             });
         },
         changeStep(){
-            this.$emit('step', 3)
-            localStorage.setItem('step', 3)
+            if(this.teams.length <= this.limitation){
+                this.$emit('step',3)
+            }else{
+                return this.toastError(`You can't create more than ${this.limitation} teams`)
+            }
         }
     },
     async mounted() {

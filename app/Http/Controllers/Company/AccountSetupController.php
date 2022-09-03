@@ -12,18 +12,25 @@ class AccountSetupController extends Controller
     use HasAccountSetup;
 
     public function accountSetup(){
+        if (auth()->user()->is_opening_setup_complete) {
+            return redirect_to('dashboard');
+        }
+
         return inertia('company/setup/index');
     }
 
-    public function step1(Request $request){
-        try {
-            $this->saveStep1($request);
-            return back();
-        } catch (\Throwable $th) {
-            session()->flash('error', config('app.debug') ? $th->getMessage():'Something went wrong');
-            return back();
-        }
+    public function progressFetch(){
+        return auth()->user()->opening_setup_steps;
+    }
 
+    public function progressUpdate($step){
+        $user = auth()->user();
+        $user->update(['opening_setup_steps' => $step]);
+    }
+
+    public function step1(Request $request){
+        $this->saveStep1($request);
+        return back();
     }
 
     public function step2(Request $request){
@@ -70,7 +77,13 @@ class AccountSetupController extends Controller
 
     public function fetchTeams()
     {
-        return currentCompany()->teams;
+        $team_limitation = currentCompany()->subscription->plan->planFeatures->max_teams;
+        $teams = currentCompany()->teams;
+
+        return [
+            'team_limitation' => $team_limitation,
+            'teams' => $teams
+        ];
     }
 
     public function deleteTeam(Team $team)

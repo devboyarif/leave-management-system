@@ -80,11 +80,11 @@
         saveData() {
             this.form.post(route("company.account.setup.step4"), {
                 onSuccess: () => {
-                    this.$emit('step', 5)
-                    localStorage.setItem('step', 5)
+                    this.$emit('step',5)
+                    // localStorage.setItem('step', 5)
                 }
             });
-        },
+        }
     },
     mounted() {
 

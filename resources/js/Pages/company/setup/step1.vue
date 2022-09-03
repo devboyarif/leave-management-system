@@ -74,10 +74,10 @@
     methods: {
         saveData(){
             try {
+                this.form.errors = [];
                 this.form.post(route('company.account.setup.step1'), {
-                    onFinish:() => {
+                    onSuccess:() => {
                         this.$emit('step',2)
-                        localStorage.setItem('step', 2)
                     }
                 })
             } catch (error) {

@@ -25,7 +25,6 @@
         },
         methods:{
             goTODashboard(){
-                localStorage.setItem('step', 1)
                 this.$inertia.post(route("company.account.setup.step5"));
             }
         },
