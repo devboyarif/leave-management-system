@@ -193,44 +193,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        if ($role == 'owner' && $request->country) {
-            $company = $user->company;
-            $country_id = $company->country_id;
-            $company->update(['country_id' => $request->country]);
-
-            if (($country_id != $request->country) && $request->change_holidays) {
-                // store & delete official holidays
-                $company->holidays()->delete();
-                $country = Country::findOrFail($request->country);
-                $code = $this->getCountryCode($country->code);
-
-                try {
-                    $holidays = getHolidays($code);
-                } catch (\Throwable $th) {
-                    // throw $th;
-                }
-
-                if (isset($holidays) && count($holidays)) {
-                    for ($i = 0; $i < count($holidays); $i++) {
-                        $holiday_data[] = [
-                            'company_id' => $company->id,
-                            'title' => $holidays[$i]['title'],
-                            'start' => $holidays[$i]['start'],
-                            'end' => $holidays[$i]['end'],
-                            'days' => diffBetweenDays($holidays[$i]['start'], $holidays[$i]['end']),
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ];
-                    }
-
-                    $holiday_chunks = array_chunk($holiday_data, ceil(count($holiday_data) / 3));
-
-                    foreach ($holiday_chunks as $country) {
-                        Holiday::insert($country);
-                    }
-                }
-            }
-        }else if($role == 'employee' && $request->phone){
+        if($role == 'employee' && $request->phone){
             $user->employee->update(['phone' => $request->phone]);
         }
 

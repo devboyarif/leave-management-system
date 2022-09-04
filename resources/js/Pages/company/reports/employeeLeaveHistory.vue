@@ -245,7 +245,7 @@ import Actions from "../../../Shared/Company/LeaveRequest/Status.vue";
             },
         },
          mounted(){
-            this.checkPagePermission('company')
+            this.checkPagePermission('owner')
         }
     };
 </script>
