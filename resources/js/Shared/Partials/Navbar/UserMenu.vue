@@ -4,12 +4,14 @@
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <div class="profile-details d-none d-lg-inline mr-1 text-right">
                 <div class="mr-1 d-block font-weight-medium">
-                    <b>{{ currentCompany.company_name }}</b>
-                    <!-- <b>{{ $page.props.authenticatedUser.name }}</b> -->
-                    <p>{{ currentCompany.company_email }}</p>
+                    <template v-if="role == 'company'">
+                        <b>{{ currentCompany.company_name }}</b>
+                    </template>
+                    <b v-else>{{ $page.props.authenticatedUser.name }}</b>
+                    <!-- <p>{{ currentCompany.company_email }}</p> -->
                 </div>
             </div>
-            <img height="32" width="32" class="img-profile rounded-circle user-image elevation-2" :src="currentCompany.company_logo">
+            <img height="32" width="32" class="img-profile rounded-circle user-image elevation-2" :src="role == 'company' ? currentCompany.company_logo: $page.props.authenticatedUser.avatar">
         </a>
 
         <!-- Dropdown - User Information -->
