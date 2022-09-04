@@ -20,11 +20,11 @@
             <Link class="dropdown-item" :href="route('user.profile')">{{ __('Profile') }}</Link>
             <template v-if="role == 'owner'">
                 <Link class="dropdown-item" :href="route('company.settings.general')">{{ __('Settings') }}</Link>
-                <a href="" class="dropdown-item" target="_blank">Support</a>
+                <a href="" class="dropdown-item" target="_blank">{{ __('Support') }}</a>
                 <a href="" class="dropdown-item bug-item"
-                data-toggle="bug-dialog">Usage & Billing</a>
+                data-toggle="bug-dialog">{{ __('Usage & Billing') }}</a>
                 <li class="dropdown-submenu" >
-                    <a class="dropdown-item dropdown-toggle" href="http://google.com">Switch Company</a>
+                    <a class="dropdown-item dropdown-toggle" href="http://google.com">{{ __('Switch Company') }}</a>
                     <ul class="dropdown-menu">
                         <template v-if="ownerCompanies && ownerCompanies.length">
                             <li v-for="ownerCompany in ownerCompanies" :key="ownerCompany.id">
@@ -38,7 +38,7 @@
                         <hr>
                         <li>
                             <Link :href="route('company.create')" class="dropdown-item">
-                                <b>Create Company</b>
+                                <b>{{ __('Create Company') }}</b>
                             </Link>
                         </li>
                     </ul>

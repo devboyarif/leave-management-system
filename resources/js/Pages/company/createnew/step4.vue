@@ -1,8 +1,8 @@
 <template>
     <Head title="Step 4 (4/5)"/>
     <div class="col-md-10 col-lg-8 mx-md-auto">
-        <h3 class="text-center mb-3">Setup your company's working days</h3>
-        <p class="h5 text-center mb-3">Please check the working days you want to add for the application</p>
+        <h3 class="text-center mb-3">{{ __("Setup your companys working days") }}</h3>
+        <p class="h5 text-center mb-3">{{ __("Please check the working days you want to add for the application") }}</p>
     </div>
     <form @submit.prevent="saveData">
         <div class="email-login mt-4">

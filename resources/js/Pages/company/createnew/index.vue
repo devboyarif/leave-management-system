@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- {{ $page.component }} -->
-        <div>Step {{ current_step }} / 5</div>
+        <div>{{ __('Step') }} {{ current_step }} / 5</div>
         <div class="progress mt-1 mb-2">
             <template v-for="i in current_step" :key="i">
                 <div class="progress-bar bg-progress" role="progressbar" style="width: 20%"></div>

@@ -1,8 +1,8 @@
 <template>
     <Head title="Step 2 (2/5)"/>
     <div class="col-md-10 col-lg-8 mx-md-auto">
-        <h3 class="text-center mb-3">Create your team members</h3>
-        <p class="h5 text-center mb-3">To manage and organize employees and leaves, you can divide your employees into teams.</p>
+        <h3 class="text-center mb-3">{{ __('Create your team members') }}</h3>
+        <p class="h5 text-center mb-3">{{ __('To manage and organize employees and leaves, you can divide your employees into teams') }}</p>
     </div>
     <div class="email-login mt-4">
         <template v-if="teams && teams.length">

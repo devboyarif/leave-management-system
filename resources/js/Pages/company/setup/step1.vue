@@ -1,8 +1,8 @@
 <template>
     <Head title="Step 1 (1/5)"/>
     <div class="col-md-10 col-lg-8 mx-md-auto">
-        <h3 class="text-center mb-3">Tell us about your company</h3>
-        <p class="h5 text-center mb-3">Please tell us about your company to build your team</p>
+        <h3 class="text-center mb-3">{{ __('Tell us about your company') }}</h3>
+        <p class="h5 text-center mb-3">{{ __('Please tell us about your company to build your team') }}</p>
     </div>
 
     <div class="email-login">

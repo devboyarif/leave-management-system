@@ -1,8 +1,8 @@
 <template>
     <Head title="Step 3 (3/5)"/>
      <div class="col-md-10 col-lg-8 mx-md-auto">
-        <h3 class="text-center mb-3">Invite your team members to manage their leave</h3>
-        <p class="h5 text-center mb-3">Add team members and assign them to a team. Skip this step if you want to do this later.</p>
+        <h3 class="text-center mb-3">{{ __('Invite your team members to manage their leave') }}</h3>
+        <p class="h5 text-center mb-3">{{ __('Add team members and assign them to a team. Skip this step if you want to do this later') }}</p>
     </div>
     <div class="email-login">
         <form @submit.prevent="saveData">
