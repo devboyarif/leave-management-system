@@ -65,19 +65,22 @@ Route::middleware(['auth', 'check.company.role','check.company.setup'])->prefix(
         Route::post('/general/setting/update', 'generalSettingUpdate')->name('general.update');
     });
 
+    // Company
     Route::post('switch/{id}', [CompanyController::class, 'switchCompany'])->name('switch');
+    Route::get('create', [CompanyController::class, 'createCompany'])->name('create');
 });
 
+// Invite Employee
 Route::controller(InviteController::class)->prefix('company')->name('company.')->group(function () {
     Route::post('/invite', 'sendInvite')->name('invite.send')->middleware('auth');
     Route::get('invite/accept/{token}', 'acceptInvite')->name('invite.accept');
     Route::post('store/employee/', 'storeEmployee')->name('store.employee');
 });
 
+// Account Setup
 Route::get('fetch/company/teams', [AccountSetupController::class, 'fetchTeams'])->name('fetch.company.teams');
 Route::delete('delete/company/{team}', [AccountSetupController::class, 'deleteTeam'])->name('delete.company.teams');
 
-// Account Setup
 Route::controller(AccountSetupController::class)->prefix('account/setup')->middleware('auth')->group(function(){
     Route::get('/', 'accountSetup')->name('company.account.setup');
     Route::name('company.account.setup.')->group(function(){

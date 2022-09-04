@@ -72,4 +72,9 @@ class CompanyController extends Controller
         session()->flash('success', 'Company Switched');
         return back();
     }
+
+    public function createCompany()
+    {
+        return inertia('company/createnew/index');
+    }
 }
