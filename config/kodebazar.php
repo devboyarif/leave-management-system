@@ -10,7 +10,6 @@ return [
     'currency' => env('APP_CURRENCY'),
     'currency_symbol' => env('APP_CURRENCY_SYMBOL'),
     'currency_symbol_position' => env('APP_CURRENCY_SYMBOL_POSITION'),
-    'maintenance_disable_url' => env('APP_MAINTENCE_MODE_DISABLE_URL'),
 
     // Payment Provider
     'stripe_key' => env('STRIPE_KEY'),

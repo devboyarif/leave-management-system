@@ -1,5 +1,4 @@
 <template>
-
     <Head :title="__('Pricing Plan')" />
 
     <div class="row justify-content-center pt-5">
@@ -12,8 +11,8 @@
                         <small v-else> /{{ plan.custom_interval_days }} {{ __('Days') }}</small>
                     </h4>
                     <div class="badge badge-info" v-if="plan.recommended">{{ __('Recommended') }}</div>
-                    <h1 class="text-dark">
-                        ${{ plan.price }}
+                    <h1>
+                        {{ currencyPosition(plan.price) }}
                     </h1>
                 </div>
                 <div class="card-body" v-if="plan.plan_features">
@@ -35,6 +34,9 @@
                             {{ __('Select Plan') }}
                             <i class="fas fa-arrow-right"></i>
                         </a>
+                        <a href="#" class="btn btn-danger" v-if="currently_subscribed.plan_id == plan.id">
+                            Expire In - {{ currently_subscribed.remaining_days }} Days
+                        </a>
                     </div>
                 </div>
             </div>
@@ -52,6 +54,10 @@ export default {
     props: {
         plans: {
             type: Array,
+            required: true,
+        },
+        currently_subscribed: {
+            type: Object,
             required: true,
         },
     },
