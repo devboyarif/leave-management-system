@@ -20,7 +20,7 @@ class InviteController extends Controller
     public function sendInvite(Request $request)
     {
         // Check if the user is limited to create employees
-        if ($this->checkEmployeesLimitation()) {
+        if ($this->checkEmployeesLimitation(count($request->emails))) {
             session()->flash('error', __('You have reached the maximum number of employees'));
             return back();
         }
@@ -33,27 +33,20 @@ class InviteController extends Controller
         }
 
         $request->validate([
-            'email' => 'required|email',
-            'team_id' => 'required|exists:teams,id',
-        ], [
-            'team_id.required' => 'The team field is required.',
+            'emails.*' => 'required',
+            'teams.*' => 'required',
         ]);
 
-        sendInvite($company->id,$request->email, $request->team_id);
+        $emails = $request->emails;
+        $teams = $request->teams;
 
-        // $data = $request->only(['team_id', 'email']);
-        // $data['token'] = Str::random(60);
-        // $data['company_id'] = $company->id;
-
-        // if (!Invite::whereToken($data['token'])->exists()) {
-        //     $invite = Invite::create($data);
-        // } else {
-        //     $data['token'] = Str::random(100);
-        //     $invite = Invite::create($data);
-        // }
-
-        // // send the email
-        // Mail::to($request->email)->send(new InviteSendMail($invite));
+        if ($emails && $teams) {
+            foreach ($emails as $key => $email) {
+                if ($email && $teams[$key]) {
+                    sendInvite($company->id,$email, $teams[$key]);
+                }
+            }
+        }
 
         session()->flash('success', 'Invite sent successfully');
         return back();
