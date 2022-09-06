@@ -60,7 +60,7 @@ class ApprovedLeaveRequest extends Notification
     {
         return [
             'message' => 'Your leave request has been approved',
-            'url' => url('/'),
+            'url' => route('employee.leave.request.index'),
         ];
     }
 }

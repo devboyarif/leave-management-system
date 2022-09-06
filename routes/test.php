@@ -9,6 +9,8 @@ Route::get('/testt', [TestController::class, 'index']);
 
 Route::get('/test', function () {
 
+    return route('employee.leave.request.index');
+
     return auth()->user()->employee->company;
     return currentCompany()->subscription->plan->planFeatures->max_teams;
     if ($company) {

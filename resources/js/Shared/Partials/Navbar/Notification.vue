@@ -8,11 +8,11 @@
         </a>
         <div v-show="show" class="dropdown-menu dropdown-menu-lg dropdown-menu-right show" style="left: inherit; right: 0px;">
             <template v-if="notifications.length">
-                <a href="#" class="dropdown-item" v-for="(notification, index) in notifications" :key="index">
+                <a href="#" class="dropdown-item border-bottom" v-for="(notification, index) in notifications" :key="index">
                     <div class="media">
                         <div class="media-body" v-if="notification.data">
-                            <p class="text-sm">{{ notification.data.message }}</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>
+                            <h6 v-html="notification.data.message"></h6>
+                            <p class="text-sm"><i class="far fa-clock mr-1"></i>
                             {{ timeFromNow(notification.created_at) }}
                             </p>
                         </div>

@@ -74,7 +74,7 @@
                 </div>
                 <div class="card-body" v-if="!loading">
                     <div class="d-flex flex-wrap col-12">
-                        <template v-if="pending_requests && pending_requests.length">
+                        <template v-if="pending_requests && summary.total_pending_leaves">
                             <div v-for="request in pending_requests" :key="request.id"
                                 class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
                                 <div class="mt-4">
@@ -389,6 +389,7 @@ export default {
         },
         async loadData() {
             let response = await axios.get(route("company.dashboard"));
+            console.log(response)
             this.summary = response.data.summary;
             this.calendarOptions.events = response.data.events;
             this.event_types = response.data.event_types;
@@ -400,6 +401,7 @@ export default {
         },
     },
     async mounted() {
+        this.loading = true;
         await this.loadData();
     },
 };
