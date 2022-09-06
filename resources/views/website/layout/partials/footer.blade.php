@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="ud-widget">
-                        <a href="index.html" class="ud-footer-logo">
+                        <a href="{{ route('website.home') }}" class="ud-footer-logo">
                             <img src="{{ $setting->app_light_logo }}" alt="Logo" />
                         </a>
                         <p class="ud-widget-desc">

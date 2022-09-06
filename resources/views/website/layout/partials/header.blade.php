@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="{{ route('website.home') }}">
                         <img src="{{ $setting->app_light_logo }}" alt="Logo" />
                     </a>
                     <button class="navbar-toggler">
