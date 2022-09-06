@@ -19,7 +19,6 @@ Route::middleware(['auth','check.employee.role'])->prefix('employee')->name('emp
         Route::post('/leave/request/create', 'store')->name('leave.request.store');
         Route::get('/leave/request/{leave_request}/edit', 'edit')->name('leave.request.edit');
         Route::put('/leave/request/update/{leave_request}', 'update')->name('leave.request.update');
-        Route::delete('/leave/request/{leave_request}', 'destroy')->name('leave.request.delete');
         Route::get('/leave/{leaveType}/balance', 'leaveTypeBalance')->name('leave.type.balance');
     });
 

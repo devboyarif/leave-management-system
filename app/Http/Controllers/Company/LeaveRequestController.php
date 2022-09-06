@@ -197,20 +197,6 @@ class LeaveRequestController extends Controller
         return redirect_to('company.leaveRequests.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(LeaveRequest $leaveRequest)
-    {
-        $leaveRequest->delete();
-
-        session()->flash('success', 'Leave Request deleted successfully');
-        return back();
-    }
-
     public function statusChange(Request $request)
     {
         $leave_request = LeaveRequest::findOrFail($request->id);

@@ -8,9 +8,6 @@
     <button v-if="leaveRequest.status == 'pending'" @click="editData(leaveRequest.id)" v-tooltip="__('Edit')" class="btn btn-sm">
         <EditIcon/>
     </button>
-    <button @click="deleteData()" v-tooltip="__('Delete')" class="btn btn-sm">
-        <DeleteIcon/>
-    </button>
 </template>
 
 <script>
@@ -32,30 +29,7 @@ export default {
             this.$inertia.get(
                 route("company.leaveRequests.edit", leaveRequestId)
             );
-        },
-        deleteData() {
-            this.$swal({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.$inertia.delete(
-                        route(
-                            "company.leaveRequests.destroy",
-                            this.leaveRequest.id
-                        ),
-                        {
-                            preserveScroll: true,
-                        }
-                    );
-                }
-            });
-        },
+        }
     },
 };
 </script>

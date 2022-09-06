@@ -147,14 +147,6 @@ class LeaveRequestController extends Controller
         }
     }
 
-    public function destroy(LeaveRequest $leave_request)
-    {
-        $leave_request->delete();
-
-        session()->flash('success', 'Leave Request deleted successfully');
-        return back();
-    }
-
     public function leaveTypeBalance(LeaveType $leaveType)
     {
         $leave_balance = LeaveBalance::where('employee_id', currentEmployee()->id)
