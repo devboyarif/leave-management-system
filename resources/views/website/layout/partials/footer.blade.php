@@ -70,16 +70,16 @@
                         <h5 class="ud-widget-title">{{ __('About Us') }}</h5>
                         <ul class="ud-widget-links">
                             <li>
-                                <a href="javascript:void(0)">{{ __('Home') }}</a>
+                                <a href="{{ route('website.home') }}">{{ __('Home') }}</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">{{ __('About') }}</a>
+                                <a href="{{ route('website.about') }}">{{ __('About') }}</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">{{ __('Testimonial') }}</a>
+                                <a href="{{ route('website.home', ['#testimonials']) }}">{{ __('Testimonial') }}</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">{{ __('Contact') }}</a>
+                                <a href="{{ route('website.contact') }}">{{ __('Contact') }}</a>
                             </li>
                         </ul>
                     </div>
