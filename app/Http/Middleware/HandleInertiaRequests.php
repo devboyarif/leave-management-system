@@ -41,7 +41,8 @@ class HandleInertiaRequests extends Middleware
         // Authenticate user
         $data['authenticatedUser'] = currentUser();
         if (auth()->check() && currentUser()->role == 'employee') {
-            $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
+            $data['employeeCompany'] = auth()->user()->employee->company;
+            // $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
         }
         if (auth()->check() && currentUser()->role == 'owner') {
             $data['currentCompany'] = currentCompany();

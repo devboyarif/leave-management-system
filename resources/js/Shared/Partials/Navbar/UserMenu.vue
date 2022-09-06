@@ -8,6 +8,10 @@
                         <b>{{ currentCompany.company_name }}</b>
                         <p>{{ currentCompany.company_email }}</p>
                     </template>
+                    <template v-else-if="role == 'employee'">
+                        <b>{{ $page.props.authenticatedUser.name }}</b>
+                        <p>{{ $page.props.employeeCompany.company_name }}</p>
+                    </template>
                     <b v-else>{{ $page.props.authenticatedUser.name }}</b>
                 </div>
             </div>
@@ -107,9 +111,9 @@ export default {
 }
 .dropdown-submenu>.dropdown-menu {
     top:0;
-    left: -200px;
+    left: -250px;
     margin-top:-6px;
-    width: 200px;
+    width: 250px;
 }
 
 /* rotate caret on hover */

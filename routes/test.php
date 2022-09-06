@@ -9,6 +9,7 @@ Route::get('/testt', [TestController::class, 'index']);
 
 Route::get('/test', function () {
 
+    return auth()->user()->employee->company;
     return currentCompany()->subscription->plan->planFeatures->max_teams;
     if ($company) {
         $features = $company->subscription->plan->planFeatures;

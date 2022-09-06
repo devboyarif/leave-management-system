@@ -16,26 +16,26 @@
                 <span class="info-box-icon bg-warning"><i class="fa-regular fa-hourglass"></i></span>
                 <div class="info-box-content">
 
-                    <span class="info-box-text">{{ __('Pending Request') }}</span>
+                    <span class="info-box-text">{{ __('Total Pending Request') }}</span>
                     <span class="info-box-number">{{ summary.total_pending_leaves }}</span>
                 </div>
             </div>
         </div>
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box shadow-sm">
-                <span class="info-box-icon bg-info"><i class="fa-solid fa-people-group nav-icon"></i></span>
+                <span class="info-box-icon bg-info"><i class="fa-solid fa-check"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Teams') }}</span>
-                    <span class="info-box-number">{{ summary.total_teams }}</span>
+                    <span class="info-box-text">{{ __('Total Approved Request') }}</span>
+                    <span class="info-box-number">{{ summary.total_approved_leaves }}</span>
                 </div>
             </div>
         </div>
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box shadow-sm">
-                <span class="info-box-icon bg-success"><i class="fa-solid fa-users"></i></span>
+                <span class="info-box-icon bg-success"><i class="fa-solid fa-file-pen"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Employees') }}</span>
-                    <span class="info-box-number">{{ summary.total_employees }}</span>
+                    <span class="info-box-text">{{ __('Total Leave Type') }}</span>
+                    <span class="info-box-number">{{ summary.total_leave_types }}</span>
                 </div>
             </div>
         </div>
