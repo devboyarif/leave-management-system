@@ -21,23 +21,23 @@ class EmployeeSeeder extends Seeder
     {
         // Employee
         $user = User::create([
-            'name' => 'Ariful Islam',
-            'email' => 'arif@mail.com',
+            'name' => 'Employee',
+            'email' => 'employee@mail.com',
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png',
             'role' => 'employee',
         ]);
 
-        $company = Company::inRandomOrder()->first();
-        $team = $company->teams->first();
+        $kodebazarCompany = Company::where('company_email', 'kodebazar@gmail.com')->first();
+        $team = $kodebazarCompany->teams->first();
         $employee = Employee::create([
             'user_id' => $user->id,
-            'company_id' => $company->id,
+            'company_id' => $kodebazarCompany->id,
             'team_id' => $team->id,
             'phone' => '+8801681729831',
         ]);
 
-        $leave_types = LeaveType::where('company_id', $company->id)->get();
+        $leave_types = LeaveType::where('company_id', $kodebazarCompany->id)->get();
         foreach ($leave_types as $leave_type) {
             LeaveBalance::create([
                 'employee_id' => $employee->id,
@@ -48,9 +48,10 @@ class EmployeeSeeder extends Seeder
         }
 
         // Employee 2
+        $company = Company::inRandomOrder()->first();
         $user2 = User::create([
-            'name' => 'Employee',
-            'email' => 'employee@mail.com',
+            'name' => 'Ariful Islam',
+            'email' => 'arif@mail.com',
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png',
             'role' => 'employee',

@@ -62,7 +62,7 @@ class HandleInertiaRequests extends Middleware
         $data['language'] = translations(resource_path('lang/' . $data['locale'] . '.json'));
 
         // Notifications
-        $data['notifications'] = auth()->check() ? auth()->user()->unreadNotifications->take(5) : [];
+        $data['notifications'] = auth()->check() ? auth()->user()->notifications->take(5) : [];
         $data['unreadNotificationsCount'] = auth()->check() ? auth()->user()->unreadNotifications->count() : 0;
 
         // Subscription

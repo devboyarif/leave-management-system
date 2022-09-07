@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
             ThemeSeeder::class,
             CountrySeeder::class,
             CompanySeeder::class,
-            LeaveTypeSeeder::class,
+            // LeaveTypeSeeder::class,
             TeamSeeder::class,
             EmployeeSeeder::class,
             CalendarSeeder::class,

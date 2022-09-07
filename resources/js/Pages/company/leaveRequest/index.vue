@@ -65,8 +65,8 @@
                                         <Link :href="route('company.employees.show',leaveRequest.employee.user_id)">
                                             <img :src="leaveRequest.employee.user.avatar" alt="img"
                                             class="img-circle img-size-32 mr-2">
+                                            {{ leaveRequest.employee.user.name }}
                                         </Link>
-                                        (<small v-tooltip="'Company Name'">{{ leaveRequest.company.user.name }}</small>)
                                     </td>
                                     <td>
                                         <span :style="{ background: leaveRequest.leave_type.color, border: '2px solid '+leaveRequest.leave_type.color }" class="leave-type-color">

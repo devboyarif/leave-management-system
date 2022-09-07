@@ -103,9 +103,9 @@
                     </div>
                     <div class="row mt-4">
                         <div class="col-sm-12">
-                            <Link :href="route('employees.edit',user.id)" v-tooltip="'Edit'" class="btn pl-0">
+                            <!-- <Link :href="route('employees.edit',user.id)" v-tooltip="'Edit'" class="btn pl-0">
                             <EditIcon />
-                            </Link>
+                            </Link> -->
                             <button @click="deleteEmployee(user.id)" v-tooltip="'Delete'" class="btn">
                                 <DeleteIcon />
                             </button>

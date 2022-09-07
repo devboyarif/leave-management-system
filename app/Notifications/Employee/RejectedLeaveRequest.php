@@ -11,14 +11,16 @@ class RejectedLeaveRequest extends Notification
 {
     use Queueable;
 
+    public $leaveRequest;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($leaveRequest)
     {
-        //
+        $this->leaveRequest = $leaveRequest;
     }
 
     /**
@@ -46,7 +48,7 @@ class RejectedLeaveRequest extends Notification
     {
         return (new MailMessage)
             ->line('Your leave request has been rejected')
-            ->action('View Request', route('employee.leave.request.index'))
+            ->action('View Request', route('employee.leave.request.index', ['id' => $this->leaveRequest->id]))
             ->line('Thank you for using our application!');
     }
 
@@ -60,7 +62,7 @@ class RejectedLeaveRequest extends Notification
     {
         return [
             'message' => 'Your leave request has been rejected',
-            'url' => url('/'),
+            'url' => route('employee.leave.request.index', ['id' => $this->leaveRequest->id]),
         ];
     }
 }

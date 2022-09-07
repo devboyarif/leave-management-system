@@ -15,10 +15,15 @@ class LeaveRequestController extends Controller
     {
         $status = request('status') ?? '';
         $leave_type = request('leave_type') ?? '';
+        $id = request('id') ?? '';
 
         $employee = currentEmployee();
 
-        $leave_requests = LeaveRequest::with(['employee.user', 'employee.team', 'company.user', 'leaveType'])
+        $leave_requests_query = LeaveRequest::query();
+
+        if ($id) {$leave_requests_query->where('id', $id);}
+
+        $leave_requests = $leave_requests_query->with(['employee.user', 'employee.team', 'company.user', 'leaveType'])
             ->where('employee_id', $employee->id)
             ->where('company_id', $employee->company_id)
             ->when($status, function ($query, $status) {
@@ -71,7 +76,7 @@ class LeaveRequestController extends Controller
             $leave_type = LeaveType::findOrFail($request->leave_type_id);
             $status = $leave_type->auto_approve ? 'approved' : 'pending';
 
-            LeaveRequest::create([
+            $leave_request = LeaveRequest::create([
                 'company_id' => $employee->company_id,
                 'employee_id' => $employee->id,
                 'leave_type_id' => $request->leave_type_id,
@@ -84,7 +89,7 @@ class LeaveRequestController extends Controller
 
             // Notification for company
             $user = $employee->company->user ?? null;
-            isset($user) ? $user->notify(new NewLeaveRequest()) : '';
+            isset($user) ? $user->notify(new NewLeaveRequest($leave_request)) : '';
             if ($status == 'pending') {
                 $message = "Your leave request has been submitted. Please wait for approval.";
             } elseif ($status == 'approved') {
