@@ -65,8 +65,6 @@ const app = createApp({
                 page.layout = CompanySetupLayout;
             }
 
-            console.log(page.layout);
-
             return page
         },
     })

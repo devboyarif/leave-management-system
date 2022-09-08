@@ -192,7 +192,6 @@ export default {
     },
     methods: {
         saveData() {
-            console.log(this.form);
             this.form.post(route("employee.holiday.request.create"), {
                 onSuccess: () => {
                     this.showModal = false;

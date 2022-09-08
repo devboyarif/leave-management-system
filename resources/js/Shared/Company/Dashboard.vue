@@ -389,7 +389,6 @@ export default {
         },
         async loadData() {
             let response = await axios.get(route("company.dashboard"));
-            console.log(response)
             this.summary = response.data.summary;
             this.calendarOptions.events = response.data.events;
             this.event_types = response.data.event_types;

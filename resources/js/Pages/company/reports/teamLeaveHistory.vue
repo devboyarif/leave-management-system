@@ -198,7 +198,6 @@ export default {
                     }
                 })
 
-                console.log(response)
                 this.leave_requests = response.data;
                 this.buttonLoading = false;
 

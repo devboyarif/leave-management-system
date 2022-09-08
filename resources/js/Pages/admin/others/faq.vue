@@ -133,7 +133,6 @@ export default {
             }
         },
         editData(faq) {
-            console.log(faq);
             this.form.clearErrors();
             this.editMode = true;
             this.form.reset();

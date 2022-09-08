@@ -11,14 +11,16 @@ class NewHolidayRequest extends Notification
 {
     use Queueable;
 
+    public $company_id;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($company_id)
     {
-        //
+        $this->company_id = $company_id;
     }
 
     /**
@@ -57,6 +59,7 @@ class NewHolidayRequest extends Notification
         return [
             'message' => auth()->user()->name.' send a holiday request',
             'url' => route('company.request.holidays'),
+            'company_id' => $this->company_id,
         ];
     }
 }

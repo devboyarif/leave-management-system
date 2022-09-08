@@ -66,7 +66,6 @@
     methods: {
         async getTeams(){
             let response = await axios.get(route('fetch.company.teams'))
-            console.log(response)
             this.teams = response.data.teams
             this.limitation = response.data.team_limitation
         },

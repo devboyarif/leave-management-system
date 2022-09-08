@@ -11,16 +11,17 @@ class NewEmployeeJoined extends Notification
 {
     use Queueable;
 
-    public $user;
+    public $user, $company_id;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user, $company_id)
     {
         $this->user = $user;
+        $this->company_id = $company_id;
     }
 
     /**
@@ -59,6 +60,7 @@ class NewEmployeeJoined extends Notification
         return [
             'message' => $this->user->name.' has joined',
             'url' => route('company.employees.show', $this->user->id),
+            'company_id' => $this->company_id,
         ];
     }
 }

@@ -11,16 +11,17 @@ class NewLeaveRequest extends Notification
 {
     use Queueable;
 
-    public $leaveRequest;
+    public $leaveRequest,$company_id;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($leaveRequest)
+    public function __construct($leaveRequest,$company_id)
     {
         $this->leaveRequest = $leaveRequest;
+        $this->company_id = $company_id;
     }
 
     /**
@@ -63,6 +64,7 @@ class NewLeaveRequest extends Notification
         return [
             'message' => auth()->user()->name.' send a leave request',
             'url' => route('company.leaveRequests.index',  ['id' => $this->leaveRequest->id]),
+            'company_id' => $this->company_id,
         ];
     }
 }

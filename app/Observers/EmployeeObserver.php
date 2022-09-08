@@ -17,7 +17,7 @@ class EmployeeObserver
     public function created(Employee $employee)
     {
         // Notification for company
-        $employee->company->user->notify(new NewEmployeeJoined($employee->user));
+        $employee->company->user->notify(new NewEmployeeJoined($employee->user, $employee->company_id));
     }
 
     /**

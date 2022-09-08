@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Models\LeaveType;
+use App\Models\LeaveBalance;
 use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\LeaveBalance;
 use App\Notifications\Company\NewLeaveRequest;
+use App\Notifications\Employee\PendingLeaveRequest;
 
 class LeaveRequestController extends Controller
 {
@@ -88,8 +89,9 @@ class LeaveRequestController extends Controller
             ]);
 
             // Notification for company
-            $user = $employee->company->user ?? null;
-            isset($user) ? $user->notify(new NewLeaveRequest($leave_request)) : '';
+            $leave_request->company->user->notify(new NewLeaveRequest($leave_request, $employee->company_id));
+            $leave_request->employee->user->notify(new PendingLeaveRequest($leave_request));
+
             if ($status == 'pending') {
                 $message = "Your leave request has been submitted. Please wait for approval.";
             } elseif ($status == 'approved') {

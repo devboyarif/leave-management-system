@@ -101,7 +101,6 @@ export default {
             this.$emit("close");
         },
         sendData() {
-            // console.log(this.form);
             this.form.post(route("company.invite.send"), {
                 onSuccess: () => {
                     this.form.reset();

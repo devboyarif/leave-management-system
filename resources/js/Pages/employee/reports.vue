@@ -147,7 +147,6 @@ export default {
             this.form.custom_date = formatTime;
         },
         handleCustomRangeDate(date) {
-            console.log('custom date - '+date)
             const array_date = Object.keys(date);
             const startDate = date[array_date[0]];
             const endDate = date[array_date[1]];
@@ -176,9 +175,6 @@ export default {
 
                 this.leave_requests = response.data;
                 this.buttonLoading = false;
-
-                console.log(response)
-
             } catch (error) {
                 this.buttonLoading = false;
                 this.errors = error.response.data.errors

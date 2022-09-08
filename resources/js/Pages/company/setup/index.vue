@@ -64,7 +64,6 @@
         async mounted(){
             let response = await axios.get(route('company.account.setup.progress.fetch'))
             this.current_step = response.data;
-            console.log(response)
         }
     };
 </script>

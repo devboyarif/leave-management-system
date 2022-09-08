@@ -151,9 +151,7 @@ export default {
             return dayjs(date).format("DD MMM, YYYY");
         },
         filteringData() {
-            console.log(this.showFilter);
             this.showFilter = !this.showFilter;
-            console.log(this.showFilter);
             localStorage.setItem("companyLeaveRequestList", this.showFilter);
         },
         filterData() {
