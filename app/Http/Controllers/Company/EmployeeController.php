@@ -10,6 +10,7 @@ use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
 use App\Traits\Employee\HasLeaveBalance;
 use App\Http\Requests\EmployeeUpdateRequest;
+use App\Notifications\Company\NewEmployeeJoined;
 use App\Http\Requests\Company\EmployeeCreateRequest;
 
 class EmployeeController extends Controller
@@ -67,6 +68,8 @@ class EmployeeController extends Controller
 
         // Create leave balance for the employee
         $this->employeeLeaveBalanceCreate($company->id, $employee->id);
+
+        $employee->company->user->notify(new NewEmployeeJoined($employee->user, $employee->company_id));
 
         session()->flash('success', 'Employee created successfully!');
         return back();

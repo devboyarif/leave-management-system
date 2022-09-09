@@ -12,6 +12,7 @@ use App\Mail\Company\InviteSendMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Traits\Employee\HasLeaveBalance;
+use App\Notifications\Company\NewEmployeeJoined;
 
 class InviteController extends Controller
 {
@@ -101,6 +102,8 @@ class InviteController extends Controller
 
         // Create leave balance for the employee
         $this->employeeLeaveBalanceCreate($invite->company_id, $employee->id);
+
+        $employee->company->user->notify(new NewEmployeeJoined($employee->user, $employee->company_id));
 
         // login the user
         if (Auth::attempt(['email' => $user->email, 'password' => $request->password])) {
