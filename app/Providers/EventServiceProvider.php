@@ -6,7 +6,6 @@ use App\Models\Company;
 use App\Models\Employee;
 use App\Models\LeaveRequest;
 use App\Observers\CompanyObserver;
-use App\Observers\EmployeeObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Observers\LeaveRequestObserver;
@@ -33,7 +32,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Employee::observe(EmployeeObserver::class);
         Company::observe(CompanyObserver::class);
         LeaveRequest::observe(LeaveRequestObserver::class);
     }
