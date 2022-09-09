@@ -17,14 +17,6 @@
                         </template>
                     </NavLink>
 
-                    <!-- Leave Manage  -->
-                    <NavLink title="Reports" :href="route('reports.index')"
-                        :active="$page.component == 'admin/reports/index' || $page.component == 'admin/reports/employeeLeaveBalance' || $page.component == 'admin/reports/employeeLeaveHistory' || $page.component == 'admin/reports/teamLeaveBalance' || $page.component == 'admin/reports/teamLeaveHistory'">
-                        <template v-slot:icon>
-                            <i class="fa-regular fa-calendar-days nav-icon"></i>
-                        </template>
-                    </NavLink>
-
                     <!-- Subscription Part  -->
                     <li class="nav-header">{{ __('Subscription Manage') }}</li>
                     <NavLink title="Plan" :href="route('plans.index')"

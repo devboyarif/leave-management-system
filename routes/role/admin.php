@@ -46,11 +46,6 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     Route::get('/admin/orders', [OrderController::class, 'orders'])->name('orders.index');
     Route::get('/admin/orders/{order}', [OrderController::class, 'orderDetails'])->name('orders.show');
 
-    // Reports
-    Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
-        Route::get('/', 'index')->name('index');
-    });
-
     // Holidays
     Route::resource('/holidays', HolidayController::class);
     Route::controller(HolidayController::class)->group(function () {
