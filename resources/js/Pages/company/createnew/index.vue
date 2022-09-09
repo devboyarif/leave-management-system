@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div>Step {{ current_step }} / 5</div>
+        <!-- {{ $page.component }} -->
+        <div>{{ __('Step') }} {{ current_step }} / 5</div>
         <div class="progress mt-1 mb-2">
             <template v-for="i in current_step" :key="i">
                 <div class="progress-bar bg-progress" role="progressbar" style="width: 20%"></div>
@@ -62,8 +63,9 @@
             }
         },
         async mounted(){
-            let response = await axios.get(route('company.account.setup.progress.fetch'))
-            this.current_step = response.data;
+            // let response = await axios.get(route('company.account.setup.progress.fetch'))
+            // this.current_step = response.data;
+            // console.log(response)
         }
     };
 </script>

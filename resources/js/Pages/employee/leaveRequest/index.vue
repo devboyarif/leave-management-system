@@ -84,9 +84,6 @@
                                             <Link :href="route('employee.leave.request.edit', leaveRequest.id)" v-tooltip="__('Edit')" class="btn btn-sm">
                                             <EditIcon/>
                                             </Link>
-                                            <button @click="deleteData(leaveRequest.id)" v-tooltip="__('Delete')" class="btn btn-sm">
-                                                <DeleteIcon/>
-                                            </button>
                                         </template>
                                     </td>
                                 </tr>
@@ -218,23 +215,6 @@ export default {
         },
         endDate(Date) {
             return dayjs(Date).format("DD MMM, YYYY");
-        },
-        deleteData(id) {
-            this.$swal({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.$inertia.delete(
-                        route("employee.leave.request.delete", id)
-                    );
-                }
-            });
         },
         requestFor(startDate, endDate) {
             const start = dayjs(startDate).format("DD MMM, YYYY");

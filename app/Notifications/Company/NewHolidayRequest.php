@@ -11,14 +11,16 @@ class NewHolidayRequest extends Notification
 {
     use Queueable;
 
+    public $company_id;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($company_id)
     {
-        //
+        $this->company_id = $company_id;
     }
 
     /**
@@ -41,8 +43,8 @@ class NewHolidayRequest extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
+            ->line(auth()->user()->name.' send a holiday request')
+            ->action('Notification Action', route('company.request.holidays'))
             ->line('Thank you for using our application!');
     }
 
@@ -55,8 +57,9 @@ class NewHolidayRequest extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'New holiday request',
-            'url' => url('/'),
+            'message' => auth()->user()->name.' send a holiday request',
+            'url' => route('company.request.holidays'),
+            'company_id' => $this->company_id,
         ];
     }
 }

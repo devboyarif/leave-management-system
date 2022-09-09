@@ -67,7 +67,6 @@
                                             class="img-circle img-size-32 mr-2">
                                             {{ leaveRequest.employee.user.name }}
                                         </Link>
-                                        (<small v-tooltip="'Company Name'">{{ leaveRequest.company.user.name }}</small>)
                                     </td>
                                     <td>
                                         <span :style="{ background: leaveRequest.leave_type.color, border: '2px solid '+leaveRequest.leave_type.color }" class="leave-type-color">
@@ -152,9 +151,7 @@ export default {
             return dayjs(date).format("DD MMM, YYYY");
         },
         filteringData() {
-            console.log(this.showFilter);
             this.showFilter = !this.showFilter;
-            console.log(this.showFilter);
             localStorage.setItem("companyLeaveRequestList", this.showFilter);
         },
         filterData() {

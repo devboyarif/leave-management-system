@@ -37,6 +37,13 @@ module.exports = {
                 // this.$router.push('/');
                 this.$inertia.get(route("error.403"))
             }
+        },
+        checkDateValidity(start, end) {
+            if(end > start) {
+                return true
+            }
+
+            return false
         }
     },
     computed: {

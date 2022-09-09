@@ -1,12 +1,23 @@
 <template>
    <div class="onboarding mt-2">
-        <div class="header">
-            <div class="text-center py-7 py-sm-9">
-                <img :src="settings.app_dark_logo" alt="logo">
-            </div>
-        </div>
-
-        <div class="container">
+         <div class="container">
+             <div class="row mt-5 mb-3 align-items-center">
+                <div class="col-lg-6">
+                    <div class="text-left">
+                        <img :src="settings.app_dark_logo" alt="logo"> <br>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-right">
+                        <Link :href="route('dashboard')" class="cta-btn bg-secondary w-25" v-if="$page.component == 'company/createnew/index'">
+                            {{ __('Back') }}
+                        </Link>
+                        <Link href="/logout" method="post" class="cta-btn bg-danger w-25" v-else>
+                            {{ __('Logout') }}
+                        </Link>
+                    </div>
+                </div>
+             </div>
             <slot />
         </div>
    </div>

@@ -11,16 +11,15 @@ trait HasEmployee
     function employeeDashboardSummary($employee,  $all_leave_requests)
     {
         $company = $employee->company;
-        $total_leave_request =  $all_leave_requests->where('status', 'approved')->count();
+        $approved_leave_request =  $all_leave_requests->where('status', 'approved')->count();
         $pending_leave_request =  $all_leave_requests->where('status', 'pending')->count();
-        $total_teams = $company->teams->count();
-        $total_employees = $company->employees->count();
+        $total_leave_types = $company->leaveTypes->count();
 
         return [
-            'total_leaves' => $total_leave_request,
+            'total_leaves' => $all_leave_requests->count(),
             'total_pending_leaves' => $pending_leave_request,
-            'total_teams' => $total_teams,
-            'total_employees' => $total_employees,
+            'total_approved_leaves' => $approved_leave_request,
+            'total_leave_types' => $total_leave_types,
         ];
     }
 

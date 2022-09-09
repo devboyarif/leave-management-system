@@ -16,26 +16,26 @@
                 <span class="info-box-icon bg-warning"><i class="fa-regular fa-hourglass"></i></span>
                 <div class="info-box-content">
 
-                    <span class="info-box-text">{{ __('Pending Request') }}</span>
+                    <span class="info-box-text">{{ __('Total Pending Request') }}</span>
                     <span class="info-box-number">{{ summary.total_pending_leaves }}</span>
                 </div>
             </div>
         </div>
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box shadow-sm">
-                <span class="info-box-icon bg-info"><i class="fa-solid fa-people-group nav-icon"></i></span>
+                <span class="info-box-icon bg-info"><i class="fa-solid fa-check"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Teams') }}</span>
-                    <span class="info-box-number">{{ summary.total_teams }}</span>
+                    <span class="info-box-text">{{ __('Total Approved Request') }}</span>
+                    <span class="info-box-number">{{ summary.total_approved_leaves }}</span>
                 </div>
             </div>
         </div>
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box shadow-sm">
-                <span class="info-box-icon bg-success"><i class="fa-solid fa-users"></i></span>
+                <span class="info-box-icon bg-success"><i class="fa-solid fa-file-pen"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Employees') }}</span>
-                    <span class="info-box-number">{{ summary.total_employees }}</span>
+                    <span class="info-box-text">{{ __('Total Leave Type') }}</span>
+                    <span class="info-box-number">{{ summary.total_leave_types }}</span>
                 </div>
             </div>
         </div>
@@ -105,9 +105,6 @@
                                         <Link :href="route('employee.leave.request.edit', leave_request.id)" v-tooltip="__('Edit Leave Request')" class="btn btn-sm">
                                             <EditIcon/>
                                         </Link>
-                                        <button @click="deleteData(leave_request.id)" v-tooltip="__('Leave Request Delete')" class="btn btn-sm">
-                                            <DeleteIcon/>
-                                        </button>
                                     </td>
                                 </tr>
                             </template>
@@ -200,28 +197,6 @@ export default {
                 leave_balance.user_percentage,
                 leave_balance.remaining_percentage,
             ];
-        },
-        deleteData(id) {
-            this.$swal({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.$inertia.delete(
-                        route("employee.leave.request.delete", id),
-                        {
-                            onSuccess: () => {
-                                this.loadData();
-                            },
-                        }
-                    );
-                }
-            });
         },
         async loadData() {
             let response = await axios.get(route("employee.dashboard"));

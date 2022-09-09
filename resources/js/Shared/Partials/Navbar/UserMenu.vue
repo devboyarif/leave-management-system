@@ -4,12 +4,18 @@
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <div class="profile-details d-none d-lg-inline mr-1 text-right">
                 <div class="mr-1 d-block font-weight-medium">
-                    <b>{{ currentCompany.company_name }}</b>
-                    <!-- <b>{{ $page.props.authenticatedUser.name }}</b> -->
-                    <p>{{ currentCompany.company_email }}</p>
+                    <template v-if="role == 'owner'">
+                        <b>{{ currentCompany.company_name }}</b>
+                        <p>{{ currentCompany.company_email }}</p>
+                    </template>
+                    <template v-else-if="role == 'employee'">
+                        <b>{{ $page.props.authenticatedUser.name }}</b>
+                        <p>{{ $page.props.employeeCompany.company_name }}</p>
+                    </template>
+                    <b v-else>{{ $page.props.authenticatedUser.name }}</b>
                 </div>
             </div>
-            <img height="32" width="32" class="img-profile rounded-circle user-image elevation-2" :src="currentCompany.company_logo">
+            <img height="32" width="32" class="img-profile rounded-circle user-image elevation-2" :src="role == 'owner' ? currentCompany.company_logo: $page.props.authenticatedUser.avatar">
         </a>
 
         <!-- Dropdown - User Information -->
@@ -18,11 +24,11 @@
             <Link class="dropdown-item" :href="route('user.profile')">{{ __('Profile') }}</Link>
             <template v-if="role == 'owner'">
                 <Link class="dropdown-item" :href="route('company.settings.general')">{{ __('Settings') }}</Link>
-                <a href="" class="dropdown-item" target="_blank">Support</a>
+                <a href="" class="dropdown-item" target="_blank">{{ __('Support') }}</a>
                 <a href="" class="dropdown-item bug-item"
-                data-toggle="bug-dialog">Usage & Billing</a>
+                data-toggle="bug-dialog">{{ __('Usage & Billing') }}</a>
                 <li class="dropdown-submenu" >
-                    <a class="dropdown-item dropdown-toggle" href="http://google.com">Switch Company</a>
+                    <a class="dropdown-item dropdown-toggle" href="http://google.com">{{ __('Switch Company') }}</a>
                     <ul class="dropdown-menu">
                         <template v-if="ownerCompanies && ownerCompanies.length">
                             <li v-for="ownerCompany in ownerCompanies" :key="ownerCompany.id">
@@ -35,9 +41,9 @@
                         </template>
                         <hr>
                         <li>
-                            <a class="dropdown-item" href="#">
-                                <b>Create Company</b>
-                            </a>
+                            <Link :href="route('company.create')" class="dropdown-item">
+                                <b>{{ __('Create Company') }}</b>
+                            </Link>
                         </li>
                     </ul>
                 </li>
@@ -105,9 +111,9 @@ export default {
 }
 .dropdown-submenu>.dropdown-menu {
     top:0;
-    left: -200px;
+    left: -250px;
     margin-top:-6px;
-    width: 200px;
+    width: 250px;
 }
 
 /* rotate caret on hover */

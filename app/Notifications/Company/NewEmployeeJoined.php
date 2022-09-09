@@ -11,14 +11,17 @@ class NewEmployeeJoined extends Notification
 {
     use Queueable;
 
+    public $user, $company_id;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user, $company_id)
     {
-        //
+        $this->user = $user;
+        $this->company_id = $company_id;
     }
 
     /**
@@ -41,9 +44,9 @@ class NewEmployeeJoined extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line($this->user->name.' has joined')
+            ->action('Details', route('company.employees.show', $this->user->id))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -55,7 +58,9 @@ class NewEmployeeJoined extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'message' => $this->user->name.' has joined',
+            'url' => route('company.employees.show', $this->user->id),
+            'company_id' => $this->company_id,
         ];
     }
 }

@@ -168,13 +168,11 @@ export default {
             this.isEditMode ? this.updateData() : this.createData();
         },
         createData() {
-            console.log(this.form);
             this.form.post(route("languages.store"), {
                 onSuccess: () => this.form.reset(),
             });
         },
         editLanguage(language) {
-            console.log(language);
             this.isEditMode = true;
             this.selectedId = language.id;
             this.form.name = language.name;

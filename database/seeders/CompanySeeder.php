@@ -42,10 +42,11 @@ class CompanySeeder extends Seeder
         // Owner and Company create
         $bdCountry = Country::where('code', 'bd')->first();
         $johnOwner = User::create([
-            'name' => 'John Doe',
+            'name' => 'Ariful Islam',
             'email' => 'owner@mail.com',
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png',
+            'is_opening_setup_complete' => 1,
         ]);
         $kodebazar = $johnOwner->companies()->create([
             'country_id' => $bdCountry->id,
@@ -74,6 +75,7 @@ class CompanySeeder extends Seeder
             'email' => 'owner2@mail.com',
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png',
+            'is_opening_setup_complete' => 1,
         ]);
         $zakirsoft = $smithOwner->companies()->create([
             'country_id' => $inCountry->id,
@@ -85,8 +87,6 @@ class CompanySeeder extends Seeder
         $smithOwner->update(['current_company_id' => $zakirsoft->id]);
         $this->createHoliday($zakirsoft, $inCountry);
 
-
-
         // Owner and Company create
         $banCountry = Country::where('code', 'bd')->first();
         $clarkOwner = User::create([
@@ -94,6 +94,7 @@ class CompanySeeder extends Seeder
             'email' => 'owner3@mail.com',
             'password' => bcrypt('password'),
             'avatar' => 'admin/img/default-user.png',
+            'is_opening_setup_complete' => 1,
         ]);
         $clarkCorporation = $clarkOwner->companies()->create([
             'country_id' => $banCountry->id,

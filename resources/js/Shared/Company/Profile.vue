@@ -29,7 +29,7 @@
                     <hr>
                      <form class="form-horizontal" autocomplete="off" @submit.prevent="profileUpdate">
                         <div class="form-group position-relative">
-                            <Label :name="__('Logo')"/>
+                            <Label :name="__('Avatar')"/>
                             <img :src="previewImage" alt="image" class="d-block ui-w-100 rounded-circle" id="image">
                             <div class="profile-edit font-weight-bold" v-tooltip="__('Edit')">
                                 <a href="" @click.prevent="$refs.profileimage.click()">
@@ -53,22 +53,6 @@
                             <input v-model="form.email" type="email"
                                 class="form-control " placeholder="Enter New Email" :class="{'is-invalid':form.errors.email}">
                             <ErrorMessage :name="form.errors.email"/>
-                        </div>
-                        <div class="form-group">
-                            <Label :name="__('Country')"/>
-                            <select @change="changeCountry" v-model="form.country" class="form-control" :class="{'is-invalid':form.errors.country}">
-                                <option value="" class="d-none">{{ __('Select Country') }}</option>
-                                <option :value="country.id" v-for="country in countries" :key="country.id">
-                                    {{ country.name }}
-                                </option>
-                            </select>
-                            <ErrorMessage :name="form.errors.country"/>
-                        </div>
-                        <div class="icheck-primary" v-if="showChangeHolidayCheckbox">
-                            <input @change="checkboxChange" v-model="form.change_holidays" type="checkbox" :checked="form.change_holidays" id="holiday">
-                            <label for="holiday" class="ml-2 text-dark">
-                                {{ __('Also Change Holidays ?') }}
-                            </label>
                         </div>
                         <button :disabled="form.processing" type="submit" class="btn btn-primary mt-3">
                             <Loading v-if="form.processing"/>
@@ -168,8 +152,6 @@ export default {
                 name: this.user.name,
                 email: this.user.email,
                 avatar: null,
-                country: this.user.company ? this.user.company.country_id : "",
-                change_holidays: false,
             }),
 
             passwordForm: this.$inertia.form({
@@ -179,15 +161,11 @@ export default {
             }),
 
             previewImage: this.user.avatar,
-            showChangeHolidayCheckbox: false,
         };
     },
     methods: {
         async changeTab(tab) {
-            // localStorage.setItem("currentTab", tab);
             this.currentTab = tab;
-
-            // this.paymentData = response.data;
         },
         profileUpdate() {
             this.form.post(route("user.profile.update"));
@@ -211,13 +189,6 @@ export default {
                     this.$inertia.delete(route("user.account.delete"));
                 }
             });
-        },
-        changeCountry() {
-            if (this.user.company.country_id == this.form.country) {
-                this.showChangeHolidayCheckbox = false;
-            } else {
-                this.showChangeHolidayCheckbox = true;
-            }
         },
     },
 };

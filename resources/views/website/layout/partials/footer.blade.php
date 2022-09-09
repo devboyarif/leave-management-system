@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="ud-widget">
-                        <a href="index.html" class="ud-footer-logo">
+                        <a href="{{ route('website.home') }}" class="ud-footer-logo">
                             <img src="{{ $setting->app_light_logo }}" alt="Logo" />
                         </a>
                         <p class="ud-widget-desc">
@@ -70,16 +70,16 @@
                         <h5 class="ud-widget-title">{{ __('About Us') }}</h5>
                         <ul class="ud-widget-links">
                             <li>
-                                <a href="javascript:void(0)">{{ __('Home') }}</a>
+                                <a href="{{ route('website.home') }}">{{ __('Home') }}</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">{{ __('About') }}</a>
+                                <a href="{{ route('website.about') }}">{{ __('About') }}</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">{{ __('Testimonial') }}</a>
+                                <a href="{{ route('website.home', ['#testimonials']) }}">{{ __('Testimonial') }}</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">{{ __('Contact') }}</a>
+                                <a href="{{ route('website.contact') }}">{{ __('Contact') }}</a>
                             </li>
                         </ul>
                     </div>

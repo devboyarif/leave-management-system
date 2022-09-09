@@ -56,10 +56,12 @@ class CompanyController extends Controller
 
     public function plan()
     {
+        $currently_subscribed = currentCompany()->subscription;
         $plans = Plan::with('planFeatures')->whereStatus(1)->get();
 
         return inertia('company/plan', [
             'plans' => $plans,
+            'currently_subscribed' => $currently_subscribed,
         ]);
     }
 
@@ -71,5 +73,10 @@ class CompanyController extends Controller
 
         session()->flash('success', 'Company Switched');
         return back();
+    }
+
+    public function createCompany()
+    {
+        return inertia('company/createnew/index');
     }
 }

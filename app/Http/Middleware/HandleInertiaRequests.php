@@ -41,7 +41,8 @@ class HandleInertiaRequests extends Middleware
         // Authenticate user
         $data['authenticatedUser'] = currentUser();
         if (auth()->check() && currentUser()->role == 'employee') {
-            $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
+            $data['employeeCompany'] = auth()->user()->employee->company;
+            // $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
         }
         if (auth()->check() && currentUser()->role == 'owner') {
             $data['currentCompany'] = currentCompany();
@@ -61,7 +62,7 @@ class HandleInertiaRequests extends Middleware
         $data['language'] = translations(resource_path('lang/' . $data['locale'] . '.json'));
 
         // Notifications
-        $data['notifications'] = auth()->check() ? auth()->user()->unreadNotifications->take(5) : [];
+        $data['notifications'] = auth()->check() ? auth()->user()->notifications->take(5) : [];
         $data['unreadNotificationsCount'] = auth()->check() ? auth()->user()->unreadNotifications->count() : 0;
 
         // Subscription

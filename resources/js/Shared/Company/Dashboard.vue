@@ -67,59 +67,6 @@
         </div>
         <!-- /.col-md-6 -->
         <div class="col-lg-4">
-        <!-- Currently Subscribed -->
-            <div class="card">
-                <div class="card-header border-0">
-                    <h3 class="card-title">{{ __('Currently Subscribed') }}</h3>
-                </div>
-                <div class="card-body" v-if="!loading">
-                    <div class="d-flex flex-wrap col-12">
-                        <table class="table">
-                            <tbody>
-                                <tr v-if="subscribed_plan.plan">
-                                    <th>{{ __('Plan') }}</th>
-                                    <td>{{ subscribed_plan.plan.name }}</td>
-                                </tr>
-                                <tr v-if="subscribed_plan.plan">
-                                    <th>{{ __('Subscription Type') }}</th>
-                                    <td>
-                                        <span v-if="subscribed_plan.plan.interval == 'custom_days'">
-                                        {{ subscribed_plan.plan.custom_interval_days }} {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
-                                        </span>
-                                        <span v-else class="text-capitalize">{{ subscribed_plan.plan.interval }}</span>
-                                    </td>
-                                </tr>
-                                <tr v-if="subscribed_plan.plan && subscribed_plan.plan.interval != 'lifetime'">
-                                   <th>{{ __('Expiration Remaining') }}</th>
-                                    <td>{{ subscribed_plan.remaining_days }}
-                                    <span v-if="subscribed_plan.remaining_days != 'Lifetime'">
-                                        {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
-                                    </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                   <th width="40%">{{ __('Plan Features') }}</th>
-                                    <td>
-                                        <Feature :span-text="true" name="Unlimited Employees" :checked="!subscribed_plan.plan.plan_features.is_limited_employee"/>
-                                        <Feature :span-text="true" name="Max Employees" :checked="true" :value="subscribed_plan.plan.plan_features.is_limited_employee ? subscribed_plan.plan.plan_features.max_employees : '∞'"/>
-                                        <Feature :span-text="true" name="Max Teams" :checked="true" :value="subscribed_plan.plan.plan_features.max_teams"/>
-                                        <Feature :span-text="true" name="Max Leave Types" :checked="true" :value="subscribed_plan.plan.plan_features.max_leave_types"/>
-                                        <Feature :span-text="true" name="Custom Theme Look" :checked="subscribed_plan.plan.plan_features.custom_theme_look"/>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
-                     <div class="row justify-content-between">
-                            <Link :href="route('company.plan')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>
-                       </div>
-                </div>
-                <div class="card-body mx-auto" v-else>
-                    <Loading :messageShow="false" size="fa-2x" />
-                </div>
-            </div>
-
             <!-- Pending Request  -->
             <div class="card">
                 <div class="card-header border-0">
@@ -127,7 +74,7 @@
                 </div>
                 <div class="card-body" v-if="!loading">
                     <div class="d-flex flex-wrap col-12">
-                        <template v-if="pending_requests && pending_requests.length">
+                        <template v-if="pending_requests && summary.total_pending_leaves">
                             <div v-for="request in pending_requests" :key="request.id"
                                 class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
                                 <div class="mt-4">
@@ -216,6 +163,59 @@
                         </template>
                         <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
                     </div>
+                </div>
+                <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
+                </div>
+            </div>
+
+              <!-- Currently Subscribed -->
+              <div class="card">
+                <div class="card-header border-0">
+                    <h3 class="card-title">{{ __('Currently Subscribed') }}</h3>
+                </div>
+                <div class="card-body" v-if="!loading">
+                    <div class="d-flex flex-wrap col-12">
+                        <table class="table">
+                            <tbody>
+                                <tr v-if="subscribed_plan.plan">
+                                    <th>{{ __('Plan') }}</th>
+                                    <td>{{ subscribed_plan.plan.name }}</td>
+                                </tr>
+                                <tr v-if="subscribed_plan.plan">
+                                    <th>{{ __('Subscription Type') }}</th>
+                                    <td>
+                                        <span v-if="subscribed_plan.plan.interval == 'custom_days'">
+                                        {{ subscribed_plan.plan.custom_interval_days }} {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
+                                        </span>
+                                        <span v-else class="text-capitalize">{{ subscribed_plan.plan.interval }}</span>
+                                    </td>
+                                </tr>
+                                <tr v-if="subscribed_plan.plan && subscribed_plan.plan.interval != 'lifetime'">
+                                   <th>{{ __('Expiration Remaining') }}</th>
+                                    <td>{{ subscribed_plan.remaining_days }}
+                                    <span v-if="subscribed_plan.remaining_days != 'Lifetime'">
+                                        {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
+                                    </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                   <th width="40%">{{ __('Plan Features') }}</th>
+                                    <td>
+                                        <Feature :span-text="true" name="Unlimited Employees" :checked="!subscribed_plan.plan.plan_features.is_limited_employee"/>
+                                        <Feature :span-text="true" name="Max Employees" :checked="true" :value="subscribed_plan.plan.plan_features.is_limited_employee ? subscribed_plan.plan.plan_features.max_employees : '∞'"/>
+                                        <Feature :span-text="true" name="Max Teams" :checked="true" :value="subscribed_plan.plan.plan_features.max_teams"/>
+                                        <Feature :span-text="true" name="Max Leave Types" :checked="true" :value="subscribed_plan.plan.plan_features.max_leave_types"/>
+                                        <Feature :span-text="true" name="Custom Theme Look" :checked="subscribed_plan.plan.plan_features.custom_theme_look"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                     <div class="row justify-content-between">
+                            <Link :href="route('company.plan')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>
+                       </div>
                 </div>
                 <div class="card-body mx-auto" v-else>
                     <Loading :messageShow="false" size="fa-2x" />
@@ -400,6 +400,7 @@ export default {
         },
     },
     async mounted() {
+        this.loading = true;
         await this.loadData();
     },
 };

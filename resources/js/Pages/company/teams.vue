@@ -72,7 +72,7 @@
                          <form @submit.prevent="saveData">
                             <div class="mb-3">
                                 <Label :name="__('Name')"/>
-                                <input v-model="form.name" type="text" class="form-control"
+                                <input :placeholder="__('Team Name')" v-model="form.name" type="text" class="form-control"
                                     :class="{'is-invalid':form.errors.name}" id="name">
                                 <ErrorMessage :name="form.errors.name" />
                             </div>
@@ -80,7 +80,7 @@
                                 <Label :name="__('Invite Employee')" :required="false"/>
                                 <div class="row my-1" v-for="(email, index) in form.emails" :key="index">
                                     <div class="col-lg-10">
-                                        <input v-model="form.emails[index]" type="email" class="form-control">
+                                        <input :placeholder="__('Employee Email')" v-model="form.emails[index]" type="email" class="form-control">
                                     </div>
                                     <div class="col-lg-2" v-if="index == 0">
                                         <button type="button" class="btn btn-primary" @click="addMore">

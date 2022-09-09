@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\User;
 use App\Models\Employee;
-use App\Notifications\Admin\NewEmployeeJoined;
+use App\Notifications\Company\NewEmployeeJoined;
 
 class EmployeeObserver
 {
@@ -16,13 +16,8 @@ class EmployeeObserver
      */
     public function created(Employee $employee)
     {
-        // Notification for admin
-        User::roleAdmin()->get()->each(function ($user) {
-            $user->notify(new NewEmployeeJoined());
-        });
-
         // Notification for company
-        $employee->company->user->notify(new NewEmployeeJoined());
+        $employee->company->user->notify(new NewEmployeeJoined($employee->user, $employee->company_id));
     }
 
     /**

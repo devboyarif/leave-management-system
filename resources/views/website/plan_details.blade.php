@@ -280,7 +280,6 @@
                                 'order_id': result.order_id,
                             },
                             success: function(response) {
-                                console.log(response)
                                 window.location.href = response.redirect_url;
                             }
                         });
