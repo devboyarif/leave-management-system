@@ -15,7 +15,7 @@
                             </button>
                             <button @click="showModal = true" class="btn btn-primary ml-1" type="button">
                                 <i class="fa-solid fa-plus"></i>
-                                {{ __('Create Leave Request') }}
+                                {{ __('Create Holiday Request') }}
                             </button>
                         </div>
                     </div>
@@ -201,10 +201,30 @@ export default {
         },
         handleStartDate(startDate) {
             const formatTime = dayjs(startDate).format("YYYY-MM-DD");
+
+            if(this.form.end){
+                let dateCheck = this.checkDateValidity(formatTime, this.form.end);
+
+                if(!dateCheck){
+                    this.form.end = ''
+                    return this.toastError("End date must be grater than start date")
+                }
+            }
+
             this.form.start = formatTime;
         },
         handleEndDate(endDate) {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
+
+            if(this.form.start){
+                let dateCheck = this.checkDateValidity(this.form.start, formatTime);
+
+                if(!dateCheck){
+                    this.form.end = ''
+                    return this.toastError("End date must be grater than start date")
+                }
+            }
+
             this.form.end = formatTime;
         },
         hideModalOutsideClick() {
