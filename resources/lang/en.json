@@ -327,6 +327,8 @@
     "Team Name":"Team Name",
     "Employee Email":"Employee Email",
     "Create Holiday Request":"Create Holiday Request",
+    "Delete Company":"Delete Company",
+    "Once you delete your company it will delete all data including teams employees and leaves":"Once you delete your company, it will delete all data, including teams, employees and leaves",
 
 
 

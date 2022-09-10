@@ -25,20 +25,16 @@
             </div>
           </div>
         </div>
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-body tab-content">
-                <div class="tab-pane fade" :class="{'show active': currentTab == 'profile'}">
-                    <General :user="user" :company="company" :countries="countries"/>
-                </div>
-                <div class="tab-pane fade" :class="{'show active': currentTab == 'themes'}">
-                    <Theme :theme="theme"/>
-                </div>
-                <div class="tab-pane fade" :class="{'show active': currentTab == 'week_days'}">
-                    <WorkingDays :workingdays="workingdays"/>
-                </div>
+        <div class="col-md-8 tab-content">
+            <div class="tab-pane fade" :class="{'show active': currentTab == 'profile'}">
+                <General :user="user" :company="company" :countries="countries"/>
             </div>
-          </div>
+            <div class="tab-pane fade" :class="{'show active': currentTab == 'themes'}">
+                <Theme :theme="theme"/>
+            </div>
+            <div class="tab-pane fade" :class="{'show active': currentTab == 'week_days'}">
+                <WorkingDays :workingdays="workingdays"/>
+            </div>
         </div>
       </div>
 </template>
