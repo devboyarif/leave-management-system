@@ -28,7 +28,7 @@
                     <option value="this_year">{{ __('This Year') }}</option>
                     <option value="last_year">{{ __('Last Year') }}</option>
                     <option value="custom_date">{{ __('Custom Data') }}</option>
-                    <option value="custom_range_date">{{ __('Custom Data Range') }}</option>
+                    <option value="custom_range_date">{{ __('Custom Date Range') }}</option>
                 </select>
                 <span v-if="errors.date_type" class="invalid-feedback">{{ errors.date_type && errors.date_type[0] }}</span>
             </div>
