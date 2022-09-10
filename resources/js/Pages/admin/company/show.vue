@@ -6,12 +6,9 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img :src="user.avatar" alt="logo" class="rounded-circle" width="150">
+                        <img :src="user.company_logo" alt="logo" class="rounded-circle object-fit-cover" width="150" height="150">
                         <div class="mt-3">
-                            <h4>{{ user.name }}</h4>
-                            <p class="text-secondary mb-1 text-uppercase" v-tooltip="__('Role')">
-                                <span class="badge badge-primary">{{ user.role }}</span>
-                            </p>
+                            <h4>{{ user.company_name }}</h4>
                         </div>
                     </div>
                 </div>
@@ -93,7 +90,7 @@
                             <h6 class="mb-0">{{ __('Name') }}</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            {{ user.name }}
+                            {{ user.company_name }}
                         </div>
                     </div>
                     <hr>
@@ -102,7 +99,7 @@
                             <h6 class="mb-0">{{ __('Email') }}</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            {{ user.email }}
+                            {{ user.company_email }}
                         </div>
                     </div>
                     <hr>
@@ -136,9 +133,6 @@
                     </div>
                     <div class="row mt-4">
                         <div class="col-sm-12">
-                            <Link :href="route('companies.edit',user.id)" v-tooltip="'Edit'" class="btn pl-0">
-                            <EditIcon />
-                            </Link>
                             <button @click="deleteCompany(user.id)" v-tooltip="'Delete'" class="btn">
                                 <DeleteIcon />
                             </button>

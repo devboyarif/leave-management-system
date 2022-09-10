@@ -10,7 +10,7 @@
                 </div>
                 <div class="card-body">
                     <div class="list-group">
-                        <template v-if="role != 'owner'">
+                        <template v-if="role != 'owner' && notifications.length">
                             <a :href="notification.data.url" class="list-group-item list-group-item-action flex-column align-items-start" v-for="(notification, index) in notifications" :key="index">
                                 <div class="d-flex w-100 justify-content-between" v-if="notification.data">
                                     <h5 v-html="notification.data.message" class="mb-1"></h5>

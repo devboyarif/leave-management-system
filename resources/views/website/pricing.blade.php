@@ -35,7 +35,7 @@
                         <div class="pricing-style-one">
                             <div class="pricing-header text-center">
                                 <h5 class="sub-title">{{ $plan->name }}</h5>
-                                <span class="price">${{ $plan->price }}</span>
+                                <span class="price">{{ currencyPosition($plan->price) }}</span>
                                 @if ($plan->interval == 'custom_days')
                                     <small>/{{ $plan->custom_interval_days }} {{ __('Days') }}</small>
                                 @else

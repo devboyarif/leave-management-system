@@ -269,6 +269,23 @@ if (!function_exists('currencyConversion')) {
     }
 }
 
+if (!function_exists('currencyPosition')) {
+
+    function currencyPosition($amount)
+    {
+        $symbol = config('kodebazar.currency_symbol');
+        $position = config('kodebazar.currency_symbol_position');
+
+        if ($position == 'left') {
+            return $symbol . ' ' . $amount;
+        } else {
+            return $amount . ' ' . $symbol;
+        }
+
+        return $amount;
+    }
+}
+
 if (!function_exists('checkMailConfig')) {
     function checkMailConfig()
     {
