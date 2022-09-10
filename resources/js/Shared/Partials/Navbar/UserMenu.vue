@@ -45,6 +45,11 @@
                                 <b>{{ __('Create Company') }}</b>
                             </Link>
                         </li>
+                        <li>
+                            <Link :href="route('company.create')" class="dropdown-item">
+                                <b>{{ __('Manage Company') }}</b>
+                            </Link>
+                        </li>
                     </ul>
                 </li>
             </template>

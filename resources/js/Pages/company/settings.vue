@@ -29,7 +29,7 @@
           <div class="card">
             <div class="card-body tab-content">
                 <div class="tab-pane fade" :class="{'show active': currentTab == 'profile'}">
-                    <General :user="user" :countries="countries"/>
+                    <General :user="user" :company="company" :countries="countries"/>
                 </div>
                 <div class="tab-pane fade" :class="{'show active': currentTab == 'themes'}">
                     <Theme :theme="theme"/>
@@ -53,6 +53,7 @@ import CalendarIcon from "../../Shared/Icons/CalendarIcon.vue";
 
 export default {
     props: {
+        company: Object,
         user: Object,
         workingdays: Object,
         theme: Object,

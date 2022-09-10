@@ -21,8 +21,7 @@
         </div>
         <div class="form-group">
             <Label :name="__('Name')" />
-            <input v-model="form.name" type="text" class="form-control" :class="{'is-invalid':form.errors.name}"
-                placeholder="Enter New Name">
+            <input v-model="form.name" type="text" class="form-control" :class="{'is-invalid':form.errors.name}" placeholder="Enter New Name">
             <ErrorMessage :name="form.errors.name" />
         </div>
         <div class="form-group">
@@ -33,19 +32,13 @@
         </div>
          <div class="form-group">
             <Label :name="__('Country')"/>
-            <select @change="changeCountry" v-model="form.country" class="form-control" :class="{'is-invalid':form.errors.country}">
+            <select v-model="form.country" class="form-control" :class="{'is-invalid':form.errors.country}">
                 <option value="" class="d-none">{{ __('Select Country') }}</option>
                 <option :value="country.id" v-for="country in countries" :key="country.id">
                     {{ country.name }}
                 </option>
             </select>
             <ErrorMessage :name="form.errors.country"/>
-        </div>
-        <div class="icheck-primary" v-if="showChangeHolidayCheckbox">
-            <input @change="checkboxChange" v-model="form.change_holidays" type="checkbox" :checked="form.change_holidays" id="holiday">
-            <label for="holiday" class="ml-2 text-dark">
-                {{ __('Also Change Holidays ?') }}
-            </label>
         </div>
         <button :disabled="form.processing" type="submit" class="btn btn-primary">
             <Loading v-if="form.processing" />
@@ -57,36 +50,33 @@
     </form>
 </template>
 
-
 <script>
 export default {
     props: {
         user: Object,
+        company: Object,
         countries: Array,
     },
     data() {
         return {
             form: this.$inertia.form({
-                name: this.user.name,
-                email: this.user.email,
+                name: this.company.company_name,
+                email: this.company.company_email,
                 avatar: null,
-                country: this.user.company ? this.user.company.country_id : "",
-                change_holidays: false,
+                country: this.company ? this.company.country_id : "",
             }),
 
-            previewImage: this.user.avatar,
-            showChangeHolidayCheckbox: false,
+            previewImage: this.company.company_logo,
         };
     },
     methods: {
         async changeTab(tab) {
-            // localStorage.setItem("currentTab", tab);
             this.currentTab = tab;
-
-            // this.paymentData = response.data;
         },
         profileUpdate() {
-            this.form.post(route("user.profile.update"));
+            this.form.post(route("company.general.setting.update"),{
+                onSuccess: () => window.location.reload()
+            });
         },
         deleteAccount() {
             this.$swal({
@@ -102,22 +92,15 @@ export default {
                     this.$inertia.delete(route("user.account.delete"));
                 }
             });
-        },
-        changeCountry() {
-            if (this.user.company.country_id == this.form.country) {
-                this.showChangeHolidayCheckbox = false;
-            } else {
-                this.showChangeHolidayCheckbox = true;
-            }
-        },
+        }
     },
     watch: {
         user: {
             handler() {
-                this.form.name = this.user.name;
-                this.form.email = this.user.email;
-                this.form.avatar = this.user.avatar;
-                this.previewImage = this.user.avatar;
+                this.form.name = this.company.company_name;
+                this.form.email = this.company.company_email;
+                this.form.avatar = this.company.company_logo;
+                this.previewImage = this.company.company_logo;
             },
             deep: true,
         },
@@ -125,3 +108,15 @@ export default {
 };
 </script>
 
+<style scoped>
+.ui-w-100 {
+    width: 180px !important;
+    height: 180px !important;
+    object-fit: cover !important;
+}
+.profile-edit {
+    position: absolute;
+    top: 170px;
+    left: 5px;
+}
+</style>

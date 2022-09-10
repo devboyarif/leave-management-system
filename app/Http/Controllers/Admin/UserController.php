@@ -170,7 +170,7 @@ class UserController extends Controller
         return inertia('profile', $data);
     }
 
-    public function profileUpdate(ProfileUpdateRequest $request)
+    public function profileUpdate(Request $request)
     {
         $user = auth()->user();
         $role = $user->role;
