@@ -32,7 +32,7 @@
                                     <td v-if="holiday.employee.user">
                                         <img :src="holiday.employee.user.avatar" alt="img"
                                             class="img-circle img-size-32 mr-2">
-                                        <a href="#">{{ holiday.employee.user.name }}</a>
+                                        <Link :href="route('company.employees.show',holiday.employee.user_id)">{{ holiday.employee.user.name }}</Link>
                                     </td>
                                     <td >
                                         {{ holiday.title }}
@@ -94,7 +94,7 @@
                                     <tbody>
                                         <tr>
                                             <td width="30%">{{ __('Employee Name') }}</td>
-                                            <td width="70%"><a href="#">{{ form.employee_name }}</a></td>
+                                            <td width="70%">{{ form.employee_name }}</td>
                                         </tr>
                                         <tr>
                                             <td width="30%">{{ __('Email') }}</td>

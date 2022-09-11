@@ -93,7 +93,7 @@
                          <form @submit.prevent="saveData">
                             <div class="mb-3">
                                 <Label :name="__('Name')"/>
-                                 <select class="form-control" :class="{'is-invalid':form.errors.name}" v-model="form.name">
+                                 <select class="form-control" :class="{'is-invalid':form.errors.name}" v-model="form.name" @change="languageAutoComplete">
                                     <option value="" class="d-none">{{ __('Select Language') }}</option>
                                     <option v-for="(langInfo,key) in langInfos" :key="key" :value="langInfo['name']">{{ langInfo['name'] }}</option>
                                 </select>
@@ -216,6 +216,15 @@ export default {
             this.$inertia.put(
                 route("languages.set.default", this.default_language)
             );
+        },
+        languageAutoComplete(){
+            let objects = Object.keys(this.langInfos);
+            console.log(objects)
+            for (let i = 0; i < objects.length; i++) {
+                if (this.langInfos[objects[i]]['name'] == this.form.name) {
+                    this.form.code = this.langInfos[objects[i]]['code'];
+                }
+            }
         },
     },
      mounted(){

@@ -209,13 +209,6 @@ export default {
 
 
 
-
-
-
-
-.theme-bg-white {
-    background-color: #fff !important;
-}
 .ui-w-100 {
     width: 180px !important;
     height: 180px !important;

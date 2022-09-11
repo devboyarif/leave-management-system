@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Company;
 
 use App\Models\Plan;
+use App\Models\Team;
+use App\Models\Order;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Models\Team;
 
 class CompanyController extends Controller
 {
@@ -78,5 +79,31 @@ class CompanyController extends Controller
     public function createCompany()
     {
         return inertia('company/createnew/index');
+    }
+
+    public function deleteCompany()
+    {
+        $current_company = currentCompany();
+        $user = auth()->user();
+        $companies = Company::where('user_id', auth()->id())
+        ->where('id', '!=', $current_company->id)
+        ->pluck('id')
+        ->toArray();
+
+        if (count($companies) && $companies[0]) {
+            $current_company->delete();
+            $user->update(['current_company_id' => $companies[0]]);
+
+            session()->flash('success', 'Company deleted successfully');
+            return redirect()->route('dashboard');
+        }else{
+            $user->update([
+                'current_company_id' => null,
+                'is_opening_setup_complete' => 0,
+                'opening_setup_steps' => 1
+            ]);
+
+            return redirect()->intended('/account/setup');
+        }
     }
 }

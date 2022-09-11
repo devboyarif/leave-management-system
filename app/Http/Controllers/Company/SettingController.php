@@ -13,10 +13,10 @@ class SettingController extends Controller
 
     public function general()
     {
-        $company = currentCompany();
+        $data['company'] = currentCompany();
         $data['user'] = auth()->user();
-        $data['workingdays'] = $company->workingDays;
-        $data['theme'] = $company->theme;
+        $data['workingdays'] = $data['company']->workingDays;
+        $data['theme'] = $data['company']->theme;
         $data['countries'] = Country::all(['id', 'name']);
 
         return inertia('company/settings', $data);
@@ -29,6 +29,34 @@ class SettingController extends Controller
         return inertia('company/setting/theme', [
             'theme' => $theme,
         ]);
+    }
+
+    public function generalSetting(Request $request)
+    {
+        $company = currentCompany();
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => "required|string|email|max:255|unique:companies,company_email, $company->id",
+        ]);
+
+        $data['company_name'] = $request->name;
+        $data['company_email'] = $request->email;
+
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $request->validate([
+                'avatar' => ['image', 'mimes:jpeg,png,jpg'],
+            ]);
+            $url = uploadFileToPublic('avatars', $request->avatar);
+            $data['company_logo'] = $url;
+        }
+
+        $company->update($data);
+
+
+        session()->flash('success', 'Company updated successfully!');
+        return back();
+        return $request;
     }
 
     public function themeUpdate(Request $request)

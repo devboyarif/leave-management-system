@@ -38,3 +38,7 @@
 .h-250 {
     height: 250px !important;
 }
+
+.object-fit-cover {
+    object-fit: cover;
+}

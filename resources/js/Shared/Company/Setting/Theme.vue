@@ -1,66 +1,70 @@
 <template>
-    <h6>Theme</h6>
-    <hr>
-    <form @submit.prevent="saveData">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <Label :name="__('Primary Color')" />
-                    <input v-model="form.primary_color" type="color" class="form-control"
-                        id="name">
+    <div class="card">
+        <div class="card-body">
+            <h6>{{ __('Themes') }}</h6>
+            <hr>
+            <form @submit.prevent="saveData">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <Label :name="__('Primary Color')" />
+                            <input v-model="form.primary_color" type="color" class="form-control"
+                                id="name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <Label :name="__('Hover Color')" />
+                        <input v-model="form.hover_color" type="color" class="form-control"
+                            id="name">
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <Label :name="__('Secondary Color')" />
+                        <input v-model="form.secondary_color" type="color" class="form-control"
+                            id="name">
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <Label :name="__('Success Color')" />
+                        <input v-model="form.success_color" type="color" class="form-control"
+                            id="name">
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <Label :name="__('Info Color')" />
+                        <input v-model="form.info_color" type="color" class="form-control"
+                            id="name">
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <Label :name="__('Warning Color')" />
+                        <input v-model="form.warning_color" type="color" class="form-control"
+                            id="name">
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <Label :name="__('Danger Color')" />
+                        <input v-model="form.danger_color" type="color" class="form-control"
+                            id="name">
+                            </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                <Label :name="__('Hover Color')" />
-                <input v-model="form.hover_color" type="color" class="form-control"
-                    id="name">
-                    </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                <Label :name="__('Secondary Color')" />
-                <input v-model="form.secondary_color" type="color" class="form-control"
-                    id="name">
-                    </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                <Label :name="__('Success Color')" />
-                <input v-model="form.success_color" type="color" class="form-control"
-                    id="name">
-                    </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                <Label :name="__('Info Color')" />
-                <input v-model="form.info_color" type="color" class="form-control"
-                    id="name">
-                    </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                <Label :name="__('Warning Color')" />
-                <input v-model="form.warning_color" type="color" class="form-control"
-                    id="name">
-                    </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                <Label :name="__('Danger Color')" />
-                <input v-model="form.danger_color" type="color" class="form-control"
-                    id="name">
-                    </div>
-            </div>
+                        <button :disabled="form.processing" type="submit" class="btn btn-primary">
+                    <Loading v-if="form.processing"/>
+                    <span v-else>
+                        <i class="fa-solid fa-check mr-1"></i>
+                        {{ __('Save') }}
+                    </span>
+                </button>
+            </form>
         </div>
-                <button :disabled="form.processing" type="submit" class="btn btn-primary">
-            <Loading v-if="form.processing"/>
-            <span v-else>
-                <i class="fa-solid fa-check mr-1"></i>
-                {{ __('Save') }}
-            </span>
-        </button>
-    </form>
+    </div>
 </template>
 
 <script>

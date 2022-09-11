@@ -15,7 +15,6 @@
             <div class="info-box shadow-sm">
                 <span class="info-box-icon bg-warning"><i class="fa-regular fa-hourglass"></i></span>
                 <div class="info-box-content">
-
                     <span class="info-box-text">{{ __('Pending Request') }}</span>
                     <span class="info-box-number">{{ summary.total_pending_leaves }}</span>
                 </div>
@@ -128,7 +127,7 @@
                 </div>
                 <div class="card-body" v-if="!loading">
                     <div class="d-flex flex-wrap col-12">
-                        <template v-if="recent_approved_requests && recent_approved_requests.length">
+                        <template v-if="recent_approved_requests && summary.total_approve_leaves">
                         <div v-for="request in recent_approved_requests" :key="request.id"
                             class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
                             <div class="mt-4">

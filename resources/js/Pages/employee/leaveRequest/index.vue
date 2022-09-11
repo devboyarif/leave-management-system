@@ -28,7 +28,7 @@
                 </div>
                 <div class="card-body border-bottom d-flex justify-content-between" v-if="showFilter">
                         <div class=" w-25">
-                            <label>Leave Type</label>
+                            <label>{{ __('Leave Type') }}</label>
                             <select class="form-control" v-model="filterForm.leave_type" @change="filterData">
                                 <option value="">{{ __('All') }}</option>
                                 <option :value="leave_type.id" v-for="leave_type in leaveTypes" :key="leave_type.id">
@@ -37,7 +37,7 @@
                             </select>
                         </div>
                     <div class="ml-auto w-25">
-                        <label>Status</label>
+                        <label>{{ __('Status') }}</label>
                         <select class="form-control" v-model="filterForm.status" @change="filterData">
                             <option value="">{{ __('All') }}</option>
                             <option value="pending">{{ __('Pending') }}</option>
@@ -123,11 +123,13 @@
                                     <tbody>
                                         <tr>
                                             <td width="30%">{{ __('Name') }}</td>
-                                            <td width="70%"><a href="#">
-                                                 <span :style="{ background: form.color, border: '2px solid '+form.color }" class="leave-type-color">
-                                            {{ form.type }}
-                                        </span>
-                                            </a></td>
+                                            <td width="70%">
+                                                <a href="#">
+                                                    <span :style="{ background: form.color, border: '2px solid '+form.color }" class="leave-type-color">
+                                                    {{ form.type }}
+                                                    </span>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td width="30%">{{ __('Date') }}</td>

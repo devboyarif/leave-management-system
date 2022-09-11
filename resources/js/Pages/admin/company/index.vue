@@ -23,11 +23,11 @@
                     </div>
                     <div class="card-body border-bottom d-flex justify-content-between" v-if="showFilter">
                         <div class="w-25">
-                            <label>Search</label>
+                            <label>{{ __('Search') }}</label>
                             <input v-model="form.search" type="text" placeholder="Search..." class="form-control">
                         </div>
                         <div class="ml-auto w-15">
-                            <label>Country</label>
+                            <label>{{ __('Country') }}</label>
                             <select class="form-control" v-model="form.country">
                                 <option value="">{{ __('All') }}</option>
                                 <option :value="country.id" v-for="country in countries" :key="country.id">
@@ -59,7 +59,10 @@
                                         <td v-html="user.email"></td>
                                         <td>{{ user.country }}</td>
                                         <td class="d-flex">
-                                            <button @click="deleteCompany(user.id)" v-tooltip="__('Company Delete')" class="btn btn-sm">
+                                            <Link :href="route('companies.show',user.id)" v-tooltip="__('Details')" class="btn btn-sm pl-0">
+                                                <EyeIcon/>
+                                            </Link>
+                                            <button @click="deleteCompany(user.id)" v-tooltip="__('Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>

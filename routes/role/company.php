@@ -55,6 +55,7 @@ Route::middleware(['auth', 'check.company.role','check.company.setup'])->prefix(
     // Setting
     Route::controller(SettingController::class)->group(function () {
         Route::get('/theme', 'theme')->name('theme.index');
+        Route::post('/general/setting', 'generalSetting')->name('general.setting.update');
         Route::post('/theme/update', 'themeUpdate')->name('theme.update');
         Route::put('/workingdays/update', 'workingdaysUpdate')->name('workingdays.update');
     });
@@ -68,6 +69,7 @@ Route::middleware(['auth', 'check.company.role','check.company.setup'])->prefix(
     // Company
     Route::post('switch/{id}', [CompanyController::class, 'switchCompany'])->name('switch');
     Route::get('create', [CompanyController::class, 'createCompany'])->name('create');
+    Route::delete('delete', [CompanyController::class, 'deleteCompany'])->name('delete');
 });
 
 // Invite Employee
