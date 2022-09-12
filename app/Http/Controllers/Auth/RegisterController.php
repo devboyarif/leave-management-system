@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CompanyCreateRequest;
-use App\Notifications\Admin\NewCompanyJoined;
 
 class RegisterController extends Controller
 {
@@ -30,26 +29,10 @@ class RegisterController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        // creating company
-        // $company = $user->company()->create([
-        //     'country_id' => $request->country,
-        // ]);
-
-        // store official holidays
-        // if ($request->import_official_holidays) {
-        //     $country = Country::findOrFail($request->country);
-        //     $code = $this->getCountryCode($country->code);
-
-        //     importHolidays($company->id, $code);
-        // }
-
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
 
             return redirect()->intended('/account/setup');
-            // return redirect()->intended('/user/dashboard');
-            // return inertia('company/setup/index');
-            // session()->flash('success', 'You have been successfully registered and logged in!');
         }
     }
 }

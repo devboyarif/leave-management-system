@@ -16,8 +16,8 @@ class CompanyObserver
      */
     public function created(Company $company)
     {
-        User::roleAdmin()->get()->each(function ($user) {
-            $user->notify(new NewCompanyJoined());
+        User::roleAdmin()->get()->each(function ($user) use ($company) {
+            $user->notify(new NewCompanyJoined($company));
         });
 
         $company->theme()->create();

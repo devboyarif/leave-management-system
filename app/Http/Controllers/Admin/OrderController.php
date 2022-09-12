@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Plan;
 use App\Models\Order;
 use App\Models\Company;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Plan;
 
 class OrderController extends Controller
 {
@@ -69,7 +70,11 @@ class OrderController extends Controller
         ]);
     }
 
-    public function orderDetails(){
-        return inertia('admin/order/show');
+    public function orderDetails(Order $order){
+       $company = $order->company->load('country:id,name', 'user');
+        $subscribed_plan = $company->subscription->load('plan.planFeatures');
+        $setting = Setting::first();
+
+        return inertia('admin/order/show', compact('subscribed_plan','order','setting','company'));
     }
 }
