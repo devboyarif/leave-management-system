@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Order;
+use App\Models\Setting;
 use App\Models\Language;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
@@ -9,6 +12,22 @@ use App\Http\Controllers\Admin\UpgradeController;
 Route::get('/testt', [TestController::class, 'index']);
 
 Route::get('/test', function () {
+
+    $data['order'] = Order::first();
+    $data['company'] = $data['order']->company->load('country:id,name', 'user');
+    $data['subscribed_plan'] = $data['company']->subscription->load('plan.planFeatures');
+    $data['setting'] = Setting::first();
+
+    // return $data;
+    // return view('testpdf', $data);
+
+    $pdf = Pdf::loadView('generate.order-pdf', $data);
+    // return $pdf->stream();
+
+    return $pdf->download('invoice.pdf');
+
+
+
 
     // $collection = collect([19, 21, 29, 46]);
 

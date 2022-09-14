@@ -31,7 +31,7 @@
                    <select class="form-control" v-model="filterForm.company" @change="filterData">
                         <option value="">{{ __('All') }}</option>
                         <option :value="company.id" v-for="company in companies" :key="company.id">
-                            {{ company.name }}
+                            {{ company.company_name }}
                         </option>
                     </select>
                 </div>
@@ -48,14 +48,14 @@
                     <label>{{ __('Payment') }}</label>
                     <select class="form-control" v-model="filterForm.payment" @change="filterData">
                         <option value="">{{ __('All') }}</option>
-                        <option value="paypal">Paypal</option>
-                        <option value="stripe">Stripe</option>
-                        <option value="flutterwave">Flutterwave</option>
-                        <option value="mollie">Mollie</option>
-                        <option value="midtrans">Midtrans</option>
-                        <option value="paystack">Paystack</option>
-                        <option value="razorpay">Razorpay</option>
-                        <option value="instamojo">Instamojo</option>
+                        <option value="paypal">{{ __('Paypal') }}</option>
+                        <option value="stripe">{{ __('Stripe') }}</option>
+                        <option value="flutterwave">{{ __('Flutterwave') }}</option>
+                        <option value="mollie">{{ __('Mollie') }}</option>
+                        <option value="midtrans">{{ __('Midtrans') }}</option>
+                        <option value="paystack">{{ __('Paystack') }}</option>
+                        <option value="razorpay">{{ __('Razorpay') }}</option>
+                        <option value="instamojo">{{ __('Instamojo') }}</option>
                     </select>
                 </div>
                 </div>
@@ -75,7 +75,11 @@
                         <tbody>
                             <template v-if="orders && orders.data.length">
                                 <tr v-for="(order,index) in orders.data" :key="index">
-                                    <td>#<span v-html="order.order_id"></span></td>
+                                    <td>
+                                        <Link :href="route('orders.show',order.id)" v-tooltip="__('Order Details')">
+                                            #<span v-html="order.order_id"></span>
+                                        </Link>
+                                    </td>
                                     <td><span v-html="order.transaction_id"></span></td>
                                     <td>
                                         <b>
@@ -101,9 +105,9 @@
                                         <Link :href="route('orders.show',order.id)" v-tooltip="__('Order Details')" class="btn btn-sm pl-0">
                                             <EyeIcon/>
                                         </Link>
-                                        <button @click="showDetails(order)" v-tooltip="__('Order Details')" class="btn btn-sm pl-0">
-                                            <EyeIcon/>
-                                        </button>
+                                        <a :href="route('orders.pdf.download', order.id)" v-tooltip="__('Download')" target="_blank" class="btn btn-sm pl-0 text-secondary">
+                                            <i class="fa-solid fa-download fa-2x"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             </template>
@@ -120,102 +124,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-     <!-- Details Holiday Modal  -->
-    <div v-if="showModal">
-        <transition name="fade">
-            <div class="modal-mask">
-                <div class="modal-wrapper">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content" v-click-outside="()=> showModal = false">
-                            <div class="modal-header">
-                                <h5 class="modal-title">
-                                    {{ __('Order Details') }}
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true" @click="showModal = false">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td width="40%">{{ __('Order ID') }}</td>
-                                            <td width="70%">
-                                                #<span v-html="form.order_id"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="40%">{{ __('Transaction ID') }}</td>
-                                            <td width="70%">
-                                                <span v-html="form.transaction_id"></span>
-                                            </td>
-                                        </tr>
-                                         <tr v-if="form.company && form.company.user">
-                                            <td width="40%">{{ __('Company') }}</td>
-                                            <td width="60%">
-                                                <b>{{ form.company.user.name }}</b>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="40%">{{ __('Payment Method') }}</td>
-                                            <td width="60%" class="text-capitalize">
-                                                {{ form.payment_method }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="40%">{{ __('Amount') }}</td>
-                                            <td width="60%">
-                                               {{ form.currency_symbol }}&nbsp;{{ form.amount }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="40%">{{ __('Plan Name') }}</td>
-                                            <td width="60%">
-                                              {{ form.plan.name }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="40%">{{ __('Plan Type') }}</td>
-                                            <td width="60%" class="text-capitalize">
-                                              {{ form.plan.type }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="40%">{{ __('Subscription Type') }}</td>
-                                            <td width="60%" class="text-capitalize">
-                                              {{ form.plan.interval }}
-                                            </td>
-                                        </tr>
-                                        <tr v-if="form.plan.interval == 'custom_days'">
-                                            <td width="40%">{{ __('Custom Days') }}</td>
-                                            <td width="60%">
-                                              {{ form.plan.custom_interval_days }} {{ __('Days') }}
-                                            </td>
-                                        </tr>
-                                        <tr v-if="form.plan.plan_features">
-                                            <td width="40%">{{ __('Plan Features') }}</td>
-                                            <td width="60%">
-                                               <Feature name="Unlimited Employees" :checked="!form.plan.plan_features.is_limited_employee"/>
-                                                <Feature name="Max Employees" :checked="true" :value="form.plan.plan_features.is_limited_employee ? form.plan.plan_features.max_employees : '∞'"/>
-                                                <Feature name="Max Teams" :checked="true" :value="form.plan.plan_features.max_teams"/>
-                                                <Feature name="Max Leave Types" :checked="true" :value="form.plan.plan_features.max_leave_types"/>
-                                                <Feature name="Custom Theme Look" :checked="form.plan.plan_features.custom_theme_look"/>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    @click="showModal = false">{{ __('Close') }}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </transition>
     </div>
 </template>
 
@@ -241,7 +149,6 @@ export default {
     data() {
         return {
             showFilter: false,
-            showModal: false,
 
             form: {
                 order_id: "",
@@ -260,16 +167,6 @@ export default {
         };
     },
     methods: {
-        showDetails(order) {
-            this.form.order_id = order.order_id;
-            this.form.transaction_id = order.transaction_id;
-            this.form.payment_method = order.payment_provider;
-            this.form.amount = order.amount;
-            this.form.currency_symbol = order.currency_symbol;
-            this.form.plan = order.plan;
-            this.form.company = order.company;
-            this.showModal = true;
-        },
         filteringData() {
             this.showFilter = !this.showFilter;
             localStorage.setItem("adminOrder", this.showFilter);

@@ -1,4 +1,6 @@
 <template>
+    <Head :title="__('Order Details')"/>
+
     <div class="row p-4">
         <div class="col-lg-12">
             <div class="card">
@@ -12,13 +14,12 @@
                             </p>
                         </div>
                         <div>
-                            <a href="https://clicon.templatecookie.com/admin/order/generate/pdf/102" target="_blank">
+                            <a :href="route('orders.pdf.download', order.id)" target="_blank">
                                 <b>
                                     <i class="fas fa-download"></i>
                                     {{ __('Download Invoice') }}
                                 </b>
                             </a>
-
                         </div>
                     </div>
                 </div>

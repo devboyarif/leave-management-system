@@ -132,7 +132,9 @@
                                     <template v-if="recent_orders && recent_orders.length">
                                         <tr v-for="order in recent_orders" :key="order.id">
                                             <td>
-                                                #{{ order.id }}
+                                                <Link :href="route('orders.show',order.id)" v-tooltip="__('Order Details')">
+                                                    #{{ order.order_id }}
+                                                </Link>
                                             </td>
                                             <td>
                                                  <Link :href="route('companies.show',order.company.id)">
