@@ -19,8 +19,7 @@ Route::middleware(['auth', 'check.company.role','check.company.setup'])->prefix(
     Route::post('/employees/invite', [EmployeeController::class, 'inviteEmployee'])->name('employees.invite');
 
     // Pricing Plan
-    Route::get('/orders', [CompanyController::class, 'orders'])->name('orders.index');
-    Route::get('/pricing/plan', [CompanyController::class, 'plan'])->name('plan');
+    Route::get('/billing', [CompanyController::class, 'billing'])->name('billing');
 
     // Team routes
     Route::get('/teams/employees', [TeamController::class, 'teamEmployees'])->name('teams.employees');

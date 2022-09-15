@@ -1,12 +1,111 @@
 <template>
-    <Head :title="__('Order List')"/>
+    <Head :title="__('Billing')" />
 
-    <div class="row justify-content-center">
+    <div class="row pt-4 billing">
+        <div class="col-lg-4 mb-4">
+            <!-- Billing card 1-->
+            <div class="card h-100 border-start-lg border-start-primary">
+                <div class="card-body">
+                    <h5>{{ __('Current monthly bill') }}</h5>
+                    <div class="h3">{{ currencyPosition(currently_subscribed.plan.price) }}</div>
+                    <a class="text-arrow-icon small" href="#pricing_plan">
+                        {{ __('Switch to another plan') }}
+                        <ArrowRight/>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <!-- Billing card 2-->
+            <div class="card h-100 border-start-lg border-start-secondary">
+                <div class="card-body">
+                    <h5>{{ __('Next payment due') }}</h5>
+                    <div class="h3">
+                        {{ formateDate(currently_subscribed.expired_at, "MMMM D") }}
+                    </div>
+                    <a class="text-arrow-icon small text-secondary" href="#billing_history">
+                        {{ __('View billing history') }}
+                       <ArrowRight/>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <!-- Billing card 3-->
+            <div class="card h-100 border-start-lg border-start-success">
+                <div class="card-body">
+                    <h5>{{ __('Current Plan') }}</h5>
+                    <div class="h3 d-flex align-items-center" v-if="currently_subscribed.plan">
+                        {{ currently_subscribed.plan.name }}
+                    </div>
+                    <a class="text-arrow-icon small text-success" :href="route('website.plan.details', currently_subscribed.plan.slug)">
+                       {{ __('Upgrade plan') }}
+                       <ArrowRight/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" id="pricing_plan">
+       <div class="col-12">
+            <div class="card">
+                <div class="card-header border-0">
+                    <h3 class="card-title">{{ __('Pricing Plan') }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-4 col-xl-3 mb-3 col-12" v-for="plan in plans" :key="plan.id">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-header text-center py-4">
+                                    <h5>
+                                        <b>{{ plan.name }}</b>
+                                        <small v-if="plan.interval != 'custom_days'"> /{{ plan.interval }}</small>
+                                        <small v-else> /{{ plan.custom_interval_days }} {{ __('Days') }}</small>
+                                    </h5>
+                                    <div class="badge badge-info" v-if="plan.recommended">{{ __('Recommended') }}</div>
+                                    <h1>
+                                        {{ currencyPosition(plan.price) }}
+                                    </h1>
+                                </div>
+                                <div class="card-body" v-if="plan.plan_features">
+                                <Feature name="Unlimited Employees" :checked="!plan.plan_features.is_limited_employee"/>
+                                <Feature name="Max Employees" :checked="true" :value="plan.plan_features.is_limited_employee ? plan.plan_features.max_employees : '∞'"/>
+                                <Feature name="Max Teams" :checked="true" :value="plan.plan_features.max_teams"/>
+                                <Feature name="Max Leave Types" :checked="true" :value="plan.plan_features.max_leave_types"/>
+                                <Feature name="Custom Theme Look" :checked="plan.plan_features.custom_theme_look"/>
+                                </div>
+                                <div class="card-footer">
+                                    <div class=" d-flex justify-content-between">
+                                        <template v-if="subscription.plan_id == plan.id">
+                                        <a :href="route('website.plan.details', plan.slug)" type="button" class="btn btn-success">
+                                            {{ __('Current Plan') }}
+                                            <i class="fas fa-arrow-right"></i>
+                                        </a>
+                                        </template>
+                                        <a v-else :href="route('website.plan.details', plan.slug)" class="btn btn-primary">
+                                            {{ __('Select Plan') }}
+                                            <i class="fas fa-arrow-right"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-danger" v-if="currently_subscribed.plan_id == plan.id">
+                                            {{ __('Expire In') }} - {{ currently_subscribed.remaining_days }} {{ __('Days') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+    </div>
+
+    <div class="row justify-content-center" id="billing_history">
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">{{ __('Order List') }}</h3>
+                        <h3 class="card-title">{{ __('Billing History') }}</h3>
                         <div>
                             <button class="btn btn-secondary ml-2" @click="filteringData">
                                 <i class="fa-solid fa-filter"></i>
@@ -14,7 +113,7 @@
                                 <span v-if="!showFilter">{{ __('Show Filter') }}</span>
                                 <span v-else>{{ __('Hide Filter') }}</span>
                             </button>
-                            <Link v-if="filterForm.search || filterForm.payment || filterForm.plan" :href="route('company.orders.index')" class="btn btn-danger ml-2">
+                            <Link v-if="filterForm.search || filterForm.payment || filterForm.plan" :href="route('company.billing')" class="btn btn-danger ml-2" preserve-scroll>
                                 <i class="fa-solid fa-times"></i>
                                 {{ __('Clear') }}
                             </Link>
@@ -109,26 +208,35 @@
     </div>
 </template>
 
-
 <script>
-import Pagination from "../../../Shared/Pagination.vue";
-import Feature from "../../../Shared/Admin/Plan/Feature.vue";
+import Feature from "../../Shared/Admin/Plan/Feature.vue";
+import Pagination from "../../Shared/Pagination.vue";
 import { Inertia } from "@inertiajs/inertia";
 import debounce from "lodash/debounce";
+import ArrowRight from "../../Shared/Icons/ArrowRight.vue";
 
 export default {
-    props: {
-        orders: Array,
-        plans: Array,
-        filters: Object || Array,
-    },
     components: {
+        Feature,
         Pagination,
         Inertia,
-        Feature,
+        ArrowRight,
+    },
+    props: {
+        plans: {
+            type: Array,
+            required: true,
+        },
+        currently_subscribed: {
+            type: Object,
+            required: true,
+        },
+        orders: Array,
+        filters: Object || Array,
     },
     data() {
         return {
+            subscription: this.$page.props.current_subscription,
             showFilter: false,
             form: {
                 order_id: "",
@@ -144,14 +252,17 @@ export default {
             },
         };
     },
-    methods: {
+    methods:{
+        getPlanDetails(planId){
+
+        },
         filteringData() {
             this.showFilter = !this.showFilter;
             localStorage.setItem("companyOrder", this.showFilter);
         },
         filterData() {
             Inertia.get(
-                route("company.orders.index"),
+                route("company.billing"),
                 {
                     company: this.filterForm.company,
                     search: this.filterForm.search,
@@ -160,18 +271,21 @@ export default {
                 },
                 {
                     preserveState: true,
+                    preserveScroll: true,
                     replace: true,
                 }
             );
         },
+
     },
     watch: {
         "filterForm.search": debounce((value) => {
             Inertia.get(
-                route("company.orders.index"),
+                route("company.billing"),
                 { search: value },
                 {
                     preserveState: true,
+                    preserveScroll: true,
                     replace: true,
                 }
             );
@@ -185,7 +299,38 @@ export default {
 </script>
 
 <style scoped>
-.modal-content {
-    width: 750px !important;
+
+
+.billing .card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+}
+.billing .card .card-header {
+    font-weight: 500;
+}
+.billing .card-header:first-child {
+    border-radius: 0.35rem 0.35rem 0 0;
+}
+.billing .card-header {
+    padding: 1rem 1.35rem;
+    margin-bottom: 0;
+    background-color: rgba(33, 40, 50, 0.03);
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+
+
+.billing .border-start-primary {
+    border-left-color: #0061f2 !important;
+}
+.billing .border-start-secondary {
+    border-left-color: #6900c7 !important;
+}
+.billing .border-start-success {
+    border-left-color: #00ac69 !important;
+}
+.billing .border-start-lg {
+    border-left-width: 0.25rem !important;
+}
+.billing .h-100 {
+    height: 100% !important;
 }
 </style>
