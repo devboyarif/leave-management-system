@@ -24,34 +24,44 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade" :class="{'show active': currentTab == 'all'}">
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 semi-gutters">
-                                <div class="col mb-4" v-for="employee in employees" :key="employee.id">
-                                    <div class="card h-100" v-if="employee.user">
-                                        <img :src="employee.user.avatar" class="card-image-top">
-                                        <div class="card-body">
-                                            <h6 class="card-title">{{ employee.user.name }}</h6> <br>
-                                            <p  class="m-0 p-0" v-if="employee.team">{{ employee.team.name }}</p>
-                                            <p class="mt-0 p-0">
-                                                {{ employee.user.email }}
-                                            </p>
+                                <template v-if="employees && employees.length">
+                                    <div class="col mb-4" v-for="employee in employees" :key="employee.id">
+                                        <div class="card h-100" v-if="employee.user">
+                                            <img :src="employee.user.avatar" class="card-image-top">
+                                            <div class="card-body">
+                                                <h6 class="card-title">{{ employee.user.name }}</h6> <br>
+                                                <p  class="m-0 p-0" v-if="employee.team">{{ employee.team.name }}</p>
+                                                <p class="mt-0 p-0">{{ employee.user.email }}</p>
+                                                <p class="mt-0 p-0">
+                                                    {{ employee.phone }}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </template>
+                                <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
                             </div>
                         </div>
                         <div class="tab-pane fade" :class="{'show active': currentTab == team.slug}" v-for="team in teams" :key="team.id">
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 semi-gutters">
-                                <div class="col mb-4" v-for="employee in employees" :key="employee.id">
-                                    <div class="card h-100" v-if="employee.user">
-                                        <img :src="employee.user.avatar" class="card-image-top">
-                                        <div class="card-body">
-                                            <h6 class="card-title">{{ employee.user.name }}</h6> <br>
-                                            <p  class="m-0 p-0" v-if="employee.team">{{ employee.team.name }}</p>
-                                            <p class="mt-0 p-0">
-                                                {{ employee.user.email }}
-                                            </p>
+                                <template v-if="employees && employees.length">
+                                    <div class="col mb-4" v-for="employee in employees" :key="employee.id">
+                                        <div class="card h-100" v-if="employee.user">
+                                            <img :src="employee.user.avatar" class="card-image-top">
+                                            <div class="card-body">
+                                                <h6 class="card-title">{{ employee.user.name }}</h6> <br>
+                                                <p  class="m-0 p-0" v-if="employee.team">{{ employee.team.name }}</p>
+                                                <p class="mt-0 p-0">{{ employee.user.email }}</p>
+                                                <p class="mt-0 p-0">{{ employee.phone ? employee.phone:'' }}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </template>
+                                <template v-else>
+                                    <div class="d-flex justify-content-center text-center m-auto">
+                                        <h6>{{ __('No Data Found') }}</h6>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                     </div>
