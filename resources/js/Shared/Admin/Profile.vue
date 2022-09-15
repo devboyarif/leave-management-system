@@ -157,10 +157,7 @@ export default {
     },
     methods: {
         async changeTab(tab) {
-            // localStorage.setItem("currentTab", tab);
             this.currentTab = tab;
-
-            // this.paymentData = response.data;
         },
         profileUpdate() {
             this.form.post(route("user.profile.update"));

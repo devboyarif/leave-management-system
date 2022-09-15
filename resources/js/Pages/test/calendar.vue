@@ -13,7 +13,7 @@ export default {
         events: Array,
     },
     components: {
-        FullCalendar, // make the <FullCalendar> tag available
+        FullCalendar,
     },
     data() {
         return {

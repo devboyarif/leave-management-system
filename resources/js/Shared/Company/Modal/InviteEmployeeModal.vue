@@ -74,11 +74,6 @@ export default {
     },
     data() {
         return {
-            // form: this.$inertia.form({
-            //     email: "",
-            //     team_id: "",
-            // }),
-
             form: this.$inertia.form({
                 emails: [""],
                 teams: [""],

@@ -33,7 +33,6 @@
                                             <span class="d-flex">
                                                 <input type="text" class="form-control" style="width:100%" v-model="translationsData[key]">
                                                 <button type="button" @click="translateIt(key)" class="btn btn-sm ml-1 bg-info">
-                                                    <!-- <Loading  v-if="singleTranslating" message="Translating..."/> -->
                                                     <span >{{ __('Translate') }}</span>
                                                 </button>
                                             </span>
@@ -67,8 +66,6 @@ export default {
         return {
             translationsData: this.translations,
             loading: false,
-            // singleTranslating: false,
-            allTranslating: false,
         };
     },
     methods: {
@@ -92,7 +89,6 @@ export default {
         },
         async translateIt(key) {
             try {
-                // this.singleTranslating = true;
                 let response = await axios.get(route("languages.translate"), {
                     params: {
                         key: key,

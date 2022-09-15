@@ -6,9 +6,9 @@
         <div class="container-tight mt-6 mt-5">
             <div class="empty mt-6 mt-5">
                 <div class="empty-header">403</div>
-                <p class="empty-title">Unauthorized</p>
+                <p class="empty-title">{{ __('Unauthorized') }}</p>
                 <p class="empty-subtitle text-muted">
-                    We are sorry but you are not authorized to access this page
+                    {{ __('We are sorry but you are not authorized to access this page') }}
                 </p>
                 <div class="empty-action">
                     <Link :href="route('dashboard')" class="btn btn-primary active-link"><svg
@@ -19,7 +19,7 @@
                             <line x1="5" y1="12" x2="11" y2="18"></line>
                             <line x1="5" y1="12" x2="11" y2="6"></line>
                         </svg>
-                        Take me home
+                        {{ __('Take me home') }}
                     </Link>
                 </div>
             </div>

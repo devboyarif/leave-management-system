@@ -223,13 +223,7 @@ export default {
 
                 this.diffBetweenDays = response.data.final_days_count;
             }
-        },
-        // "form.start": function(val){
-        //     console.log(val)
-        // },
-        // "form.end": function(val){
-        //     console.log(val)
-        // },
+        }
     },
     mounted() {
         this.checkPagePermission("employee");
