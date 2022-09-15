@@ -62,7 +62,7 @@
             <div class="modal-mask">
                 <div class="modal-wrapper">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content" v-click-outside="hideModalOutsideClick">
+                        <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">
                                     <span>{{ __('Holiday Request Create') }}</span>
@@ -203,7 +203,7 @@ export default {
             const formatTime = dayjs(startDate).format("YYYY-MM-DD");
 
             if(this.form.end){
-                let dateCheck = this.checkDateValidity(formatTime, this.form.end);
+                let dateCheck = this.checkDateValidity(formatTime, this.form.end, true);
 
                 if(!dateCheck){
                     this.form.end = ''
@@ -217,7 +217,7 @@ export default {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
 
             if(this.form.start){
-                let dateCheck = this.checkDateValidity(this.form.start, formatTime);
+                let dateCheck = this.checkDateValidity(this.form.start, formatTime, true);
 
                 if(!dateCheck){
                     this.form.end = ''
@@ -226,14 +226,7 @@ export default {
             }
 
             this.form.end = formatTime;
-        },
-        hideModalOutsideClick() {
-            if (this.form.processing) {
-                return;
-            } else {
-                this.showModal = false;
-            }
-        },
+        }
     },
     mounted(){
         this.checkPagePermission('employee')
