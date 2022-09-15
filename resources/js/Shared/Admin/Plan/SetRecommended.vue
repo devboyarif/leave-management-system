@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-8">
         <div class="d-flex align-items-center my-3">
-            <div class="form-row align-items-end mr-3">
+            <div class="form-row mr-3">
                 <div class="col-auto">
                     <label for="" class="mr-sm-2">{{ __('Set Default Plan') }}</label>
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="default_plan_id">
@@ -10,12 +10,11 @@
                         </option>
                     </select>
                 </div>
-                <div class="col-auto">
-                    <button @click="setDefaultPlan" type="button" class="btn btn-primary "
-                        style="margin-top:30px">{{ __('Save') }}</button>
+                <div class="col-auto pt-30">
+                    <button @click="setDefaultPlan" type="button" class="btn btn-primary">{{ __('Save') }}</button>
                 </div>
             </div>
-            <div class="form-row align-items-end">
+            <div class="form-row">
                 <div class="col-auto">
                     <label for="" class="mr-sm-2">{{ __('Set Recommended Plan') }}</label>
                     <select name="plan_id" class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="plan_id">
@@ -25,9 +24,8 @@
                         </option>
                     </select>
                 </div>
-                <div class="col-auto">
-                    <button @click="setRecommendedPlan" type="button" class="btn btn-primary "
-                        style="margin-top:30px">{{ __('Save') }}</button>
+                <div class="col-auto pt-30">
+                    <button @click="setRecommendedPlan" type="button" class="btn btn-primary">{{ __('Save') }}</button>
                 </div>
             </div>
         </div>
