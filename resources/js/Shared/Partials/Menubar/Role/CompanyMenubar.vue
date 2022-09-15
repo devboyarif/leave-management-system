@@ -66,18 +66,6 @@
 
                     <!-- Subscription Part  -->
                     <li class="nav-header">{{ __('Billing') }}</li>
-                    <!-- <NavLink title="Pricing Plan" :href="route('company.plan')"
-                        :active="$page.component == 'company/plan'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-money-bill nav-icon"></i>
-                        </template>
-                    </NavLink>
-                    <NavLink title="Orders" :href="route('company.orders.index')"
-                        :active="$page.component == 'company/order/index'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-chart-pie nav-icon"></i>
-                        </template>
-                    </NavLink> -->
                     <NavLink title="Billing" :href="route('company.billing')"
                         :active="$page.component == 'company/billing'">
                         <template v-slot:icon>

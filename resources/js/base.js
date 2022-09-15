@@ -38,9 +38,11 @@ module.exports = {
                 this.$inertia.get(route("error.403"))
             }
         },
-        checkDateValidity(start, end) {
-            if(end > start) {
-                return true
+        checkDateValidity(start, end, equal = false) {
+            if (equal) {
+                if(end >= start) { return true }
+            }else{
+                if(end > start) { return true }
             }
 
             return false

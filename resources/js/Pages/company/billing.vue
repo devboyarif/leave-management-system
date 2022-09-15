@@ -21,7 +21,10 @@
                 <div class="card-body">
                     <h5>{{ __('Next payment due') }}</h5>
                     <div class="h3">
-                        {{ formateDate(currently_subscribed.expired_at, "MMMM D") }}
+                        <template v-if="currently_subscribed.plan && currently_subscribed.plan.interval != 'lifetime'">
+                            {{ formateDate(currently_subscribed.expired_at, "MMMM D") }}
+                        </template>
+                        <span v-else>{{ __('Lifetime') }}</span>
                     </div>
                     <a class="text-arrow-icon small text-secondary" href="#billing_history">
                         {{ __('View billing history') }}
@@ -87,9 +90,11 @@
                                             {{ __('Select Plan') }}
                                             <i class="fas fa-arrow-right"></i>
                                         </a>
-                                        <a href="javascript:void(0)" class="btn btn-danger" v-if="currently_subscribed.plan_id == plan.id">
-                                            {{ __('Expire In') }} - {{ currently_subscribed.remaining_days }} {{ __('Days') }}
-                                        </a>
+                                        <template v-if="currently_subscribed.plan && currently_subscribed.plan.interval != 'lifetime'">
+                                            <a href="javascript:void(0)" class="btn btn-danger" v-if="currently_subscribed.plan_id == plan.id">
+                                                {{ __('Expire In') }} - {{ currently_subscribed.remaining_days }} {{ __('Days') }}
+                                            </a>
+                                        </template>
                                     </div>
                                 </div>
                             </div>

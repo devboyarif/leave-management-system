@@ -213,7 +213,7 @@
                         </table>
                     </div>
                      <div class="row justify-content-between">
-                            <Link :href="route('company.plan')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>
+                            <Link :href="route('company.billing')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>
                        </div>
                 </div>
                 <div class="card-body mx-auto" v-else>
@@ -228,7 +228,7 @@
         <transition name="fade">
             <div class="modal-mask">
                 <div class="modal-wrapper">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog d-flex justify-content-center" role="document">
                         <div class="modal-content" v-click-outside="()=> showModal = false">
                             <div class="modal-header">
                                 <h5 class="modal-title">
@@ -274,7 +274,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td width="50%">{{ __('Reason') }}</td>
+                                            <td width="30%">{{ __('Reason') }}</td>
                                             <td width="50%">{{ form.reason }}</td>
                                         </tr>
                                     </tbody>
@@ -416,5 +416,9 @@ export default {
         padding: 1px 5px;
         font-weight: 500;
         color: #fff;
+    }
+
+    .modal-dialog {
+        max-width: 1000px !important;
     }
 </style>

@@ -22,9 +22,6 @@ class Company extends Model
                 'expired_date' => now()->addMonth(),
                 'subscription_type' => 'monthly'
             ]);
-            $company->subscriptionHistory()->create([
-                'plan_id'  => 1,
-            ]);
 
             // Attach working days to company
             $company->workingDays()->create([
@@ -103,11 +100,6 @@ class Company extends Model
     public function subscription()
     {
         return $this->hasOne(Subscription::class, 'company_id');
-    }
-
-    public function subscriptionHistory()
-    {
-        return $this->hasMany(SubscriptionHistory::class, 'company_id');
     }
 
     public function orders()
