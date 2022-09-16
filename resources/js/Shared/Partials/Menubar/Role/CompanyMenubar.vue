@@ -3,7 +3,7 @@
         <!-- Brand Logo -->
 
          <Link :href="route('dashboard')" class="brand-link">
-            <img :src="setting.app_favicon" alt="logo" class="brand-image img-circle" style="opacity: .8">
+            <img :src="setting.app_favicon" alt="logo" class="brand-image img-circle">
             <span class="brand-text font-weight-bold">{{ setting.app_name }}</span>
         </Link>
 

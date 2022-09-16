@@ -1,12 +1,11 @@
 <template>
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
          <Link :href="route('dashboard')" class="brand-link">
-            <img :src="setting.app_favicon" alt="logo" class="brand-image img-circle" style="opacity: .8">
+            <img :src="setting.app_favicon" alt="logo" class="brand-image img-circle">
             <span class="brand-text font-weight-bold">{{ setting.app_name }}</span>
         </Link>
 
-        <div class="sidebar" style="overflow-y: auto;">
-
+        <div class="sidebar">
             <nav class="sidebar-main-nav mt-3">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">

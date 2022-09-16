@@ -33,7 +33,6 @@
                                         <option value="25">25</option>
                                         <option value="2525">2525</option>
                                     </select>
-                                    <!-- <input v-model="form.port" type="number" class="form-control" :class="{'is-invalid':form.errors.port}"> -->
                                     <ErrorMessage :name="form.errors.port" />
                                 </div>
                             </div>

@@ -47,7 +47,7 @@ class RejectedLeaveRequest extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('Your leave request has been rejected')
+            ->line('Leave request has been rejected')
             ->action('View Request', route('employee.leave.request.index', ['id' => $this->leaveRequest->id]))
             ->line('Thank you for using our application!');
     }
@@ -61,7 +61,7 @@ class RejectedLeaveRequest extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Your leave request has been rejected',
+            'message' => 'Leave request has been rejected',
             'url' => route('employee.leave.request.index', ['id' => $this->leaveRequest->id]),
         ];
     }

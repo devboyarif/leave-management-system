@@ -3,12 +3,12 @@
         <!-- Brand Logo -->
         <Link :href="route('dashboard')" class="brand-link">
             <img :src="setting.app_favicon" alt="logo"
-                class="brand-image img-circle" style="opacity: .8">
+                class="brand-image img-circle">
             <span class="brand-text font-weight-bold">{{ setting.app_name }}</span>
         </Link>
 
         <!-- Sidebar -->
-        <div class="sidebar" style="overflow-y: auto;">
+        <div class="sidebar">
 
             <!-- Sidebar Menu -->
             <nav class="sidebar-main-nav mt-3">
