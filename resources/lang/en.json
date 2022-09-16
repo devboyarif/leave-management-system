@@ -13,8 +13,6 @@
     "I agree to the": "I agree to the",
     "terms & condition": "terms & condition",
     "Already have an account": "Already have a account ?",
-
-
     "Dashboard": "Dashboard",
     "Total Income": "Total Income",
     "Total Companies": "Total Companies",
@@ -30,17 +28,11 @@
     "Used": "Used",
     "Remaining": "Remaining",
     "Total Expense": "Total Expense",
-   " Pending Request": "Pending Request",
-   " Total Teams": "Total Teams",
-
     "Users": "Users",
     "Admin": "Admin",
     "Leave": "Leave",
     "Language": "Language",
     "Logout": "Logout",
-
-
-
     "Company": "Company",
     "Company Name": "Company Name",
     "Company Create": "Company Create",
@@ -348,135 +340,6 @@
     "Take me home":"Take me home",
     "You just found an error page":"You just found an error page",
     " We are sorry but the page you are looking for was not found":" We are sorry but the page you are looking for was not found",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     "Send Request": "Send Request",
     "Accept Request": "Accept Request",
     "Reject Request": "Reject Request",
@@ -500,19 +363,14 @@
     "Leave Balance Day": "Leave Balance Day",
     "Leave Request Details": "Leave Request Details",
     "Recent Approved Leaves": "Recent Approved Leaves",
-
-
     "Get Request": "Get Request",
     "Leave Balance": "Leave Balance",
     "Leave Type Balance": "Leave Type Balance",
     "Allow auto approve": "Allow auto approve",
     "Select Leave Type": "Select Leave Type",
-
-
     "Calendar": "Calendar",
     "Calendar View": "Calendar View",
     "Official Holiday Calendar": "Official Holiday Calendar",
-
     "Language List": "Language List",
     "Language Create": "Language Create",
     "Language Edit": "Language Edit",
@@ -529,20 +387,6 @@
     "Translate All": "Translate All",
     "Translate": "Translate",
     "Translating": "Translating...",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     "Theme": "Theme",
     "See All Notifications": "See All Notifications",
     "Current Plan": "Current Plan",
@@ -608,38 +452,6 @@
     "Show Filter": "Show Filter",
     "Hide Filter": "Hide Filter",
     "Custom Date Range": "Custom Date Range",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     "Member Since": "Member Since",
     "Profile Setting": "Profile Setting",
     "Choose file": "Choose file",
@@ -648,14 +460,8 @@
     "Confirm Password": "Confirm Password",
     "Change Password": "Change Password",
     "Update Password": "Update Password",
-
-
     "Country": "Country",
     "Select Country": "Select Country",
-
-
-
-
     "Title": "Title",
     "Full Name": "Full Name",
     "Name": "Name",
@@ -674,8 +480,6 @@
     "Active": "Active",
     "Inactive": "Inactive",
     "All": "All",
-
-
     "Holidays": "Holidays",
     "Holiday Title": "Holiday Title",
     "Add Holiday": "Add Holiday",
@@ -704,14 +508,10 @@
     "Start Date": "Start Date",
     "End Date": "End Date",
     "Note": "Note",
-
-
-
     "Upgrade your plan to use this feature": "Upgrade your plan to use this feature",
     "You have reached the maximum number of leave types": "You have reached the maximum number of leave types",
     "You have reached the maximum number of teams": "You have reached the maximum number of teams",
     "You have reached the maximum number of employees": "You have reached the maximum number of employees"
-
 }
 
 
