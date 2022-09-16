@@ -26,7 +26,6 @@ class LanguageUpdateRequest extends FormRequest
         return [
             'name' => "required|unique:languages,name,{$this->lang->id}",
             'code' => "required|unique:languages,code,{$this->lang->id}",
-            'direction' => 'required',
         ];
     }
 }

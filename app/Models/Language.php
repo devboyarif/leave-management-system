@@ -9,5 +9,5 @@ class Language extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'code', 'direction', 'status'];
+    protected $fillable = ['name', 'code', 'status'];
 }

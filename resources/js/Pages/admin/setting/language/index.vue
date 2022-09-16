@@ -35,7 +35,6 @@
                                <tr>
                                     <th>{{ __('Name') }}</th>
                                     <th>{{ __('Code') }}</th>
-                                    <th>{{ __('Direction') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
@@ -50,7 +49,6 @@
                                             </span>
                                         </td>
                                         <td>{{ language.code }}</td>
-                                        <td>{{ language.direction }}</td>
                                         <td>
                                             <label class="switch ">
                                                 <input @change="languageStatusUpdate(language.id)" type="checkbox" class="success toggle-switch" :checked="language.status">
@@ -107,14 +105,6 @@
                                 <ErrorMessage :name="form.errors.code" />
                             </div>
                             <div class="mb-3">
-                                <Label :name="__('Direction')"/>
-                                <select class="form-control" :class="{'is-invalid':form.errors.direction}" v-model="form.direction">
-                                    <option value="ltr">{{ __('LTR') }}</option>
-                                    <option value="rtl">{{ __('RTL') }}</option>
-                                </select>
-                                <ErrorMessage :name="form.errors.direction" />
-                            </div>
-                            <div class="mb-3">
                                 <Label :name="__('Status')" :required="false"/> <br>
                                 <label class="switch ">
                                     <input @change="statusChange" v-model="form.status" type="checkbox" class="success toggle-switch" checked>
@@ -157,7 +147,6 @@ export default {
             form: this.$inertia.form({
                 name: "",
                 code: "",
-                direction: "ltr",
                 status: true,
             }),
         };
@@ -176,7 +165,6 @@ export default {
             this.selectedId = language.id;
             this.form.name = language.name;
             this.form.code = language.code;
-            this.form.direction = language.direction;
         },
         cancelEdit() {
             this.isEditMode = false;

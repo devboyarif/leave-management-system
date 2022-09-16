@@ -33,7 +33,7 @@ class MasterSeeder extends Seeder
         ]);
 
         // Language Create
-        Language::create(['name' => 'English', 'code' => 'en','direction' => 'ltr']);
+        Language::create(['name' => 'English', 'code' => 'en']);
 
         // Currency Create
         Currency::create(['name' => 'US Dollar','code' => 'USD', 'symbol' => '$','symbol_position' => 'left']);
