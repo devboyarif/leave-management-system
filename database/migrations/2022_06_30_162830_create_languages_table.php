@@ -17,7 +17,6 @@ class CreateLanguagesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('code')->unique();
-            $table->string('direction', 3)->default('ltr');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

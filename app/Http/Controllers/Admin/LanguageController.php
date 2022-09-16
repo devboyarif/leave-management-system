@@ -31,7 +31,6 @@ class LanguageController extends Controller
         $language = Language::create([
             'name' => $request->name,
             'code' => $request->code,
-            'direction' => $request->direction,
             'status' => $request->status ? 1 : 0,
         ]);
 
@@ -55,7 +54,6 @@ class LanguageController extends Controller
         $lang->update([
             'name' => $request->name,
             'code' => $request->code,
-            'direction' => $request->direction,
             'status' => $request->status ? 1 : 0
         ]);
 

@@ -17,13 +17,11 @@ class LanguageSeeder extends Seeder
         Language::create([
             'name' => 'English',
             'code' => 'en',
-            'direction' => 'ltr',
         ]);
 
         Language::create([
             'name' => 'Bangla',
             'code' => 'bn',
-            'direction' => 'ltr',
         ]);
     }
 }
