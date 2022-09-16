@@ -160,7 +160,7 @@
                 </div>
             </div>
         </div>
-        <!-- /.col-md-6 -->
+
         <div class="col-lg-4">
             <!-- Expenses per companies  -->
             <CompaniesExpenseChart :data="expense_per_company" />

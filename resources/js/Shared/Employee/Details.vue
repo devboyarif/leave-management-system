@@ -103,9 +103,6 @@
                     </div>
                     <div class="row mt-4">
                         <div class="col-sm-12">
-                            <!-- <Link :href="route('employees.edit',user.id)" v-tooltip="'Edit'" class="btn pl-0">
-                            <EditIcon />
-                            </Link> -->
                             <button @click="deleteEmployee(user.id)" v-tooltip="'Delete'" class="btn">
                                 <DeleteIcon />
                             </button>
@@ -120,7 +117,7 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h4 class="d-flex align-items-center mb-3">{{ __('Leave Balance') }}</h4>
-                    <table style="width:100%" class="table table-bordered">
+                    <table class="table table-bordered">
                         <tr class="h5">
                             <th>{{ __('Leave Type') }}</th>
                             <th>{{ __('Remaining Days') }}</th>

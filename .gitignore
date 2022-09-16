@@ -17,3 +17,4 @@ yarn-error.log
 !/resources/lang/en.json
 /public/uploads
 composer.lock
+.DS_Store
