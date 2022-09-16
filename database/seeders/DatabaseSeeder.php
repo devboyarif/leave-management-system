@@ -21,28 +21,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // For Packaging
-        $this->packagingVersion();
-
-        // For Development
-        // $this->developmentVersion();
-    }
-
-    private function packagingVersion()
-    {
-        $this->call([
-            MasterSeeder::class,
-            ThemeSeeder::class,
-            CountrySeeder::class,
-            FeatureSeeder::class,
-            SettingSeeder::class,
-            SeoSeeder::class,
-            CmsSeeder::class,
-        ]);
-    }
-
-    private function developmentVersion()
-    {
         $this->call([
             TeamSizeSeeder::class,
             PlanSeeder::class,
@@ -50,7 +28,6 @@ class DatabaseSeeder extends Seeder
             ThemeSeeder::class,
             CountrySeeder::class,
             CompanySeeder::class,
-            // LeaveTypeSeeder::class,
             TeamSeeder::class,
             EmployeeSeeder::class,
             CalendarSeeder::class,
