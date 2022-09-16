@@ -19,10 +19,7 @@ class TeamSizeSeeder extends Seeder
         ];
 
         foreach ($team_sizes as $size) {
-            TeamSize::create([
-                'name' => $size,
-                'slug' => strSlug($size)
-            ]);
+            TeamSize::create(['name' => $size]);
         }
     }
 }
