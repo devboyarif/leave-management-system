@@ -16,3 +16,4 @@ yarn-error.log
 /resources/lang/*.json
 !/resources/lang/en.json
 /public/uploads
+composer.lock
