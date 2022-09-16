@@ -10,7 +10,6 @@ use App\Http\Controllers\Payment\RazorpayController;
 use App\Http\Controllers\Payment\InstamojoController;
 use App\Http\Controllers\Payment\FlutterwaveController;
 use App\Http\Controllers\Payment\ManualPaymentController;
-use App\Http\Controllers\Payment\SslCommerzPaymentController;
 
 //Paypal
 Route::controller(PayPalController::class)->group(function () {
@@ -23,15 +22,6 @@ Route::controller(PayPalController::class)->group(function () {
 Route::controller(PaystackController::class)->group(function () {
     Route::post('paystack/payment', 'redirectToGateway')->name('paystack.post');
     Route::get('/paystack/success', 'successPaystack')->name('paystack.success');
-});
-
-// SSLCOMMERZ
-Route::controller(SslCommerzPaymentController::class)->prefix('payment')->group(function () {
-    Route::post('/pay-via-ajax', 'payViaAjax')->name('ssl.pay');
-    Route::post('/ssl/success', 'success');
-    Route::post('/ssl/fail', 'fail');
-    Route::post('/ssl/cancel', 'cancel');
-    Route::post('/ssl/ipn', 'ipn');
 });
 
 // Flutterwave
