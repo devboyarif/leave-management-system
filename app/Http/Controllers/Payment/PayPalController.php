@@ -30,7 +30,7 @@ class PayPalController extends Controller
 
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
-        $paypalToken = $provider->getAccessToken();
+        $provider->getAccessToken();
 
         $response = $provider->createOrder([
             "intent" => "CAPTURE",

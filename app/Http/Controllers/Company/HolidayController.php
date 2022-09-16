@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\User;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\Holiday;

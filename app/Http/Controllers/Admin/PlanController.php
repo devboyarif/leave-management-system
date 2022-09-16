@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Plan;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PlanCreateRequest;
 use App\Http\Requests\Admin\PlanUpdateRequest;
@@ -63,17 +62,6 @@ class PlanController extends Controller
 
         session()->flash('success', 'Plan created successfully!');
         return back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

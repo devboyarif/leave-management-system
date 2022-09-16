@@ -6,11 +6,7 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\Company;
 use App\Models\Country;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\CompanyCreateRequest;
-use App\Http\Requests\CompanyUpdateRequest;
 
 class CompanyController extends Controller
 {
@@ -54,43 +50,6 @@ class CompanyController extends Controller
                 'country' => $country ?? '',
             ],
         ]);
-
-        // $search = request('search') ?? '';
-        // $country = request('country') ?? '';
-
-        // $companies = User::query()
-        //     ->where('role', 'owner')
-        //     ->where(function ($query) use ($search) {
-        //         $query->where('name', 'LIKE', '%' . $search . '%')
-        //             ->orWhere('email', 'LIKE', '%' . $search . '%');
-        //     })
-        //     ->when($country, function ($query, $country) {
-        //         $query->whereHas('company', function ($query) use ($country) {
-        //             $query->where('country_id', $country);
-        //         });
-        //     })
-        //     ->with('company.country')
-        //     ->latest()
-        //     ->paginate(10)
-        //     ->withQueryString()
-        //     ->through(fn ($user) => [
-        //         'id' => $user->id,
-        //         'name' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $user->name) : $user->name,
-        //         'email' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $user->email) : $user->email,
-        //         'avatar' => $user->avatar,
-        //         'country' => $user->company->country->name ?? '',
-        //     ]);
-
-        // $countries = Country::all(['id', 'name', 'slug']);
-
-        // return inertia('admin/company/index', [
-        //     'companies' => $companies,
-        //     'countries' => $countries,
-        //     'filters' => [
-        //         'search' => $search,
-        //         'country' => $country ?? '',
-        //     ],
-        // ]);
     }
 
 

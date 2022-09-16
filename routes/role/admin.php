@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\Admin\GlobalController;
-use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\SettingController;
