@@ -14,7 +14,6 @@ class FeatureSeeder extends Seeder
      */
     public function run()
     {
-        // Feature::factory(4)->create();
         $features = [
             [
                 'title' => 'Laravel Vuejs SPA',
