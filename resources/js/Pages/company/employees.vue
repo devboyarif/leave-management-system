@@ -75,28 +75,31 @@
                     </div>
                     <div class="tab-pane fade" :class="{'show active': currentTab == team.slug}" v-for="team in teams" :key="team.id">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 semi-gutters">
-                                <template v-if="employees && employees.length">
-                            <div class="col mb-4" v-for="employee in employees" :key="employee.id">
-                                <div class="card h-100" v-if="employee.user">
-                                    <img :src="employee.user.avatar" class="card-image-top">
-                                    <div class="card-body">
-                                        <h6 class="card-title">{{ employee.user.name }}</h6> <br>
-                                        <p  class="m-0 p-0" v-if="employee.team">{{ employee.team.name }}</p>
-                                        <p class="mt-0 p-0">
-                                            {{ employee.user.email }}
-                                        </p>
-                                        <p class="mt-0 p-0">
-                                            {{ employee.phone ? employee.phone:'' }}
-                                        </p>
-                                        <button @click="editData(employee)" class="btn btn-sm team-member-edit">
-                                            <EditIcon/>
-                                        </button>
-                                        <button @click="deleteData(employee.user.id)" class="btn btn-sm team-member-delete">
-                                            <DeleteIcon/>
-                                        </button>
+                            <template v-if="employees && employees.length">
+                                <div class="col mb-4" v-for="employee in employees" :key="employee.id">
+                                    <div class="card h-100" v-if="employee.user">
+                                        <img :src="employee.user.avatar" class="card-image-top">
+                                        <div class="card-body">
+                                            <h6 class="card-title">{{ employee.user.name }}</h6> <br>
+                                            <p  class="m-0 p-0" v-if="employee.team">{{ employee.team.name }}</p>
+                                            <p class="mt-0 p-0">
+                                                {{ employee.user.email }}
+                                            </p>
+                                            <p class="mt-0 p-0">
+                                                {{ employee.phone ? employee.phone:'' }}
+                                            </p>
+                                            <Link :href="route('company.employees.show',employee.user_id)" v-tooltip="'Details'" class="btn btn-sm team-member-show">
+                                                <EyeIcon/>
+                                            </Link>
+                                            <button @click="editData(employee)" class="btn btn-sm team-member-edit">
+                                                <EditIcon/>
+                                            </button>
+                                            <button @click="deleteData(employee.user.id)" class="btn btn-sm team-member-delete">
+                                                <DeleteIcon/>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </template>
                             <template v-else>
                                 <div class="d-flex justify-content-center text-center m-auto">

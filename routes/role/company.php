@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\Company\AccountSetupController;
-use App\Http\Controllers\Company\CompanyController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Company\TeamController;
 use App\Http\Controllers\Company\InviteController;
+use App\Http\Controllers\Company\ReportController;
+use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Company\HolidayController;
 use App\Http\Controllers\Company\SettingController;
 use App\Http\Controllers\Company\EmployeeController;
 use App\Http\Controllers\Company\LeaveTypeController;
+use App\Http\Controllers\Company\AccountSetupController;
 use App\Http\Controllers\Company\LeaveRequestController;
-use App\Http\Controllers\Company\ReportController;
 
 Route::middleware(['auth', 'check.company.role','check.company.setup'])->prefix('company')->name('company.')->group(function () {
     // Employee routes
@@ -18,8 +19,7 @@ Route::middleware(['auth', 'check.company.role','check.company.setup'])->prefix(
     Route::post('/employees/invite', [EmployeeController::class, 'inviteEmployee'])->name('employees.invite');
 
     // Pricing Plan
-    Route::get('/orders', [CompanyController::class, 'orders'])->name('orders.index');
-    Route::get('/pricing/plan', [CompanyController::class, 'plan'])->name('plan');
+    Route::get('/billing', [CompanyController::class, 'billing'])->name('billing');
 
     // Team routes
     Route::get('/teams/employees', [TeamController::class, 'teamEmployees'])->name('teams.employees');
@@ -40,6 +40,9 @@ Route::middleware(['auth', 'check.company.role','check.company.setup'])->prefix(
         Route::post('/holiday/import', 'importHolidays')->name('holidays.import');
     });
     Route::resource('/holidays', HolidayController::class);
+
+    // Orders
+    Route::get('/orders/{order}', [OrderController::class, 'orderDetails'])->name('orders.show');
 
     // Reports
     Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {

@@ -73,10 +73,6 @@ export default {
         async changeTab(tab) {
             localStorage.setItem("generalCurrentTab", tab);
             this.currentTab = tab;
-            // let response = await axios.get(route("settings.payment.data", {
-            //     provider: tab,
-            // }));
-            // this.paymentData = response.data;
         },
     },
     mounted() {

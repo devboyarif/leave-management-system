@@ -146,32 +146,6 @@ class LanguageController extends Controller
         }
 
         return response()->json($afterTrans);
-
-
-        // Two Array
-        // $language = Language::findOrFail(request('id'));
-
-        // $tr = new GoogleTranslate($language->code);
-
-        // $translations = json_decode(file_get_contents(base_path('resources/lang/' . $language->code . '.json')), true);
-        // $stringArray = [];
-        // foreach ($translations as $key => $value) {
-        //     array_push($stringArray, $value);
-        // }
-
-        // $translationString = implode(" _ ", $stringArray);
-        // $translatedTexts = explode(" _ ", $tr->translate($translationString));
-
-        // $newTranslatedTextArray = [];
-        // $data = array_replace($translations, $translatedTexts);
-
-        // $arrayKeys = array_keys($translations);
-        // return [$arrayKeys, $translatedTexts];
-        // foreach ($translations as $index => $item) {
-        //     $newTranslatedTextArray[$item] = $translatedTexts[$index];
-        // }
-
-        // return response()->json($newTranslatedTextArray);
     }
 
     public function defaultLanguage(Language $lang){

@@ -41,6 +41,10 @@
                                 @else
                                     <small>/{{ $plan->interval }}</small>
                                 @endif
+                                @if ($plan->recommended)
+                                    <br>
+                                    <span class="badge bg-primary mt-2">{{ __('Recommended') }}</span>
+                                @endif
                             </div>
                             <div class="pricing-list">
 
@@ -74,7 +78,7 @@
                             <div class="pricing-btn rounded-buttons text-center">
                                 @if (auth()->check() && auth()->user()->role == 'owner')
                                     <a class="btn primary-btn rounded-full price-btn"
-                                        href="{{ $plan->id == session('current_subscription')->plan_id ? 'javascript:void(0)' : route('website.plan.details', $plan->slug) }}">
+                                        href="{{ route('website.plan.details', $plan->slug) }}">
                                         @if ($plan->id == session('current_subscription')->plan_id)
                                             {{ __('Current Plan') }}
                                         @else

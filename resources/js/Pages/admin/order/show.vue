@@ -1,22 +1,25 @@
 <template>
-    <div class="row pt-4">
+    <Head :title="__('Order Details')"/>
+
+    <div class="row p-4">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body ">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h5>Order Id: #630731D5B6A75</h5>
-                            <h5>Transaction No: #630731D5B6A75</h5>
+                            <h5>{{ __('Order Id') }}: <b>#{{ order.order_id }}</b></h5>
+                            <h5>{{ __('Transaction ID') }}: <b>{{ order.transaction_id }}</b></h5>
                             <p class="">
-                                August 25, 2022, 08:24 AM
+                                {{ formateDate(order.created_at, 'MMMM D, YYYY, HH:mm') }} <br>
                             </p>
                         </div>
                         <div>
-                            <a href="https://clicon.templatecookie.com/admin/order/generate/pdf/102" target="_blank">
-                                <b><i class="fas fa-download"></i>
-                                    Download Invoice</b>
+                            <a :href="route('orders.pdf.download', order.id)" target="_blank">
+                                <b>
+                                    <i class="fas fa-download"></i>
+                                    {{ __('Download Invoice') }}
+                                </b>
                             </a>
-
                         </div>
                     </div>
                 </div>
@@ -27,99 +30,116 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-                            <h5 class="mb-3">Company Details</h5>
-                            <h6 class="mb-2"><a href="">Company Name</a></h6>
-                            <p class="mb-1">Country</p>
-                            <p class="mb-0"> <strong>Email: </strong>
-                            <a href="mailto:ricky@gmail.com">tod61@kozey.com</a></p>
+                            <h5 class="mb-3">{{ __('Bill From') }}</h5>
+                            <h6 class="mb-2" v-if="setting.app_name">{{ setting.app_name }}</h6>
+                            <p class="mb-1" v-if="setting.app_contact_number">{{ setting.app_contact_number }}</p>
+                            <p class="mb-0" v-if="setting.app_email"><a :href="`mailto:${setting.app_email}`">{{ setting.app_email }}</a></p>
+                            <p class="mb-0" v-if="setting.app_location"><small>{{ setting.app_location }}</small></p>
                         </div>
-
                         <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-                            <h5 class="mb-3">Plan Details</h5>
-                            <h6 class="mb-2">Basic</h6>
-                            <p class="mb-0">$12/monthly</p>
+                            <h5 class="mb-3">{{ __('Bill To') }}</h5>
+                            <h6 class="mb-2" v-if="company.user">
+                                {{ company.user.name }}
+                            </h6>
+                            <h6 class="mb-2" v-if="company.user"><a :href="`mailto:${company.user.email}`">{{ company.user.email }}</a></h6>
                         </div>
-                        <div class="col-md-6 col-lg-4">
-                            <h5 class="mb-3">Payment Method</h5>
-                            <div class="d-flex">
-                                <div class="flex-1">
-                                    <h6 class="mb-0">Method:
-                                        Bank
-                                    </h6>
-
-                                    <p class="mb-0">
-                                        Status:
-                                        <span class="badge badge-pill badge-success">
-                                            Paid
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
+                        <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                            <h5 class="mb-3">{{ __('Company Details') }}</h5>
+                            <h6 class="mb-2" v-if="company.company_name">{{ company.company_name }}</h6>
+                            <p class="mb-1" v-if="company.company_phone">{{ company.company_phone }}</p>
+                            <p class="mb-0" v-if="company.company_email"><a :href="`mailto:${company.company_email}`">{{ company.company_email }}</a></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-12">
-            <div class="card mb-3">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header border-0">
+                    <h3 class="card-title">{{ __('Payment Details') }}</h3>
+                </div>
                 <div class="card-body">
-                    <div class="table-responsive fs--1">
-                        <table class="table table-striped border-bottom">
-                            <thead class="bg-200 text-900">
-                                <tr>
-                                    <th class="border-0">Products</th>
-                                    <th class="border-0 text-center">Variants</th>
-                                    <th class="border-0 text-center">Quantity</th>
-                                    <th class="border-0 text-end">Rate</th>
-                                    <th class="border-0 text-end">Amount</th>
-                                </tr>
-                            </thead>
+                    <div class="d-flex">
+                        <div class="flex-1">
+                            <h6 class="mb-0 text-capitalize">
+                                {{ __('Payment Method') }}: <b>{{ order.payment_provider }}</b>
+                            </h6>
+                            <p class="mb-0">
+                                {{ __('Status') }}:
+                                <span class="badge badge-pill badge-success" v-if="order.payment_status == 'paid'">
+                                    {{ __('Paid') }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header border-0">
+                    <h3 class="card-title">{{ __('Plan Details') }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap col-12">
+                        <table class="table">
                             <tbody>
-                                <tr class="border-200">
-                                    <td class="align-middle">
-                                        <h6 class="mb-0 text-nowrap">Emborg Whipped Cream Spray 250gm</h6>
+                                <tr v-if="subscribed_plan.plan">
+                                    <th>{{ __('Plan') }}</th>
+                                    <td>{{ subscribed_plan.plan.name }}</td>
+                                </tr>
+                                <tr v-if="subscribed_plan.plan">
+                                    <th>{{ __('Price') }}</th>
+                                    <td>{{ currencyPosition(subscribed_plan.plan.price) }}</td>
+                                </tr>
+                                <tr v-if="subscribed_plan.plan">
+                                    <th>{{ __('Subscription Type') }}</th>
+                                    <td>
+                                        <span v-if="subscribed_plan.plan.interval == 'custom_days'">
+                                        {{ subscribed_plan.plan.custom_interval_days }} {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
+                                        </span>
+                                        <span v-else class="text-capitalize">{{ subscribed_plan.plan.interval }}</span>
                                     </td>
-                                    <td class="align-middle text-center">
+                                </tr>
+                                <tr v-if="subscribed_plan.plan && subscribed_plan.plan.interval != 'lifetime'">
+                                   <th>{{ __('Expiration Remaining') }}</th>
+                                    <td>{{ subscribed_plan.remaining_days }}
+                                    <span v-if="subscribed_plan.remaining_days != 'Lifetime'">
+                                        {{ pluralize(subscribed_plan.remaining_days, 'Day') }}
+                                    </span>
                                     </td>
-                                    <td class="align-middle text-center">1</td>
-                                    <td class="align-middle text-end">
-                                        $ 476
-                                    </td>
-                                    <td class="align-middle text-end">
-                                        $ 476
+                                </tr>
+                                <tr>
+                                   <th width="40%">{{ __('Plan Features') }}</th>
+                                    <td>
+                                        <Feature :span-text="true" name="Unlimited Employees" :checked="!subscribed_plan.plan.plan_features.is_limited_employee"/>
+                                        <Feature :span-text="true" name="Max Employees" :checked="true" :value="subscribed_plan.plan.plan_features.is_limited_employee ? subscribed_plan.plan.plan_features.max_employees : '∞'"/>
+                                        <Feature :span-text="true" name="Max Teams" :checked="true" :value="subscribed_plan.plan.plan_features.max_teams"/>
+                                        <Feature :span-text="true" name="Max Leave Types" :checked="true" :value="subscribed_plan.plan.plan_features.max_leave_types"/>
+                                        <Feature :span-text="true" name="Custom Theme Look" :checked="subscribed_plan.plan.plan_features.custom_theme_look"/>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="row g-0 justify-content-end">
-                        <div class="col-auto">
-                            <table class="table table-sm table-borderless fs--1 text-end">
-                                <tbody>
-                                    <tr>
-                                        <th class="text-900">Sub-Total:</th>
-                                        <td class="fw-semi-bold">$ 476</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-900">(+)Shipping:
-                                        </th>
-                                        <td class="fw-semi-bold">
-                                            $ 50
-                                        </td>
-                                    </tr>
-                                    <tr class="border-top">
-                                    </tr>
-                                    <tr>
-                                        <th class="text-900">Total:</th>
-                                        <td class="fw-semi-bold">$ 526</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </template>
+
+<script>
+import Feature from "../../../Shared/Admin/Plan/Feature.vue";
+
+export default {
+    props: {
+        setting: Object,
+        subscribed_plan: Object,
+        order: Object,
+        company: Object
+    },
+    components: {
+        Feature
+    }
+}
+</script>

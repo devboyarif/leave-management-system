@@ -132,7 +132,9 @@
                                     <template v-if="recent_orders && recent_orders.length">
                                         <tr v-for="order in recent_orders" :key="order.id">
                                             <td>
-                                                #{{ order.id }}
+                                                <Link :href="route('orders.show',order.id)" v-tooltip="__('Order Details')">
+                                                    #{{ order.order_id }}
+                                                </Link>
                                             </td>
                                             <td>
                                                  <Link :href="route('companies.show',order.company.id)">
@@ -158,7 +160,7 @@
                 </div>
             </div>
         </div>
-        <!-- /.col-md-6 -->
+
         <div class="col-lg-4">
             <!-- Expenses per companies  -->
             <CompaniesExpenseChart :data="expense_per_company" />

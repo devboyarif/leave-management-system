@@ -343,7 +343,7 @@ export default {
             const formatTime = dayjs(startDate).format("YYYY-MM-DD");
 
             if(this.form.end){
-                let dateCheck = this.checkDateValidity(formatTime, this.form.end);
+                let dateCheck = this.checkDateValidity(formatTime, this.form.end, true);
 
                 if(!dateCheck){
                     this.form.end = ''
@@ -357,7 +357,7 @@ export default {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
 
             if(this.form.start){
-                let dateCheck = this.checkDateValidity(this.form.start, formatTime);
+                let dateCheck = this.checkDateValidity(this.form.start, formatTime,true);
 
                 if(!dateCheck){
                     this.form.end = ''

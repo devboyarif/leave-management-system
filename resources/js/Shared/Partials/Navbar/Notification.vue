@@ -13,7 +13,7 @@
                 </span>
             </template>
         </a>
-        <div v-show="show" class="dropdown-menu dropdown-menu-lg dropdown-menu-right show" style="left: inherit; right: 0px;">
+        <div v-show="show" class="dropdown-menu dropdown-menu-lg dropdown-menu-right show">
             <template v-if="role != 'owner' && notifications.length">
                 <a :href="notification.data.url" class="dropdown-item"
                     v-for="(notification, index) in notifications"
@@ -100,7 +100,6 @@ export default {
                         }
                     });
                 }
-                console.log(notificationCount)
             }
 
             return notificationCount;

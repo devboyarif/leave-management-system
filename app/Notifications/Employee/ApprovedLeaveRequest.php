@@ -47,7 +47,7 @@ class ApprovedLeaveRequest extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('Your leave request has been approved')
+            ->line('Leave request has been approved')
             ->action('View Request', route('employee.leave.request.index', ['id' => $this->leaveRequest->id]))
             ->line('Thank you for using our application!');
     }
@@ -61,7 +61,7 @@ class ApprovedLeaveRequest extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Your leave request has been approved',
+            'message' => 'Leave request has been approved',
             'url' => route('employee.leave.request.index', ['id' => $this->leaveRequest->id]),
         ];
     }

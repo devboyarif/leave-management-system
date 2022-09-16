@@ -3,7 +3,7 @@
         <!-- Brand Logo -->
 
          <Link :href="route('dashboard')" class="brand-link">
-            <img :src="setting.app_favicon" alt="logo" class="brand-image img-circle" style="opacity: .8">
+            <img :src="setting.app_favicon" alt="logo" class="brand-image img-circle">
             <span class="brand-text font-weight-bold">{{ setting.app_name }}</span>
         </Link>
 
@@ -42,19 +42,10 @@
                             <i class="fa-solid fa-h nav-icon"></i>
                         </template>
                     </NavLink>
-
-                    <!-- Subscription Part  -->
-                    <li class="nav-header">{{ __('Subscription') }}</li>
-                    <NavLink title="Pricing Plan" :href="route('company.plan')"
-                        :active="$page.component == 'company/plan'">
+                    <NavLink title="Reports" :href="route('company.reports.index')"
+                        :active="$page.component == 'company/reports/index' || $page.component == 'company/reports/employeeLeaveBalance' || $page.component == 'company/reports/employeeLeaveHistory' || $page.component == 'company/reports/teamLeaveBalance' || $page.component == 'company/reports/teamLeaveHistory'">
                         <template v-slot:icon>
-                            <i class="fa-solid fa-money-bill nav-icon"></i>
-                        </template>
-                    </NavLink>
-                    <NavLink title="Orders" :href="route('company.orders.index')"
-                        :active="$page.component == 'company/order/index'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-chart-pie nav-icon"></i>
+                            <i class="fa-regular fa-calendar-days nav-icon"></i>
                         </template>
                     </NavLink>
 
@@ -72,10 +63,13 @@
                             <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Reports" :href="route('company.reports.index')"
-                        :active="$page.component == 'company/reports/index' || $page.component == 'company/reports/employeeLeaveBalance' || $page.component == 'company/reports/employeeLeaveHistory' || $page.component == 'company/reports/teamLeaveBalance' || $page.component == 'company/reports/teamLeaveHistory'">
+
+                    <!-- Subscription Part  -->
+                    <li class="nav-header">{{ __('Billing') }}</li>
+                    <NavLink title="Billing" :href="route('company.billing')"
+                        :active="$page.component == 'company/billing'">
                         <template v-slot:icon>
-                            <i class="fa-regular fa-calendar-days nav-icon"></i>
+                            <i class="fa-solid fa-chart-pie nav-icon"></i>
                         </template>
                     </NavLink>
 

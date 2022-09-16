@@ -6,9 +6,9 @@
     <div class="container-tight mt-6 mt-5">
         <div class="empty mt-6 mt-5">
             <div class="empty-header">404</div>
-            <p class="empty-title">Oops… You just found an error page</p>
+            <p class="empty-title">{{ __('You just found an error page') }}</p>
             <p class="empty-subtitle text-muted">
-                We are sorry but the page you are looking for was not found
+               {{ __(' We are sorry but the page you are looking for was not found') }}
             </p>
             <div class="empty-action">
                 <a href="/sms/" class="btn btn-primary active-link"><svg
@@ -19,7 +19,7 @@
                         <line x1="5" y1="12" x2="11" y2="18"></line>
                         <line x1="5" y1="12" x2="11" y2="6"></line>
                     </svg>
-                    Take me home
+                    {{ __('Take me home') }}
                 </a>
             </div>
         </div>

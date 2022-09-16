@@ -30,7 +30,7 @@
 
                     </template>
                     <h1 class="text-dark">
-                        ${{ plan.price }}
+                        {{ currencyPosition(plan.price) }}
                     </h1>
                 </div>
                 <div class="card-body" v-if="plan.plan_features">

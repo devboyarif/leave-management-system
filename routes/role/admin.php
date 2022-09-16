@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\Admin\GlobalController;
-use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\SettingController;
@@ -43,8 +42,9 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     });
 
     // Order
-    Route::get('/admin/orders', [OrderController::class, 'orders'])->name('orders.index');
-    Route::get('/admin/orders/{order}', [OrderController::class, 'orderDetails'])->name('orders.show');
+    Route::get('/orders', [OrderController::class, 'orders'])->name('orders.index');
+    Route::get('/orders/{order}', [OrderController::class, 'orderDetails'])->name('orders.show');
+    Route::get('/orders/pdf/download/{order}', [OrderController::class, 'orderPdfDownload'])->name('orders.pdf.download')->withoutMiddleware('check.admin.role');
 
     // Holidays
     Route::resource('/holidays', HolidayController::class);

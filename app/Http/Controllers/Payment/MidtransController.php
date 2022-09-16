@@ -6,7 +6,6 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Traits\PaymentAble;
 use App\Http\Controllers\Controller;
-use App\Services\Midtrans\CreateSnapTokenService; // => put it at the top of the class
 
 class MidtransController extends Controller
 {
@@ -42,11 +41,7 @@ class MidtransController extends Controller
 
     public function transactionUpdate(Request $request)
     {
-
         $order = Order::where('order_id', $request->order_id)->first();
-        // ->update([
-        //     'transaction_id' => $request->transaction_id
-        // ]);
 
         return [
             'request' => $request->all(),

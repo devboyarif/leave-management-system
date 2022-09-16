@@ -80,11 +80,6 @@ export default {
     components: {
         Pagination,
     },
-    data() {
-        return {
-            // search: this.filters.search,
-        };
-    },
     methods: {
         deleteData(id) {
             this.$swal({

@@ -6,8 +6,6 @@ use App\Models\Team;
 use App\Models\Company;
 use App\Models\Holiday;
 use App\Models\Employee;
-use App\Models\LeaveType;
-use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use App\Models\HolidayRequest;
 use App\Http\Controllers\Controller;

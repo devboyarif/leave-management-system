@@ -47,7 +47,7 @@ class PendingLeaveRequest extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('Your leave request has been submitted. Please wait for approval')
+            ->line('Leave request has been submitted')
             ->action('View Request', route('employee.leave.request.index', ['id' => $this->leaveRequest->id]))
             ->line('Thank you for using our application!');
     }
@@ -61,7 +61,7 @@ class PendingLeaveRequest extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Your leave request has been submitted. Please wait for approval',
+            'message' => 'Your leave request has been submitted',
             'url' => route('employee.leave.request.index', ['id' => $this->leaveRequest->id]),
         ];
     }

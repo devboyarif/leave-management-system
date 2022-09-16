@@ -10,7 +10,7 @@ export default {
     props: {
         message: {
             type: String,
-            default: "Processing...",
+            default: "Saving...",
         },
         messageShow: {
             type: Boolean,

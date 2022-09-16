@@ -72,8 +72,6 @@ export default {
         async changeTab(tab) {
             localStorage.setItem("companySettingTab", tab);
             this.currentTab = tab;
-
-            // this.paymentData = response.data;
         },
     },
     mounted() {

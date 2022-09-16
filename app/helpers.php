@@ -418,11 +418,6 @@ if (!function_exists('diffBetweenDays')) {
     {
         $days = CarbonPeriod::since($start_date)->days(1)->until($end_date);
         return count($days);
-
-        // $start_date = Carbon::parse(date('Y-m-d', strtotime($start_date)));
-        // $end_date = Carbon::parse(date('Y-m-d', strtotime($end_date)));
-
-        // return $start_date->diffInDays($end_date);
     }
 }
 

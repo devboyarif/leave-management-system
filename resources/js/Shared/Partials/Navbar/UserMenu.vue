@@ -24,9 +24,8 @@
             <Link class="dropdown-item" :href="route('user.profile')">{{ __('Profile') }}</Link>
             <template v-if="role == 'owner'">
                 <Link class="dropdown-item" :href="route('company.settings.general')">{{ __('Settings') }}</Link>
-                <a href="" class="dropdown-item" target="_blank">{{ __('Support') }}</a>
-                <a href="" class="dropdown-item bug-item"
-                data-toggle="bug-dialog">{{ __('Usage & Billing') }}</a>
+                <Link :href="route('company.billing')" class="dropdown-item bug-item"
+                data-toggle="bug-dialog">{{ __('Usage & Billing') }}</Link>
                 <li class="dropdown-submenu" >
                     <a class="dropdown-item dropdown-toggle" href="http://google.com">{{ __('Switch Company') }}</a>
                     <ul class="dropdown-menu">

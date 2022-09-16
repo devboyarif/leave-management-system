@@ -5,7 +5,7 @@
             <hr>
             <form class="form-horizontal" autocomplete="off" @submit.prevent="profileUpdate">
                 <div class="form-group position-relative">
-                    <Label :name="__('Avatar')" />
+                    <Label :name="__('Logo')" />
                     <img :src="previewImage" alt="image" class="d-block ui-w-100 rounded-circle" id="image">
                     <div class="profile-edit font-weight-bold" v-tooltip="__('Edit')">
                         <a href="" @click.prevent="$refs.profileimage.click()">

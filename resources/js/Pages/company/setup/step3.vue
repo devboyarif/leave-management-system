@@ -13,7 +13,9 @@
                 <div class="col-lg-5">
                     <select v-model="form.teams[index]" :class="{'border-danger':form.errors.teams}">
                         <option value="" class="d-none">{{ __('Select Team') }}</option>
-                        <option :value="team.id" v-for="team in teams" :key="team.id">{{ team.name }}</option>
+                        <option :value="team.id" v-for="team in teams" :key="team.id">
+                            {{ team.name }}
+                        </option>
                     </select>
                 </div>
                 <div class="col-lg-1" v-if="index == 0">
@@ -35,7 +37,7 @@
             </div>
         </form>
         <div class="d-flex justify-content-end mt-5 pt-5">
-            <button type="button" class="cta-btn bg-primary w-25 ml-2" @click="changeStep">
+            <button :disabled="form.processing" type="button" class="cta-btn bg-primary w-25 ml-2" @click="changeStep">
                 {{ __('Next') }}
             </button>
        </div>
@@ -57,7 +59,7 @@
     methods: {
         async getTeams(){
             let response = await axios.get(route('fetch.company.teams'))
-            this.teams = response.data
+            this.teams = response.data.teams
         },
         addMore() {
             this.form.teams.push("");
