@@ -4,13 +4,10 @@ namespace App\Http\Controllers\Company;
 
 use App\Models\User;
 use App\Models\Invite;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
-use App\Mail\Company\InviteSendMail;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use App\Traits\Employee\HasLeaveBalance;
 use App\Notifications\Company\NewEmployeeJoined;
 

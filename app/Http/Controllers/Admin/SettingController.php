@@ -28,7 +28,6 @@ class SettingController extends Controller
 
     public function generalSettingUpdate(Request $request)
     {
-        // return $request;
         switch ($request->type) {
             case 'brand_info':
                 $this->updateBrandInfo($request);
@@ -240,8 +239,6 @@ class SettingController extends Controller
 
                 $path = Storage::disk('local')->put('updates', $request->upgrade_zip);
                 uploadFileToPublic('system', $request->upgrade_zip);
-
-                // $zipped_file_name = $request->upgrade_zip->getClientOriginalName();
 
                 //Unzip uploaded update file and remove zip file.
                 $zip = new ZipArchive();

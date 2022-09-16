@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Company;
 
 use App\Models\Plan;
-use App\Models\Team;
 use App\Models\Order;
 use App\Models\Company;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller

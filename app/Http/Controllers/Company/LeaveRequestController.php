@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Company;
 
 use App\Models\Team;
-use App\Models\User;
 use App\Models\Employee;
 use App\Models\LeaveType;
 use App\Models\LeaveBalance;
@@ -125,17 +124,6 @@ class LeaveRequestController extends Controller
 
         session()->flash('success', 'Leave request created successfully!');
         return redirect_to('company.leaveRequests.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Models\Country;
-use App\Models\Holiday;
 use App\Traits\HasCountry;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CompanyCreateRequest;

@@ -14,8 +14,6 @@ class UpgradeController extends Controller
     {
         $time_start = microtime(true);
 
-
-
         if ($request->hasFile('update_zip')) {
             if (class_exists('ZipArchive')) {
 
