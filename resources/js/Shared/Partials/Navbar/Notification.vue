@@ -100,7 +100,6 @@ export default {
                         }
                     });
                 }
-                console.log(notificationCount)
             }
 
             return notificationCount;

@@ -98,7 +98,7 @@ export default {
 
                 this.translationsData[key] = response.data;
             } catch (error) {
-                console.log(error);
+                //
             }
         },
     },

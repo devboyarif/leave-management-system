@@ -218,7 +218,6 @@ export default {
         },
         languageAutoComplete(){
             let objects = Object.keys(this.langInfos);
-            console.log(objects)
             for (let i = 0; i < objects.length; i++) {
                 if (this.langInfos[objects[i]]['name'] == this.form.name) {
                     this.form.code = this.langInfos[objects[i]]['code'];

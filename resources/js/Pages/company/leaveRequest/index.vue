@@ -255,7 +255,6 @@ export default {
             );
         },
         showDetails(request) {
-            console.log(request)
             this.detailForm.type = request.leave_type.name;
             this.detailForm.color = request.leave_type.color;
             this.detailForm.status = request.status;
