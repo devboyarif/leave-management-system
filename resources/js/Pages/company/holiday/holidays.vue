@@ -25,11 +25,11 @@
                                     </Link>
                                     <a @click="deleteHolidays" class="dropdown-item" href="javascript:void(0)" v-tooltip="'Remove all holidays'">
                                         <i class="fa-solid fa-times"></i>
-                                        {{ __('Remove holidays') }}
+                                        {{ __('Delete All Holidays') }}
                                     </a>
                                     <a @click="showImportHolidayModal" class="dropdown-item" href="javascript:void(0)" v-tooltip="'Remove all holidays'">
                                         <i class="fa-solid fa-plus"></i>
-                                        {{ __('Import holidays') }}
+                                        {{ __('Import Holidays') }}
                                     </a>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <h5 v-if="holidays.length">Total Holidays - {{ holidays.length }}</h5>
+                    <h5 v-if="holidays.length">{{ __('Total Holidays') }} - {{ holidays.length }}</h5>
                     <div class="d-flex flex-wrap col-12">
                          <template v-if="holidays && holidays.length">
                             <div v-for="holiday in holidays" :key="holiday.id"
@@ -341,10 +341,30 @@ export default {
         },
         handleStartDate(startDate) {
             const formatTime = dayjs(startDate).format("YYYY-MM-DD");
+
+            if(this.form.end){
+                let dateCheck = this.checkDateValidity(formatTime, this.form.end, true);
+
+                if(!dateCheck){
+                    this.form.end = ''
+                    return this.toastError("End date must be grater than start date")
+                }
+            }
+
             this.form.start = formatTime;
         },
         handleEndDate(endDate) {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
+
+            if(this.form.start){
+                let dateCheck = this.checkDateValidity(this.form.start, formatTime,true);
+
+                if(!dateCheck){
+                    this.form.end = ''
+                    return this.toastError("End date must be grater than start date")
+                }
+            }
+
             this.form.end = formatTime;
         },
         deleteHolidays() {
@@ -389,7 +409,7 @@ export default {
         },
     },
     mounted() {
-        this.checkPagePermission("company");
+        this.checkPagePermission("owner");
     },
 };
 </script>

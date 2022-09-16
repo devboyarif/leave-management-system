@@ -27,7 +27,7 @@
                     <option value="this_year">{{ __('This Year') }}</option>
                     <option value="last_year">{{ __('Last Year') }}</option>
                     <option value="custom_date">{{ __('Custom Data') }}</option>
-                    <option value="custom_range_date">{{ __('Custom Data Range') }}</option>
+                    <option value="custom_range_date">{{ __('Custom Date Range') }}</option>
                 </select>
                 <span v-if="errors.date_type" class="invalid-feedback">{{ errors.date_type && errors.date_type[0] }}</span>
             </div>
@@ -89,7 +89,7 @@
                             <template v-if="leave_requests && leave_requests.length">
                                 <tr v-for="(leaveRequest,index) in leave_requests" :key="index">
                                     <td>
-                                        <img :src="leaveRequest.employee.user.avatar" alt="Product 1"
+                                        <img :src="leaveRequest.employee.user.avatar" alt="img"
                                             class="img-circle img-size-32 mr-2">
                                         {{ leaveRequest.employee.user.name }}
                                         (<small v-tooltip="'Company Name'">{{ leaveRequest.company.user.name }}</small>)
@@ -198,7 +198,6 @@ export default {
                     }
                 })
 
-                console.log(response)
                 this.leave_requests = response.data;
                 this.buttonLoading = false;
 
@@ -240,7 +239,7 @@ export default {
         },
     },
         mounted(){
-        this.checkPagePermission('company')
+        this.checkPagePermission('owner')
     }
 };
 </script>

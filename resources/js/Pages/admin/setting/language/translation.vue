@@ -22,10 +22,6 @@
                                         <th width="48%">
                                             <span class="d-flex justify-content-between">
                                                 <span>{{ __('Translation Text') }}</span>
-                                                <span @click="translateAll" id="translate_all" class="btn bg-info btn-sm">
-                                                    <Loading v-if="allTranslating" :message="__('Translating')"/>
-                                                    <span v-else>{{ __('Translate All') }}</span>
-                                                </span>
                                             </span>
                                         </th>
                                     </tr>
@@ -37,7 +33,6 @@
                                             <span class="d-flex">
                                                 <input type="text" class="form-control" style="width:100%" v-model="translationsData[key]">
                                                 <button type="button" @click="translateIt(key)" class="btn btn-sm ml-1 bg-info">
-                                                    <!-- <Loading  v-if="singleTranslating" message="Translating..."/> -->
                                                     <span >{{ __('Translate') }}</span>
                                                 </button>
                                             </span>
@@ -62,7 +57,7 @@
 
 <script>
 export default {
-    layout: 'Setting',
+    layout: "Setting",
     props: {
         lang: Array,
         translations: Array,
@@ -71,8 +66,6 @@ export default {
         return {
             translationsData: this.translations,
             loading: false,
-            // singleTranslating: false,
-            allTranslating: false,
         };
     },
     methods: {
@@ -96,7 +89,6 @@ export default {
         },
         async translateIt(key) {
             try {
-                // this.singleTranslating = true;
                 let response = await axios.get(route("languages.translate"), {
                     params: {
                         key: key,
@@ -105,62 +97,14 @@ export default {
                 });
 
                 this.translationsData[key] = response.data;
-                // this.singleTranslating = true;
             } catch (error) {
-                console.log(error);
-                // this.singleTranslating = false;
-            }
-        },
-        async translateAll() {
-            this.allTranslating = true;
-            try {
-                let response = await axios.get(
-                    route("languages.translate.all"),
-                    {
-                        params: {
-                            id: this.lang.id,
-                        },
-                    }
-                );
-
-                this.translationsData = response.data;
-
-                // for (let i = 0; i < response.data; i++) {
-                //     this.translationsData[i] = response.data[i];
-                //     // this.translationsData[response_keys[i]] = response_values[i]
-                //     //     ? response_values[i]
-                //     //     : response_keys[i];
-                // }
-
-                //   $.each(result.data, function(key, value) {
-                //         $('input[name=' + key + ']').val(value);
-                //     });
-
-                //     setTimeout(() => {
-                //         $('#translate_all').text('Translate All');
-                //         $('.lang-btn').prop('disabled', false);
-                //         toastr.success('Translated Successfully', 'Success');
-                //     }, 1000);
-
-                // let response_keys = response.data[0];
-                // let response_values = response.data[1];
-
-                // for (let i = 0; i < response_keys.length; i++) {
-                //     this.translationsData[response_keys[i]] = response_values[i]
-                //         ? response_values[i]
-                //         : response_keys[i];
-                // }
-
-                this.allTranslating = false;
-            } catch (error) {
-                console.log(error);
-                this.allTranslating = false;
+                //
             }
         },
     },
-     mounted(){
-        this.checkPagePermission('admin')
-    }
+    mounted() {
+        this.checkPagePermission("admin");
+    },
 };
 </script>
 

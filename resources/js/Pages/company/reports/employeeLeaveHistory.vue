@@ -28,7 +28,7 @@
                     <option value="this_year">{{ __('This Year') }}</option>
                     <option value="last_year">{{ __('Last Year') }}</option>
                     <option value="custom_date">{{ __('Custom Data') }}</option>
-                    <option value="custom_range_date">{{ __('Custom Data Range') }}</option>
+                    <option value="custom_range_date">{{ __('Custom Date Range') }}</option>
                 </select>
                 <span v-if="errors.date_type" class="invalid-feedback">{{ errors.date_type && errors.date_type[0] }}</span>
             </div>
@@ -91,7 +91,7 @@
                             <template v-if="leave_requests && leave_requests.length">
                                 <tr v-for="(leaveRequest,index) in leave_requests" :key="index">
                                     <td v-if="leaveRequest.employee && leaveRequest.employee.user">
-                                        <img :src="leaveRequest.employee.user.avatar" alt="Product 1"
+                                        <img :src="leaveRequest.employee.user.avatar" alt="img"
                                             class="img-circle img-size-32 mr-2">
                                         {{ leaveRequest.employee.user.name }}
                                         (<small v-tooltip="'Company Name'">{{ leaveRequest.company.user.name }}</small>)
@@ -176,7 +176,6 @@ import Actions from "../../../Shared/Company/LeaveRequest/Status.vue";
                 this.form.custom_date = formatTime;
             },
             handleCustomRangeDate(date) {
-                console.log('custom date - '+date)
                 const array_date = Object.keys(date);
                 const startDate = date[array_date[0]];
                 const endDate = date[array_date[1]];
@@ -206,9 +205,6 @@ import Actions from "../../../Shared/Company/LeaveRequest/Status.vue";
 
                    this.leave_requests = response.data;
                    this.buttonLoading = false;
-
-                   console.log(response)
-
                } catch (error) {
                     this.buttonLoading = false;
                     this.errors = error.response.data.errors
@@ -245,7 +241,7 @@ import Actions from "../../../Shared/Company/LeaveRequest/Status.vue";
             },
         },
          mounted(){
-            this.checkPagePermission('company')
+            this.checkPagePermission('owner')
         }
     };
 </script>

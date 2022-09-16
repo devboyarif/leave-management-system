@@ -2,7 +2,7 @@
 
     <Head :title="__('Leave Requests')" />
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center pt-5">
         <div class="col-12">
             <div class="card">
                  <div class="card-header border-0">
@@ -11,7 +11,7 @@
                         <div>
                             <Link :href="route('employee.leave.request.create')" class="btn btn-primary">
                                 <i class="fa-solid fa-plus"></i>
-                                 {{ __('Apply for leave') }}
+                                 {{ __('Apply for Leave') }}
                             </Link>
                             <button class="btn btn-secondary ml-2" @click="filteringData">
                                 <i class="fa-solid fa-filter"></i>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="card-body border-bottom d-flex justify-content-between" v-if="showFilter">
                         <div class=" w-25">
-                            <label>Leave Type</label>
+                            <label>{{ __('Leave Type') }}</label>
                             <select class="form-control" v-model="filterForm.leave_type" @change="filterData">
                                 <option value="">{{ __('All') }}</option>
                                 <option :value="leave_type.id" v-for="leave_type in leaveTypes" :key="leave_type.id">
@@ -37,7 +37,7 @@
                             </select>
                         </div>
                     <div class="ml-auto w-25">
-                        <label>Status</label>
+                        <label>{{ __('Status') }}</label>
                         <select class="form-control" v-model="filterForm.status" @change="filterData">
                             <option value="">{{ __('All') }}</option>
                             <option value="pending">{{ __('Pending') }}</option>
@@ -77,16 +77,13 @@
                                         </span>
                                     </td>
                                     <td class="d-flex">
-                                        <button @click="showDetails(leaveRequest)" v-tooltip="'Show Request Details'" class="btn btn-sm">
+                                        <button @click="showDetails(leaveRequest)" v-tooltip="__('Details')" class="btn btn-sm">
                                                 <EyeIcon/>
                                         </button>
                                         <template v-if="leaveRequest.status == 'pending'">
-                                            <Link :href="route('employee.leave.request.edit', leaveRequest.id)" v-tooltip="'Edit Request'" class="btn btn-sm">
+                                            <Link :href="route('employee.leave.request.edit', leaveRequest.id)" v-tooltip="__('Edit')" class="btn btn-sm">
                                             <EditIcon/>
                                             </Link>
-                                            <button @click="deleteData(leaveRequest.id)" v-tooltip="'Delete Request'" class="btn btn-sm">
-                                                <DeleteIcon/>
-                                            </button>
                                         </template>
                                     </td>
                                 </tr>
@@ -111,7 +108,7 @@
         <transition name="fade">
             <div class="modal-mask">
                 <div class="modal-wrapper">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog d-flex justify-content-center" role="document">
                         <div class="modal-content" v-click-outside="()=> showModal = false">
                             <div class="modal-header">
                                 <h5 class="modal-title">
@@ -126,11 +123,13 @@
                                     <tbody>
                                         <tr>
                                             <td width="30%">{{ __('Name') }}</td>
-                                            <td width="70%"><a href="#">
-                                                 <span :style="{ background: form.color, border: '2px solid '+form.color }" class="leave-type-color">
-                                            {{ form.type }}
-                                        </span>
-                                            </a></td>
+                                            <td width="70%">
+                                                <a href="#">
+                                                    <span :style="{ background: form.color, border: '2px solid '+form.color }" class="leave-type-color">
+                                                    {{ form.type }}
+                                                    </span>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td width="30%">{{ __('Date') }}</td>
@@ -149,8 +148,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td width="50%">{{ __('Reason') }}</td>
-                                            <td width="50%">{{ form.reason }}</td>
+                                            <td width="30%">{{ __('Reason') }}</td>
+                                            <td width="70%">{{ form.reason }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -176,12 +175,12 @@ import { Inertia } from "@inertiajs/inertia";
 export default {
     props: {
         leaveRequests: Array,
-         leaveTypes: Array,
+        leaveTypes: Array,
         filters: Object,
     },
     components: {
         Pagination,
-        Inertia
+        Inertia,
     },
     data() {
         return {
@@ -219,21 +218,6 @@ export default {
         endDate(Date) {
             return dayjs(Date).format("DD MMM, YYYY");
         },
-        deleteData(id) {
-            this.$swal({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.$inertia.delete(route("employee.leave.request.delete", id));
-                }
-            });
-        },
         requestFor(startDate, endDate) {
             const start = dayjs(startDate).format("DD MMM, YYYY");
             const end = dayjs(endDate).format("DD MMM, YYYY");
@@ -250,7 +234,7 @@ export default {
             this.form.reason = request.reason;
             this.showModal = true;
         },
-         filteringData() {
+        filteringData() {
             this.showFilter = !this.showFilter;
             localStorage.setItem("employeeLeaveRequest", this.showFilter);
         },
@@ -268,14 +252,13 @@ export default {
             );
         },
     },
-    mounted(){
-        this.checkPagePermission('employee')
-        this.showFilter = localStorage.getItem("employeeLeaveRequest") == "true" ? true : false;
-    }
-
-
-
-
+    mounted() {
+        this.checkPagePermission("employee");
+        this.showFilter =
+            localStorage.getItem("employeeLeaveRequest") == "true"
+                ? true
+                : false;
+    },
 };
 </script>
 
@@ -291,5 +274,9 @@ export default {
         padding: 2px 5px;
             font-weight: 500;
         color: #fff;
+    }
+
+    .modal-dialog {
+        max-width: 1000px !important;
     }
 </style>

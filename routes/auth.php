@@ -28,8 +28,9 @@ Route::controller(ForgetPasswordController::class)->group(function () {
 
 
 // Roles dashboard routes
-Route::controller(DashboardController::class)->middleware('auth')->group(function () {
+Route::controller(DashboardController::class)->middleware(['auth','check.company.setup'])->group(function () {
     Route::get('/user/dashboard', 'dashboard')->name('dashboard');
+    // Route::get('/user/dashboard', 'dashboard')->name('dashboard')->middleware('check.company.setup');
     Route::get('/employee/dashboard', 'employeeDashboard')->name('employee.dashboard');
     Route::get('/company/dashboard', 'companyDashboard')->name('company.dashboard');
 

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ud-banner-content">
-                        <h1>Pricing Page</h1>
+                        <h1>{{ __('Pricing Page') }}</h1>
                     </div>
                 </div>
             </div>
@@ -35,11 +35,15 @@
                         <div class="pricing-style-one">
                             <div class="pricing-header text-center">
                                 <h5 class="sub-title">{{ $plan->name }}</h5>
-                                <span class="price">${{ $plan->price }}</span>
+                                <span class="price">{{ currencyPosition($plan->price) }}</span>
                                 @if ($plan->interval == 'custom_days')
                                     <small>/{{ $plan->custom_interval_days }} {{ __('Days') }}</small>
                                 @else
                                     <small>/{{ $plan->interval }}</small>
+                                @endif
+                                @if ($plan->recommended)
+                                    <br>
+                                    <span class="badge bg-primary mt-2">{{ __('Recommended') }}</span>
                                 @endif
                             </div>
                             <div class="pricing-list">
@@ -48,33 +52,33 @@
                                     <li>
                                         <i
                                             class="lni {{ !$plan->planFeatures->is_limited_employee ? 'lni-checkmark-circle text-success' : 'lni-cross-circle text-danger' }}"></i>
-                                        Unlimited Employees
+                                        {{ __('Unlimited Employees') }}
 
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>
-                                        Max Employees -
+                                        {{ __('Max Employees') }} -
                                         <b>{{ $plan->planFeatures->is_limited_employee ? $plan->planFeatures->max_employees : '∞' }}</b>
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>
-                                        Max Teams - <b>{{ $plan->planFeatures->max_teams }}</b>
+                                        {{ __('Max Teams') }} - <b>{{ $plan->planFeatures->max_teams }}</b>
                                     </li>
                                     <li>
                                         <i class="lni lni-checkmark-circle text-success"></i>
-                                        Max Leave Types - <b>{{ $plan->planFeatures->max_leave_types }}</b>
+                                        {{ __('Max Leave Types') }} - <b>{{ $plan->planFeatures->max_leave_types }}</b>
                                     </li>
                                     <li>
                                         <i
                                             class="lni {{ $plan->planFeatures->custom_theme_look ? 'lni-checkmark-circle text-success' : 'lni-cross-circle text-danger' }}"></i>
-                                        Custom Theme Look
+                                        {{ __('Custom Theme Look') }}
                                     </li>
                                 </ul>
                             </div>
                             <div class="pricing-btn rounded-buttons text-center">
-                                @if (auth()->check() && auth()->user()->role == 'company')
+                                @if (auth()->check() && auth()->user()->role == 'owner')
                                     <a class="btn primary-btn rounded-full price-btn"
-                                        href="{{ $plan->id == session('current_subscription')->plan_id ? 'javascript:void(0)' : route('website.plan.details', $plan->slug) }}">
+                                        href="{{ route('website.plan.details', $plan->slug) }}">
                                         @if ($plan->id == session('current_subscription')->plan_id)
                                             {{ __('Current Plan') }}
                                         @else
@@ -84,14 +88,11 @@
                                 @else
                                     <a class="btn primary-btn rounded-full price-btn {{ !auth()->check() ? 'login_required' : '' }} {{ auth()->check() && auth()->user()->role == 'admin' ? 'not_acceptable' : '' }}"
                                         href="javascript:void(0)">
-                                        GET STARTED
+                                        {{ __('Get Started') }}
                                     </a>
                                 @endif
-
-                                {{-- session('current_subscription') --}}
                             </div>
                         </div>
-                        <!-- single pricing -->
                     </div>
                 @endforeach
             </div>

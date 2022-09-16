@@ -1,10 +1,10 @@
 <template>
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <Link :href="route('dashboard')" class="brand-link">
-        <img :src="$page.props.authenticatedUser.avatar" alt="logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
-        <span class="brand-text font-weight-bold">{{ $page.props.authenticatedUser.name }}</span>
+
+         <Link :href="route('dashboard')" class="brand-link">
+            <img :src="setting.app_favicon" alt="logo" class="brand-image img-circle" style="opacity: .8">
+            <span class="brand-text font-weight-bold">{{ setting.app_name }}</span>
         </Link>
 
         <!-- Sidebar -->
@@ -42,19 +42,10 @@
                             <i class="fa-solid fa-h nav-icon"></i>
                         </template>
                     </NavLink>
-
-                    <!-- Subscription Part  -->
-                    <li class="nav-header">{{ __('Subscription') }}</li>
-                    <NavLink title="Pricing Plan" :href="route('company.plan')"
-                        :active="$page.component == 'company/plan'">
+                    <NavLink title="Reports" :href="route('company.reports.index')"
+                        :active="$page.component == 'company/reports/index' || $page.component == 'company/reports/employeeLeaveBalance' || $page.component == 'company/reports/employeeLeaveHistory' || $page.component == 'company/reports/teamLeaveBalance' || $page.component == 'company/reports/teamLeaveHistory'">
                         <template v-slot:icon>
-                            <i class="fa-solid fa-money-bill nav-icon"></i>
-                        </template>
-                    </NavLink>
-                    <NavLink title="Orders" :href="route('company.orders.index')"
-                        :active="$page.component == 'company/order/index'">
-                        <template v-slot:icon>
-                            <i class="fa-solid fa-chart-pie nav-icon"></i>
+                            <i class="fa-regular fa-calendar-days nav-icon"></i>
                         </template>
                     </NavLink>
 
@@ -72,10 +63,13 @@
                             <i class="fa-solid fa-people-group nav-icon"></i>
                         </template>
                     </NavLink>
-                    <NavLink title="Reports" :href="route('company.reports.index')"
-                        :active="$page.component == 'company/reports/index' || $page.component == 'company/reports/employeeLeaveBalance' || $page.component == 'company/reports/employeeLeaveHistory' || $page.component == 'company/reports/teamLeaveBalance' || $page.component == 'company/reports/teamLeaveHistory'">
+
+                    <!-- Subscription Part  -->
+                    <li class="nav-header">{{ __('Billing') }}</li>
+                    <NavLink title="Billing" :href="route('company.billing')"
+                        :active="$page.component == 'company/billing'">
                         <template v-slot:icon>
-                            <i class="fa-regular fa-calendar-days nav-icon"></i>
+                            <i class="fa-solid fa-chart-pie nav-icon"></i>
                         </template>
                     </NavLink>
 
@@ -111,6 +105,7 @@ export default {
         return {
             role: this.$page.props.authenticatedUser.role,
             subscription: this.$page.props.current_subscription,
+            setting: this.$page.props.setting,
         };
     },
     computed: {
@@ -134,6 +129,11 @@ export default {
             );
         },
     },
+    watch: {
+        role: function(){
+            this.role = this.$page.props.authenticatedUser.role
+        }
+    },
 };
 </script>
 
@@ -145,4 +145,193 @@ export default {
         opacity: 1;
         padding-bottom: 2px;
     }
+
+
+    .css-btvco8 {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        margin: 8px 0px;
+        padding: 0px 19px;
+    }
+    .css-bjn8wh {
+        position: relative;
+    }
+
+    .css-8dsptl {
+        display: flex;
+        align-items: flex-start;
+        cursor: pointer;
+        border: none;
+        padding: 0px;
+        background: none;
+        width: 100%;
+    }
+
+    .css-a4lfgh {
+        flex-shrink: 0;
+        border: none;
+        margin: 2px 12px 2px 0px;
+        box-shadow: rgb(0 0 0 / 8%) 0px 2px 0px;
+        border-radius: 6px;
+    }
+
+    .avatar {
+        display: inline-block;
+        height: 20px;
+        position: relative;
+        vertical-align: middle;
+        width: 20px;
+    }
+
+    .css-1jewg5y {
+        overflow-x: hidden;
+        text-align: left;
+    }
+
+    .css-1q83d1c {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: auto;
+        font-size: 16px;
+        line-height: 1.2;
+        font-weight: bold;
+        color: rgb(255, 255, 255);
+        text-shadow: rgb(255 255 255 / 0%) 0px 0px 6px;
+        transition: text-shadow 0.15s linear 0s;
+    }
+
+    .css-11eyjwm {
+        transition: transform 120ms ease-in-out 0s;
+        transform: rotate(180deg);
+        margin-left: 2px;
+    }
+
+    .css-1oxl8yb {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: auto;
+        font-size: 14px;
+        line-height: 16px;
+        transition: color 0.15s linear 0s;
+    }
+
+
+
+
+
+
+
+
+
+
+    .css-1q6u83e {
+    position: absolute;
+    background: rgb(255, 255, 255);
+    color: rgb(62, 52, 70);
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 8%) 0px 0px 0px 1px, rgb(0 0 0 / 30%) 0px 4px 20px 0px;
+    padding: 5px 0px;
+    width: 250px;
+    top: 42px;
+    min-width: 180px;
+    z-index: 1030;
+}
+
+.css-g2azat {
+    display: grid;
+    grid-template-columns: max-content minmax(0px, 1fr);
+    gap: 8px;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 8px 15px;
+}
+
+.css-1demj03 {
+    flex-shrink: 0;
+    border-radius: 3px;
+    border: none;
+}
+
+.css-1m9umwh {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 3px;
+}
+
+.css-svokod {
+    color: rgb(62, 52, 70);
+    font-size: 16px;
+    line-height: 1.1;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.css-c2pm1j {
+    color: rgb(128, 112, 143);
+    font-size: 14px;
+    line-height: 1;
+    margin-top: 4px;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.css-69tfkj {
+    border-radius: 4px;
+    color: rgb(62, 52, 70);
+    cursor: pointer;
+    display: flex;
+    font-size: 14px;
+    line-height: 32px;
+    padding: 0px 15px;
+    position: relative;
+    transition: all 0.1s linear 0s;
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>

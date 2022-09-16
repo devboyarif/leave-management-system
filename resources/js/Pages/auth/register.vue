@@ -18,38 +18,21 @@
                         </p>
                         <div class="email-login">
                             <!-- Name  -->
-                            <label class="text-secondary" for="company_name"> <b>{{ __('Name') }}</b></label>
+                            <AuthLabel name="Name" />
                             <input v-model="form.name" :class="{'border-danger':form.errors.name}"
-                                type="text" :placeholder="__('Company Name')" id="company_name">
+                                type="text" :placeholder="__('Name')" id="company_name">
                             <span v-if="errors.name"
                                 class="d-block text-danger mt--10 mb-1">{{ form.errors.name }}</span>
 
                             <!-- Email  -->
-                            <label class="text-secondary" for="company_email"> <b>{{ __('Email') }}</b></label>
+                            <AuthLabel name="Email" />
                             <input v-model="form.email" :class="{'border-danger':form.errors.email}"
                                 type="text" :placeholder="__('Email')" id="company_email">
                             <span v-if="errors.email"
                                 class="d-block text-danger mt--10 mb-1">{{ form.errors.email }}</span>
 
-                            <!-- Country  -->
-                            <label class="text-secondary" for="company_country"> <b>{{ __('Country') }}</b></label>
-                             <select v-model="form.country" id="company_country" :class="{'border-danger':form.errors.country}">
-                                <option value="" class="d-none">{{ __('Select Country') }}</option>
-                                <option :value="country.id" v-for="country in countries" :key="country.id">
-                                    {{ country.name }}
-                                </option>
-                            </select>
-                            <span v-if="errors.country"
-                                class="d-block text-danger mt--10 mb-1">{{ form.errors.country }}</span>
-                             <div class="icheck-primary">
-                                <input @change="checkboxChange" v-model="form.import_official_holidays" type="checkbox" :checked="form.import_official_holidays" id="holiday">
-                                <label for="holiday" class="ml-2 text-dark">
-                                    {{ __('Import official holidays from country ?') }}
-                                </label>
-                            </div>
-
                              <!-- Password  -->
-                            <label class="text-secondary" for="company_password"> <b>{{ __('Password') }}</b></label>
+                             <AuthLabel name="Password" />
                             <input v-model="form.password" :class="{'border-danger':form.errors.password}"
                                 type="password" :placeholder="__('Password')" id="company_password">
                             <span v-if="errors.password"
@@ -78,10 +61,6 @@ import Logo from "../../Shared/Partials/Logo.vue";
 export default {
     layout: "Auth",
     props: {
-        countries: {
-            type: Array,
-            required: true,
-        },
         errors: Object,
     },
     components: {
@@ -92,19 +71,14 @@ export default {
             form: this.$inertia.form({
                 name: null,
                 email: null,
-                country: "",
                 password: null,
                 terms_confirmed: null,
-                import_official_holidays: true,
             }),
         };
     },
     methods: {
         createData() {
             this.form.post(route("register"));
-        },
-        checkboxChange(e) {
-            this.form.import_official_holidays = e.target.checked;
         },
     },
 };

@@ -5,6 +5,8 @@
     "Remember Me": "Remember Me",
     "Sign In": "Sign In",
     "Sign Up": "Sign Up",
+    "Forget Password": "Forget Password",
+    "Reset Password": "Reset Password",
     "Forgot password": "Forgot password ?",
     "Create company account": "Create company account",
     "Don't have an account": "Don't have an account",
@@ -181,10 +183,6 @@
     "Mail From Address":" Mail From Address",
     "Mail From Name":"Mail From Name",
     "Send Test Mail":"Send Test Mail",
-
-
-
-
     "Payment Settings":"Payment Setting",
     "Paypal":"Paypal",
     "Stripe":"Stripe",
@@ -221,34 +219,135 @@
     "Midtrans Key":"Midtrans Key",
     "Midtrans Secret":"Midtrans Secret",
     "Midtrans Status":"Midtrans Status",
+    "Show all":"Show all",
+    "Get Report":"Get Report",
+    "Date Range":"Date Range",
+    "Select Date Range":"Select Date Range",
+    "Leave History":"Leave History",
+    "Employee Leave History":"Employee Leave History",
+    "Click on the reports to view the leave history of an employee":"Click on the reports to view the leave history of an employee",
+    "Team Leave Balance":"Team Leave Balance",
+    "Team Leave History":"Team Leave History",
+    "Employees Leave Balance":"Employees Leave Balance",
+    "Click to view the employees leave balance":"Click to view the employees leave balance",
+    "Click to view the leave balance of all employees in a team":"Click to view the leave balance of all employees in a team",
+    "Click to view the leave history of all employees in a team":"Click to view the leave history of all employees in a team",
+    "Profile Information" : "Profile Information",
+    "Account Settings" : "Account Settings",
+    "Security" : "Security",
+    "Delete Account" : "Delete Account",
+    "Once you delete your account, there is no going back. Please be certain" : "Once you delete your account, there is no going back. Please be certain",
+    "Details" : "Details",
+    "Edit" : "Edit",
+    "Delete" : "Delete",
+    "Delete All Holidays" : "Delete All Holidays",
+    "Import Holidays" : "Import Holidays",
+    "Order Details": "Order Details",
+    "Order ID": "Order ID",
+    "Transaction ID": "Transaction ID",
+    "Amount": "Amount",
+    "Payment Method": "Payment Method",
+    "Subscription": "Subscription",
+    "Themes": "Themes",
+    "Working Days": "Working Days",
+    "Sunday": "Sunday",
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday",
+    "Thursday": "Thursday",
+    "Friday": "Friday",
+    "Saturday": "Saturday",
+    "Get Started": "GET STARTED",
+    "Our Location": "Our Location",
+    "How Can We Help": "How Can We Help ?",
+    "Send us a Message": "Send us a Message",
+    "Blog Page": "Blog Page",
+    "By": "By",
+    "Popular Articles": "Popular Articles",
+    "Latest Articles": "Latest Articles",
+    "Phone" : "Phone",
+    "Message" : "Message",
+    "Send Message": "Send Message",
+    "Contact Us": "Contact Us",
+    "Lets talk about": "Let's talk about",
+    "Love to hear from you": "Love to hear from you !",
+    "Pay via Paypal":"Pay via Paypal",
+    "Pay via Stripe":"Pay via Stripe",
+    "Pay via Razorpay":"Pay via Razorpay",
+    "Pay via Flutterwave":"Pay via Flutterwave",
+    "Pay via Mollie":"Pay via Mollie",
+    "Pay via Paystack":"Pay via Paystack",
+    "Pay via Instamojo":"Pay via Instamojo",
+    "Pay via Midtrans":"Pay via Midtrans",
+    "Privacy Policy":"Privacy Policy",
+    "Terms & Condition":"Terms & Condition",
+    "About Us":"About Us",
+    "Home":"Home",
+    "About":"About",
+    "Contact":"Contact",
+    "Our Support":"Our Support",
+    "Pricing":"Pricing",
+    "Login":"Login",
+    "Register":"Register",
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "Quick Links":"Quick Links",
+    "Upgrade":"Upgrade",
+    "Role":"Role",
+    "Joining Date":"Joining Date",
+    "Last Profile Update":"Last Profile Update",
+    "Total Leave Types":"Total Leave Types",
+    "Total Leave Requests":"Total Leave Requests",
+    "Pending Leave Requests":"Pending Leave Requests",
+    "Approved Leave Requests":"Approved Leave Requests",
+    "Rejected Leave Requests":"Rejected Leave Requests",
+    "Total Leave":"Total Leave",
+    "Remaining Days":"Total Leave",
+    "Used Days":"Used Days",
+    "Team Size":"Team Size",
+    "Select Team Size":"Select Team Size",
+    "Company Email":"Company Email",
+    "Go to Dashboard":"Go to Dashboard",
+    "Invite Sent":"Invite Sent",
+    "Switch Company":"Switch Company",
+    "Support":"Support",
+    "Usage & Billing":"Usage & Billing",
+    "Step":"Step",
+    "Tell us about your company":"Tell us about your company",
+    "Please tell us about your company to build your team":"Please tell us about your company to build your team",
+    "Create your team members":"Create your team members",
+    "To manage and organize employees and leaves, you can divide your employees into teams":"To manage and organize employees and leaves, you can divide your employees into teams",
+    "Invite your team members to manage their leave":"Invite your team members to manage their leave",
+    "Add team members and assign them to a team. Skip this step if you want to do this later":"Add team members and assign them to a team. Skip this step if you want to do this later",
+    "Setup your companys working days":"Setup your company's working days",
+    "Please check the working days you want to add for the application":"Please check the working days you want to add for the application",
+    "Thanks for joining":"Thanks for joining",
+    "you are good to go":"you're good to go",
+    "Now you can start using the application and manage your leaves":"Now you can start using the application and manage your leaves",
+    "Team Name":"Team Name",
+    "Employee Email":"Employee Email",
+    "Create Holiday Request":"Create Holiday Request",
+    "Delete Company":"Delete Company",
+    "Once you delete your company it will delete all data including teams employees and leaves":"Once you delete your company, it will delete all data, including teams, employees and leaves",
+    "Payment Details":"Payment Details",
+    "Plan Details":"Plan Details",
+    "Download Invoice":"Download Invoice",
+    "Bill From":"Bill From",
+    "Bill To":"Bill To",
+    "Owner Name":"Owner Name",
+    "Download":"Download",
+    "Billing":"Billing",
+    "Expire In":"Expire In",
+    "Billing History":"Billing History",
+    "View billing history":"View billing history",
+    "Next payment due":"Next payment due",
+    "Current monthly bill":"Current monthly bill",
+    "Switch to another plan":"Switch to another plan",
+    "Unauthorized":"Unauthorized",
+    "We are sorry but you are not authorized to access this page":"We are sorry but you are not authorized to access this page",
+    "Take me home":"Take me home",
+    "You just found an error page":"You just found an error page",
+    " We are sorry but the page you are looking for was not found":" We are sorry but the page you are looking for was not found",
 
 
 
@@ -381,16 +480,13 @@
     "Send Request": "Send Request",
     "Accept Request": "Accept Request",
     "Reject Request": "Reject Request",
-    "Edit Request": "Edit Request",
-    "Delete Request": "Delete Request",
-    "Show Request Details": "Show Request Details",
     "Reason": "Reason",
     "Pending": "Pending",
     "Approve": "Approve",
     "Reject": "Reject",
     "Status": "Status",
     "Color": "Color",
-    "Apply for leave": "Apply for leave",
+    "Apply for Leave": "Apply for Leave",
     "Options": "Options",
     "Leave Request": "Leave Request",
     "Leave Request List": "Leave Request List",
@@ -401,7 +497,6 @@
     "Leave Type List": "Leave Type List",
     "Leave Type": "Leave Type",
     "Edit Leave Type": "Edit Leave Type",
-    "Delete Leave Type": "Delete Leave Type",
     "Leave Balance Day": "Leave Balance Day",
     "Leave Request Details": "Leave Request Details",
     "Recent Approved Leaves": "Recent Approved Leaves",
@@ -484,7 +579,6 @@
     "Employee Adding Type": "Employee Adding Type",
     "Orders": "Orders",
     "Order List": "Order List",
-    "Order Details": "Order Details",
     "Companies": "Companies",
     "Recent Orders": "Recent Orders",
     "View All": "View All",
@@ -513,6 +607,7 @@
     "Meta Keywords": "Meta Keywords",
     "Show Filter": "Show Filter",
     "Hide Filter": "Hide Filter",
+    "Custom Date Range": "Custom Date Range",
 
 
 

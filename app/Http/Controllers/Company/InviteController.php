@@ -12,6 +12,7 @@ use App\Mail\Company\InviteSendMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Traits\Employee\HasLeaveBalance;
+use App\Notifications\Company\NewEmployeeJoined;
 
 class InviteController extends Controller
 {
@@ -20,7 +21,7 @@ class InviteController extends Controller
     public function sendInvite(Request $request)
     {
         // Check if the user is limited to create employees
-        if ($this->checkEmployeesLimitation()) {
+        if ($this->checkEmployeesLimitation(count($request->emails))) {
             session()->flash('error', __('You have reached the maximum number of employees'));
             return back();
         }
@@ -33,25 +34,20 @@ class InviteController extends Controller
         }
 
         $request->validate([
-            'email' => 'required|email',
-            'team_id' => 'required|exists:teams,id',
-        ], [
-            'team_id.required' => 'The team field is required.',
+            'emails.*' => 'required',
+            'teams.*' => 'required',
         ]);
 
-        $data = $request->only(['team_id', 'email']);
-        $data['token'] = Str::random(60);
-        $data['company_id'] = $company->id;
+        $emails = $request->emails;
+        $teams = $request->teams;
 
-        if (!Invite::whereToken($data['token'])->exists()) {
-            $invite = Invite::create($data);
-        } else {
-            $data['token'] = Str::random(100);
-            $invite = Invite::create($data);
+        if ($emails && $teams) {
+            foreach ($emails as $key => $email) {
+                if ($email && $teams[$key]) {
+                    sendInvite($company->id,$email, $teams[$key]);
+                }
+            }
         }
-
-        // send the email
-        Mail::to($request->email)->send(new InviteSendMail($invite));
 
         session()->flash('success', 'Invite sent successfully');
         return back();
@@ -106,6 +102,8 @@ class InviteController extends Controller
 
         // Create leave balance for the employee
         $this->employeeLeaveBalanceCreate($invite->company_id, $employee->id);
+
+        $employee->company->user->notify(new NewEmployeeJoined($employee->user, $employee->company_id));
 
         // login the user
         if (Auth::attempt(['email' => $user->email, 'password' => $request->password])) {

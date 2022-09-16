@@ -26,20 +26,23 @@
                                         <td>
                                             <ul class="list-inline" v-if="team.employees && team.employees.length">
                                                 <li class="list-inline-item" v-for="(employee, key) in team.employees" :key="employee.id" v-tooltip="employee.user.name">
-                                                    <img v-if="employee.user && key <= 4" alt="Avatar" class="table-avatar" :src="employee.user.avatar">
+                                                    <Link :href="route('company.employees.show',employee.user_id)">
+                                                        <img v-if="employee.user && key <= 4" alt="img" class="table-avatar" :src="employee.user.avatar">
+                                                    </Link>
                                                 </li>
                                                 <li class="list-inline-item m-0 p-0" v-if="team.employees.length > 5">
-                                                        +{{ team.employees.length - 5 }}
-
+                                                        <span class="badge badge-pill badge-primary">
+                                                            +{{ team.employees.length - 5 }}
+                                                        </span>
                                                 </li>
                                             </ul>
                                             <small v-else>{{ __('No Employee Found') }}</small>
                                         </td>
                                         <td class="d-flex">
-                                            <button @click="editTeam(team)" v-tooltip="__('Edit Leave Type')" class="btn btn-sm  pl-0">
+                                            <button @click="editTeam(team)" v-tooltip="__('Edit')" class="btn btn-sm  pl-0">
                                                 <EditIcon/>
                                             </button>
-                                            <button @click="deleteData(team.id)" v-tooltip="__('Delete Leave Type')" class="btn btn-sm">
+                                            <button @click="deleteData(team.id)" v-tooltip="__('Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>
@@ -69,7 +72,7 @@
                          <form @submit.prevent="saveData">
                             <div class="mb-3">
                                 <Label :name="__('Name')"/>
-                                <input v-model="form.name" type="text" class="form-control"
+                                <input :placeholder="__('Team Name')" v-model="form.name" type="text" class="form-control"
                                     :class="{'is-invalid':form.errors.name}" id="name">
                                 <ErrorMessage :name="form.errors.name" />
                             </div>
@@ -77,7 +80,7 @@
                                 <Label :name="__('Invite Employee')" :required="false"/>
                                 <div class="row my-1" v-for="(email, index) in form.emails" :key="index">
                                     <div class="col-lg-10">
-                                        <input v-model="form.emails[index]" type="email" class="form-control">
+                                        <input :placeholder="__('Employee Email')" v-model="form.emails[index]" type="email" class="form-control">
                                     </div>
                                     <div class="col-lg-2" v-if="index == 0">
                                         <button type="button" class="btn btn-primary" @click="addMore">
@@ -180,9 +183,9 @@ export default {
             this.form.emails.splice(index, 1);
         },
     },
-     mounted(){
-        this.checkPagePermission('company')
-    }
+    mounted() {
+        this.checkPagePermission("owner");
+    },
 };
 </script>
 

@@ -5,11 +5,8 @@
     <button v-if="leaveRequest.status == 'pending' || leaveRequest.status == 'approved'" @click="statusChange('rejected')" v-tooltip="__('Reject Request')" class="btn btn-sm ">
         <CrossIcon/>
     </button>
-    <button v-if="leaveRequest.status == 'pending'" @click="editData(leaveRequest.id)" v-tooltip="__('Edit Request')" class="btn btn-sm">
+    <button v-if="leaveRequest.status == 'pending'" @click="editData(leaveRequest.id)" v-tooltip="__('Edit')" class="btn btn-sm">
         <EditIcon/>
-    </button>
-    <button @click="deleteData()" v-tooltip="__('Delete Request')" class="btn btn-sm">
-        <DeleteIcon/>
     </button>
 </template>
 
@@ -29,31 +26,10 @@ export default {
             });
         },
         editData(leaveRequestId) {
-            this.$inertia.get(route("company.leaveRequests.edit", leaveRequestId));
-        },
-        deleteData() {
-            this.$swal({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.$inertia.delete(
-                        route(
-                            "company.leaveRequests.destroy",
-                            this.leaveRequest.id
-                        ),
-                        {
-                            preserveScroll: true,
-                        }
-                    );
-                }
-            });
-        },
+            this.$inertia.get(
+                route("company.leaveRequests.edit", leaveRequestId)
+            );
+        }
     },
 };
 </script>

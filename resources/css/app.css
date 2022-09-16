@@ -38,3 +38,11 @@
 .h-250 {
     height: 250px !important;
 }
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+.pt-30 {
+    padding-top: 30px !important;
+}

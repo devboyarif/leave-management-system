@@ -1,5 +1,7 @@
 <template>
-    <i class="fa-solid fa-spinner fa-spin mr-1" :class="size"></i>
+    <span class="input-icon-addon">
+        <div class="spinner-border spinner-border-sm mr-1" role="status"></div>
+    </span>
     <span v-if="messageShow">{{ message }}</span>
 </template>
 
@@ -8,7 +10,7 @@ export default {
     props: {
         message: {
             type: String,
-            default: "Processing...",
+            default: "Saving...",
         },
         messageShow: {
             type: Boolean,
@@ -21,3 +23,11 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.spinner-border-sm {
+    width: 20px;
+    height: 20px;
+    border-width: 0.2em;
+}
+</style>

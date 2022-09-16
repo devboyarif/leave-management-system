@@ -11,9 +11,9 @@
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="alert alert-danger py-3" role="alert" v-if="role == 'company' && $page.props.current_subscription && $page.props.current_subscription.plan_expired">
+                    <div class="alert alert-danger py-3" role="alert" v-if="role == 'owner' && $page.props.current_subscription && $page.props.current_subscription.plan_expired">
                         {{ __('Plan is expired. Please upgrade your plan') }}
-                        <Link :href="route('company.plan')" class="">
+                        <Link :href="route('company.billing')" class="">
                             {{ __('Upgrade Now') }}
                             <i class="fa-solid fa-arrow-right-long"></i>
                         </Link>

@@ -16,7 +16,7 @@
                     <option value="this_year">{{ __('This Year') }}</option>
                     <option value="last_year">{{ __('Last Year') }}</option>
                     <option value="custom_date">{{ __('Custom Data') }}</option>
-                    <option value="custom_range_date">{{ __('Custom Data Range') }}</option>
+                    <option value="custom_range_date">{{ __('Custom Date Range') }}</option>
                 </select>
                 <span v-if="errors.date_type" class="invalid-feedback">{{ errors.date_type && errors.date_type[0] }}</span>
             </div>
@@ -147,7 +147,6 @@ export default {
             this.form.custom_date = formatTime;
         },
         handleCustomRangeDate(date) {
-            console.log('custom date - '+date)
             const array_date = Object.keys(date);
             const startDate = date[array_date[0]];
             const endDate = date[array_date[1]];
@@ -176,9 +175,6 @@ export default {
 
                 this.leave_requests = response.data;
                 this.buttonLoading = false;
-
-                console.log(response)
-
             } catch (error) {
                 this.buttonLoading = false;
                 this.errors = error.response.data.errors

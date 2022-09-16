@@ -8,10 +8,6 @@
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">{{ __('Company List') }}</h3>
                             <div>
-                                <Link :href="route('companies.create')" class="btn btn-primary">
-                                    <i class="fa-solid fa-plus"></i>
-                                    {{ __('Company Create') }}
-                                </Link>
                                 <button class="btn btn-secondary ml-2" @click="filteringData">
                                     <i class="fa-solid fa-filter"></i>
                                     &nbsp;
@@ -27,11 +23,11 @@
                     </div>
                     <div class="card-body border-bottom d-flex justify-content-between" v-if="showFilter">
                         <div class="w-25">
-                            <label>Search</label>
+                            <label>{{ __('Search') }}</label>
                             <input v-model="form.search" type="text" placeholder="Search..." class="form-control">
                         </div>
                         <div class="ml-auto w-15">
-                            <label>Country</label>
+                            <label>{{ __('Country') }}</label>
                             <select class="form-control" v-model="form.country">
                                 <option value="">{{ __('All') }}</option>
                                 <option :value="country.id" v-for="country in countries" :key="country.id">
@@ -54,17 +50,19 @@
                                 <template v-if="companies && companies.data.length">
                                     <tr v-for="(user,index) in companies.data" :key="index">
                                         <td>
-                                            <img :src="user.avatar" alt="Product 1"
+                                            <Link :href="route('companies.show',user.id)">
+                                                 <img :src="user.avatar" alt="img"
                                                 class="img-circle img-size-32 mr-2">
-                                            <span v-html="user.name"></span>
+                                                <span v-html="user.name"></span>
+                                            </Link>
                                         </td>
                                         <td v-html="user.email"></td>
                                         <td>{{ user.country }}</td>
                                         <td class="d-flex">
-                                            <Link :href="route('companies.edit',user.id)" v-tooltip="__('Company Edit')" class="btn btn-sm  pl-0">
-                                                <EditIcon/>
+                                            <Link :href="route('companies.show',user.id)" v-tooltip="__('Details')" class="btn btn-sm pl-0">
+                                                <EyeIcon/>
                                             </Link>
-                                            <button @click="deleteCompany(user.id)" v-tooltip="__('Company Delete')" class="btn btn-sm">
+                                            <button @click="deleteCompany(user.id)" v-tooltip="__('Delete')" class="btn btn-sm">
                                                 <DeleteIcon/>
                                             </button>
                                         </td>

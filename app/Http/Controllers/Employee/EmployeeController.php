@@ -59,7 +59,7 @@ class EmployeeController extends Controller
 
         // Notification for company
         $user = $employee->company->user ?? null;
-        isset($user) ? $user->notify(new NewHolidayRequest()) : '';
+        isset($user) ? $user->notify(new NewHolidayRequest($employee->company_id)) : '';
 
         session()->flash('success', 'Holiday request sent successfully!');
         return back();

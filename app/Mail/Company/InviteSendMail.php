@@ -21,7 +21,7 @@ class InviteSendMail extends Mailable implements ShouldQueue
     public function __construct($invite)
     {
         $this->url = route('company.invite.accept', $invite->token);
-        $this->company = auth()->user();
+        $this->company = currentCompany();
         $this->team = $invite->team;
     }
 
@@ -32,7 +32,7 @@ class InviteSendMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Invite to join ' . $this->company->name)
+        return $this->subject('Invite to join ' . $this->company->company_name)
             ->from(config('mail.from.address'), config('mail.from.name'))
             ->markdown('mails.company.invite_send_mail');
     }

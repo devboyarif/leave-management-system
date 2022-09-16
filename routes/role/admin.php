@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\PlanController;
-use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ThemeController;
@@ -13,22 +12,11 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\LanguageController;
-use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\TestimonialController;
-use App\Http\Controllers\Admin\LeaveRequestController;
 
 Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function () {
-    Route::get('/about', function () {
-        return inertia('about');
-    })->name('about');
-
-    Route::get('/contact', function () {
-        return inertia('contact');
-    })->name('contact');
-
     // =========================================================================
     // ===================Users Routes========================================
     // ========================================================================
@@ -39,17 +27,9 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     // Companies
     Route::resource('/companies', CompanyController::class);
     Route::controller(CompanyController::class)->group(function () {
-        Route::get('/companies/teams/{company}', 'companiesTeams')->name('companies.teams');
         Route::get('/companies/leaveTypes/{user}', 'companiesLeaveTypes')->name('companies.leaveTypes');
         Route::get('/companies/employees/{user}', 'companiesEmployees')->name('companies.employees');
-        Route::get('/company/wise/employees/{company}', 'companiesWiseEmployees')->name('company.wise.employees');
     });
-
-    // Employees
-    Route::resource('/employees', EmployeeController::class);
-
-    // Teams
-    Route::resource('/teams', TeamController::class);
 
     // =========================================================================
     // ===================Leave and Subscription Routes========================
@@ -63,24 +43,9 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
     });
 
     // Order
-    Route::get('/admin/orders', [OrderController::class, 'orders'])->name('orders.index');
-
-    // Leave Types & Request
-    Route::resource('/leaveTypes', LeaveTypeController::class);
-    Route::resource('/leaveRequests', LeaveRequestController::class);
-    Route::post('/status/change', [LeaveRequestController::class, 'statusChange'])->name('leaveRequests.status');
-    Route::get('/companies/employee/leave/balance', [LeaveTypeController::class, 'leaveTypeBalance'])->name('companies.employee.leave.type.balance');
-
-    // Reports
-    Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/leave/balance', 'employeeLeaveBalance')->name('employee.leave.balance');
-        Route::get('/leave/history', 'employeeLeaveHistory')->name('employee.leave.history');
-        Route::get('/leave/history/report', 'employeeLeaveHistoryReport')->name('employee.leave.history.report');
-        Route::get('/team/leave/balance', 'teamLeaveBalance')->name('team.leave.balance');
-        Route::get('/team/leave/history', 'teamLeaveHistory')->name('team.leave.history');
-        Route::get('/team/leave/history/report', 'teamLeaveHistoryReport')->name('team.leave.history.report');
-    });
+    Route::get('/orders', [OrderController::class, 'orders'])->name('orders.index');
+    Route::get('/orders/{order}', [OrderController::class, 'orderDetails'])->name('orders.show');
+    Route::get('/orders/pdf/download/{order}', [OrderController::class, 'orderPdfDownload'])->name('orders.pdf.download')->withoutMiddleware('check.admin.role');
 
     // Holidays
     Route::resource('/holidays', HolidayController::class);
@@ -148,6 +113,10 @@ Route::middleware(['auth', 'check.admin.role'])->prefix('admin')->group(function
         Route::put('/smtp/update', 'smtpUpdate')->name('settings.smtp.update');
         Route::post('/send/test-email', 'testEmailSend')->name('settings.send.test.email');
 
+        // Upgrade application
+        Route::get('/upgrade', 'upgrade')->name('settings.upgrade');
+        Route::post('/upgrade/system', 'upgradeSystem')->name('settings.upgrade.system');
+
         // Currency Routes
         Route::prefix('currency')->prefix('currency')->name('settings.')->group(function () {
             Route::get('/', 'currency')->name('currency');
@@ -174,6 +143,7 @@ Route::controller(GlobalController::class)->group(function () {
     Route::get('/get/translated/message', 'getTranslatedMessage')->name('get.translated.text');
     Route::get('/error/403', 'error403')->name('error.403');
     Route::get('/all/countries', 'allCountries')->name('all.countries');
+    Route::get('/all/team/sizes', 'allTeamSizes')->name('all.team.sizes');
     Route::get('/app/setting', 'appSetting')->name('app.setting');
     Route::get('/userid/wise/company', 'useridWiseCompany')->name('userid.wise.company');
     Route::get('/language/{language}', 'switchLanguage')->name('language');

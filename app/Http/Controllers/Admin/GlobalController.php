@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ContactMessage;
 use App\Models\Country;
+use App\Models\TeamSize;
 use Illuminate\Http\Request;
 
 class GlobalController extends Controller
@@ -16,8 +17,6 @@ class GlobalController extends Controller
         $end = $request->end;
 
         return sumDaysBetweenDates($company_id, $start, $end);
-
-        // return diffBetweenDays($start, $end);
     }
 
     public function contactMessages()
@@ -57,6 +56,11 @@ class GlobalController extends Controller
     public function allCountries()
     {
         return Country::all(['id', 'name']);
+    }
+
+    public function allTeamSizes()
+    {
+        return TeamSize::all(['id', 'name']);
     }
 
     public function appSetting()

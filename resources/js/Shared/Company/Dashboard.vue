@@ -15,7 +15,6 @@
             <div class="info-box shadow-sm">
                 <span class="info-box-icon bg-warning"><i class="fa-regular fa-hourglass"></i></span>
                 <div class="info-box-content">
-
                     <span class="info-box-text">{{ __('Pending Request') }}</span>
                     <span class="info-box-number">{{ summary.total_pending_leaves }}</span>
                 </div>
@@ -67,8 +66,110 @@
         </div>
         <!-- /.col-md-6 -->
         <div class="col-lg-4">
-        <!-- Currently Subscribed -->
+            <!-- Pending Request  -->
             <div class="card">
+                <div class="card-header border-0">
+                    <h3 class="card-title">{{ __('Pending Request') }}</h3>
+                </div>
+                <div class="card-body" v-if="!loading">
+                    <div class="d-flex flex-wrap col-12">
+                        <template v-if="pending_requests && summary.total_pending_leaves">
+                            <div v-for="request in pending_requests" :key="request.id"
+                                class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
+                                <div class="mt-4">
+                                    <h6><strong>{{ request.title }}</strong>
+                                        <span class="text-danger ml-1">
+                                            {{ request.days }} {{ pluralize(request.days, 'Day') }}
+                                        </span>
+                                    </h6>
+                                    <h6 class="d-flex align-items-center">
+                                        <span class="m-widget4__sub">
+                                            <span class="m-widget4__sm-text mr-1">
+                                                <i class="fa-regular fa-calendar-days"></i>
+                                                {{ startDate(request.start) }}
+                                            </span>
+                                            <span class="m-widget4__sm-text ml-1">
+                                                <i class="fa-regular fa-calendar-days"></i>
+                                                {{ endDate(request.end) }}
+                                            </span>
+                                        </span>
+                                    </h6>
+                                    <span :style="{ background: request.color, border: '2px solid '+request.color }"
+                                        class="leave-type-color" v-tooltip="'Leave Type'">
+                                        {{ request.type }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <button @click="statusChange('approved', request.id)" v-tooltip="'Accept Request'" class="btn btn-sm">
+                                        <CheckIcon />
+                                    </button>
+                                    <button @click="statusChange('rejected', request.id)" v-tooltip="'Reject Request'" class="btn btn-sm px-0">
+                                        <CrossIcon />
+                                    </button>
+                                     <button @click="showDetails(request)" v-tooltip="__('Details')" class="btn btn-sm">
+                                        <EyeIcon />
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                        <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
+                    </div>
+                </div>
+                <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
+                </div>
+            </div>
+
+            <!-- Recent Approved Leaves -->
+            <div class="card">
+                <div class="card-header border-0">
+                    <h3 class="card-title">{{ __('Recent Approved Leaves') }}</h3>
+                </div>
+                <div class="card-body" v-if="!loading">
+                    <div class="d-flex flex-wrap col-12">
+                        <template v-if="recent_approved_requests && summary.total_approve_leaves">
+                        <div v-for="request in recent_approved_requests" :key="request.id"
+                            class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
+                            <div class="mt-4">
+                                <h6><strong>{{ request.title }}</strong>
+                                    <span class="text-danger ml-1">
+                                        {{ request.days }} {{ pluralize(request.days, 'Day') }}
+                                    </span>
+                                </h6>
+                                <h6 class="d-flex align-items-center">
+                                    <span class="m-widget4__sub">
+                                        <span class="m-widget4__sm-text mr-1">
+                                            <i class="fa-regular fa-calendar-days"></i>
+                                            {{ startDate(request.start) }}
+                                        </span>
+                                        <span class="m-widget4__sm-text ml-1">
+                                            <i class="fa-regular fa-calendar-days"></i>
+                                            {{ endDate(request.end) }}
+                                        </span>
+                                    </span>
+                                </h6>
+                                <span :style="{ background: request.color, border: '2px solid '+request.color }"
+                                    class="leave-type-color" v-tooltip="'Leave Type'">
+                                    {{ request.type }}
+                                </span>
+                            </div>
+                            <div>
+                                <button @click="showDetails(request)" v-tooltip="__('Details')" class="btn btn-sm  pl-0">
+                                    <EyeIcon />
+                                </button>
+                            </div>
+                        </div>
+                        </template>
+                        <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
+                    </div>
+                </div>
+                <div class="card-body mx-auto" v-else>
+                    <Loading :messageShow="false" size="fa-2x" />
+                </div>
+            </div>
+
+              <!-- Currently Subscribed -->
+              <div class="card">
                 <div class="card-header border-0">
                     <h3 class="card-title">{{ __('Currently Subscribed') }}</h3>
                 </div>
@@ -110,121 +211,10 @@
                             </tbody>
 
                         </table>
-<!--
-                        <div v-if="subscribed_plan.plan && subscribed_plan.plan.plan_features">
-                            <h4>{{ __('Plan Features') }}</h4>
-                            <Feature name="Unlimited Employees" :checked="!subscribed_plan.plan.plan_features.is_limited_employee"/>
-                            <Feature name="Max Employees" :checked="true" :value="subscribed_plan.plan.plan_features.is_limited_employee ? subscribed_plan.plan.plan_features.max_employees : '∞'"/>
-                            <Feature name="Max Teams" :checked="true" :value="subscribed_plan.plan.plan_features.max_teams"/>
-                            <Feature name="Max Leave Types" :checked="true" :value="subscribed_plan.plan.plan_features.max_leave_types"/>
-                            <Feature name="Custom Theme Look" :checked="subscribed_plan.plan.plan_features.custom_theme_look"/>
-                        </div> -->
                     </div>
                      <div class="row justify-content-between">
-                            <Link :href="route('company.plan')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>
+                            <Link :href="route('company.billing')" class="btn btn-primary">{{ __('Upgrade Plan') }}</Link>
                        </div>
-                </div>
-                <div class="card-body mx-auto" v-else>
-                    <Loading :messageShow="false" size="fa-2x" />
-                </div>
-            </div>
-
-            <!-- Pending Request  -->
-            <div class="card">
-                <div class="card-header border-0">
-                    <h3 class="card-title">{{ __('Pending Request') }}</h3>
-                </div>
-                <div class="card-body" v-if="!loading">
-                    <div class="d-flex flex-wrap col-12">
-                        <template v-if="pending_requests && pending_requests.length">
-                            <div v-for="request in pending_requests" :key="request.id"
-                                class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
-                                <div class="mt-4">
-                                    <h6><strong>{{ request.title }}</strong>
-                                        <span class="text-danger ml-1">
-                                            {{ request.days }} {{ pluralize(request.days, 'Day') }}
-                                        </span>
-                                    </h6>
-                                    <h6 class="d-flex align-items-center">
-                                        <span class="m-widget4__sub">
-                                            <span class="m-widget4__sm-text mr-1">
-                                                <i class="fa-regular fa-calendar-days"></i>
-                                                {{ startDate(request.start) }}
-                                            </span>
-                                            <span class="m-widget4__sm-text ml-1">
-                                                <i class="fa-regular fa-calendar-days"></i>
-                                                {{ endDate(request.end) }}
-                                            </span>
-                                        </span>
-                                    </h6>
-                                    <span :style="{ background: request.color, border: '2px solid '+request.color }"
-                                        class="leave-type-color" v-tooltip="'Leave Type'">
-                                        {{ request.type }}
-                                    </span>
-                                </div>
-                                <div>
-                                    <button @click="statusChange('approved', request.id)" v-tooltip="'Accept Request'" class="btn btn-sm">
-                                        <CheckIcon />
-                                    </button>
-                                    <button @click="statusChange('rejected', request.id)" v-tooltip="'Reject Request'" class="btn btn-sm px-0">
-                                        <CrossIcon />
-                                    </button>
-                                     <button @click="showDetails(request)" v-tooltip="'Show Request Details'" class="btn btn-sm">
-                                        <EyeIcon />
-                                    </button>
-                                </div>
-                            </div>
-                        </template>
-                        <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
-                    </div>
-                </div>
-                <div class="card-body mx-auto" v-else>
-                    <Loading :messageShow="false" size="fa-2x" />
-                </div>
-            </div>
-
-            <!-- Recent Approved Leaves -->
-            <div class="card">
-                <div class="card-header border-0">
-                    <h3 class="card-title">{{ __('Recent Approved Leaves') }}</h3>
-                </div>
-                <div class="card-body" v-if="!loading">
-                    <div class="d-flex flex-wrap col-12">
-                        <template v-if="recent_approved_requests && recent_approved_requests.length">
-                        <div v-for="request in recent_approved_requests" :key="request.id"
-                            class="col-12 holidayCont officalHCont d-flex justify-content-between align-items-center main-user-fields">
-                            <div class="mt-4">
-                                <h6><strong>{{ request.title }}</strong>
-                                    <span class="text-danger ml-1">
-                                        {{ request.days }} {{ pluralize(request.days, 'Day') }}
-                                    </span>
-                                </h6>
-                                <h6 class="d-flex align-items-center">
-                                    <span class="m-widget4__sub">
-                                        <span class="m-widget4__sm-text mr-1">
-                                            <i class="fa-regular fa-calendar-days"></i>
-                                            {{ startDate(request.start) }}
-                                        </span>
-                                        <span class="m-widget4__sm-text ml-1">
-                                            <i class="fa-regular fa-calendar-days"></i>
-                                            {{ endDate(request.end) }}
-                                        </span>
-                                    </span>
-                                </h6>
-                                <span :style="{ background: request.color, border: '2px solid '+request.color }"
-                                    class="leave-type-color" v-tooltip="'Leave Type'">
-                                    {{ request.type }}
-                                </span>
-                            </div>
-                            <div>
-                                <button @click="showDetails(request)" v-tooltip="'Show Request Details'" class="btn btn-sm  pl-0">
-                                    <EyeIcon />
-                                </button>
-                            </div>
-                        </div>
-                        </template>
-                        <h6 class="text-center m-auto" v-else>{{ __('No Data Found') }}</h6>
-                    </div>
                 </div>
                 <div class="card-body mx-auto" v-else>
                     <Loading :messageShow="false" size="fa-2x" />
@@ -238,7 +228,7 @@
         <transition name="fade">
             <div class="modal-mask">
                 <div class="modal-wrapper">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog d-flex justify-content-center" role="document">
                         <div class="modal-content" v-click-outside="()=> showModal = false">
                             <div class="modal-header">
                                 <h5 class="modal-title">
@@ -254,7 +244,9 @@
                                         <tr>
                                             <td width="30%">{{ __('Employee') }}</td>
                                             <td width="70%">
-                                                {{ form.name }}
+                                                <Link :href="route('company.employees.show',form.user_id)">
+                                                    {{ form.name }}
+                                                </Link>
                                             </td>
                                         </tr>
                                         <tr>
@@ -282,7 +274,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td width="50%">{{ __('Reason') }}</td>
+                                            <td width="30%">{{ __('Reason') }}</td>
                                             <td width="50%">{{ form.reason }}</td>
                                         </tr>
                                     </tbody>
@@ -332,6 +324,7 @@ export default {
             subscribed_plan: {},
             form: {
                 name: "",
+                user_id: "",
                 type: "",
                 color: "",
                 status: "",
@@ -368,6 +361,7 @@ export default {
         },
         showDetails(request) {
             this.form.name = request.title;
+            this.form.user_id = request.user_id;
             this.form.type = request.type;
             this.form.color = request.color;
             this.form.status = request.status;
@@ -405,6 +399,7 @@ export default {
         },
     },
     async mounted() {
+        this.loading = true;
         await this.loadData();
     },
 };
@@ -421,5 +416,9 @@ export default {
         padding: 1px 5px;
         font-weight: 500;
         color: #fff;
+    }
+
+    .modal-dialog {
+        max-width: 1000px !important;
     }
 </style>

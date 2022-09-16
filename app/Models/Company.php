@@ -11,10 +11,7 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'country_id'
-    ];
+    protected $guarded = [];
 
     protected static function booted()
     {
@@ -24,9 +21,6 @@ class Company extends Model
                 'plan_id'  => 1,
                 'expired_date' => now()->addMonth(),
                 'subscription_type' => 'monthly'
-            ]);
-            $company->subscriptionHistory()->create([
-                'plan_id'  => 1,
             ]);
 
             // Attach working days to company
@@ -54,6 +48,15 @@ class Company extends Model
         });
     }
 
+    public function getCompanyLogoAttribute($logo)
+    {
+        if (!$logo) {
+            return asset('admin/img/default-user.png');
+        }
+
+        return asset($logo);
+    }
+
     public function teams()
     {
         return $this->hasMany(Team::class, 'company_id');
@@ -74,6 +77,11 @@ class Company extends Model
         return $this->hasMany(LeaveType::class, 'company_id');
     }
 
+    public function leaveRequests()
+    {
+        return $this->hasMany(LeaveRequest::class, 'company_id');
+    }
+
     public function holidays()
     {
         return $this->hasMany(Holiday::class, 'company_id');
@@ -92,11 +100,6 @@ class Company extends Model
     public function subscription()
     {
         return $this->hasOne(Subscription::class, 'company_id');
-    }
-
-    public function subscriptionHistory()
-    {
-        return $this->hasMany(SubscriptionHistory::class, 'company_id');
     }
 
     public function orders()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Company;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -23,28 +24,25 @@ class CompanyController extends Controller
         $search = request('search') ?? '';
         $country = request('country') ?? '';
 
-        $companies = User::query()
-            ->where('role', 'company')
-            ->where(function ($query) use ($search) {
-                $query->where('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('email', 'LIKE', '%' . $search . '%');
-            })
-            ->when($country, function ($query, $country) {
-                $query->whereHas('company', function ($query) use ($country) {
-                    $query->where('country_id', $country);
-                });
-            })
-            ->with('company.country')
-            ->latest()
-            ->paginate(10)
-            ->withQueryString()
-            ->through(fn ($user) => [
-                'id' => $user->id,
-                'name' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $user->name) : $user->name,
-                'email' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $user->email) : $user->email,
-                'avatar' => $user->avatar,
-                'country' => $user->company->country->name ?? '',
-            ]);
+        $companies = Company::with('country')
+        ->where(function ($query) use ($search) {
+            $query->where('company_name', 'LIKE', '%' . $search . '%')
+                ->orWhere('company_email', 'LIKE', '%' . $search . '%');
+        })
+        ->when($country, function ($query, $country) {
+            $query->where('country_id', $country);
+        })
+        ->latest()
+        ->paginate(10)
+        ->withQueryString()
+        // ->get()
+        ->through(fn ($company) => [
+            'id' => $company->id,
+            'name' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $company->company_name) : $company->company_name,
+            'email' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $company->company_email) : $company->company_email,
+            'avatar' => $company->company_logo,
+            'country' => $company->country->name ?? '',
+        ]);
 
         $countries = Country::all(['id', 'name', 'slug']);
 
@@ -56,50 +54,46 @@ class CompanyController extends Controller
                 'country' => $country ?? '',
             ],
         ]);
+
+        // $search = request('search') ?? '';
+        // $country = request('country') ?? '';
+
+        // $companies = User::query()
+        //     ->where('role', 'owner')
+        //     ->where(function ($query) use ($search) {
+        //         $query->where('name', 'LIKE', '%' . $search . '%')
+        //             ->orWhere('email', 'LIKE', '%' . $search . '%');
+        //     })
+        //     ->when($country, function ($query, $country) {
+        //         $query->whereHas('company', function ($query) use ($country) {
+        //             $query->where('country_id', $country);
+        //         });
+        //     })
+        //     ->with('company.country')
+        //     ->latest()
+        //     ->paginate(10)
+        //     ->withQueryString()
+        //     ->through(fn ($user) => [
+        //         'id' => $user->id,
+        //         'name' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $user->name) : $user->name,
+        //         'email' => $search ? preg_replace('/(' . $search . ')/i', "<b class='bg-warning'>$1</b>", $user->email) : $user->email,
+        //         'avatar' => $user->avatar,
+        //         'country' => $user->company->country->name ?? '',
+        //     ]);
+
+        // $countries = Country::all(['id', 'name', 'slug']);
+
+        // return inertia('admin/company/index', [
+        //     'companies' => $companies,
+        //     'countries' => $countries,
+        //     'filters' => [
+        //         'search' => $search,
+        //         'country' => $country ?? '',
+        //     ],
+        // ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $countries = Country::all(['id', 'name']);
 
-        return inertia('admin/company/create', [
-            'countries' => $countries,
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  UserCreateRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CompanyCreateRequest $request)
-    {
-        $data = $request->except(['country', 'password_confirmation']);
-        $data['password'] = bcrypt($data['password']);
-
-        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            $request->validate([
-                'avatar' => ['image', 'mimes:jpeg,png,jpg'],
-            ]);
-            $url = uploadFileToPublic('avatars', $request->avatar);
-            $data['avatar'] = $url;
-        }
-
-        $user = User::create($data);
-
-        $user->company()->create([
-            'country_id' => $request->country,
-        ]);
-
-        session()->flash('success', 'Company created successfully!');
-        return redirect()->route('companies.index');
-    }
 
     /**
      * Display the specified resource.
@@ -107,75 +101,35 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Company $company)
     {
-        //
-    }
+        $company->load('country:id,name');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $company)
-    {
-        $user = $company;
-        $countries = Country::all(['id', 'name']);
+        // Working days
+        $working_days = $company->workingDays;
 
-        return inertia('admin/company/edit', [
-            'user' => $user,
-            'country_id' => $user->company->country_id,
-            'countries' => $countries,
+        // Company summary
+        $leave_requests = $company->leaveRequests;
+        $summary = [
+            'total_expense' => currencyConversion(Order::where('company_id', $company->id)->sum('usd_amount'), 'USD', $company->currency) ?? 0,
+            'total_teams' => $company->teams()->count(),
+            'total_employees' => $company->employees()->count(),
+            'total_holidays' => $company->holidays()->count(),
+            'total_leave_types' => $company->leaveTypes()->count(),
+            'total_rejected_leave_requests' => $leave_requests->where('status','rejected')->count(),
+            'total_pending_leave_requests' => $leave_requests->where('status','pending')->count(),
+            'total_approved_leave_requests' => $leave_requests->where('status','approved')->count(),
+        ];
+
+        // Currently Subscription
+       $subscribed_plan = $company->subscription->load('plan.planFeatures');
+
+        return inertia('admin/company/show', [
+            'user' => $company,
+            'working_days' => $working_days,
+            'summary' => $summary,
+            'subscribed_plan' => $subscribed_plan,
         ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CompanyUpdateRequest $request, User $company)
-    {
-        $user = $company;
-
-        $data = $request->except(['country', 'password_confirmation']);
-        if ($request->password) {
-            $data['password'] = bcrypt($data['password']);
-        }
-
-        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            $request->validate([
-                'avatar' => ['image', 'mimes:jpeg,png,jpg'],
-            ]);
-            $url = uploadFileToPublic('avatars', $request->avatar);
-            $data['avatar'] = $url;
-        }
-
-        $user->update($data);
-
-        $user->company()->update([
-            'country_id' => $request->country,
-        ]);
-
-        session()->flash('success', 'Company updated successfully!');
-        return redirect()->route('companies.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $company)
-    {
-        $company->delete();
-
-        session()->flash('success', 'Company deleted successfully!');
-        return back();
     }
 
     public function companiesTeams(Company $company)

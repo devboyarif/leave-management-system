@@ -28,6 +28,7 @@ trait HasCompany
             ->transform(function ($leaveRequest) {
                 return [
                     'title' => $leaveRequest->employee->user->name,
+                    'user_id' => $leaveRequest->employee->user_id,
                     'end' => $leaveRequest->end,
                     'start' => $leaveRequest->start,
                     'color' => $leaveRequest->leaveType->color,
@@ -42,6 +43,7 @@ trait HasCompany
             ->transform(function ($leaveRequest) {
                 return [
                     'id' => $leaveRequest->id,
+                    'user_id' => $leaveRequest->employee->user_id,
                     'title' => $leaveRequest->employee->user->name,
                     'type' => $leaveRequest->leaveType->name,
                     'start' => $leaveRequest->start,
@@ -60,6 +62,7 @@ trait HasCompany
             ->transform(function ($leaveRequest) {
                 return [
                     'title' => $leaveRequest->employee->user->name,
+                    'user_id' => $leaveRequest->employee->user_id,
                     'type' => $leaveRequest->leaveType->name,
                     'start' => $leaveRequest->start,
                     'end' => $leaveRequest->end,
@@ -75,12 +78,14 @@ trait HasCompany
     {
         $total_expense =  currencyConversion(Order::where('company_id', currentCompany()->id)->sum('usd_amount'), 'USD', currentCompany()->currency);
         $pending_leave_request =  $all_leave_requests->where('status', 'pending')->count();
+        $approve_leave_request =  $all_leave_requests->where('status', 'approved')->count();
         $total_teams = $company->teams->count();
         $total_employees = $company->employees->count();
 
         return [
             'total_expense' => $total_expense,
             'total_pending_leaves' => $pending_leave_request,
+            'total_approve_leaves' => $approve_leave_request,
             'total_teams' => $total_teams,
             'total_employees' => $total_employees,
         ];

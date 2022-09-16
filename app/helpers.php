@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use App\Models\Seo;
 use App\Models\Theme;
+use App\Models\Invite;
 use AmrShawky\Currency;
 use App\Models\Company;
 use App\Models\Holiday;
@@ -14,7 +15,9 @@ use Illuminate\Support\Str;
 use msztorc\LaravelEnv\Env;
 use Nexmo\Client as NexmoClient;
 use Illuminate\Support\Facades\App;
+use App\Mail\Company\InviteSendMail;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Vonage\Client\Credentials\Basic;
 use Illuminate\Support\Facades\Artisan;
 use Twilio\Rest\Client as TwilioClient;
@@ -57,7 +60,16 @@ if (!function_exists('currentUserId')) {
 if (!function_exists('currentCompany')) {
     function currentCompany()
     {
-        return auth()->user()->company;
+       return Company::find(auth()->user()->current_company_id);
+        // return auth()->user()->companies;
+    }
+}
+
+if (!function_exists('currentCompany')) {
+    function ownerCompanies()
+    {
+       return Company::find(auth()->user()->current_company_id);
+        // return auth()->user()->companies;
     }
 }
 
@@ -209,7 +221,7 @@ if (!function_exists('storeCompanyCurrentSubscription')) {
     {
         session()->forget('current_subscription');
 
-        if (auth()->check() && auth()->user()->role == 'company') {
+        if (auth()->check() && auth()->user()->role == 'owner') {
             if (!function_exists('get_file_size')) {
                 $subscription = currentCompany()->subscription->load(['plan' => function ($query) {
                     $query->with('planFeatures');
@@ -225,7 +237,7 @@ if (!function_exists('getCurrentSubscription')) {
     function getCurrentSubscription()
     {
         // session()->forget('current_subscription');
-        if (auth()->check() && auth()->user()->role == 'company') {
+        if (auth()->check() && auth()->user()->role == 'owner') {
             if (!session()->has('current_subscription')) {
                 storeCompanyCurrentSubscription();
             }
@@ -254,6 +266,23 @@ if (!function_exists('currencyConversion')) {
             ->amount($amount)
             ->round($round)
             ->get();
+    }
+}
+
+if (!function_exists('currencyPosition')) {
+
+    function currencyPosition($amount)
+    {
+        $symbol = config('kodebazar.currency_symbol');
+        $position = config('kodebazar.currency_symbol_position');
+
+        if ($position == 'left') {
+            return $symbol . ' ' . $amount;
+        } else {
+            return $amount . ' ' . $symbol;
+        }
+
+        return $amount;
     }
 }
 
@@ -389,11 +418,6 @@ if (!function_exists('diffBetweenDays')) {
     {
         $days = CarbonPeriod::since($start_date)->days(1)->until($end_date);
         return count($days);
-
-        // $start_date = Carbon::parse(date('Y-m-d', strtotime($start_date)));
-        // $end_date = Carbon::parse(date('Y-m-d', strtotime($end_date)));
-
-        // return $start_date->diffInDays($end_date);
     }
 }
 
@@ -533,5 +557,32 @@ if (!function_exists('sumFinalDays')) {
         $weekend_days = sumWeekendDays($days_periods, $weekly_holidays);
 
         return $total_days - $official_holidays - $weekend_days;
+    }
+}
+
+if (!function_exists('currentLanguage')) {
+    function currentLanguage()
+    {
+        return session('current_lang');
+    }
+}
+
+if (!function_exists('sendInvite')) {
+    function sendInvite($company_id,$email, $team_id)
+    {
+        $data['token'] = Str::random(60);
+        $data['company_id'] = $company_id;
+        $data['team_id'] = $team_id;
+        $data['email'] = $email;
+
+        if (!Invite::whereToken($data['token'])->exists()) {
+            $invite = Invite::create($data);
+        } else {
+            $data['token'] = Str::random(100);
+            $invite = Invite::create($data);
+        }
+
+        // send the email
+        Mail::to($email)->send(new InviteSendMail($invite));
     }
 }

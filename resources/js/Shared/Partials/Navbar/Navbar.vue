@@ -5,26 +5,18 @@
             <li class="nav-item">
                 <a v-tooltip="'Collapse Sidebar'" @click="sidebarCollapse" class="nav-link" href="javascript:void(0)" role="button"><i class="fas fa-bars"></i></a>
             </li>
-            <!-- <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
-            </li> -->
-            <!-- <li class="nav-item">
+             <li class="nav-item">
                 <a v-tooltip="'Browse Website'" target="_blank" class="nav-link" href="/">
                     <i class="fa-solid fa-globe fa-2"></i>
                 </a>
             </li>
-            <br> -->
-             Url - {{ $page.url }} <br>
+
             Component - {{ $page.component }}
         </ul>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <LanguageSelector/>
-            <QuickAction />
             <Appearance />
             <Notification />
             <UserMenu />
@@ -33,7 +25,6 @@
 </template>
 
 <script>
-import QuickAction from "./QuickAction.vue";
 import Appearance from "./Appearance.vue";
 import UserMenu from "./UserMenu.vue";
 import Notification from "./Notification.vue";
@@ -41,7 +32,6 @@ import LanguageSelector from "./LanguageSelector.vue";
 
 export default {
     components: {
-        QuickAction,
         Appearance,
         UserMenu,
         Notification,

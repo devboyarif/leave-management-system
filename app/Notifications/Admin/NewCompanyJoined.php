@@ -11,14 +11,16 @@ class NewCompanyJoined extends Notification
 {
     use Queueable;
 
+    public $company;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($company)
     {
-        //
+        $this->company = $company;
     }
 
     /**
@@ -55,8 +57,8 @@ class NewCompanyJoined extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'New company joined',
-            'url' => url('/'),
+            'message' => $this->company->company_name .' has joined as a company',
+            'url' => route('companies.show',$this->company->id),
         ];
     }
 }

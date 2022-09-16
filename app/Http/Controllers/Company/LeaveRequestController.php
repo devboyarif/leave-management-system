@@ -26,9 +26,13 @@ class LeaveRequestController extends Controller
     {
         $status = request('status') ?? '';
         $leave_type = request('leave_type') ?? '';
+        $id = request('id') ?? '';
         $company = currentCompany();
 
-        $leave_requests = LeaveRequest::with(['employee.user', 'employee.team', 'company.user', 'leaveType'])
+        $leave_requests_query = LeaveRequest::query();
+        if ($id) {$leave_requests_query->where('id', $id);}
+
+        $leave_requests = $leave_requests_query->with(['employee.user', 'employee.team', 'company.user', 'leaveType'])
             ->where('company_id', $company->id)
             ->when($status, function ($query, $status) {
                 $query->where('status', $status);
@@ -48,7 +52,7 @@ class LeaveRequestController extends Controller
             'teams' => $teams,
             'filters' => [
                 'status' => $status ?? '',
-                'leave_type' => $leave_type ?? '',
+                'leave_type' => $leave_type ?? ''
             ],
         ]);
     }
@@ -197,20 +201,6 @@ class LeaveRequestController extends Controller
         return redirect_to('company.leaveRequests.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(LeaveRequest $leaveRequest)
-    {
-        $leaveRequest->delete();
-
-        session()->flash('success', 'Leave Request deleted successfully');
-        return back();
-    }
-
     public function statusChange(Request $request)
     {
         $leave_request = LeaveRequest::findOrFail($request->id);
@@ -230,6 +220,20 @@ class LeaveRequestController extends Controller
         $leave_request->update([
             'status' => $request->status,
         ]);
+
+        // Notification and mail sending
+        if ($request->status == 'approved') {
+            $leave_request->employee->user->notify(new ApprovedLeaveRequest($leave_request));
+            $message = "Your leave request has been approved";
+        } elseif ($request->status == 'rejected') {
+            $leave_request->employee->user->notify(new RejectedLeaveRequest($leave_request));
+            $message = "Your leave request has been rejected";
+        }
+
+        // Sms sending
+        $to = $leave_request->employee->phone;
+        sendSms('twilio', $to, $message);
+        sendSms('vonage', $to, $message);
 
         $message = 'Leave Request ' . $request->status . ' successfully';
         session()->flash('success', $message);

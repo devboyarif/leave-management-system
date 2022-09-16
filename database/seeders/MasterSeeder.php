@@ -6,6 +6,7 @@ use App\Models\Plan;
 use App\Models\User;
 use App\Models\Currency;
 use App\Models\Language;
+use App\Models\TeamSize;
 use App\Models\LeaveType;
 use Illuminate\Database\Seeder;
 
@@ -36,6 +37,18 @@ class MasterSeeder extends Seeder
 
         // Currency Create
         Currency::create(['name' => 'US Dollar','code' => 'USD', 'symbol' => '$','symbol_position' => 'left']);
+
+        // Team Size Create
+        $team_sizes = [
+            '1-5','6-10','11-20','21-50','50-100','101-200','200+'
+        ];
+
+        foreach ($team_sizes as $size) {
+            TeamSize::create([
+                'name' => $size,
+                'slug' => strSlug($size)
+            ]);
+        }
 
     }
 }

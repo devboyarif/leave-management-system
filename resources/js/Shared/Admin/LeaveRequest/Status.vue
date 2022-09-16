@@ -5,16 +5,15 @@
     <button v-if="leaveRequest.status == 'pending' || leaveRequest.status == 'approved'" @click="statusChange('rejected')" v-tooltip="__('Reject Request')" class="btn btn-sm ">
         <CrossIcon/>
     </button>
-    <button v-if="leaveRequest.status == 'pending'" @click="editData(leaveRequest.id)" v-tooltip="'Edit Request'" class="btn btn-sm">
+    <button v-if="leaveRequest.status == 'pending'" @click="editData(leaveRequest.id)" v-tooltip="__('Edit')" class="btn btn-sm">
         <EditIcon/>
     </button>
-    <button @click="deleteData()" v-tooltip="__('Delete Request')" class="btn btn-sm">
+    <button @click="deleteData()" v-tooltip="__('Delete')" class="btn btn-sm">
         <DeleteIcon/>
     </button>
 </template>
 
 <script>
-
 export default {
     props: {
         leaveRequest: {

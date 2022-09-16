@@ -10,6 +10,7 @@ use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
 use App\Traits\Employee\HasLeaveBalance;
 use App\Http\Requests\EmployeeUpdateRequest;
+use App\Notifications\Company\NewEmployeeJoined;
 use App\Http\Requests\Company\EmployeeCreateRequest;
 
 class EmployeeController extends Controller
@@ -68,8 +69,34 @@ class EmployeeController extends Controller
         // Create leave balance for the employee
         $this->employeeLeaveBalanceCreate($company->id, $employee->id);
 
+        $employee->company->user->notify(new NewEmployeeJoined($employee->user, $employee->company_id));
+
         session()->flash('success', 'Employee created successfully!');
         return back();
+    }
+
+    public function show(User $employee)
+    {
+        $user = $employee;
+        $userEmployee = $user->employee;
+        $user->load('employee.team:id,name');
+
+        // Company summary
+        $leave_requests = $userEmployee->leaveRequests;
+        $summary = [
+             'total_rejected_leave_requests' => $leave_requests->where('status','rejected')->count(),
+             'total_pending_leave_requests' => $leave_requests->where('status','pending')->count(),
+             'total_approved_leave_requests' => $leave_requests->where('status','approved')->count(),
+         ];
+
+        // Leave balance
+        $leave_balances = $userEmployee->leaveBalances->load('leaveType:id,name');
+
+        return inertia('company/employeeDetails',[
+            'user' => $user,
+            'summary' => $summary,
+            'leave_balances' => $leave_balances,
+        ]);
     }
 
     public function inviteEmployee(Request $request)

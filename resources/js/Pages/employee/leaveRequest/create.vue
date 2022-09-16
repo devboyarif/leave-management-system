@@ -3,7 +3,7 @@
     <Head :title="__('Create Leave Request')" />
     <div class="row justify-content-center">
         <div class="col-12">
-            <div class="card mt-3">
+            <div class="card mt-5">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">{{ __('Create Leave Request') }}</h3>
@@ -158,10 +158,30 @@ export default {
         },
         handleStartDate(startDate) {
             const formatTime = dayjs(startDate).format("YYYY-MM-DD");
+
+            if(this.form.end){
+                let dateCheck = this.checkDateValidity(formatTime, this.form.end);
+
+                if(!dateCheck){
+                    this.form.end = ''
+                    return this.toastError("End date must be grater than start date")
+                }
+            }
+
             this.form.start = formatTime;
         },
         handleEndDate(endDate) {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
+
+            if(this.form.start){
+                let dateCheck = this.checkDateValidity(this.form.start, formatTime);
+
+                if(!dateCheck){
+                    this.form.end = ''
+                    return this.toastError("End date must be grater than start date")
+                }
+            }
+
             this.form.end = formatTime;
         },
         async checkLeaveTypeBalance() {
@@ -171,7 +191,7 @@ export default {
 
             this.leaveTypeBalance = response.data;
             this.showLeaveTypeBalance = true;
-        },
+        }
     },
     computed: {
         dates() {
@@ -183,7 +203,7 @@ export default {
                 !this.leaveTypeBalance.remaining_days ||
                 this.leaveTypeBalance.remaining_days < this.diffBetweenDays
             );
-        },
+        }
     },
     watch: {
         async dates(newVal) {
@@ -203,7 +223,7 @@ export default {
 
                 this.diffBetweenDays = response.data.final_days_count;
             }
-        },
+        }
     },
     mounted() {
         this.checkPagePermission("employee");

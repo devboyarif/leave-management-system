@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\User;
-use App\Models\Company;
 use App\Models\LeaveType;
 use App\Models\LeaveBalance;
 use Illuminate\Http\Request;
 use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
 use App\Traits\Employee\HasLeaveBalance;
-use App\Http\Requests\LeaveTypeSaveRequest;
-use App\Notifications\Employee\NewLeaveTypeAdded;
 
 class LeaveTypeController extends Controller
 {
@@ -53,11 +49,6 @@ class LeaveTypeController extends Controller
 
         // Create leave balance for the employee
         $this->attachLeaveTypeToAllEmployees($company, $leave_type);
-
-        // Notification for company
-        $company->employees->each(function ($employee) {
-            $employee->user->notify(new NewLeaveTypeAdded());
-        });
 
         session()->flash('success', 'Leave type created successfully!');
         return redirect_to('company.leaveTypes.index');

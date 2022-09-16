@@ -8,7 +8,7 @@
               <nav class="nav flex-column nav-pills nav-gap-y-1">
                 <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded" :class="{'active': currentTab == 'profile'}" @click="changeTab('profile')">
                   <UserIcon class="mr-2"/>
-                  General
+                  {{ __('General') }}
                 </a>
                 <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded" :class="{'active': currentTab == 'themes'}" @click="changeTab('themes')">
                   <PenIcon class="mr-2"/>
@@ -19,26 +19,22 @@
                 </a>
                 <a href="javascript:void(0)" class="nav-item nav-link has-icon nav-link-faded" :class="{'active': currentTab == 'week_days'}" @click="changeTab('week_days')">
                   <CalendarIcon class="mr-2"/>
-                  Working Days
+                  {{ __('Working Days') }}
                 </a>
               </nav>
             </div>
           </div>
         </div>
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-body tab-content">
-                <div class="tab-pane fade" :class="{'show active': currentTab == 'profile'}">
-                    <General :user="user" :countries="countries"/>
-                </div>
-                <div class="tab-pane fade" :class="{'show active': currentTab == 'themes'}">
-                    <Theme :theme="theme"/>
-                </div>
-                <div class="tab-pane fade" :class="{'show active': currentTab == 'week_days'}">
-                    <WorkingDays :workingdays="workingdays"/>
-                </div>
+        <div class="col-md-8 tab-content">
+            <div class="tab-pane fade" :class="{'show active': currentTab == 'profile'}">
+                <General :user="user" :company="company" :countries="countries"/>
             </div>
-          </div>
+            <div class="tab-pane fade" :class="{'show active': currentTab == 'themes'}">
+                <Theme :theme="theme"/>
+            </div>
+            <div class="tab-pane fade" :class="{'show active': currentTab == 'week_days'}">
+                <WorkingDays :workingdays="workingdays"/>
+            </div>
         </div>
       </div>
 </template>
@@ -53,6 +49,7 @@ import CalendarIcon from "../../Shared/Icons/CalendarIcon.vue";
 
 export default {
     props: {
+        company: Object,
         user: Object,
         workingdays: Object,
         theme: Object,
@@ -75,12 +72,10 @@ export default {
         async changeTab(tab) {
             localStorage.setItem("companySettingTab", tab);
             this.currentTab = tab;
-
-            // this.paymentData = response.data;
         },
     },
     mounted() {
-        this.checkPagePermission("company");
+        this.checkPagePermission("owner");
         let tab = localStorage.getItem("companySettingTab") || "profile";
         this.currentTab = tab;
         this.changeTab(tab);

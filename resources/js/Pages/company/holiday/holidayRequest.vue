@@ -30,9 +30,9 @@
                             <template v-if="holidays && holidays.data.length">
                                 <tr v-for="(holiday,index) in holidays.data" :key="index">
                                     <td v-if="holiday.employee.user">
-                                        <img :src="holiday.employee.user.avatar" alt="Product 1"
+                                        <img :src="holiday.employee.user.avatar" alt="img"
                                             class="img-circle img-size-32 mr-2">
-                                        <a href="#">{{ holiday.employee.user.name }}</a>
+                                        <Link :href="route('company.employees.show',holiday.employee.user_id)">{{ holiday.employee.user.name }}</Link>
                                     </td>
                                     <td >
                                         {{ holiday.title }}
@@ -79,7 +79,7 @@
         <transition name="fade">
             <div class="modal-mask">
                 <div class="modal-wrapper">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog d-flex justify-content-center" role="document">
                         <div class="modal-content" v-click-outside="()=> showModal = false">
                             <div class="modal-header">
                                 <h5 class="modal-title">
@@ -94,7 +94,7 @@
                                     <tbody>
                                         <tr>
                                             <td width="30%">{{ __('Employee Name') }}</td>
-                                            <td width="70%"><a href="#">{{ form.employee_name }}</a></td>
+                                            <td width="70%">{{ form.employee_name }}</td>
                                         </tr>
                                         <tr>
                                             <td width="30%">{{ __('Email') }}</td>
@@ -113,7 +113,7 @@
                                             <td width="70%">{{ form.days }} {{ pluralize(form.days, 'Day') }}</td>
                                         </tr>
                                         <tr>
-                                            <td width="50%">{{ __('Note') }}</td>
+                                            <td width="30%">{{ __('Note') }}</td>
                                             <td width="50%">{{ form.note }}</td>
                                         </tr>
                                     </tbody>
@@ -200,7 +200,13 @@ export default {
         },
     },
      mounted(){
-        this.checkPagePermission('company')
+        this.checkPagePermission('owner')
     }
 };
 </script>
+
+<style scoped>
+.modal-dialog {
+    max-width: 1000px !important;
+}
+</style>

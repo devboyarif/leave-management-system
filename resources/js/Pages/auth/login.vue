@@ -1,6 +1,6 @@
 <template>
 
-    <Head :title="__('Sign in')" />
+    <Head :title="__('Sign In')" />
     <div class="mt-5 pt-2 row align-items-center justify-content-center">
         <div class="auth-card-width">
             <div class="card card-outline card-primary card-width">
@@ -11,22 +11,22 @@
                 </div>
                 <div class="card-body">
                     <form @submit.prevent="login">
-                        <h2 class="title">{{ __('Sign in') }}</h2>
+                        <h2 class="title">{{ __('Sign In') }}</h2>
                         <p class="subtitle">{{ __("Don't have an account") }}
                             <Link :href="route('register.form')">{{ __('Sign Up') }}</Link>
                         </p>
                         <div class="email-login">
                             <!-- Email  -->
-                            <label class="text-secondary" for="email"> <b>{{ __('Email') }}</b></label>
+                            <AuthLabel name="Email" />
                             <input v-model="form.email" :class="{'border-danger':form.errors.email}" type="text"
                                 :placeholder="__('Email')">
-                            <span v-if="errors.email" class="d-block text-danger mt--10 mb-1">{{ form.errors.email }}</span>
+                            <AuthErrorMessage :name="errors.email" />
 
                             <!-- Password -->
-                            <label class="text-secondary" for="psw"><b>{{ __('Password') }}</b></label>
+                            <AuthLabel name="Password" />
                             <input v-model="form.password" :class="{'border-danger':form.errors.password}"
                                 type="password" :placeholder="__('Password')">
-                            <span v-if="errors.password" class="d-block text-danger mt--10 mb-1">{{ form.errors.password }}</span>
+                            <AuthErrorMessage :name="errors.password" />
                         </div>
                         <button :disabled="form.processing" type="submit" class="cta-btn bg-primary">
                             <Loading v-if="form.processing" :messageShow="false" />
@@ -41,8 +41,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <button @click="roleLogin('admin@mail.com','password')" class="btn btn-secondary">Login Via Admin</button>
-                        <button @click="roleLogin('company@mail.com', 'password')" class="btn btn-secondary mx-1">Login Via
-                            Company</button>
+                        <button @click="roleLogin('owner@mail.com', 'password')" class="btn btn-secondary mx-1">Login Via Owner</button>
                         <button @click="roleLogin('employee@mail.com', 'password')" class="btn btn-secondary">Login Via
                             Employee</button>
                     </div>

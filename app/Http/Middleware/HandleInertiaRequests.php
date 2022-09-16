@@ -41,7 +41,12 @@ class HandleInertiaRequests extends Middleware
         // Authenticate user
         $data['authenticatedUser'] = currentUser();
         if (auth()->check() && currentUser()->role == 'employee') {
-            $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
+            $data['employeeCompany'] = auth()->user()->employee->company;
+            // $data['employeeCompanyUser'] = getCompanyUserByEmployeeUser(auth()->id());
+        }
+        if (auth()->check() && currentUser()->role == 'owner') {
+            $data['currentCompany'] = currentCompany();
+            $data['ownerCompanies'] = auth()->user()->companies;
         }
 
         // Flash messages
@@ -57,11 +62,11 @@ class HandleInertiaRequests extends Middleware
         $data['language'] = translations(resource_path('lang/' . $data['locale'] . '.json'));
 
         // Notifications
-        $data['notifications'] = auth()->check() ? auth()->user()->unreadNotifications->take(5) : [];
+        $data['notifications'] = auth()->check() ? auth()->user()->notifications->take(5) : [];
         $data['unreadNotificationsCount'] = auth()->check() ? auth()->user()->unreadNotifications->count() : 0;
 
         // Subscription
-        if (auth()->check() && auth()->user()->role == 'company') {
+        if (auth()->check() && auth()->user()->role == 'owner' && auth()->user()->current_company_id) {
             session()->forget('current_subscription');
             if (!session()->has('current_subscription')) {
                 storeCompanyCurrentSubscription();
@@ -78,7 +83,6 @@ class HandleInertiaRequests extends Middleware
 
         // Settings
         $data['setting'] = auth()->check() ? Setting::first() : [];
-        // $data['setting'] = auth()->check() && currentUser()->role == 'admin' ? Setting::first() : [];
 
         return array_merge(parent::share($request), $data);
     }

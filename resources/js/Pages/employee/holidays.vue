@@ -15,7 +15,7 @@
                             </button>
                             <button @click="showModal = true" class="btn btn-primary ml-1" type="button">
                                 <i class="fa-solid fa-plus"></i>
-                                {{ __('Create Leave Request') }}
+                                {{ __('Create Holiday Request') }}
                             </button>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
             <div class="modal-mask">
                 <div class="modal-wrapper">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content" v-click-outside="hideModalOutsideClick">
+                        <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">
                                     <span>{{ __('Holiday Request Create') }}</span>
@@ -192,7 +192,6 @@ export default {
     },
     methods: {
         saveData() {
-            console.log(this.form);
             this.form.post(route("employee.holiday.request.create"), {
                 onSuccess: () => {
                     this.showModal = false;
@@ -202,19 +201,32 @@ export default {
         },
         handleStartDate(startDate) {
             const formatTime = dayjs(startDate).format("YYYY-MM-DD");
+
+            if(this.form.end){
+                let dateCheck = this.checkDateValidity(formatTime, this.form.end, true);
+
+                if(!dateCheck){
+                    this.form.end = ''
+                    return this.toastError("End date must be grater than start date")
+                }
+            }
+
             this.form.start = formatTime;
         },
         handleEndDate(endDate) {
             const formatTime = dayjs(endDate).format("YYYY-MM-DD");
-            this.form.end = formatTime;
-        },
-        hideModalOutsideClick() {
-            if (this.form.processing) {
-                return;
-            } else {
-                this.showModal = false;
+
+            if(this.form.start){
+                let dateCheck = this.checkDateValidity(this.form.start, formatTime, true);
+
+                if(!dateCheck){
+                    this.form.end = ''
+                    return this.toastError("End date must be grater than start date")
+                }
             }
-        },
+
+            this.form.end = formatTime;
+        }
     },
     mounted(){
         this.checkPagePermission('employee')

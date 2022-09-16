@@ -1,6 +1,6 @@
 <template>
     <AdminDashboard v-if="role == 'admin'"/>
-    <CompanyDashboard v-else-if="role == 'company'"/>
+    <CompanyDashboard v-else-if="role == 'owner'"/>
     <EmployeeDashboard v-else/>
 </template>
 

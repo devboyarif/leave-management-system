@@ -4,7 +4,7 @@
      <div class="row">
         <div class="col-6">
              <div class="d-flex align-items-center mb-1 mt-3">
-                <div class="form-row align-items-end mr-3">
+                <div class="form-row">
                     <div class="col-auto">
                         <label for="" class="mr-sm-2">{{ __('Set Default Language') }}</label>
                         <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="default_language">
@@ -13,9 +13,8 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-auto">
-                        <button @click="setDefaultLanguage" type="button" class="btn btn-primary "
-                            style="margin-top:30px">{{ __('Save') }}</button>
+                    <div class="col-auto pt-30">
+                        <button @click="setDefaultLanguage" type="button" class="btn btn-primary ">{{ __('Save') }}</button>
                     </div>
                 </div>
             </div>
@@ -93,7 +92,7 @@
                          <form @submit.prevent="saveData">
                             <div class="mb-3">
                                 <Label :name="__('Name')"/>
-                                 <select class="form-control" :class="{'is-invalid':form.errors.name}" v-model="form.name">
+                                 <select class="form-control" :class="{'is-invalid':form.errors.name}" v-model="form.name" @change="languageAutoComplete">
                                     <option value="" class="d-none">{{ __('Select Language') }}</option>
                                     <option v-for="(langInfo,key) in langInfos" :key="key" :value="langInfo['name']">{{ langInfo['name'] }}</option>
                                 </select>
@@ -168,13 +167,11 @@ export default {
             this.isEditMode ? this.updateData() : this.createData();
         },
         createData() {
-            console.log(this.form);
             this.form.post(route("languages.store"), {
                 onSuccess: () => this.form.reset(),
             });
         },
         editLanguage(language) {
-            console.log(language);
             this.isEditMode = true;
             this.selectedId = language.id;
             this.form.name = language.name;
@@ -218,6 +215,14 @@ export default {
             this.$inertia.put(
                 route("languages.set.default", this.default_language)
             );
+        },
+        languageAutoComplete(){
+            let objects = Object.keys(this.langInfos);
+            for (let i = 0; i < objects.length; i++) {
+                if (this.langInfos[objects[i]]['name'] == this.form.name) {
+                    this.form.code = this.langInfos[objects[i]]['code'];
+                }
+            }
         },
     },
      mounted(){

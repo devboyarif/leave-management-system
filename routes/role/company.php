@@ -1,24 +1,25 @@
 <?php
 
-use App\Http\Controllers\Company\CompanyController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Company\TeamController;
 use App\Http\Controllers\Company\InviteController;
+use App\Http\Controllers\Company\ReportController;
+use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Company\HolidayController;
 use App\Http\Controllers\Company\SettingController;
 use App\Http\Controllers\Company\EmployeeController;
 use App\Http\Controllers\Company\LeaveTypeController;
+use App\Http\Controllers\Company\AccountSetupController;
 use App\Http\Controllers\Company\LeaveRequestController;
-use App\Http\Controllers\Company\ReportController;
 
-Route::middleware(['auth', 'check.company.role'])->prefix('company')->name('company.')->group(function () {
+Route::middleware(['auth', 'check.company.role','check.company.setup'])->prefix('company')->name('company.')->group(function () {
     // Employee routes
     Route::resource('/employees', EmployeeController::class);
     Route::post('/employees/invite', [EmployeeController::class, 'inviteEmployee'])->name('employees.invite');
 
     // Pricing Plan
-    Route::get('/orders', [CompanyController::class, 'orders'])->name('orders.index');
-    Route::get('/pricing/plan', [CompanyController::class, 'plan'])->name('plan');
+    Route::get('/billing', [CompanyController::class, 'billing'])->name('billing');
 
     // Team routes
     Route::get('/teams/employees', [TeamController::class, 'teamEmployees'])->name('teams.employees');
@@ -40,6 +41,9 @@ Route::middleware(['auth', 'check.company.role'])->prefix('company')->name('comp
     });
     Route::resource('/holidays', HolidayController::class);
 
+    // Orders
+    Route::get('/orders/{order}', [OrderController::class, 'orderDetails'])->name('orders.show');
+
     // Reports
     Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
         Route::get('/', 'index')->name('index');
@@ -54,6 +58,7 @@ Route::middleware(['auth', 'check.company.role'])->prefix('company')->name('comp
     // Setting
     Route::controller(SettingController::class)->group(function () {
         Route::get('/theme', 'theme')->name('theme.index');
+        Route::post('/general/setting', 'generalSetting')->name('general.setting.update');
         Route::post('/theme/update', 'themeUpdate')->name('theme.update');
         Route::put('/workingdays/update', 'workingdaysUpdate')->name('workingdays.update');
     });
@@ -63,10 +68,33 @@ Route::middleware(['auth', 'check.company.role'])->prefix('company')->name('comp
         Route::get('/general', 'general')->name('general');
         Route::post('/general/setting/update', 'generalSettingUpdate')->name('general.update');
     });
+
+    // Company
+    Route::post('switch/{id}', [CompanyController::class, 'switchCompany'])->name('switch');
+    Route::get('create', [CompanyController::class, 'createCompany'])->name('create');
+    Route::delete('delete', [CompanyController::class, 'deleteCompany'])->name('delete');
 });
 
+// Invite Employee
 Route::controller(InviteController::class)->prefix('company')->name('company.')->group(function () {
     Route::post('/invite', 'sendInvite')->name('invite.send')->middleware('auth');
     Route::get('invite/accept/{token}', 'acceptInvite')->name('invite.accept');
     Route::post('store/employee/', 'storeEmployee')->name('store.employee');
+});
+
+// Account Setup
+Route::get('fetch/company/teams', [AccountSetupController::class, 'fetchTeams'])->name('fetch.company.teams');
+Route::delete('delete/company/{team}', [AccountSetupController::class, 'deleteTeam'])->name('delete.company.teams');
+
+Route::controller(AccountSetupController::class)->prefix('account/setup')->middleware('auth')->group(function(){
+    Route::get('/', 'accountSetup')->name('company.account.setup');
+    Route::name('company.account.setup.')->group(function(){
+        Route::post('/step1', 'step1')->name('step1');
+        Route::post('/step2', 'step2')->name('step2');
+        Route::post('/step3', 'step3')->name('step3');
+        Route::post('/step4', 'step4')->name('step4');
+        Route::post('/step5', 'step5')->name('step5');
+        Route::get('/progress', 'progressFetch')->name('progress.fetch');
+        Route::put('/progress/{step}', 'progressUpdate')->name('progress.update');
+    });
 });
