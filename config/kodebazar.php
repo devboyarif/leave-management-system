@@ -25,11 +25,6 @@ return [
     'paystack_merchant' => env('MERCHANT_EMAIL'),
     'paystack_active' => env('PAYSTACK_ACTIVE'),
 
-    'ssl_id' => env('STORE_ID'),
-    'ssl_pass' => env('STORE_PASSWORD'),
-    'ssl_active' => env('SSLCOMMERZ_ACTIVE'),
-    'ssl_mode' => env('SSLCOMMERZ_MODE', 'sandbox'),
-
     'flw_public_key' => env('FLW_PUBLIC_KEY'),
     'flw_secret' => env('FLW_SECRET_KEY'),
     'flw_secret_hash' => env('FLW_SECRET_HASH'),

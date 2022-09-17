@@ -68,4 +68,54 @@ trait PaymentAble
         session()->forget('transaction_id');
         session()->forget('stripe_amount');
     }
+
+    public function switchToFreePlan($plan){
+        $company_subscription = currentCompany()->subscription;
+
+        // attach the plan to the company
+        $company_subscription->plan_id = $plan->id;
+        if ($plan->interval == 'monthly') {
+            $expired_date = now()->addMonth()->format('Y-m-d');
+        } elseif ($plan->interval == 'yearly') {
+            $expired_date = now()->addYear()->format('Y-m-d');
+        } elseif ($plan->interval == 'custom_days') {
+            $expired_date = now()->addDays($plan->custom_interval_days)->format('Y-m-d');
+        } else {
+            $expired_date = '';
+        }
+
+        if ($expired_date) {
+            $company_subscription->expired_date = $expired_date;
+        }
+
+        $company_subscription->subscription_type = $plan->interval;
+        $company_subscription->save();
+
+        // create the order
+        $order = Order::create([
+            'order_id' => uniqid(),
+            'transaction_id' => uniqid('tr_'),
+            'plan_id' => $plan->id,
+            'company_id' => currentCompany()->id,
+            'expired_date' => $expired_date ?? 'Lifetime',
+            'payment_status' => 'paid',
+            'amount' => 0,
+            'usd_amount' => 0,
+            'currency_symbol' => config('kodebazar.currency_symbol'),
+            'payment_provider' => 'none',
+        ]);
+
+        storeCompanyCurrentSubscription();
+        $this->forgetSessions();
+
+        if (checkMailConfig()) {
+            $admins = User::roleAdmin()->get();
+            foreach ($admins as $admin) {
+                Notification::send($admin, new PlanPurchase($admin->name, $plan->name, currentCompany()->company_name, $order->id));
+            }
+        }
+
+        session()->flash('success', 'Plan purchased successfully.');
+        return redirect()->route('company.billing')->send();
+    }
 }
