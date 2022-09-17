@@ -2,15 +2,9 @@
 
 namespace App\Traits;
 
-use App\Models\Admin;
-use App\Models\Earning;
-use App\Models\UserPlan;
-use Modules\Plan\Entities\Plan;
 use Illuminate\Support\Facades\Notification;
-use AmrShawky\LaravelCurrency\Facade\Currency;
 use App\Models\Order;
 use App\Models\User;
-use App\Notifications\Admin\NewPlanPurchaseNotification;
 use App\Notifications\Admin\PlanPurchase;
 
 trait PaymentAble
@@ -38,7 +32,7 @@ trait PaymentAble
         $company_subscription->save();
 
         // create the order
-        Order::create([
+        $order = Order::create([
             'order_id' => $order_id ?? uniqid(),
             'transaction_id' => $transaction_id,
             'plan_id' => $plan->id,
@@ -57,7 +51,7 @@ trait PaymentAble
         if (checkMailConfig()) {
             $admins = User::roleAdmin()->get();
             foreach ($admins as $admin) {
-                Notification::send($admin, new PlanPurchase($admin->name, $plan->name, auth()->user()->name));
+                Notification::send($admin, new PlanPurchase($admin->name, $plan->name, currentCompany()->company_name, $order->id));
             }
         }
 

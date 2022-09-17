@@ -164,17 +164,6 @@
     <form action="{{ route('instamojo.pay') }}" method="POST" class="d-none" id="instamojo-form">
         @csrf
     </form>
-
-    {{-- SSL Form --}}
-    <form method="POST" class="needs-validation d-none" novalidate>
-        <input type="hidden" value="{{ $plan->price }}" name="amount" id="total_amount" />
-        <input id="ssl_plan_id" type="hidden" name="plan_id" value="{{ $plan->id }}">
-        <button class="btn btn-primary" id="sslczPayBtn" token="if you have any token validation"
-            postdata="your javascript arrays or objects which requires in backend"
-            order="If you already have the transaction generated for current order" endpoint="{{ route('ssl.pay') }}">
-            {{ __('pay_now') }}
-        </button>
-    </form>
 @endsection
 
 @section('custom-scripts')
@@ -233,32 +222,6 @@
             e.preventDefault();
             $('#sslczPayBtn').click();
         });
-
-        // ssl commerz
-        var obj = {};
-        obj.amount = $('#total_amount').val();
-        obj.plan_id = $('#ssl_plan_id').val();
-
-        $('#sslczPayBtn').prop('postdata', obj);
-
-        (function(window, document) {
-            var loader = function() {
-                var script = document.createElement("script"),
-                    tag = document.getElementsByTagName("script")[0];
-                if ('{{ config('kodebazar.ssl_mode') }}' == 'sandbox') {
-                    script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36)
-                        .substring(
-                            7); // USE THIS FOR SANDBOX
-                } else {
-                    script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36)
-                        .substring(7); // USE THIS FOR LIVE
-                }
-                tag.parentNode.insertBefore(script, tag);
-            };
-
-            window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload",
-                loader);
-        })(window, document);
 
         // Midtrans
         if (

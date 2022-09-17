@@ -57,7 +57,7 @@
     methods: {
         async getTeams(){
             let response = await axios.get(route('fetch.company.teams'))
-            this.teams = response.data
+            this.teams = response.data.teams
         },
         addMore() {
             this.form.teams.push("");
