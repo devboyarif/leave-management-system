@@ -4,12 +4,19 @@ namespace App\Traits;
 
 trait HasSubscription
 {
-    public function checkEmployeesLimitation($new_employees_count = null)
+    public function checkEmployeesLimitation($new_employees_count = null, $company = null)
     {
-        $features = getCurrentSubscriptionFeatures();
+        if (!$company) {
+            $features = getCurrentSubscriptionFeatures();
+        }else{
+            $features = $company->subscription->plan->planFeatures;
+        }
 
         if ($features->is_limited_employee) {
-            $company = currentCompany();
+            if (!$company) {
+                $company = currentCompany();
+            }
+
             $total_employees =  $company->employees->count();
 
             if ($new_employees_count) {

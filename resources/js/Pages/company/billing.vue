@@ -6,7 +6,7 @@
             <!-- Billing card 1-->
             <div class="card h-100 border-start-lg border-start-primary">
                 <div class="card-body">
-                    <h5>{{ __('Current monthly bill') }}</h5>
+                    <h5>{{ __('Current bill') }}</h5>
                     <div class="h3">{{ currencyPosition(currently_subscribed.plan.price) }}</div>
                     <a class="text-arrow-icon small" href="#pricing_plan">
                         {{ __('Switch to another plan') }}
@@ -22,7 +22,7 @@
                     <h5>{{ __('Next payment due') }}</h5>
                     <div class="h3">
                         <template v-if="currently_subscribed.plan && currently_subscribed.plan.interval != 'lifetime'">
-                            {{ formateDate(currently_subscribed.expired_at, "MMMM D") }}
+                            {{ formateDate(currently_subscribed.expired_date, "MMMM D") }}
                         </template>
                         <span v-else>{{ __('Lifetime') }}</span>
                     </div>

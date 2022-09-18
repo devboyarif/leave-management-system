@@ -7,6 +7,7 @@ use App\Models\Invite;
 use Illuminate\Http\Request;
 use App\Traits\HasSubscription;
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\Employee\HasLeaveBalance;
 use App\Notifications\Company\NewEmployeeJoined;
@@ -50,7 +51,7 @@ class InviteController extends Controller
         return back();
     }
 
-    public function acceptInvite($token)
+    public function acceptInvite()
     {
         $invite = Invite::whereToken(request('token'))->firstOrFail();
 
@@ -72,6 +73,14 @@ class InviteController extends Controller
         ]);
 
         $invite = Invite::whereToken(request('token'))->firstOrFail();
+
+        $company = Company::findOrFail($invite->company_id);
+
+         // Check if the user is limited to create employees
+         if ($this->checkEmployeesLimitation(null, $company)) {
+             session()->flash('error', __('You cannot create account because of limited number of employees'));
+             return back();
+        }
 
         // check if the invite has already been accepted
         if (User::whereEmail($invite->email)->exists()) {

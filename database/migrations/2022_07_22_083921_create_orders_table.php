@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('order_id');
             $table->string('transaction_id')->nullable();
-            $table->enum('payment_provider', ['flutterwave', 'mollie', 'midtrans', 'paypal', 'paystack', 'razorpay', 'sslcommerz', 'stripe', 'instamojo', 'offline']);
+            $table->enum('payment_provider', ['flutterwave', 'mollie', 'midtrans', 'paypal', 'paystack', 'razorpay', 'sslcommerz', 'stripe', 'instamojo', 'offline','none']);
             $table->string('amount')->default('0');
             $table->string('currency_symbol')->default('$');
             $table->string('usd_amount')->default('0');
