@@ -66,12 +66,23 @@ export default {
     data() {
         return {
             currentTab: "profile",
+            role: this.$page.props.authenticatedUser.role,
+            subscription: this.$page.props.current_subscription,
         };
     },
     methods: {
         async changeTab(tab) {
             localStorage.setItem("companySettingTab", tab);
             this.currentTab = tab;
+        },
+    },
+    computed: {
+        hasAccessCustomThemeLook() {
+            return (
+                this.subscription.plan &&
+                this.subscription.plan.plan_features &&
+                this.subscription.plan.plan_features.custom_theme_look
+            );
         },
     },
     mounted() {
