@@ -44,7 +44,7 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <img class="card-img payment-card-image" src="{{ asset('website/images/payment/paypal.jpg') }}"
-                            alt="">
+                            alt="image">
                     </div>
                     <div class="card-body">
                         <button id="paypal_btn" type="button"
@@ -60,7 +60,7 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <img class="card-img payment-card-image" src="{{ asset('website/images/payment/stripe.png') }}"
-                            alt="">
+                            alt="image">
                     </div>
                     <div class="card-body">
                         <button id="stripe_btn" type="button"
@@ -76,7 +76,7 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <img class="card-img payment-card-image" src="{{ asset('website/images/payment/razorpay.png') }}"
-                            alt="">
+                            alt="image">
                     </div>
                     <div class="card-body">
                         <button id="razorpay_btn" type="button"
@@ -93,7 +93,7 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <img class="card-img payment-card-image" src="{{ asset('website/images/payment/flutterwave.png') }}"
-                            alt="">
+                            alt="image">
                     </div>
                     <div class="card-body border-0">
                         <button id="flutter_btn" type="button"
@@ -109,7 +109,7 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <img class="card-img payment-card-image" src="{{ asset('website/images/payment/mollie.png') }}"
-                            alt="">
+                            alt="image">
                     </div>
                     <div class="card-body">
                         <button id="mollie_btn" type="button"
@@ -125,7 +125,7 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <img class="card-img payment-card-image" src="{{ asset('website/images/payment/paystack.png') }}"
-                            alt="">
+                            alt="image">
                     </div>
                     <div class="card-body">
                         <button id="paystack_btn" type="button"
@@ -141,7 +141,7 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <img class="card-img payment-card-image" src="{{ asset('website/images/payment/instamojo.png') }}"
-                            alt="">
+                            alt="image">
                     </div>
                     <div class="card-body">
                         <button id="instamojo_btn" type="button"
@@ -157,7 +157,7 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <img class="card-img payment-card-image" src="{{ asset('website/images/payment/midtrans.png') }}"
-                            alt="">
+                            alt="image">
                     </div>
                     <div class="card-body">
                         <button id="midtrans_btn" type="button"
