@@ -11,18 +11,19 @@ class PlanPurchase extends Notification
 {
     use Queueable;
 
-    public $admin_name, $company_name, $plan_name;
+    public $admin_name, $company_name, $plan_name, $order_id;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($admin_name, $company_name, $plan_name)
+    public function __construct($admin_name, $plan_name, $company_name, $order_id)
     {
         $this->admin_name = $admin_name;
         $this->company_name = $company_name;
         $this->plan_name = $plan_name;
+        $this->order_id = $order_id;
     }
 
     /**
@@ -45,9 +46,10 @@ class PlanPurchase extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(ucfirst($this->company_name) . ' has subscribed the ' . ucfirst($this->plan_name) . ' plan!')
+            ->subject(ucfirst($this->company_name) . ' has been subscribed the ' . ucfirst($this->plan_name) . ' plan!')
             ->greeting('Hello, ' . $this->admin_name)
             ->line(ucfirst($this->company_name) . ' has subscribed the ' . ucfirst($this->plan_name) . ' Plan!')
+            ->action('View Order', route('orders.show', $this->order_id))
             ->line('Regards,')
             ->salutation(config('app.name'));
     }
@@ -61,8 +63,8 @@ class PlanPurchase extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => ucfirst($this->company_name) . ' has purchased the ' . ucfirst($this->plan_name) . ' plan!',
-            'url' => url('/'),
+            'message' => ucfirst($this->company_name) . ' has been purchased the ' . ucfirst($this->plan_name) . ' plan!',
+            'url' => route('orders.show', $this->order_id),
         ];
     }
 }

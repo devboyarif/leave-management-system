@@ -13,11 +13,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use App\Services\Midtrans\CreateSnapTokenService;
+use App\Traits\PaymentAble;
 use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 
 class WebsiteController extends Controller
 {
-    use SEOToolsTrait;
+    use SEOToolsTrait, PaymentAble;
 
     public function home()
     {
@@ -133,6 +134,10 @@ class WebsiteController extends Controller
 
     public function planDetails(Plan $plan)
     {
+        if ($plan->type == 'free') {
+            return $this->switchToFreePlan($plan);
+        }
+
         $content = metaContent('pricing');
         $this->seo()->setTitle($content->title);
         $this->seo()->setDescription($content->description);

@@ -101,7 +101,7 @@ export default {
     methods: {
         async saveData() {
             if (
-                this.role == "company" &&
+                this.role == "owner" &&
                 this.subscription.plan &&
                 this.subscription.plan.plan_features &&
                 this.subscription.plan.plan_features.custom_theme_look
@@ -120,15 +120,6 @@ export default {
 
                 this.$toast.error(response.data);
             }
-        },
-    },
-    computed: {
-        hasAccessCustomThemeLook() {
-            return (
-                this.subscription.plan &&
-                this.subscription.plan.plan_features &&
-                this.subscription.plan.plan_features.custom_theme_look
-            );
         },
     },
     mounted() {

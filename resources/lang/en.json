@@ -510,7 +510,27 @@
     "Upgrade your plan to use this feature": "Upgrade your plan to use this feature",
     "You have reached the maximum number of leave types": "You have reached the maximum number of leave types",
     "You have reached the maximum number of teams": "You have reached the maximum number of teams",
-    "You have reached the maximum number of employees": "You have reached the maximum number of employees"
+    "You have reached the maximum number of employees": "You have reached the maximum number of employees",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "You cannot create account because of limited number of employees": "You cannot create account because of limited number of employees"
 }
 
 

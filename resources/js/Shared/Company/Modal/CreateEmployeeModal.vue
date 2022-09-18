@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="mb-3 row">
                                         <div class="col-lg-6">
-                                            <Label :name="__('Phone Number')"/>
+                                            <Label :name="__('Phone Number')" :required="false" />
                                             <vue-tel-input v-model="form.phone" mode="international"/>
                                         </div>
                                         <div class="col-md-6">

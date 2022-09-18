@@ -22,7 +22,9 @@
                     <h5>{{ __('Next payment due') }}</h5>
                     <div class="h3">
                         <template v-if="currently_subscribed.plan && currently_subscribed.plan.interval != 'lifetime'">
-                            {{ formateDate(currently_subscribed.expired_at, "MMMM D") }}
+                            {{ formateDate(currently_subscribed.expired_date, "MMMM D") }}
+                            <span class="badge badge-danger" v-if="currently_subscribed.plan_expired">{{ __('Expired') }}</span>
+                            <span class="badge badge-success" v-else>{{ __('Active') }}</span>
                         </template>
                         <span v-else>{{ __('Lifetime') }}</span>
                     </div>

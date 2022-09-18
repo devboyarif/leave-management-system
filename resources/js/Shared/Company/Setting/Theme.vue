@@ -91,7 +91,7 @@ export default {
     methods: {
         async saveData() {
             if (
-                this.role == "company" &&
+                this.role == "owner" &&
                 this.subscription.plan &&
                 this.subscription.plan.plan_features &&
                 this.subscription.plan.plan_features.custom_theme_look
