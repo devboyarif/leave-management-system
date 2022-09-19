@@ -2435,10 +2435,14 @@ p {
 .ud-articles-box .ud-articles-list .ud-article-image {
   max-width: 80px;
   width: 100%;
-  height: 80px;
   border-radius: 50%;
   overflow: hidden;
   margin-right: 20px;
+}
+
+.ud-articles-box .ud-articles-list .ud-article-image img{
+  height: 80px;
+  object-fit: cover;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px), (max-width: 767px) {
