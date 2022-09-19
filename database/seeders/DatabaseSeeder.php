@@ -3,14 +3,9 @@
 namespace Database\Seeders;
 
 use Database\Seeders\CmsSeeder;
-use Database\Seeders\FaqSeeder;
 use Illuminate\Database\Seeder;
-use Database\Seeders\PlanSeeder;
-use Database\Seeders\AdminSeeder;
 use Database\Seeders\CountrySeeder;
 use Database\Seeders\FeatureSeeder;
-use Database\Seeders\CalendarSeeder;
-use Database\Seeders\TestimonialSeeder;
 
 class DatabaseSeeder extends Seeder
 {
