@@ -37,16 +37,6 @@
                     </form>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <button @click="roleLogin('admin@mail.com','password')" class="btn btn-secondary">Login Via Admin</button>
-                        <button @click="roleLogin('owner@mail.com', 'password')" class="btn btn-secondary mx-1">Login Via Owner</button>
-                        <button @click="roleLogin('employee@mail.com', 'password')" class="btn btn-secondary">Login Via
-                            Employee</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -78,12 +68,7 @@ export default {
     methods: {
         login() {
             this.form.post("/login");
-        },
-        roleLogin(email, password) {
-            this.form.email = email;
-            this.form.password = password;
-            this.login();
-        },
+        }
     },
     mounted() {
         localStorage.removeItem("toggleDarkMode");
