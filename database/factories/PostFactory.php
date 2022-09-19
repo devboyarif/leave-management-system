@@ -15,14 +15,13 @@ class PostFactory extends Factory
     public function definition()
     {
         $id = rand(30, 600);
-        $image = 'https://picsum.photos/id/' . $id . '/700/600';
         $title = $this->faker->sentence($nbWords = 5, $variableNbWords = true);
 
         return [
             'user_id' => User::where('email', 'admin@mail.com')->value('id'),
             'title' => $title,
             'slug' => strSlug($title),
-            'thumbnail' => $image,
+            'thumbnail' => $this->faker->imageUrl(),
             'short_description' => $this->faker->sentence(10),
             'long_description' => $this->faker->paragraph(50),
             'total_views' => rand(0, 100),
