@@ -58,6 +58,6 @@ Start the development server on http://localhost:8000
 php artisan serve
 ```
 ```bash
-npm run dev / yarn dev
+npm run watch / yarn watch
 ```
 
