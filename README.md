@@ -1,4 +1,4 @@
-# Employee Management System
+# Leave Management System
 Leaving is a completely ready-to-use leave management system that companies use to allow employees to request leave and approve requests made by employees. It will save valuable time spent tracking your employee's vacation. Leaving will help you track your employee's leaves in one place in seconds and monitor them from different locations. In the past, this was done manually by using sheets of paper to keep track of how much leave time employees had available.
 
 ### Key Features
