@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import AdminMenuBar from "./Role/AdminMenubar.vue";
+import AdminMenuBar from "./Role/AdminMenuBar.vue";
 import CompanyMenuBar from "./Role/CompanyMenubar.vue";
-import EmployeeMenuBar from "./Role/EmployeeMenuBar.vue";
+import EmployeeMenuBar from "./Role/EmployeeMenubar.vue";
 
 export default {
     components: {
